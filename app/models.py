@@ -45,12 +45,15 @@ class Informacion_Proyecto(models.Model):
 
 class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=250, null=False)
+    informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
 
 class Objetivos_especificos(models.Model):
     objetivo_especificos = models.CharField(max_length=250, null=False)
+    objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
 class Actividades_de_objetivos_especificos(models.Model):
     Actividades_obj_especificos = models.CharField(max_length=250, null=False)
+    objetivos_especificos = models.ForeignKey(Objetivos_especificos, on_delete=models.CASCADE)
 
 class Estructura_del_proyecto(models.Model):
     resumen_ejecutivo = models.CharField(max_length=250, null=False)
@@ -59,6 +62,7 @@ class Estructura_del_proyecto(models.Model):
     identificacion_y_descripcion_problema = models.CharField(max_length=250, null=False)
     justificacion = models.CharField(max_length=250, null=False)
     marco_conceptual = models.CharField(max_length=250, null=False)
+    informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
 
 class Resultados_y_productos_esperados(models.Model):
     tipo_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
@@ -75,6 +79,7 @@ class Resultados_y_productos_esperados(models.Model):
     impacto_social= models.CharField(max_length=150, null=False)
     impacto_tecnologico = models.CharField(max_length= 150, null=False)
     impacto_centro_formacion = models.CharField(max_length=150, null=False)
+    informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
 class Entidades_aliadas(models.Model):
     nombre_entidad = models.CharField(max_length=170, null=True)
@@ -98,6 +103,7 @@ class Entidades_aliadas(models.Model):
     actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=250, null=True)
     objetivo_especificos_relacionados = models.CharField(max_length=250, null=True)
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
+    informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
 class Informacion_de_centro(models.Model):
     Region = models.CharField(max_length=50, null=False)
