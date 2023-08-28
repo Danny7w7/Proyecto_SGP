@@ -107,6 +107,7 @@ class Informacion_de_centro(models.Model):
     Numero_Director = models.IntegerField(null=False)
     Nombre_Sub_Director = models.CharField(max_length=50, null=False)
     Numero_Sub_Director = models.IntegerField(null=False)
+    Info_Proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
     
 class Participantes_Proyecto(models.Model):
     Nombre_participantes_de_desarrollo = models.CharField(max_length=50, null=True)
@@ -116,6 +117,7 @@ class Participantes_Proyecto(models.Model):
     Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
     Numero_meses_vinculacion_participantes = models.IntegerField(null=False)
     Numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=False)
+    Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
     
 class Autores(models.Model):
     Nombre_Autor_Proyecto = models.CharField(null=False, max_length=50)
@@ -126,7 +128,7 @@ class Autores(models.Model):
     Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
     Numero_meses_vinculacion_Autor = models.IntegerField(null=False)
     Numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
-    
+    Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 class Analisis_Participantes(models.Model):
     Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=False, max_length=100)
     Numero_Programas_Beneficiarios_Semilleros_Investigacion = models.IntegerField(null=False)
@@ -137,3 +139,4 @@ class Analisis_Participantes(models.Model):
     Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=False)
     Número_municipios_beneficiados = models.IntegerField(null=False)
     Nombre_municipios_beneficiados_descripción_beneficio = models.CharField(null=False, max_length=200)
+    Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
