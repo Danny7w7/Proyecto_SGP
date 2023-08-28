@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=250, null=False)
 
@@ -56,3 +57,42 @@ class Entidades_aliadas(models.Model):
     actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=250, null=True)
     objetivo_especificos_relacionados = models.CharField(max_length=250, null=True)
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
+
+class Informacion_de_centro(models.Model):
+    Region = models.CharField(max_length=50, null=False)
+    Regional = models.CharField(max_length=50, null=False)
+    Nombre_centro_formacion = models.CharField(max_length=100, null=False)
+    Nombre_Director = models.CharField(max_length=50, null=False)
+    Numero_Director = models.IntegerField(null=False)
+    Nombre_Sub_Director = models.CharField(max_length=50, null=False)
+    Numero_Sub_Director = models.IntegerField(null=False)
+    
+class Participantes_Proyecto(models.Model):
+    Nombre_participantes_de_desarrollo = models.CharField(max_length=50, null=True)
+    Numero_cedula_participantes = models.IntegerField(null=True)
+    Email_participantes_de_desarrollo = models.EmailField(null=True)
+    Numero_Telefono_participantes = models.IntegerField(null=True)
+    Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
+    Numero_meses_vinculacion_participantes = models.IntegerField(null=False)
+    Numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=False)
+    
+class Autores(models.Model):
+    Nombre_Autor_Proyecto = models.CharField(null=False, max_length=50)
+    Numero_Cedula_Autor = models.IntegerField(null=False)
+    Email_Autor_Proyecto = models.EmailField(null=False)
+    Numero_Telefono_Autor = models.IntegerField(null=False)
+    Tipo_Vinculacion_entidad = models.CharField(null=False, choices=[('planta', 'Planta'), ('contratista', 'Contratista') , ('planta_temporal' , 'Planta_temporal')])
+    Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
+    Numero_meses_vinculacion_Autor = models.IntegerField(null=False)
+    Numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
+    
+class Analisis_Participantes(models.Model):
+    Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=False, max_length=100)
+    Numero_Programas_Beneficiarios_Conforman_Semilleros_Investigacion = models.IntegerField(null=False)
+    Tipo_programas_formación_beneficiados_conforman_semillero = models.CharField(null=False, max_length=100)
+    Nombre_programas_formación_beneficiados_semillero = models.CharField(null=False, max_length=100)
+    Tipo_programas_de_formación_beneficiados_por_ejecución = models.CharField(null=True, max_length=100)
+    Nombre_programas_formación_beneficiados_ejecución_proyecto = models.CharField(null=True, max_length=100)
+    Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=False)
+    Número_municipios_beneficiados = models.IntegerField(null=False)
+    Nombre__municipios_beneficiados_descripción_beneficio = models.CharField(null=False, max_length=200)
