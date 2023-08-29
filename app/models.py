@@ -41,8 +41,16 @@ class Informacion_Proyecto(models.Model):
     justificacion_Economia_Naranja = models.CharField(max_length=500, null=True)
     proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=False)
     justificacion_Politica_Discapacidad = models.CharField(max_length=500, null=True)
-    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE) 
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
+class Riesgos(models.Model):
+    tipo = models.CharField(max_length=50, null=False)
+    descripcion = models.CharField(max_length=150, null=False)
+    probabilidad = models.IntegerField(null=False)
+    impacto = models.CharField(max_length=150, null=False)
+    medidas_Mitigacion = models.CharField(max_length=150, null=False)
+    info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    
 class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=250, null=False)
     informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
