@@ -58,3 +58,17 @@ footer{
   .border_radius{
     height: auto;
   }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+         -webkit-appearance: none;
+          margin: 0;
+       }
+
+  .botoncitos {
+        transition: 0.4s;
+      }
+      
+  .botoncitos:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      }
