@@ -1,0 +1,60 @@
+body{
+    background-color: #39a900;
+}
+.bg-green{
+    background-color: #39a900;
+}
+.btn-bg-green{
+    background-color: #39a900;
+    color: white;
+    text-decoration: none;
+    transition: 0.5s;
+    position: center;
+}
+.btn-bg-green:hover{
+    border-radius: 0px;
+    border-bottom: solid 2px black;
+    color: black;
+    background-color: white;
+}
+.btn-bg-white{
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    transition: 0.35s;
+    position: center;
+    font-weight: bold;
+    text-align: center;
+}
+.btn-bg-white:hover{
+    background-color: #39a900;
+    color: white;
+    text-decoration: none;
+}
+footer{
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fffcfc;
+    color: #000000;
+    text-align: center;
+}
+.centradow{
+    display: flex;
+    justify-content: center;
+}
+.border_radius{
+    border-radius: 5px;
+}
+.rectangular-textarea {
+    width: 150%;
+    min-height: 100px;
+    height: 100px;
+  }
+  
+  .medium-textarea {
+    font-size: 16px;
+  }
+  .border_radius{
+    height: auto;
+  }
