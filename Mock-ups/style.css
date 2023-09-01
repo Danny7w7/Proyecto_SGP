@@ -1,5 +1,5 @@
 body{
-    background-color: #39a900;
+    background-color: #9aa5a231;
 }
 .bg-green{
     background-color: #39a900;
@@ -74,5 +74,10 @@ input[type=number]::-webkit-outer-spin-button {
       }
 
 .spos{
-    margin-left: 15%;
+    margin-left: 5%;
+}
+
+.selectmod{
+    width: 90%;
+    height: 45%;
 }
