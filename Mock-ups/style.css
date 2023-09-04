@@ -81,3 +81,32 @@ input[type=number]::-webkit-outer-spin-button {
     width: 90%;
     height: 45%;
 }
+/* Media queries */
+
+/* Pantallas pequeñas (menos de 576px) */
+@media (max-width: 575.98px) {
+    .spos {
+        margin-left: 2%;
+    }
+    .btn-bg-green,
+    .btn-bg-white {
+        width: 100%;
+    }
+    .selectmod {
+        width: 100%;
+    }
+}
+
+/* Pantallas medianas (menos de 768px) */
+@media (max-width: 767.98px) {
+    .spos {
+        margin-left: 3%;
+    }
+}
+
+/* Pantallas grandes (menos de 992px) */
+@media (max-width: 991.98px) {
+    .spos {
+        margin-left: 4%;
+    }
+}
