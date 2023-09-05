@@ -14,7 +14,7 @@ body{
     text-decoration: none;
     transition: 0.5s;
     position: center;
-    width: 8%;
+    width: 15%;
     margin-right:  4.5%;
 }
 .btn-bg-green:hover{
@@ -48,7 +48,7 @@ footer{
     padding: 0%;
 }
 header{
-    padding: 0%;
+    padding: 2%;
     height: 100%;
     width: 100%;
 }
