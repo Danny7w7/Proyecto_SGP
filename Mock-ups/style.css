@@ -1,5 +1,9 @@
 body{
     background-color: #9aa5a231;
+    margin-top: 8%;
+}
+.img-header{
+    margin-left: 5%;
 }
 .bg-green{
     background-color: #39a900;
@@ -10,6 +14,8 @@ body{
     text-decoration: none;
     transition: 0.5s;
     position: center;
+    width: 8%;
+    margin-right:  4.5%;
 }
 .btn-bg-green:hover{
     border-radius: 0px;
@@ -34,10 +40,17 @@ body{
 footer{
     bottom: 0;
     left: 0;
+    height: 90%;
     width: 100%;
     background-color: #fffcfc;
     color: #000000;
     text-align: center;
+    padding: 0%;
+}
+header{
+    padding: 0%;
+    height: 100%;
+    width: 100%;
 }
 .centradow{
     display: flex;
@@ -79,7 +92,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .selectmod{
     width: 90%;
-    height: 45%;
+    height: 50%;
 }
 /* Media queries */
 
