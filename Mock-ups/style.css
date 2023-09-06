@@ -24,7 +24,7 @@ body{
 }
 .btn-bg-white{
     background-color: white;
-    color: black;
+    /* color: black; */
     text-decoration: none;
     transition: 0.35s;
     position: center;
@@ -49,6 +49,10 @@ footer{
 .centradow{
     display: flex;
     justify-content: center;
+}
+.izq{
+    display: flex;
+    justify-content: left;
 }
 .border_radius{
     border-radius: 5px;
@@ -84,9 +88,15 @@ input[type=number]::-webkit-outer-spin-button {
     margin-left: 5%;
 }
 
-.selectmod{
-    width: 90%;
-    height: 50%;
+/* .selectmod{
+    width: 100%;
+
+} */
+.form-control, .form-control-sm {
+    box-sizing: border-box;
+    height: 40px;  /* Altura que prefieras */
+    width: 100%;
+    padding:  0.375rem 0.75rem;;   /* Ocupará todo el ancho de su contenedor padre */
 }
 /* Media queries */
 
@@ -116,4 +126,89 @@ input[type=number]::-webkit-outer-spin-button {
     .spos {
         margin-left: 4%;
     }
+}
+/* Estilo por defecto para pantallas más grandes */
+img[src="sennova_logo.png"] {
+    width: 150px;
+}
+
+/* Ajustar el tamaño para pantallas pequeñas */
+@media (max-width: 575.98px) {
+    img[src="sennova_logo.png"] {
+        width: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    img[src="sennova_logo.png"] {
+        width: 70px;
+    }
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+.step-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgb(186, 180, 180);
+    transition: .4s;
+}
+/* Mientras des click (actual) */
+.step-button[aria-expanded="true"] {
+    width: 60px;
+    height: 60px;
+    background-color: rgb(7, 195, 48);
+    color: #fff;
+}
+/* Despues de finalizar dicho paso(pasado)*/
+.done {
+    background-color: rgb(3, 171, 90);
+    color: #fff;
+}
+.step-item {
+    z-index: 10;
+    text-align: center;
+}
+#progress {
+  -webkit-appearance:none;
+    position: absolute;
+    width: 95%;
+    z-index: 5;
+    height: 10px;
+    margin-left: 18px;
+    margin-bottom: 18px;
+}
+/* Barra de progreso */
+#progress::-webkit-progress-value {
+    background-color:rgb(7, 195, 48);
+    transition: .5s ease;
+}
+/* Barra de progreso sin completar */
+#progress::-webkit-progress-bar {
+    background-color:rgb(255, 255, 255);
+
+}
+.pasop{
+    margin-top: 1%;
+}
+.dcanva{
+    background-color: white;
+}
+.btn-n{
+    color: rgb(3, 171, 90);
+    background-color: white;
+    border-color: gray;
+}
+.contenido{
+    padding: 1%;
+}
+.txtarea{
+    height: 15%;
 }
