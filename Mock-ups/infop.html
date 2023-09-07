@@ -23,57 +23,58 @@
                 <span class="material-symbols-outlined" style="color: #39a900;">density_medium</span>
             </a>
         </div>
-        <div class="col-md-8 col-7 text-center">
-            <img class="pt-3 pb-3" src="LogoSenaVerde.png" style="margin: auto;" width="50">
+        <div class="col-md-8 col-7 text-center align-self-center">
+            <img class="pt-3 pb-3" src="LogoSenaVerde.png" alt="LogoSenaVerde" width="50">
         </div>
-        </div>
-        <div class="col-2">
-            <!-- <img class="pt-2 pb-3" src="Logo_gici.jpeg" style="margin: auto;" width="50"> -->
-            <img class="pt-3 pb-3" src="sennova_logo.png" style="margin: auto;">
+        <div class="col-2 d-flex align-items-center justify-content-end">
+            <img class="img-fluid me-2" src="Logo_gici.jpeg" alt="Logo Gici" width="70">
+            <img class="img-fluid" src="sennova_logo.png" alt="Sennova Logo" width="170;">
         </div>
     </header>
 
+
     <div class="container">
         <div class="accordion" id="accordionExample">
-            <div class="steps pasop">
-                <progress id="progress" value=0 max=100></progress>
-                <div class="step-item">
-                    <button class="step-button text-center" type="button" data-bs-toggle="collapse"
+            <div class="steps pasop mt-3">
+                <progress id="progress" value=0 max=100 class="mb-4"></progress>
+                <div class="step-item mb-3">
+                    <button class="step-button text-center mb-2" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         1
                     </button>
                     <div class="step-title">
-                        <label for="" class="form-label">Información proponente</label>
+                        <label for="text" class="form-label">Información<br>proponente</label>
                     </div>
                 </div>
-                <div class="step-item">
-                    <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+                <div class="step-item mb-3">
+                    <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         2
                     </button>
                     <div class="step-title">
-                        Autor
+                        <label for="text" class="form-label">Autor</label>
                     </div>
                 </div>
-                <div class="step-item">
-                    <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+                <div class="step-item mb-3">
+                    <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         3
                     </button>
                     <div class="step-title">
-                        Participantes
+                        <label for="text" class="form-label">Participantes</label>
                     </div>
                 </div>
-                <div class="step-item">
-                    <button class="step-button text-center collapsed" type="button" data-bs-toggle="collapse"
+                <div class="step-item mb-3">
+                    <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                         4
                     </button>
                     <div class="step-title">
-                        Generalidades
+                        <label for="text" class="form-label">Generalidades</label>
                     </div>
                 </div>
             </div>
+
 
             <div class="card">
                 <div id="headingOne">
@@ -507,7 +508,8 @@
                                             </select>
                                         </div>
                                         <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Num. horas semanales dedicadas participante desarrollo del proyecto</label>
+                                            <label for="" class="form-label">Num. horas semanales dedicadas participante
+                                                desarrollo del proyecto</label>
                                             <input type="number" class="form-control form-control-sm" placeholder="">
                                         </div>
 
@@ -551,78 +553,155 @@
                             <div class="row justify-content-center">
                                 <div class="col-12 col-md-10">
                                     <div class="bg-light mt-2 spos border_radius row me-0">
-
-                                        <!-- Primera fila -->
-                                        <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Codigo dependencia prespuestal(SIIF)</label>
+                        
+                                        <!-- Columna 1 -->
+                                        <div class="col-12 col-md-6 mb-3">
+                        
+                                            <label for="" class="form-label">Codigo dependencia
+                                                prespuestal<br>(SIIF)</label>
                                             <select name="" id="" class="form-control selectmod">
+                                                <option value="" disabled selected>Selecciona una opción...</option>
                                                 <option value="inv_aplicada_66">Investigación aplicada 66</option>
-                                                <option value="desarrollo_tec_mod_ambiente_23">Desarrollo tecnológico(23-Modernización de ambientes)</option>
-                                                <option value="fomento_innovacion_82">Fomento para la innovacion(82)</option>
+                                                <option value="desarrollo_tec_mod_ambiente_23">Desarrollo
+                                                    tecnológico(23-Modernización de ambientes)</option>
+                                                <option value="fomento_innovacion_82">Fomento para la innovacion(82)
+                                                </option>
                                             </select>
-                                        </div>
-                                        <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Correo electrónico del participante
-                                                desarrollo del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
-                                        </div>
-                                        <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Rol Sennova del participante desarrollo del
-                                                proyecto </label>
-                                            <select name="" id="" class="form-control selectmod">
-                                                <option value="formulador">Formulador</option>
-                                                <option value="investigador">Investigador</option>
-                                                <option value="dinamizador">Dinamizador</option>
-                                                <option value="instructor">Instructor</option>
-                                                <option value="gestor_laboratorio">Gestor laboratorio</option>
-                                                <option value="aprendiz">Aprendiz</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Num. horas semanales dedicadas participante desarrollo del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
-                                        </div>
+                        
 
-                                        <!-- Segunda fila -->
-                                        <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Tematica estrategica  SENA</label>
+                        
+                                            <label for="" class="form-label mt-3">Temáticas estratégicas SENA</label>
                                             <select name="" id="" class="form-control selectmod">
-                                                <option value="sostenibilidad_medio_ambiente">Sostenibilidad y medio ambiente</option>
+                                                <option value="" disabled selected>Selecciona una opción...</option>
+                                                <option value="sostenibilidad_medio_ambiente">Sostenibilidad y medio ambiente</option>                                                </option>
                                                 <option value="salud">Salud</option>
-                                                <option value="agroindustria_seguridad_alimentaria">Agroindustria y seguridad alimentaria</option>
-                                                <option value="productos_bio">Productos BIO</option>
+                                                <option value="productos_bid">Productos BIO</option>
                                                 <option value="digitalidad_tech">Digitalidad y TECH</option>
-                                                <option value="innovacion_tecnologia_sociedad">Innovación, tecnología y sociedad</option>
-                                                <option value="economia_naranja">Economía naranja</option>
-                                                <option value="industria_4_0">Industria 4.0</option>
+                                                <option value="innov_tecno_sociedad">Innovación y tecnología y sociedad</option>
+                                                <option value="econ_naranja">Economía naranja</option>
+                                                <option value="industria_40">Industria 4.0</option>
                                                 <option value="movilidad_industria">Movilidad e industria</option>
-                                                
+                        
                                             </select>
-                                        </div>
-                                        <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Número de teléfono del participante
-                                                desarrollo del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
-                                        </div>
-                                        <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Num. meses vinculación participante en el
-                                                desarrollo del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
-                                        </div>
-                                        <!-- <div class="col-12 col-md-3 mb-3">
-                                            <label for="" class="form-label">Num. horas semanales del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
-                                        </div> -->
+                        
+                                            <label for="" class="form-label mt-4">Link de video del proyecto</label>
+                                            <input type="text" class="form-control form-control-sm" placeholder="">
+                                            
+                                           
+                        
+                                            <label for="" class="form-label mt-3">¿El proyecto está relacionado con Industrial 4.0?</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="industrial4_0" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">Sí</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="industrial4_0" id="flexRadioDefault2" checked>
+                                                <label class="form-check-label" for="flexRadioDefault2">No</label>
+                                            </div>
 
+                                            <label for="" class="form-label mt-5">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                            <input type="text" class="form-control form-control-sm" placeholder="">
+                                        </div>
+                        
+                                        <!-- Columna 2 -->
+                                        <div class="col-12 col-md-6 mb-3">
+                                            <label for="" class="form-label mt-2">¿En cuál de estas actividades
+                                                económicas se puede aplicar el proyecto de investigación?<br> Código CIIU
+                                                versión 4AC REV Colombia</label>
+                                            <select name="" id="" class="form-control selectmod">
+                                                <option value="" disabled selected>Selecciona una opción...</option>
+                                                <option value="agricultura_ganaderia_1"
+                                                    data-title="Agricultura, ganadería, caza y actividades de servicios conexas">
+                                                    Agricultura, ganadería, caza y actividades de servicios conexas
+                                                </option>
+                        
+                                                <option value="silvicultura_extraccion_2">Silvicultura y extracción de
+                                                    madera</option>
+                                                <option value="pesca_acuicultura_3">Pesca y acuicultura</option>
+                                                <option value="extraccion_carbon_4">Extracción de carbón de piedra y
+                                                    lignito</option>
+                                                <option value="extraccion_petroleo_5">Extracción de petróleo crudo y gas
+                                                    natural</option>
+                                                <option value="extraccion_minerales_6">Extracción de minerales
+                                                    metalíferos</option>
+                                                <option value="extraccion_minas_7">Extracción de otras minas y canteras
+                                                </option>
+                                                <option value="servicios_explotacion_8">Actividades de servicios de
+                                                    apoyo para la explotación de minas</option>
+                                                <option value="elaboracion_alimentos_9">Elaboración de productos
+                                                    alimenticios</option>
+                                                <option value="elaboracion_bebidas_10">Elaboración de bebidas</option>
+                                                <option value="productos_tabaco_11">Elaboración de productos de tabaco
+                                                </option>
+                                                <option value="fabricacion_textiles_12">Fabricación de productos
+                                                    textiles</option>
+                                                <option value="confeccion_vestir_13">Confección de prendas de vestir
+                                                </option>
+                                                <option value="curtido_cueros_14">Curtido y recurtido de cueros;
+                                                    fabricación de calzado; fabricación de artículos de viaje, maletas,
+                                                    bolsos de mano y artículos similares, y fabricación de artículos de
+                                                    talabartería y guarnicionería; adobo y teñido de pieles</option>
+                                                <option value="transformacion_madera_15">Transformación de la madera y
+                                                    fabricación de productos de madera y de corcho, excepto muebles;
+                                                    fabricación de artículos de cestería y espartería</option>
+                                                <option value="fabricacion_papel_16">Fabricación de papel, cartón y
+                                                    productos de papel y cartón</option>
+                                                <option value="actividades_impresion_17">Actividades de impresión y de
+                                                    producción de copias a partir de grabaciones originales</option>
+                                                <option value="coquizacion_18">Coquización, fabricación de productos de
+                                                    la refinación del petróleo y actividad de mezcla de combustibles
+                                                </option>
+                                                <option value="sustancias_quimicas_19">Fabricación de sustancias y
+                                                    productos químicos</option>
+                                                <option value="productos_farmaceuticos_20">Fabricación de productos
+                                                    farmacéuticos, sustancias químicas medicinales y productos botánicos
+                                                    de uso farmacéutico</option>
+                                                <!-- ... Y así sucesivamente. La lista es muy extensa y aquí solo muestro una parte -->
+                        
+                                                <!-- Asegúrate de continuar el patrón hasta completar la lista total -->
+                        
+                        
+                                            </select>
+                        
+                                            <label for="" class="form-label">¿El proyecto está relacionado con la economía naranja?</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="economia_naranja" id="flexRadioDefault3">
+                                                <label class="form-check-label" for="flexRadioDefault3">Sí</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="economia_naranja" id="flexRadioDefault4" checked>
+                                                <label class="form-check-label" for="flexRadioDefault4">No</label>
+                                            </div>
+                        
+                                            <label for="" class="form-label">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                            <input type="text" class="form-control form-control-sm" placeholder="">
+                        
+                                            <label for="" class="form-label">¿El proyecto aporta a la Política Institucional para Atención de las Personas con discapacidad?</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="politica_discapacidad" id="flexRadioDefault5">
+                                                <label class="form-check-label" for="flexRadioDefault5">Sí</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="politica_discapacidad" id="flexRadioDefault6" checked>
+                                                <label class="form-check-label" for="flexRadioDefault6">No</label>
+                                            </div>
+                        
+                                            <label for="" class="form-label mt-3">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                            <input type="text" class="form-control form-control-sm" placeholder="">
+                        
+                                        </div>
+                        
                                         <!-- Botón Siguiente centrado -->
                                         <div class="d-flex justify-content-center col-12">
-                                            <a type="button"
-                                                class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</a>
+                                            <a type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+
+
                     </div>
                 </div>
             </div>
@@ -639,14 +718,14 @@
             <div class="offcanvas-body">
                 <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
                     proyecto</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="infop.html">Información del
-                    proyecto</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Estructura del proyecto</a>
+                <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="infop.html">Información del
+                    proyecto</a> -->
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="estp.html">Estructura del proyecto</a>
                 <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proponente</a>
                 <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Objetivos generales
                     específicos</a>
                 <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Metodología</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Participación</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="partp.html">Participación</a>
                 <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proyección</a>
                 <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Análisis de riesgo</a>
                 <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Anexos</a>
@@ -668,13 +747,10 @@
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
         </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-        </script>
     <!-- Bootstrap 5 JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-        crossorigin="anonymous"></script>
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+        </script>
     <!-- Stepper JavaScript -->
     <script>
         const stepButtons = document.querySelectorAll('.step-button');

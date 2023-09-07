@@ -212,3 +212,13 @@ img[src="sennova_logo.png"] {
 .txtarea{
     height: 15%;
 }
+select {
+    width: 250px; /* o el ancho que desees */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+select option:hover {
+    title: attr(data-title);
+}
