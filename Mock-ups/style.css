@@ -255,3 +255,10 @@ select option:hover {
     margin-bottom: 20px;
   }
 }
+@media (max-width: 400px) {
+  .dcanva {
+    width: 40%!important; 
+  }
+}
+
+

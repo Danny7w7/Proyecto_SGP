@@ -11,7 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body class="container-fluid">
@@ -26,187 +27,779 @@
             <img class="img-fluid pt-3 pb-3" src="LogoSenaVerde.png" alt="LogoSenaVerde" width="50">
         </div>
         <div class="col-2 d-flex align-items-center justify-content-end">
-            <img class="img-fluid me-2" src="Logo_gici.jpeg" alt="Logo Gici"  width="70">
+            <img class="img-fluid me-2" src="Logo_gici.jpeg" alt="Logo Gici" width="70">
             <img class="img-fluid" src="sennova_logo.png" alt="Sennova Logo" width="160;">
         </div>
     </header>
 
     <main class="row ms-1 me-1 mt-2 bg-light border_radius">
-        <div class="offcanvas offcanvas-start w-25 dcanva" tabindex="-1" id="offcanvasExample"
+        <!-- OFFCANVAS -->
+        <div class="offcanvas offcanvas-start w-25 w-md-25 dcanva" tabindex="-1" id="offcanvasExample"
             aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-              <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
+                <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
                 proyecto</a> -->
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="infop.html">Información del
-                proyecto</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="estp.html">Estructura del proyecto</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proponente</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Objetivos generales
-                específicos</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Metodología</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="partp.html">Participación</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proyección</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Análisis de riesgo</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Anexos</a>
-            <div class="btn-bg-white mt-2 pt-2 pb-2 centradow border_radius">
-            </div>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="infop.html">Información del
+                    proyecto</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="estp.html">Estructura del
+                    proyecto</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proponente</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Objetivos generales
+                    específicos</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Metodología</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="partp.html">Participación</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proyección</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Análisis de riesgo</a>
+                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Anexos</a>
+                <div class="btn-bg-white mt-2 pt-2 pb-2 centradow border_radius">
+                </div>
             </div>
         </div>
         <section class="col-12 pt-3">
+            <!-- Primera Columna -->
             <div class="col-4 mb-3 mx-auto">
+
+                <!-- Primer campo de la primera columna -->
                 <div class="mb-3">
-                    <label for="titulo">Título</label>
-                    <input type="text" name="titulo" id="titulo" class="form-control">
+                    <label for="titulo1">Título</label>
+                    <input type="text" name="titulo1" id="titulo1" class="form-control">
                 </div>
 
+                <!-- Segundo campo de la primera columna -->
                 <div class="mb-3">
-                    <label for="descripcion">Descripción</label>
-                    <input type="text" name="descripcion" id="descripcion" class="form-control">
+                    <label for="descripcion1">Descripción</label>
+                    <input type="text" name="descripcion1" id="descripcion1" class="form-control">
                 </div>
 
+                <!-- Tercer campo de la primera columna -->
                 <div class="mb-3">
-                    <label for="codigo">Código grupo de investigación</label>
-                    <select name="codigo" id="codigo" class="form-control selectmod">
-                      <option value="" disabled selected>Selecciona una opción...</option>
-                      <option value="col0153676">COL0153676</option>
-                      <option value="col0085647">COL0085647</option>
-                      <option value="col0106783">COL0106783</option>
-                      <option value="col0110481">COL0110481</option>
-                      <option value="col0113017">COL0113017</option>
-                      <option value="col0113975">COL0113975</option>
-                      <option value="col0129409">COL0129409</option>
-                      <option value="col0131024">COL0131024</option>
-                      <option value="col0133799">COL0133799</option>
-                      <option value="col0146626">COL0146626</option>
-                      <option value="col0149529">COL0149529</option>
-                      <option value="col0149869">COL0149869</option>
-                      <option value="col0150772">COL0150772</option>
-                      <option value="col0151199">COL0151199</option>
-                      <option value="col0158921">COL0158921</option>
-                      <option value="col0163494">COL0163494</option>
-                      <option value="col0179313">COL0179313</option>
-                      <option value="col0160339">COL0160339</option>
-                      <option value="col0147712">COL0147712</option>
-                      <option value="col0147991">COL0147991</option>
-                      <option value="col0148246">COL0148246</option>
-                      <option value="col0148273">COL0148273</option>
-                      <option value="col0116654">COL0116654</option>
-                      <option value="col0150389">COL0150389</option>
-                      <option value="col0152427">COL0152427</option>
-                      <option value="col0152739">COL0152739</option>
-                      <option value="col0152937">COL0152937</option>
-                      <option value="col0157352">COL0157352</option>
-                      <option value="col0158019">COL0158019</option>
-                      <option value="col0162236">COL0162236</option>
-                      <option value="col0102695">COL0102695</option>
-                      <option value="col0129797">COL0129797</option>
-                      <option value="col0135328">COL0135328</option>
-                      <option value="col0153193">COL0153193</option>
-                      <option value="col0154978">COL0154978</option>
-                      <option value="col0161426">COL0161426</option>
-                      <option value="col0160536">COL0160536</option>
-                      <option value="col0149369">COL0149369</option>
-                      <option value="col0150487">COL0150487</option>
-                      <option value="col0141469">COL0141469</option>
-                      <option value="col0039958">COL0039958</option>
-                      <option value="col0149637">COL0149637</option>
-                      <option value="col0192825">COL0192825</option>
-                      <option value="col0160376">COL0160376</option>
-                      <option value="col0151189">COL0151189</option>
-                      <option value="col0154548">COL0154548</option>
-                      <option value="col0157577">COL0157577</option>
-                      <option value="col0138544">COL0138544</option>
-                      <option value="col0144004">COL0144004</option>
-                      <option value="col0150244">COL0150244</option>
-                      <option value="col0160438">COL0160438</option>
-                      <option value="col0164025">COL0164025</option>
-                      <option value="col0166807">COL0166807</option>
-                      <option value="col0133996">COL0133996</option>
-                      <option value="col0146223">COL0146223</option>
-                      <option value="col0148068">COL0148068</option>
-                      <option value="col0149305">COL0149305</option>
-                      <option value="col0150478">COL0150478</option>
-                      <option value="col0150899">COL0150899</option>
-                      <option value="col0152356">COL0152356</option>
-                      <option value="col0154539">COL0154539</option>
-                      <option value="col0157835">COL0157835</option>
-                      <option value="col0158663">COL0158663</option>
-                      <option value="col0160287">COL0160287</option>
-                      <option value="col0160607">COL0160607</option>
-                      <option value="col0160616">COL0160616</option>
-                      <option value="col0162871">COL0162871</option>
-                      <option value="col0163529">COL0163529</option>
-                      <option value="col0147276">COL0147276</option>
-                      <option value="col0153719">COL0153719</option>
-                      <option value="col0182408">COL0182408</option>
-                      <option value="col0151018">COL0151018</option>
-                      <option value="col0039288">COL0039288</option>
-                      <option value="col0149439">COL0149439</option>
-                      <option value="col0149468">COL0149468</option>
-                      <option value="col0150674">COL0150674</option>
-                      <option value="col0164713">COL0164713</option>
-                      <option value="col0155376">COL0155376</option>
-                      <option value="col0157737">COL0157737</option>
-                      <option value="col0110285">COL0110285</option>
-                      <option value="col0156739">COL0156739</option>
-                      <option value="col0150057">COL0150057</option>
-                      <option value="col0157906">COL0157906</option>
-                      <option value="col0192754">COL0192754</option>
-                      <option value="col0160679">COL0160679</option>
-                      <option value="col0171834">COL0171834</option>
-                      <option value="col0153709">COL0153709</option>
-                      <option value="col0117491">COL0117491</option>
-                      <option value="col0149628">COL0149628</option>
-                      <option value="col0153433">COL0153433</option>
-                      <option value="col0149566">COL0149566</option>
-                      <option value="col0153291">COL0153291</option>
-                      <option value="col0163609">COL0163609</option>
-                      <option value="col0156149">COL0156149</option>
-                      <option value="col0056672">COL0056672</option>
-                      <option value="col0133029">COL0133029</option>
-                      <option value="col0135139">COL0135139</option>
-                      <option value="col0149501">COL0149501</option>
-                      <option value="col0150932">COL0150932</option>
-                      <option value="col0152098">COL0152098</option>
-                      <option value="col0154486">COL0154486</option>
-                      <option value="col0156462">COL0156462</option>
-                      <option value="col0155044">COL0155044</option>
-                      <option value="col0112154">COL0112154</option>
-                      <option value="col0149225">COL0149225</option>
-                      <option value="col0149388">COL0149388</option>
-                      <option value="col0041052">COL0041052</option>
-                      <option value="col0104635">COL0104635</option>
-                      <option value="col0112332">COL0112332</option>
-                      <option value="col0125779">COL0125779</option>
-                      <option value="col0143188">COL0143188</option>
-                      <option value="col0149323">COL0149323</option>
-                      <option value="col0150745">COL0150745</option>
-                      <option value="col0156229">COL0156229</option>
-                      <option value="col0158699">COL0158699</option>
-                      <option value="col0165784">COL0165784</option>
-                      <option value="col0189276">COL0189276</option>
-                      <option value="col0171843">COL0171843</option>
-                      <option value="col0164249">COL0164249</option>   
+                    <label for="codigo1">Código grupo de investigación</label>
+                    <select name="codigo1" id="codigo1" class="form-control selectmod">
+                        <option value="" disabled selected>Selecciona una opción...</option>
+                        <option value="col0153676">COL0153676</option>
+                        <option value="col0085647">COL0085647</option>
+                        <option value="col0106783">COL0106783</option>
+                        <option value="col0110481">COL0110481</option>
+                        <option value="col0113017">COL0113017</option>
+                        <option value="col0113975">COL0113975</option>
+                        <option value="col0129409">COL0129409</option>
+                        <option value="col0131024">COL0131024</option>
+                        <option value="col0133799">COL0133799</option>
+                        <option value="col0146626">COL0146626</option>
+                        <option value="col0149529">COL0149529</option>
+                        <option value="col0149869">COL0149869</option>
+                        <option value="col0150772">COL0150772</option>
+                        <option value="col0151199">COL0151199</option>
+                        <option value="col0158921">COL0158921</option>
+                        <option value="col0163494">COL0163494</option>
+                        <option value="col0179313">COL0179313</option>
+                        <option value="col0160339">COL0160339</option>
+                        <option value="col0147712">COL0147712</option>
+                        <option value="col0147991">COL0147991</option>
+                        <option value="col0148246">COL0148246</option>
+                        <option value="col0148273">COL0148273</option>
+                        <option value="col0116654">COL0116654</option>
+                        <option value="col0150389">COL0150389</option>
+                        <option value="col0152427">COL0152427</option>
+                        <option value="col0152739">COL0152739</option>
+                        <option value="col0152937">COL0152937</option>
+                        <option value="col0157352">COL0157352</option>
+                        <option value="col0158019">COL0158019</option>
+                        <option value="col0162236">COL0162236</option>
+                        <option value="col0102695">COL0102695</option>
+                        <option value="col0129797">COL0129797</option>
+                        <option value="col0135328">COL0135328</option>
+                        <option value="col0153193">COL0153193</option>
+                        <option value="col0154978">COL0154978</option>
+                        <option value="col0161426">COL0161426</option>
+                        <option value="col0160536">COL0160536</option>
+                        <option value="col0149369">COL0149369</option>
+                        <option value="col0150487">COL0150487</option>
+                        <option value="col0141469">COL0141469</option>
+                        <option value="col0039958">COL0039958</option>
+                        <option value="col0149637">COL0149637</option>
+                        <option value="col0192825">COL0192825</option>
+                        <option value="col0160376">COL0160376</option>
+                        <option value="col0151189">COL0151189</option>
+                        <option value="col0154548">COL0154548</option>
+                        <option value="col0157577">COL0157577</option>
+                        <option value="col0138544">COL0138544</option>
+                        <option value="col0144004">COL0144004</option>
+                        <option value="col0150244">COL0150244</option>
+                        <option value="col0160438">COL0160438</option>
+                        <option value="col0164025">COL0164025</option>
+                        <option value="col0166807">COL0166807</option>
+                        <option value="col0133996">COL0133996</option>
+                        <option value="col0146223">COL0146223</option>
+                        <option value="col0148068">COL0148068</option>
+                        <option value="col0149305">COL0149305</option>
+                        <option value="col0150478">COL0150478</option>
+                        <option value="col0150899">COL0150899</option>
+                        <option value="col0152356">COL0152356</option>
+                        <option value="col0154539">COL0154539</option>
+                        <option value="col0157835">COL0157835</option>
+                        <option value="col0158663">COL0158663</option>
+                        <option value="col0160287">COL0160287</option>
+                        <option value="col0160607">COL0160607</option>
+                        <option value="col0160616">COL0160616</option>
+                        <option value="col0162871">COL0162871</option>
+                        <option value="col0163529">COL0163529</option>
+                        <option value="col0147276">COL0147276</option>
+                        <option value="col0153719">COL0153719</option>
+                        <option value="col0182408">COL0182408</option>
+                        <option value="col0151018">COL0151018</option>
+                        <option value="col0039288">COL0039288</option>
+                        <option value="col0149439">COL0149439</option>
+                        <option value="col0149468">COL0149468</option>
+                        <option value="col0150674">COL0150674</option>
+                        <option value="col0164713">COL0164713</option>
+                        <option value="col0155376">COL0155376</option>
+                        <option value="col0157737">COL0157737</option>
+                        <option value="col0110285">COL0110285</option>
+                        <option value="col0156739">COL0156739</option>
+                        <option value="col0150057">COL0150057</option>
+                        <option value="col0157906">COL0157906</option>
+                        <option value="col0192754">COL0192754</option>
+                        <option value="col0160679">COL0160679</option>
+                        <option value="col0171834">COL0171834</option>
+                        <option value="col0153709">COL0153709</option>
+                        <option value="col0117491">COL0117491</option>
+                        <option value="col0149628">COL0149628</option>
+                        <option value="col0153433">COL0153433</option>
+                        <option value="col0149566">COL0149566</option>
+                        <option value="col0153291">COL0153291</option>
+                        <option value="col0163609">COL0163609</option>
+                        <option value="col0156149">COL0156149</option>
+                        <option value="col0056672">COL0056672</option>
+                        <option value="col0133029">COL0133029</option>
+                        <option value="col0135139">COL0135139</option>
+                        <option value="col0149501">COL0149501</option>
+                        <option value="col0150932">COL0150932</option>
+                        <option value="col0152098">COL0152098</option>
+                        <option value="col0154486">COL0154486</option>
+                        <option value="col0156462">COL0156462</option>
+                        <option value="col0155044">COL0155044</option>
+                        <option value="col0112154">COL0112154</option>
+                        <option value="col0149225">COL0149225</option>
+                        <option value="col0149388">COL0149388</option>
+                        <option value="col0041052">COL0041052</option>
+                        <option value="col0104635">COL0104635</option>
+                        <option value="col0112332">COL0112332</option>
+                        <option value="col0125779">COL0125779</option>
+                        <option value="col0143188">COL0143188</option>
+                        <option value="col0149323">COL0149323</option>
+                        <option value="col0150745">COL0150745</option>
+                        <option value="col0156229">COL0156229</option>
+                        <option value="col0158699">COL0158699</option>
+                        <option value="col0165784">COL0165784</option>
+                        <option value="col0189276">COL0189276</option>
+                        <option value="col0171843">COL0171843</option>
+                        <option value="col0164249">COL0164249</option>
+
                     </select>
                 </div>
 
+                <!-- Cuarto campo de la primera columna -->
                 <div class="mb-3">
-                    <label for="nombre_grupo">Nombre grupo de investigación</label>
-                    <select name="nombre_grupo" id="nombre_grupo" class="form-control">
-                        <option value="GCIYA">Grupo de investigacion GICI</option>
-                        <option value="GCOL">Grupo de investigacion colombo</option>
+                    <label for="nombre_grupo1">Nombre grupo de investigación</label>
+                    <select name="nombre_grupo1" id="nombre_grupo1" class="form-control">
+                        <option value="" disabled>Seleccione una opción...</option>
+                        <option value="COL0153676">ARARA</option>
+                        <option value="COL0085647">Grupo de Investigación La Salada CILS</option>
+                        <option value="COL0106783">Grupo de Investigación en Innovación y Agroindustria (GIIA)</option>
+                        <option value="COL0110481">Gestión de la Innovación y el Desarrollo Tecnológico GIDT</option>
+                        <option value="COL0113017">GACIPE (Grupo de Investigacacion en Automatizacion,Comunicaciones
+                            Industriales , Pedagogia y Energias Alternativas)</option>
+                        <option value="COL0113975">Materiales para el Mobiliario - MATERMOB</option>
+                        <option value="COL0129409">BIOMATIC (Biomecánica, materiales, TICS, diseño y calidad para el
+                            sector cuero, plástico y caucho y sus cadenas productivas)</option>
+                        <option value="COL0131024">GIGAT-Grupo de Investigación en gerencia y aplicación de la ciencia y
+                            la Tecnología</option>
+                        <option value="COL0133799">Ciencia, Investigación, Conocimiento, Aprendizaje y Sociedad (CICAS)
+                        </option>
+                        <option value="COL0146626">GRUPO DE INVESTIGACIÓN, INNOVACIÓN Y DESARROLLO PARA LA SUBREGIÓN DEL
+                            URABÁ- ABIBE</option>
+                        <option value="COL0149529">GIDOCA</option>
+                        <option value="COL0149869">Grupo de Investigación red de construcción, infraestructura y
+                            servicios públicos-GIRCIS</option>
+                        <option value="COL0150772">Grupo de Investigación Ciencia, Tecnología e Innovación en Salud
+                            (CITEISA)</option>
+                        <option value="COL0151199">Grupo de Investigación aplicada a la Industria, al Textil y a la
+                            Química (GIAITEQ)</option>
+                        <option value="COL0158921">INAMOD Grupo de Investigación Aplicada en Moda y Diseño</option>
+                        <option value="COL0163494">GITECA: Grupo de Investigación Tecnológica Agropecuaria del Bajo
+                            Cauca</option>
+                        <option value="COL0179313">GIMAB (Grupo de Investigación Minero Ambiental de El Bagre)</option>
+                        <option value="COL0160339">GIISATA Grupo de Investigación para la Innovación Social,
+                            Agroindustrial, Tecnológica y Ambiental Araucana</option>
+                        <option value="COL0147712">GIPAMA - Mejoramiento de la Producción Primaria, Agroindustria y
+                            Medio Ambiente</option>
+                        <option value="COL0147991">Arcadia</option>
+                        <option value="COL0148246">CNCA</option>
+                        <option value="COL0148273">Grupo de Investigación del Centro Industrial y de Aviación (GICI)
+                        </option>
+                        <option value="COL0116654">Grupo de Investigación en Procesos de la Industria Petroquímica
+                            "GIPIPQ"</option>
+                        <option value="COL0150389">GIBIOMAS</option>
+                        <option value="COL0152427">SENA CINAFLUP</option>
+                        <option value="COL0152739">GRUPO DE INVESTIGACION BIOTECNOLOGÍA E INNOVACIÓN (GIBEI)</option>
+                        <option value="COL0152937">GRUPO DE INVESTIGACIÓN , INNOVACIÓN Y CONOCIMIENTO APLICADO DE BOYACÁ
+                            GICAB</option>
+                        <option value="COL0157352">GICEMIN</option>
+                        <option value="COL0158019">GRUPO DE INVESTIGACIÓN, INNOVACIÓN, DESARROLLO SOCIAL, EMPRESARIAL Y
+                            TECNOLÓGICO</option>
+                        <option value="COL0162236">CEDEAGRO</option>
+                        <option value="COL0102695">ELECTRONICA, AUTOMATIZACIÓN Y ENERGIAS RENOVABLES</option>
+                        <option value="COL0129797">Grupo de Investigación en Biotecnología, Seguridad Alimentaria y
+                            Nutricional</option>
+                        <option value="COL0135328">Grupo de Investigación en Recursos Naturales, Biotecnología y
+                            Bioprospección- RENABBIO</option>
+                        <option value="COL0153193">Grupo de Investigación, Diseño y Desarrollo Aplicado (GRINDDA)
+                        </option>
+                        <option value="COL0154978">Grupo de Investigación Comercio y Servicios GRICS</option>
+                        <option value="COL0161426">GIIDA Grupo de Investigación e Innovación para el Desarrollo de la
+                            Amazonía</option>
+                        <option value="COL0160536">MUSSA CAFEC</option>
+                        <option value="COL0149369">GRUPO DE ESTUDIOS EN INVESTIGACIÓN E INNOVACIÓN TECNOLÓGICA
+                            AGROPECUARIA GEITA</option>
+                        <option value="COL0150487">Grupo de Investigación SINERGIA</option>
+                        <option value="COL0141469">Innovación y desarrollo tecnológico Innovatec CTPI</option>
+                        <option value="COL0039958">GRUPO DE INVESTIGACION CENTRO BIOTECNOLOGICO DEL CARIBE - BIOTEC
+                        </option>
+                        <option value="COL0149637">Grupo de Investigación del SENA COMM (INVECOMM)</option>
+                        <option value="COL0192825">Grupo de investigación en desarrollo empresarial, tecnologías y
+                            ciencias agrarias BIOSENA</option>
+                        <option value="COL0160376">GRUPO DE INVESTIGACIÓN EN BIODIVERSIDAD, INNOVACIÓN TECNOLÓGICA Y
+                            SOSTENIBILIDAD AMBIENTAL SENA -CHOCÓ</option>
+                        <option value="COL0151189">Grupo de Investigación Ciencias Ambientales Aplicadas "GICAP"
+                        </option>
+                        <option value="COL0154548">GRUPO DE INVESTIGACIÓN COMERCIO, INDUSTRIA Y TURISMO-GICIT</option>
+                        <option value="COL0157577">INVESTIGACIONES CABP</option>
+                        <option value="COL0138544">IDICAEF</option>
+                        <option value="COL0144004">GRUPO DE INVESTIGACIÓN EN INNOVACIÓN AGROINDUSTRIAL Y PRODUCCIÓN
+                            SOSTENIBLE</option>
+                        <option value="COL0150244">CIDEINNOVA</option>
+                        <option value="COL0160438">CIBA-CBA</option>
+                        <option value="COL0164025">TECNOLOGÍA Y PRODUCTIVIDAD</option>
+                        <option value="COL0166807">Grupo de Investigación en Tecnologías Aplicadas Empresariales GITAE
+                        </option>
+                        <option value="COL0133996">GICS - Grupo de Investigación del CEET SENA</option>
+                        <option value="COL0146223">INNMODA-CMTC</option>
+                        <option value="COL0148068">Grupo de Investigación en Actividad Física y Deporte SENA Bogotá
+                        </option>
+                        <option value="COL0149305">GRUPO DE INVESTIGACIÓN EN PROCESOS INDUSTRIALES SENA CGI</option>
+                        <option value="COL0150478">SUOMAYA CGMLTI SENA</option>
+                        <option value="COL0150899">Formación en Tecnologías y Sistemas de Transporte-CTT (FORTECTT)
+                        </option>
+                        <option value="COL0152356">Ingraf</option>
+                        <option value="COL0154539">Grupo de Investigación Desarrollo e Innovación del Sector Financiero
+                            GIDiSF</option>
+                        <option value="COL0157835">Grupo de Investigación del Centro de Gestión Administrativa - GICGA
+                        </option>
+                        <option value="COL0158663">RECETAS, FORMULAS Y TURISMO</option>
+                        <option value="COL0160287">CTCM SENA Bogotá</option>
+                        <option value="COL0160607">Grupo de investigacion del Centro de Materiales y Ensayos SENA GIMES
+                        </option>
+                        <option value="COL0160616">Grupo de Investigación, Desarrollo Tecnológico e Innovación del
+                            Centro de Diseño y Metrología de la Regional D.C. (GIDIME)</option>
+                        <option value="COL0162871">GICEMET</option>
+                        <option value="COL0163529">GISS Grupo de Investigaciónes de Servicios a la Salud</option>
+                        <option value="COL0147276">Tecnova</option>
+                        <option value="COL0153719">INNOVA Y EMPRENDE CAA</option>
+                        <option value="COL0182408">Grupo de Investigación del Nororiente Amazónico</option>
+                        <option value="COL0151018">BIOGIGAS GUAVIARE</option>
+                        <option value="COL0039288">YAMBORÓ</option>
+                        <option value="COL0149439">Grupo de Investigación para el Desarrollo Social y Tecnológico,
+                            Regional - Huila</option>
+                        <option value="COL0149468">Grupo de investigación agroindustrial La Angostura</option>
+                        <option value="COL0150674">INNOVAGRO C.A.D.P.H</option>
+                        <option value="COL0164713">Grupo de Investigación Nova</option>
+                        <option value="COL0155376">Innovadores Logísticos y Ecoturísticos del Magdalena</option>
+                        <option value="COL0157737">ProAgroIndustria del Magdalena</option>
+                        <option value="COL0110285">CISMTECH</option>
+                        <option value="COL0156739">GRUINVCAM - Grupo de Investigación Centro Agroindustrial del Meta
+                        </option>
+                        <option value="COL0150057">LOPEINVESTIGACIONES</option>
+                        <option value="COL0157906">Investigación Desarrollo Emprendimiento y Aprendizaje-IDEA</option>
+                        <option value="COL0192754">TUMACO DIVERSO</option>
+                        <option value="COL0160679">GINDET (Grupo de Investigación en Desarrollo Tecnológico e
+                            Innovación)</option>
+                        <option value="COL0171834">CEDRUM NDS</option>
+                        <option value="COL0153709">Grupo de investigación Arapaima</option>
+                        <option value="COL0117491">SENAGROQUIN</option>
+                        <option value="COL0149628">CREAMÁS</option>
+                        <option value="COL0153433">GIDA - CDTCI</option>
+                        <option value="COL0149566">Merkator</option>
+                        <option value="COL0153291">Grupo de investigación en Ciencias Agropecuarias ICATURS</option>
+                        <option value="COL0163609">TEINNOVA CDITI</option>
+                        <option value="COL0156149">Seaflower Investigation Group-Sena San Andres</option>
+                        <option value="COL0056672">FRAILEJONES</option>
+                        <option value="COL0133029">EINSTEIN</option>
+                        <option value="COL0135139">GITIP-MB (Grupo de Investigación en Tecnología, Innovación y
+                            Pedagogía - Manuela Beltrán)</option>
+                        <option value="COL0149501">Sena, investigaciones y desarrollos industriales aplicados- I+Dea
+                        </option>
+                        <option value="COL0150932">INVESTIGADORES CGAO</option>
+                        <option value="COL0152098">Grupo de Investigación en Diseño, Manufactura, Construcción, TIC y
+                            Afines - VESTIGIUM</option>
+                        <option value="COL0154486">GIACIDT Grupo de Investigación Aplicada del Centro Industrial y del
+                            Desarrollo Tecnológico Barrancabermeja</option>
+                        <option value="COL0156462">Grupo de Investigación y Desarrollo del Cacao y la Chocolatería
+                        </option>
+                        <option value="COL0155044">INVESTIGADORES SUCREÑOS</option>
+                        <option value="COL0112154">GRUPO DE INVESTIGACIÓN, DESARROLLO E INNOVACIÓN TECNOLOGICA DEL SENA
+                            REGIONAL TOLIMA - GIDIS</option>
+                        <option value="COL0149225">SENAGROTIC - Grupo de Ciencia, Tecnología e Innovación del Centro
+                            Agropecuario La Granja</option>
+                        <option value="COL0149388">Grupo de Investigación en Gestion Empresarial, Servicios e Innovación
+                            Comercial-GESICOM</option>
+                        <option value="COL0041052">GIDEMP</option>
+                        <option value="COL0104635">Grupo de Investigación en Innovación, Gestión Tecnológica y del
+                            Conocimiento - INGETEC - ASTIN</option>
+                        <option value="COL0112332">Unidad de Investigación Aplicada, Desarrollo Tecnologico e
+                            Innovacion, UIADTI - CEAI - SENA</option>
+                        <option value="COL0125779">Grupo de Investigaciones en Ciencias & Tecnologías Agroindustriales
+                            GICTACAB</option>
+                        <option value="COL0143188">Gestión Tecnológica de Servicios</option>
+                        <option value="COL0149323">INNOVACLEM-INNOVACION Y DESARROLLO TECNOLOGICO DEL CLEM</option>
+                        <option value="COL0150745">Grupo de Investigación e Innovación en Biotecnología - BITI</option>
+                        <option value="COL0156229">Diseño y Desarrollo de Tecnologías Para la Industria y la Formación
+                            Profesional Integral - DIDETIF</option>
+                        <option value="COL0158699">Investigación Tecnológica Aplicada ITA</option>
+                        <option value="COL0165784">TECNOLOGÍAS PARA LA INNOVACIÓN EN CONSTRUCCIÓN (TPIC)</option>
+                        <option value="COL0189276">Evolucion, Innovacion Valle Tecnologico (E-Innvatec)</option>
+                        <option value="COL0171843">Grupo de Investigación para la Innovación Ambiental e Intercultural
+                            MAHIE - KtRIYAMI</option>
+                        <option value="COL0164249">Grupo de Investigación Agroambiental del Vichada- GRIAV</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Segunda Columna -->
+            <div class="col-4 mb-3 mx-auto">
+
+                <!-- Primer campo de la segunda columna -->
+                <div class="mb-3">
+                    <label for="titulo2">Indicar línea de investigación a la que pertenece el proyecto</label>
+                    <select name="" id="" class="form-control">
+                        <option value="" disabled selected>Seleccione una opción..</option>
+                        <option value="inv_aplicada_66">Investigación aplicada (66)</option>
+                        <option value="desarrollo_tec_mod_ambiente_23">Desarrollo tecnológico (23-Modernización de
+                            ambientes)</option>
+                        <option value="fomento_innovacion_82">Fomento para la innovación (82)</option>
+                        <option value="red_tecnoparque_69">Red Tecnoparque Colombia (69)</option>
+                        <option value="tecno_academia_70">Tecnoacademia fija (70)</option>
+                        <option value="tecno_academia_itinerante">Tecnoacademia itinerante (70)</option>
+                        <option value="revistas">Revistas</option>
+                        <option value="eventos_nacionales_65">Eventos nacionales(65)</option>
+                        <option value="trans_conocimiento_sector_product_65">Transferencia de conocimiento al sector
+                            productivo (65)</option>
+                    </select>
+                </div>
+
+                <!-- Segundo campo de la segunda columna -->
+                <div class="mb-3">
+                    <label for="descripcion2">Red de conocimiento sectorial</label>
+                    <select name="" id="" class="form-control">
+                        <option value="" disabled selected>Seleccione una opción..</option>
+                        <option value="red_cultura">Red de Cultura</option>
+                        <option value="red_artesanias">Red de Artesanías</option>
+                        <option value="red_art_graficas">Red de Artes gráficas</option>
+                        <option value="red_commer_ventas">Red de Comercio y ventas</option>
+                        <option value="red_gest_admin_financiera">Red de Gestión administrativa y financiera</option>
+                        <option value="red_meca_industrial">Red de Mecánica industrial</option>
+                        <option value="red_energia_electrica">Red de Energía eléctrica</option>
+                        <option value="red_electronica_automat">Red de Electrónica y automatización</option>
+                        <option value="red_telecom">Red de Telecomunicaciones</option>
+                        <option value="red_quimica_apli">Red de Química aplicada</option>
+                        <option value="red_adso">Red de Informática, diseño y desarrollo de software</option>
+                        <option value="red_automotor">Red Automotor</option>
+                        <option value="red_aeroespacial">Red Aeroespacial</option>
+                        <option value="red_textil_conf_disen_moda">Red Textil, confección, diseño y moda</option>
+                        <option value="red_cuero_calzado_marroquineria">Red de Cuero, calzado y marroquinería</option>
+                        <option value="red_materiales_industria">Red de Materiales para la industria</option>
+                        <option value="red_mineria">Red de Minería</option>
+                        <option value="red_hidrocarburos">Red de Hidrocarburos</option>
+                        <option value="red_logic_gest_producc">Red de Logística y gestión de la producción</option>
+                        <option value="red_construcc">Red de Construcción</option>
+                        <option value="red_infraes">Red de Infraestructura</option>
+                        <option value="red_agricola">Red Agrícola</option>
+                        <option value="red_pecuaria">Red Pecuaria</option>
+                        <option value="red_acuicola_pesca">Red Acuícola y de pesca</option>
+                        <option value="red_ambiental">Red Ambiental</option>
+                        <option value="red_biotech">Red de Biotecnología</option>
+                        <option value="red_salud">Red de Salud</option>
+                        <option value="red_hot_turismo">Red de Hotelería y turismo</option>
+                        <option value="red_act_fisica_depor">Red de Actividad física, recreación y deporte</option>
+                        <option value="red_transporte">Red de Transporte</option>
+                        <option value="red_servicios_personales">Red de Servicios personales</option>
+                    </select>
+                </div>
+
+                <!-- Tercer campo de la segunda columna -->
+                <div class="mb-3">
+                    <label for="codigo2">Área de conocimiento</label>
+                    <select name="codigo2" id="codigo2" class="form-control selectmod">
+                        <option value="" disabled selected>Seleccione una opción...</option>
+                        <option value="ciencias_naturales">Ciencias naturales</option>
+                        <option value="ing_y_tech">Ingeniería y tecnología</option>
+                        <option value="cuarta_rev_industrial">Cuarta revolución industrial</option>
+                        <option value="cienc_medic_salud">Ciencias médicas y de salud</option>
+                        <option value="cienc_agrico">Ciencias agrícolas</option>
+                        <option value="cienc_vet">Ciencias veterinarias</option>
+                        <option value="cienc_sociales">Ciencias sociales</option>
+                        <option value="humaniddes">Humanidades</option>
+                        <option value="ind_creativas">Industrias creativas</option>
+                    </select>
+                </div>
+
+                <!-- Cuarto campo de la segunda columna -->
+                <div class="mb-3">
+                    <label for="nombre_grupo2">Sub-área del conocimiento</label>
+                    <select name="" id="" class="form-control">
+                        <option value="" disabled selected>Seleccione una opción...</option>
+                        <option value="matematicas">Matemática</option>
+                        <option value="compu_cienc_info">Computación y ciencias de la información</option>
+                        <option value="cienc_fisica">Ciencias físicas</option>
+                        <option value="cienc_quimica">ciencias químicas</option>
+                        <option value="cienc_tierra_ambiente">Ciencias de la tierra y medioambiente</option>
+                        <option value="cienc_biologica">Ciencias biológicas</option>
+                        <option value="biotech_microbiologic_biodiver">Biotecnología, microbiología y biodiversidad
+                        </option>
+                        <option value="otras_ciencias_nat">Otras ciencias naturales</option>
+                        <option value="nano_tech">Nanotecnología</option>
+                        <option value="ing_civil">Ingeniería civil</option>
+                        <option value="ing_petroleos">Ingeniería petróleos, minas, geología</option>
+                        <option value="ing_elect_electronica_aut_ener_alter">Ingeniería eléctrica, electrónica,
+                            automatización y energías alternativas</option>
+                        <option value="ing_mecanica">Ingeniería mecánica</option>
+                        <option value="ing_sistemas">Ingeniería de sistemas</option>
+                        <option value="ing_quimica">Ingeniería Química</option>
+                        <option value="ing_materiales">Ingeniería de materiales</option>
+                        <option value="ing_medica">Ingeniería médica</option>
+                        <option value="ing_ambiental">Ingeniería ambiental</option>
+                        <option value="ing_industrial">Ingeniería Industrial</option>
+                        <option value="diseno_industrial">Diseño industrial</option>
+                        <option value="agroindustria">Agroindustria</option>
+                        <option value="inteligencia_artificial">Inteligencia artificial</option>
+                        <option value="internet_iot">Internet de las cosas IoT</option>
+                        <option value="analitica_datos">Analítica de datos</option>
+                        <option value="big_data">Big Data</option>
+                        <option value="transf_digital">Transformación Digital</option>
+                        <option value="medicina_basica">Medicina básica</option>
+                        <option value="cienc_salud">Ciencias de la salud</option>
+                        <option value="biotech_salud">Biotecnología en salud</option>
+                        <option value="otras_cienc_medicas">Otras ciencias médicas (forense, fonaudiología)</option>
+                        <option value="agricult_agronomia">Agricultura, agronomía</option>
+                        <option value="biotech_vegetal">Biotecnología vegetal</option>
+                        <option value="agricola">Agrícola</option>
+                        <option value="silvicultura_pesca">Silvicultura y pesca</option>
+                        <option value="pecuaria">Pecuaria, ciencias animales y lechería</option>
+                        <option value="biotech_animal">Biotecnología animal</option>
+                        <option value="psicologia">Psicología</option>
+                        <option value="economia_negocios">Economía y negocios</option>
+                        <option value="cienc_educacion">Ciencias de la educación</option>
+                        <option value="sociologica">Sociología</option>
+                        <option value="derecho">Derecho</option>
+                        <option value="cienc_politica">Ciencias políticas</option>
+                        <option value="geo_social_economica">Geografía social y económica</option>
+                        <option value="periodismo_comunicaciones">Periodismo y comunicaciones</option>
+                        <option value="otras_cienc_sociales">Otras ciencias sociales</option>
+                        <option value="historia_arqueologica">Historia y arqueología</option>
+                        <option value="idiomas_literatura">Idiomas y literatura</option>
+                        <option value="otras_hist">Otras historias</option>
+                        <option value="arte">Arte</option>
+                        <option value="otras_humanidades">Otras humanidades</option>
+                        <option value="artes_patrimonio">Artes y patrimonio</option>
+                        <option value="industrias_culturales">Industrias culturales</option>
+                        <option value="crea_funcionales">Creaciones funcionales</option>
+
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="nombre_grupo2">Disciplina en cada sub-área</label>
+                    <select name="nombre_grupo2" id="nombre_grupo2" class="form-control">
+                        <option value="" disabled selected>Seleccione una opción...</option>
+                        <option value="matematicas_puras">Matemáticas puras</option>
+                        <option value="matematicas_aplicadas">Matemáticas aplicadas</option>
+                        <option value="estadistica_probabilidades">Estadística y probabilidades(investigacion en
+                            metodologías)</option>
+                        <option value="ciencias_computacion">Ciencias de la Computación</option>
+                        <option value="ciencias_informacion_bioinformatica">Ciencias de la Información y Bioinformática
+                        </option>
+                        <option value="fisica_atomica_molecular_quimica">Física Atómica, Molecular y Química</option>
+                        <option value="fisica_materia">Física de la Materia</option>
+                        <option value="fisica_particulas_campos">Física de Partículas y Campos</option>
+                        <option value="fisica_nuclear">Física Nuclear</option>
+                        <option value="fisica_plasmas_fluidos">Física de Plasmas y Fluídos</option>
+                        <option value="optica">Óptica</option>
+                        <option value="acustica">Acústica</option>
+                        <option value="astronomia">Astronomía</option>
+                        <option value="quimica_organica">Química Orgánica</option>
+                        <option value="quimica_inorganica_nuclear">Química Inorgánica y Nuclear</option>
+                        <option value="quimica_fisica">Química Física</option>
+                        <option value="ciencias_polimeros">Ciencias de los Polímeros</option>
+                        <option value="electroquimica">Electroquímica</option>
+                        <option value="quimica_coloides">Química de los Coloides</option>
+                        <option value="quimica_analitica">Química Analítica</option>
+                        <option value="geociencias">Geociencias (Multidisciplinario)</option>
+                        <option value="mineralogia">Mineralogía</option>
+                        <option value="paleontologia">Paleontología</option>
+                        <option value="geoquimica_geofisica">Geoquímica y Geofísica</option>
+                        <option value="geografia_fisica">Geografía Física</option>
+                        <option value="geologia">Geología</option>
+                        <option value="vulcanologia">Vulcanología</option>
+                        <option value="ciencias_medio_ambiente">Ciencias del Medio Ambiente</option>
+                        <option value="meteorologia_ciencias_atmosfericas">Meteorología y Ciencias Atmosféricas</option>
+                        <option value="investigacion_clima">Investigación del Clima</option>
+                        <option value="oceanografia_hidrologia_recursos_agua">Oceanografía, Hidrología y Recursos del
+                            Agua</option>
+                        <option value="metodos_investigacion_bioquimica">Métodos de Investigación en Bioquímica</option>
+                        <option value="biofisica">Biofísica</option>
+                        <option value="genetica_herencia">Genética y Herencia</option>
+                        <option value="biologia_reproductiva">Biología Reproductiva</option>
+                        <option value="biologia_desarrollo">Biología del Desarrollo</option>
+                        <option value="botanica_ciencias_plantas">Botánica y Ciencias de las Plantas</option>
+                        <option value="zoologia_ornitologia_entomologia_ciencias_comportamiento">Zoología, Ornitología,
+                            Entomología, Ciencias Biológicas del Comportamiento</option>
+                        <option value="biologia_marina_agua">Biología Marina y del Agua</option>
+                        <option value="ecologia">Ecología</option>
+                        <option value="conservacion_biodiversidad">Conservación de la Biodiversidad</option>
+                        <option value="biologia_teorica_matematica_criobiologia_evolutiva">Biología (Teórica,
+                            Matemática, Criobiología, Evolutiva)</option>
+                        <option value="otras_biologias">Otras Biologías</option>
+                        <option value="biologia_celular">Biología Celular</option>
+                        <option value="bioquimica_biologia_molecular">Bioquímica y Biología Molecular</option>
+                        <option value="microbiologia">Microbiología</option>
+                        <option value="virologia">Virología</option>
+                        <option value="micologia">Micología</option>
+                        <option value="biotecnologia_medioambiental">Biotecnología Medioambiental</option>
+                        <option value="bioremediacion_biotecnologia_diagnostico_manejo_ambiental">Bioremediación,
+                            biotecnología para el diagnóstico (chips ADN y biosensores) en manejo ambiental</option>
+                        <option value="etica_biotecnologia_medioambiental">Ética relacionada con Biotecnología
+                            Medioambiental</option>
+                        <option value="biotecnologia_industrial">Biotecnología Industrial</option>
+                        <option value="tecnologias_bioprocesamiento_biocatalisis_fermentacion">Tecnologías de
+                            Bioprocesamiento, Biocatálisis, Fermentación</option>
+                        <option
+                            value="bioproductos_biomateriales_bioplasticos_biocombustibles_materiales_nuevos_bioderivados">
+                            Bioproductos (productos que se manufacturan usando biotecnología), biomateriales,
+                            bioplásticos, biocombustibles, materiales nuevos bioderivados, químicos finos bioderivados
+                        </option>
+                        <option value="otras_ciencias_naturales">Otras Ciencias Naturales</option>
+                        <option value="nanomateriales_produccion_propiedades">Nanomateriales (producción y propiedades)
+                        </option>
+                        <option value="nanoprocesos_aplicaciones_nanoescala">Nanoprocesos (aplicaciones a nanoescala)
+                        </option>
+                        <option value="ingenieria_civil">Ingeniería Civil</option>
+                        <option value="ingenieria_arquitectonica">Ingeniería Arquitectónica</option>
+                        <option value="ingenieria_construccion">Ingeniería de la Construcción</option>
+                        <option value="ingenieria_estructural_municipal">Ingeniería Estructural y Municipal</option>
+                        <option value="ingenieria_transporte">Ingeniería del Transporte</option>
+                        <option value="ingenieria_petroleos_minas_geologia">Ingeniería petróleos, minas, geología.
+                        </option>
+                        <option value="ingenieria_electrica_electronica">Ingeniería Eléctrica y Electrónica</option>
+                        <option value="robotica_control_automatico">Robótica y Control Automático</option>
+                        <option value="automatizacion_sistemas_control">Automatización y Sistemas de Control</option>
+                        <option value="energias_alternativas">Energías alternativas</option>
+                        <option value="ingenieria_mecanica">Ingeniería Mecánica</option>
+                        <option value="mecanica_aplicada">Mecánica Aplicada</option>
+                        <option value="termodinamica">Termodinámica</option>
+                        <option value="ingenieria_aeroespacial">Ingeniería Aeroespacial</option>
+                        <option value="ingenieria_nuclear">Ingeniería Nuclear</option>
+                        <option value="ingenieria_audio">Ingeniería del Audio</option>
+                        <option value="ingenieria_sistemas_comunicaciones">Ingeniería de Sistemas y Comunicaciones
+                        </option>
+                        <option value="telecomunicaciones">Telecomunicaciones</option>
+                        <option value="hardware_arquitectura_computadores">Hardware y Arquitectura de Computadores
+                        </option>
+                        <option value="ingenieria_quimica">Ingeniería Química (Plantas y Productos)</option>
+                        <option value="ingenieria_procesos">Ingeniería de Procesos</option>
+                        <option value="ceramicos">Cerámicos</option>
+                        <option value="recubrimientos_peliculas">Recubrimientos y películas</option>
+                        <option value="compuestos">Compuestos (Laminados, Plásticos Reforzados, Fibras Sintéticas y
+                            Naturales, etc.)</option>
+                        <option value="papel_madera">Papel y Madera</option>
+                        <option value="textiles">Textiles</option>
+                        <option value="ingenieria_medica">Ingeniería Médica</option>
+                        <option value="tecnologia_medica_laboratorio">Tecnología médica de laboratorio (análisis de
+                            muestras, tecnologías para el diagnóstico)</option>
+                        <option value="ingenieria_ambiental_geologica">Ingeniería Ambiental y Geológica</option>
+                        <option value="geotecnicas">Geotécnicas</option>
+                        <option value="ingenieria_petroleo">Ingeniería del Petróleo (Combustibles, Aceites), Energía y
+                            Combustibles</option>
+                        <option value="sensores_remotos">Sensores Remotos</option>
+                        <option value="mineria_procesamiento_minerales">Minería y Procesamiento de Minerales</option>
+                        <option value="ingenieria_marina_naves">Ingeniería Marina, Naves</option>
+                        <option value="ingenieria_oceanografica">Ingeniería Oceanográfica</option>
+                        <option value="logistica">Logística</option>
+                        <option value="ingenieria_produccion">Ingeniería de Producción</option>
+                        <option value="ingenieria_industrial">Ingeniería Industrial</option>
+                        <option value="diseno_industrial">Diseño industrial</option>
+                        <option value="agroindustria_alimentaria">Agroindustria alimentaria</option>
+                        <option value="agroindustria_no_alimentaria">Agroindustria no alimentaria</option>
+                        <option value="alimentos_bebidas">Alimentos y Bebidas</option>
+                        <option value="inteligencia_artificial">Inteligencia artificial</option>
+                        <option value="internet_cosas_iot">Internet de las cosas IoT</option>
+                        <option value="analitica_datos">Analítica de datos</option>
+                        <option value="big_data">Big Data</option>
+                        <option value="transformacion_digital">Transformación Digital</option>
+                        <option value="anatomia_morfologia">Anatomía y Morfología</option>
+                        <option value="genetica_humana">Genética humana</option>
+                        <option value="inmunologia">Inmunología</option>
+                        <option value="neurociencias">Neurociencias</option>
+                        <option value="farmacologia_farmacia">Farmacología y Farmacia</option>
+                        <option value="medicina_quimica">Medicina Química</option>
+                        <option value="toxicologia">Toxicología</option>
+                        <option value="fisiologia">Fisiología (incluye Citología)</option>
+                        <option value="patologia">Patología</option>
+                        <option value="andrologia">Andrología</option>
+                        <option value="obstetricia_ginecologia">Obstetricia y Ginecología</option>
+                        <option value="pediatria">Pediatría</option>
+                        <option value="cardiovascular">Cardiovascular</option>
+                        <option value="vascular_periferico">Vascular Periférico</option>
+                        <option value="hematologia">Hematología</option>
+                        <option value="respiratoria">Respiratoria</option>
+                        <option value="cuidado_critico_emergencia">Cuidado crítico y de Emergencia</option>
+                        <option value="anestesiologia">Anestesiología</option>
+                        <option value="ortopedica">Ortopédica</option>
+                        <option value="cirugia">Cirugía</option>
+                        <option value="radiologia_medicina_nuclear_imagenes">Radiología, Medicina Nuclear y de imágenes
+                        </option>
+                        <option value="transplantes">Transplantes</option>
+                        <option value="odontologia_cirugia_oral_medicina_oral">Odontología, Cirugía Oral y Medicina Oral
+                        </option>
+                        <option value="dermatologia_enfermedades_venereas">Dermatología y Enfermedades Venéreas</option>
+                        <option value="alergias">Alergias</option>
+                        <option value="reumatologia">Reumatología</option>
+                        <option value="endocrinologia_metabolismo">Endocrinología y Metabolismo (Incluye Diabetes y
+                            Transtornos Hormonales)</option>
+                        <option value="gastroenterologia_hepatologia">Gastroenterología y Hepatología</option>
+                        <option value="urologia_nefrologia">Urología y nefrología</option>
+                        <option value="oncologia">Oncología</option>
+                        <option value="oftalmologia">Oftalmología</option>
+                        <option value="otorrinonaringologia">Otorrinonaringología</option>
+                        <option value="psiquiatria">Psiquiatría</option>
+                        <option value="neurologia_clinica">Neurología clínica</option>
+                        <option value="geriatria">Geriatría</option>
+                        <option value="medicina_general_interna">Medicina General e Interna</option>
+                        <option value="otros_medicina_clinica">Otro temas de Medicina Clínica</option>
+                        <option value="medicina_complementaria">Medicina complementaria (sistemas alternativos)</option>
+                        <option value="ciencias_cuidado_salud_servicios">Ciencias del Cuidado de la Salud y Servicios
+                            (Administración de Hospitales, financiamiento)</option>
+                        <option value="politicas_salud_servicios">Políticas de Salud y Servicios</option>
+                        <option value="enfermeria">Enfermería</option>
+                        <option value="nutricion_dietas">Nutrición y Dietas</option>
+                        <option value="salud_publica">Salud Pública</option>
+                        <option value="medicina_tropical">Medicina Tropical</option>
+                        <option value="parasitologia">Parasitología</option>
+                        <option value="enfermedades_infecciosas">Enfermedades Infecciosas</option>
+                        <option value="epidemiologia">Epidemiología</option>
+                        <option value="salud_ocupacional">Salud Ocupacional</option>
+                        <option value="ciencias_deporte">Ciencias del Deporte</option>
+                        <option value="ciencias_socio_biomedicas">Ciencias Socio Biomédicas (Planificación Familiar,
+                            Salud Sexual, Efectos políticos y sociales de la investigación Biomédica)</option>
+                        <option value="etica">Ética</option>
+                        <option value="abuso_substancias">Abuso de substancias</option>
+                        <option value="biotecnologia_salud">Biotecnología relacionada con la salud</option>
+                        <option value="tecnologias_manipulacion_celulas_tejidos_organos">Tecnologías para la
+                            manipulación de células, tejidos, Órganos o el organismo (Reproducción asistida)</option>
+                        <option value="tecnologia_adn_proteinas_enzimas">Tecnología para la Identificación y
+                            Funcionamiento del ADN, proteínas y encimas y como influencian la enfermedad</option>
+                        <option value="biomateriales">Biomateriales (Relacionados con implantes, dispositivos, sensores)
+                        </option>
+                        <option value="etica_biomedicina">Ética relacionada con la Biomedicina</option>
+                        <option value="forensicas">Forénsicas</option>
+                        <option value="otras_ciencias_medicas">Otras Ciencias Médicas</option>
+                        <option value="fonoaudiologia">Fonoaudiología</option>
+                        <option value="agricultura">Agricultura</option>
+                        <option value="forestal">Forestal</option>
+                        <option value="pesca">Pesca</option>
+                        <option value="ciencias_suelo">Ciencias del Suelo</option>
+                        <option value="horticultura_viticultura">Horticultura y viticultura</option>
+                        <option value="agronomia">Agronomía</option>
+                        <option value="fitomejoramiento_biotecnologia">Fitomejoramiento, Biotecnología</option>
+                        <option value="proteccion_nutricion_plantas">Protección y nutrición de las plantas</option>
+                        <option value="maquinaria_agricola">Maquinaria agrícola</option>
+                        <option value="pesca">Pesca</option>
+                        <option value="pecuaria_otras">Pecuaria y otras</option>
+                        <option value="biotecnologia_sembradios_ganado">Biotecnología (sembradíos y ganado), clonamiento
+                            de ganado, selección asistida, dignóstico (con chips ADN, biosensores)</option>
+                        <option value="psicologia">Psicología (incluye relaciones hombre-máquina)</option>
+                        <option value="psicologia_terapias">Psicología (incluye terapias de aprendizaje, habla, visual y
+                            otras discapacidades físicas y mentales)</option>
+                        <option value="economia">Economía</option>
+                        <option value="econometria">Econometría</option>
+                        <option value="relaciones_industriales">Relaciones Industriales</option>
+                        <option value="negocios_management">Negocios y Management</option>
+                        <option value="educacion_general">Educación General (Incluye Capacitación, Pedagogía)</option>
+                        <option value="educacion_especial">Educación Especial (Para estudiantes dotados y aquellos con
+                            dificultades de aprendizaje)</option>
+                        <option value="sociologia">Sociologia</option>
+                        <option value="demografia">Demografía</option>
+                        <option value="antropologia">Antropología</option>
+                        <option value="etnologia">Etnología</option>
+                        <option value="temas_especiales">Temas especiales (Estudio de Género, Temas Sociales, Estudios
+                            de la Familia, Trabajo Social)</option>
+                        <option value="derecho">Derecho</option>
+                        <option value="penal">Penal</option>
+                        <option value="ciencias_ambientales_sociales">Ciencias Ambientales (Aspectos Sociales)</option>
+                        <option value="geografia_economica_cultural">Geografía Económica y Cultural</option>
+                        <option value="estudios_urbanos">Estudios Urbanos (Planificación y Desarrollo)</option>
+                        <option value="planificacion_transporte_social">Planificación del Transporte y Aspectos Sociales
+                            del Transporte</option>
+                        <option value="periodismo">Periodismo</option>
+                        <option value="ciencias_informacion_sociales">Ciencias de la Información (Aspectos Sociales)
+                        </option>
+                        <option value="bibliotecologia">Bibliotecología</option>
+                        <option value="medios_comunicacion_social">Medios y Comunicación Social</option>
+                        <option value="ciencias_sociales_interdisciplinaria">Ciencias Sociales, Interdisciplinaria
+                        </option>
+                        <option value="otras_ciencias_sociales">Otras Ciencias Sociales</option>
+                        <option value="actividades_apropiacion_ciencia_tecnologia">Actividades de apropiación de la la
+                            ciencia, la tecnología y cultura de la innovación dirigida a la comunidad académica</option>
+                        <option value="historia">Historia</option>
+                        <option value="arqueologia">Arqueología</option>
+                        <option value="estudios_lenguaje">Estudios Generales del Lenguaje</option>
+                        <option value="idiomas_especificos">Idiomas Específicos</option>
+                        <option value="estudios_literarios">Estudios Literarios</option>
+                        <option value="teoria_literaria">Teoría Literaria</option>
+                        <option value="literatura_especifica">Literatura Específica</option>
+                        <option value="linguistica">Lingüística</option>
+                        <option value="historia_ciencia_tecnologia">Historia de la Ciencia y Tecnología</option>
+                        <option value="otras_historias_especializadas">Otras historias especializadas</option>
+                        <option value="arte">Arte</option>
+                        <option value="historia_arte">Historia del Arte</option>
+                        <option value="diseno_arquitectonico">Diseño Arquitectónico</option>
+                        <option value="artes_representacion">Artes de la Representación (Musicología, Ciencias del
+                            Teatro, Dramaturgia)</option>
+                        <option value="estudios_folclor">Estudios del Folclor</option>
+                        <option value="estudios_cine_radio_tv">Estudios de Cine, Radio y Televisión</option>
+                        <option value="arquitectura_urbanismo">Arquitectura y Urbanismo</option>
+                        <option value="diseno_industrial_otros">Diseño Industrial y otros diseños</option>
+                        <option value="otras_humanidades">Otras Humanidades</option>
+                        <option value="filosofia">Filosofía</option>
+                        <option value="teologia">Teología</option>
+                        <option value="artes_visuales_escenicas_turismo_gastronomia"> (Artes visuales , escénicas,
+                            turismo, gastronomía, restauración, etc)</option>
+                        <option value="editorial_fonografica_audiovisual"> (Editorial, fonográfica, audiovisual, etc)
+                        </option>
+                        <option value="medios_digitales_software_apps_diseno"> (medios digitales, software, apps,
+                            animación, diseño, publicidad, joyería , moda y diseño, etc)</option>
                     </select>
                 </div>
             </div>
 
             <div class="d-flex justify-content-center mt-3 mb-1">
-              <a type="button" name="" id="" class="btn btn-bg-green pt-3 pb-3 mb-4 border_radius centradow">Guardar</a>
-          </div>
+                <a type="button" name="" id=""
+                    class="btn btn-bg-green pt-3 pb-3 mb-4 border_radius centradow">Guardar</a>
+            </div>
         </section>
+
 
         <div class="col-4"></div>
         <div class="col-4 mb-4">
@@ -219,16 +812,16 @@
     </main>
 
     <footer class="border_radius mt-3 mb-3 bg-light border_radius">
-      <img class="pt-3 pb-3" src="LogoSenaVerde.png" style="margin: auto;" width="50">
-  </footer>
+        <img class="pt-3 pb-3" src="LogoSenaVerde.png" style="margin: auto;" width="50">
+    </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-    </script>
+        </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>
