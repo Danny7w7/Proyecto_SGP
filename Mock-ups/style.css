@@ -214,6 +214,9 @@ img[src="sennova_logo.png"] {
 .txtarea {
   height: 15%;
 }
+.txt_crp{
+  height: 100px;
+}
 select {
   width: 250px;
   overflow: hidden;
@@ -263,6 +266,20 @@ select option:hover {
 .bg-custom-green {
   background-color: #38a9001e;
   width: 100%;
+}
+
+
+/* Linea divisoria solo para web */
+@media (min-width: 768px){
+  .border-color-custom {
+    border-color: #38a90080 !important;
+    /* border-color: gray !important; */
+  }
+  .border-end pe-4{
+    border-right: 1px solid currentColor;
+    padding-right: 1.5rem; 
+  } 
+  
 }
 
 
