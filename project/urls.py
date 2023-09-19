@@ -22,5 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('crear-proyecto/', views.crear_proyecto_view, name='crear_proyecto'),
     path('info-proyecto/', views.Informacion_de_centro_view, name='info_proyecto'),
-    path('autores/',views.Autores_view, name='Autores'),
+    path('autores/',views.Autores_view, name='autores'),
+    path('participantes/',views.Participantes_view, name='participantes'),
+    #Informacion_proyecto son las "generalidades" del mismo
+    path('generalidades/',views.Informacion_Proyecto_view, name='generalidades'),
 ]

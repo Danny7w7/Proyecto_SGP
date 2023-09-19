@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from app.forms import AutoresForm, ProyectoForm, Informacion_de_centroForm
+from app.forms import AutoresForm, ProyectoForm, Informacion_de_centroForm, ParticipantesForm, Informacion_ProyectoForm
 from app.models import Proyecto
 
 
@@ -35,6 +35,28 @@ def  Autores_view(request):
             form.save()
     else:
         form = AutoresForm()
+    
+    context = {'form': form}
+    return render(request, 'infop.html', context)
+
+def  Participantes_view(request):
+    if request.method == "POST":
+        form = ParticipantesForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = ParticipantesForm()
+    
+    context = {'form': form}
+    return render(request, 'infop.html', context)
+
+def  Informacion_Proyecto_view(request):
+    if request.method == "POST":
+        form = Informacion_ProyectoForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = Informacion_ProyectoForm()
     
     context = {'form': form}
     return render(request, 'infop.html', context)

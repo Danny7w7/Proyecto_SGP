@@ -35,18 +35,19 @@ class Conocimientos(models.Model):
     diciplinas_Subarea = models.CharField(max_length=100, null=False)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
+# Generalidades
 class Informacion_Proyecto(models.Model):
     codigo_Dependencia_Presupuestal = models.CharField(max_length=10, null=False)
-    actividades_economicas_del_proyecto_investigacion = models.CharField(max_length=100, null=False)
     tematicas_Estrategias_SENA = models.CharField(max_length=100, null=False)
     link_video_proyecto = models.CharField(max_length=500, null=False)
     proyecto_Relacionado_Industrial40 = models.BooleanField(null=False)
     justificacion_Industrial = models.CharField(max_length=500, null=True)
+    actividades_economicas_del_proyecto_investigacion = models.CharField(max_length=100, null=False)
     proyecto_Relacionado_Economia_Naranja = models.BooleanField(null=False)
     justificacion_Economia_Naranja = models.CharField(max_length=500, null=True)
     proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=False)
     justificacion_Politica_Discapacidad = models.CharField(max_length=500, null=True)
-    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
+    # proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 class Riesgos(models.Model):
     tipo = models.CharField(max_length=50, null=False)
@@ -133,13 +134,13 @@ class Informacion_de_centro(models.Model):
     
 class Participantes_Proyecto(models.Model):
     Nombre_participantes_de_desarrollo = models.CharField(max_length=50, null=True)
-    Numero_cedula_participantes = models.IntegerField(null=True)
-    Email_participantes_de_desarrollo = models.EmailField(null=True)
-    Numero_Telefono_participantes = models.IntegerField(null=True)
     Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
+    Numero_cedula_participantes = models.IntegerField(null=True)
     Numero_meses_vinculacion_participantes = models.IntegerField(null=False)
+    Email_participantes_de_desarrollo = models.EmailField(null=True)
     Numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=False)
-    Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    Numero_Telefono_participantes = models.IntegerField(null=True)
+    # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
     
 class Autores(models.Model):
     Nombre_Autor_Proyecto = models.CharField(null=False, max_length=50)
