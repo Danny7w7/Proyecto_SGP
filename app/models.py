@@ -17,13 +17,18 @@ class Usuarios(AbstractUser):
         return self.username
 
 class Proyecto(models.Model):
-    codigo_Grupo_Investigacion = models.IntegerField(null=False)
-    nombre_Grupo_Investigacion = models.CharField(max_length=100, null=False)
-    linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
     titulo_Proyecto = models.CharField(max_length=100, null=False)
+    descripcion = models.CharField(max_length=200, null=False)
+    codigo_Grupo_Investigacion = models.CharField(max_length=30, null=False)
     red_Conocimiento_Sectorial = models.CharField(max_length=100, null=False)
-    usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE) 
+    disciplina_subarea = models.CharField(max_length=200, null=False)
+    nombre_Grupo_Investigacion = models.CharField(max_length=100, null=False)
+    area_conocimiento = models.CharField(max_length=80, null=False)
+    linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
+    subarea_conocimiento = models.CharField(max_length=100, null=False)
+    # usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE) 
 
+# Revisar
 class Conocimientos(models.Model):
     areas_Conocimiento = models.CharField(max_length=100, null=False)
     subareas_Conocimiento = models.CharField(max_length=100, null=False)
@@ -60,7 +65,7 @@ class Objetivos_especificos(models.Model):
     objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
 class Actividades_de_objetivos_especificos(models.Model):
-    Actividades_obj_especificos = models.CharField(max_length=250, null=False)
+    actividades_obj_especificos = models.CharField(max_length=250, null=False)
     objetivos_especificos = models.ForeignKey(Objetivos_especificos, on_delete=models.CASCADE)
 
 class Estructura_del_proyecto(models.Model):
@@ -119,9 +124,12 @@ class Informacion_de_centro(models.Model):
     Nombre_centro_formacion = models.CharField(max_length=100, null=False)
     Nombre_Director = models.CharField(max_length=50, null=False)
     Numero_Director = models.IntegerField(null=False)
+    email_director = models.CharField(max_length=100, null=False)
     Nombre_Sub_Director = models.CharField(max_length=50, null=False)
     Numero_Sub_Director = models.IntegerField(null=False)
-    Info_Proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
+    email_sub_director = models.CharField(max_length=100, null=False)
+
+    # Info_Proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
     
 class Participantes_Proyecto(models.Model):
     Nombre_participantes_de_desarrollo = models.CharField(max_length=50, null=True)
@@ -135,14 +143,15 @@ class Participantes_Proyecto(models.Model):
     
 class Autores(models.Model):
     Nombre_Autor_Proyecto = models.CharField(null=False, max_length=50)
-    Numero_Cedula_Autor = models.IntegerField(null=False)
-    Email_Autor_Proyecto = models.EmailField(null=False)
-    Numero_Telefono_Autor = models.IntegerField(null=False)
     Tipo_Vinculacion_entidad = models.CharField(max_length=15 ,null=False, choices=[('planta', 'Planta'), ('contratista', 'Contratista') , ('planta_temporal' , 'Planta_temporal')])
+    Numero_Cedula_Autor = models.IntegerField(null=False)
     Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
+    Email_Autor_Proyecto = models.EmailField(null=False)
     Numero_meses_vinculacion_Autor = models.IntegerField(null=False)
+    Numero_Telefono_Autor = models.IntegerField(null=False)
     Numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
-    Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+
 class Analisis_Participantes(models.Model):
     Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=False, max_length=100)
     Numero_Programas_Beneficiarios_Semilleros_Investigacion = models.IntegerField(null=False)

@@ -1,0 +1,285 @@
+body {
+  background-color: #9aa5a231;
+}
+.img-header {
+  margin-left: 5%;
+}
+.bg-green {
+  background-color: #39a900;
+}
+.btn-bg-green {
+  background-color: #39a900;
+  color: white;
+  text-decoration: none;
+  transition: 0.5s;
+  position: center;
+  width: 15%;
+  margin-right: 4.5%;
+}
+.btn-bg-green:hover {
+  border-radius: 0px;
+  border-bottom: solid 2px black;
+  color: black;
+  background-color: white;
+}
+.btn-bg-white {
+  background-color: white;
+  /* color: black; */
+  text-decoration: none;
+  transition: 0.35s;
+  position: center;
+  font-weight: bold;
+  text-align: center;
+}
+.btn-bg-white:hover {
+  background-color: #39a900;
+  color: white;
+  text-decoration: none;
+}
+footer {
+  bottom: 0;
+  left: 0;
+  height: 90%;
+  width: 100%;
+  background-color: #fffcfc;
+  color: #000000;
+  text-align: center;
+  padding: 0%;
+}
+.centradow {
+  display: flex;
+  justify-content: center;
+}
+.izq {
+  display: flex;
+  justify-content: left;
+}
+.border_radius {
+  border-radius: 5px;
+}
+.rectangular-textarea {
+  width: 150%;
+  min-height: 100px;
+  height: 100px;
+}
+
+.medium-textarea {
+  font-size: 16px;
+}
+.border_radius {
+  height: auto;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.botoncitos {
+  transition: 0.4s;
+}
+
+.botoncitos:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.spos {
+  margin-left: 5%;
+}
+
+/* .selectmod{
+    width: 100%;
+
+} */
+.form-control,
+.form-control-sm {
+  box-sizing: border-box;
+  height: 40px;
+  width: 100%;
+  padding: 0.375rem 0.75rem; /* Ocupará todo el ancho de su contenedor padre */
+}
+/* Media queries */
+
+/* Pantallas pequeñas (menos de 576px) */
+@media (max-width: 575.98px) {
+  .spos {
+    margin-left: 2%;
+  }
+  .btn-bg-green,
+  .btn-bg-white {
+    width: 100%;
+  }
+  .selectmod {
+    width: 100%;
+  }
+}
+
+/* Pantallas medianas (menos de 768px) */
+@media (max-width: 767.98px) {
+  .spos {
+    margin-left: 3%;
+  }
+}
+
+/* Pantallas grandes (menos de 992px) */
+@media (max-width: 991.98px) {
+  .spos {
+    margin-left: 4%;
+  }
+}
+/* Estilo por defecto para pantallas más grandes */
+img[src="sennova_logo.png"] {
+  width: 150px;
+}
+
+/* Ajustar el tamaño para pantallas pequeñas */
+@media (max-width: 575.98px) {
+  img[src="sennova_logo.png"] {
+    width: 100px;
+  }
+}
+
+@media (max-width: 400px) {
+  img[src="sennova_logo.png"] {
+    width: 70px;
+  }
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.step-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(186, 180, 180);
+  transition: 0.4s;
+}
+/* Mientras des click (actual) */
+.step-button[aria-expanded="true"] {
+  width: 60px;
+  height: 60px;
+  background-color: rgb(7, 195, 48);
+  color: #fff;
+}
+/* Despues de finalizar dicho paso(pasado)*/
+.done {
+  background-color: rgb(3, 171, 90);
+  color: #fff;
+}
+.step-item {
+  z-index: 10;
+  text-align: center;
+}
+#progress {
+  -webkit-appearance: none;
+  position: absolute;
+  width: 95%;
+  z-index: 5;
+  height: 10px;
+  margin-left: 18px;
+  margin-bottom: 18px;
+}
+/* Barra de progreso */
+#progress::-webkit-progress-value {
+  background-color: rgb(7, 195, 48);
+  transition: 0.5s ease;
+}
+/* Barra de progreso sin completar */
+#progress::-webkit-progress-bar {
+  background-color: rgb(255, 255, 255);
+}
+.pasop {
+  margin-top: 1%;
+}
+.dcanva {
+  background-color: white;
+  width: 25%;
+}
+.btn-n {
+  color: rgb(3, 171, 90);
+  background-color: white;
+  border-color: gray;
+}
+.contenido {
+  padding: 1%;
+}
+.txtarea {
+  height: 15%;
+}
+.txt_crp{
+  height: 100px;
+}
+select {
+  width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+select option:hover {
+  title: attr(data-title);
+}
+/* Stepper */
+.steps.pasop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+}
+
+.step-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-button {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .steps.pasop {
+    flex-direction: column;
+  }
+  .step-item {
+    margin-top: 6%;
+  }
+
+  .step-item {
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 400px) {
+  .dcanva {
+    width: 40%!important; 
+  }
+}
+.bg-custom-green {
+  background-color: #38a9001e;
+  width: 100%;
+}
+
+
+/* Linea divisoria solo para web */
+@media (min-width: 768px){
+  .border-color-custom {
+    border-color: #38a90080 !important;
+    /* border-color: gray !important; */
+  }
+  .border-end pe-4{
+    border-right: 1px solid currentColor;
+    padding-right: 1.5rem; 
+  } 
+  
+}
+
+
