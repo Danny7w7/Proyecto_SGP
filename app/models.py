@@ -37,7 +37,7 @@ class Conocimientos(models.Model):
 
 # Generalidades
 class Informacion_Proyecto(models.Model):
-    codigo_Dependencia_Presupuestal = models.CharField(max_length=10, null=False)
+    codigo_Dependencia_Presupuestal = models.CharField(max_length=50, null=False)
     tematicas_Estrategias_SENA = models.CharField(max_length=100, null=False)
     link_video_proyecto = models.CharField(max_length=500, null=False)
     proyecto_Relacionado_Industrial40 = models.BooleanField(null=False)
