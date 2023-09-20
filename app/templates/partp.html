@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -10,7 +11,7 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -24,11 +25,11 @@
             </a>
         </div>
         <div class="col-md-8 col-7 text-center align-self-center">
-            <img class="pt-3 pb-3" src="LogoSenaVerde.png" alt="LogoSenaVerde" width="50">
+            <img class="pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" alt="LogoSenaVerde" width="50">
         </div>
         <div class="col-2 d-flex align-items-center justify-content-end">
-            <img class="img-fluid me-2" src="Logo_gici.jpeg" alt="Logo Gici" width="70">
-            <img class="img-fluid" src="sennova_logo.png" alt="Sennova Logo" width="170;">
+            <img class="img-fluid me-2" src="{% static 'img/Logo_gici.jpeg' %}" alt="Logo Gici" width="70">
+            <img class="img-fluid" src="{% static 'img/sennova_logo.png' %}" alt="Sennova Logo" width="170;">
         </div>
     </header>
 
@@ -67,7 +68,7 @@
                             <div class="d-flex justify-content-end mt-3 mr-3">
                                 <div class="col-4 mb-4">
                                     <div class="progress" role="progressbar" aria-label="Example with label"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
                                         <div class="progress-bar bg-green" style="width: 25%">25%</div>
                                     </div>
                                 </div>
@@ -77,13 +78,18 @@
                             </div>
                             <div class="row justify-content-center">
                                 <div class="col-12 col-md-10">
+                                    <form method="post"></form>
                                     <div class="bg-light mt-2 spos border_radius row me-0">
                                         <!-- Primera columna con 5 campos -->
                                         <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                            <label for="" class="form-label">Número de semilleros de investigación
-                                                beneficiados<br>con el proyecto</label>
-                                            <select name="" id="" class="form-control selectmod">
-                                                <option value="" disabled selected>Selecciona una opción...</option>
+                                            <form method="post">
+                                                {% csrf_token %}
+                                            <label for="" class="form-label">Nombres de los semilleros de investigación beneficiados</label>
+                                            <input type="text" name="Nombre_Semillero_Investigacion_Beneficiados" id="Nombre_Semillero_Investigacion_Beneficiados" class="form-control form-control-sm" placeholder="">
+                
+                                            <label for="" class="form-label">Número de programas de formación beneficiados que conforman el (los) semillero (s)</label>
+                                            <select name="Numero_Programas_Beneficiarios_Semilleros_Investigacion" id="Numero_Programas_Beneficiarios_Semilleros_Investigacion" class="form-control selectmod">
+                                                <option value="" disabled selected>Seleccione...</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -91,31 +97,18 @@
                                                 <option value="5">5</option>
                                             </select>
                 
-                                            <label for="" class="form-label">Rol Sennova del participante en el desarrollo del proyecto</label>
-                                            <select name="" id="" class="form-control selectmod">
-                                                <option value="" disabled selected>Seleccione...</option>
-                                                <option value="formulador">Formulador</option>
-                                                <option value="investigador">Investigador</option>
-                                                <option value="dinamizador">Dinamizador</option>
-                                                <option value="instructor">Instructor</option>
-                                                <option value="aprendiz">Aprendiz</option>
-                                            </select>
-                
-                                            <label for="" class="form-label">Número de los aprendices que participarán
-                                                <br>en la ejecución del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
-                
-                                            <label for="" class="form-label">Tipo de programas de formación beneficiados
-                                                con la ejecución del proyecto</label>
-                                            <select name="" id="" class="form-control selectmod">
+                                            <label for="" class="form-label">Tipo de programas de formación beneficiados que conforman el (los) semillero (s)</label>
+                                            <select name="Tipo_programas_formación_beneficiados_conforman_semillero" id="Tipo_programas_formación_beneficiados_conforman_semillero" class="form-control selectmod">
                                                 <option value="" disabled selected>Selecciona una opción...</option>
                                                 <option value="tecnico">Técnico</option>
                                                 <option value="tecnologico">Tecnológico</option>
                                             </select>
                 
-                                            <label for="" class="form-label">Tipo de programas de formación beneficiados
-                                                que conforman el (los) semillero (s)</label>
-                                            <select name="" id="" class="form-control selectmod">
+                                            <label for="" class="form-label">Nombre de los programas de formación beneficiados que conforman el (los) semillero (s) </label>
+                                            <input type="text" name="Nombre_programas_formación_beneficiados_semillero" id="Nombre_programas_formación_beneficiados_semillero" class="form-control form-control-sm" placeholder="">
+                
+                                            <label for="" class="form-label">Tipo de programas de formación beneficiados con la ejecución del proyecto</label>
+                                            <select name="Tipo_programas_de_formación_beneficiados_por_ejecución" id="Tipo_programas_de_formación_beneficiados_por_ejecución" class="form-control selectmod">
                                                 <option value="" disabled selected>Selecciona una opción...</option>
                                                 <option value="tecnico">Técnico</option>
                                                 <option value="tecnologico">Tecnológico</option>
@@ -124,28 +117,25 @@
                 
                                         <!-- Segunda columna con 4 campos -->
                                         <div class="col-12 col-md-6 mb-3">
-                                            <label for="" class="form-label">Nombre de los programas de formación
-                                                beneficiados que conforman el (los) semillero (s)</label>
-                                            <input type="text" class="form-control form-control-sm" placeholder="">
+                                            <label for="" class="form-label">Nombre de los programas de formación beneficiados con la ejecución del proyecto</label>
+                                            <input type="text" name="Nombre_programas_formación_beneficiados_ejecución_proyecto" id="Nombre_programas_formación_beneficiados_ejecución_proyecto" class="form-control form-control-sm" placeholder="">
                 
-                                            <label for="" class="form-label">Num. horas semanales dedicadas participante
-                                                desarrollo del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
+                                            <label for="" class="form-label">Número de los aprendices que participarán en la ejecución del proyecto</label>
+                                            <input type="number" name="Número_aprendices_participarán_ejecución_proyecto" id="Número_aprendices_participarán_ejecución_proyecto" class="form-control form-control-sm" placeholder="">
                 
-                                            <label for="" class="form-label">Número de documento del participante
-                                                desarrollo del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
+                                            <label for="" class="form-label">Número de municipios beneficiados con la ejecución del proyecto</label>
+                                            <input type="number" name="Número_municipios_beneficiados" id="Número_municipios_beneficiados" class="form-control form-control-sm" placeholder="">
                 
-                                            <label for="" class="form-label">Número de teléfono del participante
-                                                desarrollo del proyecto</label>
-                                            <input type="number" class="form-control form-control-sm" placeholder="">
+                                            <label for="" class="form-label">Nombre de los municipios beneficiados y descripción del beneficio</label>
+                                            <input type="text" name="Nombre_municipios_beneficiados_descripción_beneficio" id="Nombre_municipios_beneficiados_descripción_beneficio" class="form-control form-control-sm" placeholder="">
                                         </div>
                 
                                         <!-- Botón Siguiente centrado -->
                                         <div class="d-flex justify-content-center col-12">
-                                            <a type="button" href="autorp.html"
-                                                class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</a>
+                                            <button type="submit"
+                                                class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                         </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +155,7 @@
                             <div class="d-flex justify-content-end mt-3 mr-3">
                                 <div class="col-4 mb-4">
                                     <div class="progress" role="progressbar" aria-label="Example with label"
-                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
                                         <div class="progress-bar bg-green" style="width: 25%">25%</div>
                                     </div>
                                 </div>
@@ -179,18 +169,24 @@
                                         <!-- Primera columna con 11 campos -->
                                         <div class="col-12 col-md-6">
                                             <div class="mb-3 border-end pe-4 border-color-custom">
-
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                
                                                 <label for="" class="form-label">Nombre de la entidad aliada/Centro de Formación</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
+                                                <input type="text" name="nombre_entidad" id="nombre_entidad" class="form-control form-control-sm" placeholder="">
 
-                                                <label for="" class="form-label">Descripción de la destinación del dinero aportado</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
-
-                                                <label for="" class="form-label">Número de identificación de los integrantes</label>
-                                                <input type="number" class="form-control form-control-sm" placeholder="">
+                                                <label for="" class="form-label">Tipo de entidad aliada en el proyecto</label>
+                                                <select name="tipo_entidad_aliada" id="tipo_entidad_aliada" class="form-control selectmod">
+                                                    <option value="" disabled selected>Seleccione una opción...</option>
+                                                    <option value="empresa">Empresa</option>
+                                                    <option value="universidad">Universidad</option>
+                                                    <option value="entidad_sin_animo_lucro">Entidad sin ánimo de lucro</option>
+                                                    <option value="centro_formacion_sena">Centro de formación SENA</option>
+                                                    <option value="otra">Otra</option>
+                                                </select>
 
                                                 <label for="" class="form-label">Naturaleza de la entidad en el proyecto</label>
-                                                <select name="" id="" class="form-control selectmod">
+                                                <select name="naturaleza_entidad" id="naturaleza_entidad" class="form-control selectmod">
                                                     <option value="" disabled selected>Selecciona una opción...</option>
                                                     <option value="publica">Pública</option>
                                                     <option value="privada">Privada</option>
@@ -198,8 +194,73 @@
                                                     <option value="ong">ONG</option>
                                                 </select>
 
+                                                <label for="" class="form-label">Clasificación de empresa (entidad aliada)</label>
+                                                <select name="clasificiacion_empresa" id="clasificiacion_empresa" class="form-control selectmod">
+                                                    <option value="" disabled selected>Seleccione una opción...</option>
+                                                    <option value="microempresa">Microempresa</option>
+                                                    <option value="pequena">Pequeña</option>
+                                                    <option value="mediana">Mediana</option>
+                                                    <option value="grande">Grande</option>
+                                                </select>
+
+                                                <label for="" class="form-label">NIT (entidad aliada)</label>
+                                                <input type="number" name="nit" id="nit" class="form-control form-control-sm" placeholder="">
+                                                
+                                                <label for="" class="form-label">Convenio (entidad aliada)</label>
+                                                <select name="convenio" id="convenio" class="form-control selectmod">
+                                                    <option value="" disabled selected>Seleccione una opción...</option>
+                                                    <option value="True">Sí</option>
+                                                    <option value="False">No</option>
+                                                </select>
+
+                                                <label for="" class="form-label">Si contestó la pregunta anterior tipo y código de convenio</label>
+                                                <input type="text" name="especifique_tipo_codigo_convenio" id="especifique_tipo_codigo_convenio" class="form-control form-control-sm" placeholder="">
+                                            
+                                            
+                                                <label for="" class="form-label">Nombres de integrantes que participan (entidad aliada)</label>
+                                                <input type="text" name="nombres_integrantes_participantes_entidad_aliada" id="nombres_integrantes_participantes_entidad_aliada" class="form-control form-control-sm" placeholder="">
+
+                                                <label for="" class="form-label">Número de identificación de los integrantes</label>
+                                                <input type="number" name="numero_identificacion_integrantes" id="numero_identificacion_integrantes" class="form-control form-control-sm" placeholder="">
+
+                                                <label for="" class="form-label">Email de los integrantes<br>(entidad aliada)</label>
+                                                <input type="email" name="email_integrantes" id="email_integrantes" class="form-control form-control-sm" placeholder="">
+
+                                                <label for="" class="form-label">Número de celular de integrantes<br>(entidad aliada)</label>
+                                                <input type="number" name="numeros_celular_integrantes" id="numeros_celular_integrantes" class="form-control form-control-sm" placeholder="">
+                                            </div>
+                                        </div>
+                                        <!-- Segunda columna con 10 campos -->
+                                        <div class="col-12 col-md-6">
+                                            <!-- Campo 1 -->
+                                            
+                                                <label for="" class="form-label">Recursos en especie entidad aliada ($COP)</label>
+                                                <input type="number" name="recursos_especie_entidad" id="recursos_especie_entidad" class="form-control form-control-sm" placeholder="">
+                                            
+                                            <!-- Campo 2 -->
+                                            
+                                                <label for="" class="form-label">Descripción de los recursos en especie aportados</label>
+                                                <input type="text" name="descripcion_recursos_especie_aportados" id="descripcion_recursos_especie_aportados" class="form-control form-control-sm" placeholder="">
+                                            
+                                            <!-- Campo 3 -->
+                                            
+                                                <label for="" class="form-label">Recursos en dinero entidad aliada ($COP)</label>
+                                                <input type="number" name="recursos_dinero_entidad_aliada" id="recursos_dinero_entidad_aliada" class="form-control form-control-sm" placeholder="">
+                                            
+                                            <!-- Campo 4 -->
+                                            
+                                                <label for="" class="form-label">Descripción de la destinación del dinero aportado</label>
+                                                <input type="text" name="descripcion_destinacion_dinero_aportado" id="descripcion_destinacion_dinero_aportado" class="form-control form-control-sm" placeholder="">
+                                            
+                                            <!-- Campo 5 -->
+                                            
+                                                <label for="" class="form-label">Nombre del grupo de investigación de la entidad aliada</label>
+                                                <input type="text" name="nombre_grupo_inv_entidad_aliada" id="nombre_grupo_inv_entidad_aliada" class="form-control form-control-sm" placeholder="">
+                                            
+                                            <!-- Campo 6 -->
+                                            
                                                 <label for="" class="form-label">Código de GrupLAC (entidad aliada)</label>
-                                                <select name="" id="" class="form-control selectmod">
+                                                <select name="codigo_gruplac_entidad_aliada" id="codigo_gruplac_entidad_aliada" class="form-control selectmod">
                                                     <option value="" disabled selected>Seleccione una opción...</option>
                                                     <option value="col0153676">COL0153676</option>
                                                 <option value="col0085647">COL0085647</option>
@@ -321,93 +382,33 @@
                                                 <option value="col0171843">COL0171843</option>
                                                 <option value="col0164249">COL0164249</option>
                                                 </select>
-
-                                                <label for="" class="form-label">Número de celular de los integrantes</label>
-                                                <input type="number" class="form-control form-control-sm" placeholder="">
-
-                                                <label for="" class="form-label">NIT (entidad aliada)</label>
-                                                <input type="number" class="form-control form-control-sm" placeholder="">
-
-                                                <label for="" class="form-label">Recursos en especie entidad aliada($COP)</label>
-                                                <input type="number" class="form-control form-control-sm" placeholder="">
-
-                                                <label for="" class="form-label">Actividades a desarrollar por la entidad aliada(proyecto)</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
-
-                                                <label for="" class="form-label">Descripción de los recursos en especie aportados (entidad aliada)</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
-
-                                                <label for="" class="form-label">Objetivo(s) especificos relacionados</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
-                                            </div>
-                                        </div>
-                                        <!-- Segunda columna con 10 campos -->
-                                        <div class="col-12 col-md-6">
-                                            <!-- Campo 1 -->
-                                            
-                                                <label for="" class="form-label">Nombres de integrantes que participan (entidad aliada)</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
-                                            
-                                            <!-- Campo 2 -->
-                                            
-                                                <label for="" class="form-label">Tipo de entidad aliada en el proyecto</label>
-                                                <select name="" id="" class="form-control selectmod"> <!-- Tus opciones aquí... --> </select>
-                                            
-                                            <!-- Campo 3 -->
-                                            
-                                                <label for="" class="form-label">Nombre de Grupo de Investigación de la entidad aliada</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
-                                            
-                                            <!-- Campo 4 -->
-                                            
-                                                <label for="" class="form-label">Email de los integrantes en el proyecto</label>
-                                                <input type="email" class="form-control form-control-sm" placeholder="">
-                                           
-                                            <!-- Campo 5 -->
-                                            
-                                                <label for="" class="form-label">Clasificación de empresa (entidad aliada)</label>
-                                                <select name="" id="" class="form-control selectmod">
-                                                    <option value="" disabled selected>Seleccione una opción...</option>
-                                                    <option value="microempresa">Microempresa</option>
-                                                    <option value="pequena">Pequeña</option>
-                                                    <option value="mediana">Mediana</option>
-                                                    <option value="grande">Grande</option>
-                                                </select>
-                                            
-                                            <!-- Campo 6 -->
-                                            
-                                                <label for="" class="form-label">Link GrupLAC (entidad aliada)</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
                                             
                                             <!-- Campo 7 -->
                                             
-                                                <label for="" class="form-label">Recursos en dinero $COP (entidad aliada)</label>
-                                                <input type="number" class="form-control form-control-sm" placeholder="">
+                                                <label for="" class="form-label">Link de GrupLAC<br>(entidad aliada)</label>
+                                                <input type="text" name="link_gruplac_entidad_aliada" id="link_gruplac_entidad_aliada" class="form-control form-control-sm" placeholder="">
                                             
                                             <!-- Campo 8 -->
                                             
-                                                <label for="" class="form-label">Metodología o actividades de transferencia (Centro Formación)</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
+                                                <label for="" class="form-label">Actividades a desarrollar por la entidad aliada<br>(proyecto)</label>
+                                                <input type="text" name="actividades_desarrollar_entidad_aliada_marco_proyecto" id="actividades_desarrollar_entidad_aliada_marco_proyecto" class="form-control form-control-sm" placeholder="">
                                            
                                             <!-- Campo 9 -->
                                             
-                                                <label for="" class="form-label">Convenio (entidad aliada)</label>
-                                                <select name="" id="" class="form-control selectmod">
-                                                    <option value="" disabled selected>Seleccione una opción...</option>
-                                                    <option value="si">Sí</option>
-                                                    <option value="no">No</option>
-                                                </select>
+                                                <label for="" class="form-label">Objetivo(s) especificos relacionados</label>
+                                                <input type="text" name="objetivo_especificos_relacionados" id="objetivo_especificos_relacionados" class="form-control form-control-sm" placeholder="">
                                             
                                             <!-- Campo 10 -->
                                             
-                                                <label for="" class="form-label">Si contestó la pregunta anterior tipo y código de convenio</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="">
+                                                <label for="" class="form-label">Metodología o actividades de transferencia (Centro Formación)</label>
+                                                <input type="text" name="metodologia_act_transferencia_centro_formacion" id="metodologia_act_transferencia_centro_formacion" class="form-control form-control-sm" placeholder="">
                                             </div>
                                         </div>
                                         <!-- Botón Siguiente centrado -->
                                         <div class="d-flex justify-content-center col-12">
-                                            <a type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</a>
+                                            <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                         </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
@@ -451,7 +452,7 @@
     </main>
 
     <footer class="border_radius mt-3 mb-3 bg-light border_radius">
-        <img class="pt-3 pb-3" src="LogoSenaVerde.png" style="margin: auto;" width="50">
+        <img class="pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" style="margin: auto;" width="50">
     </footer>
 
     <!-- Bootstrap JavaScript Libraries -->

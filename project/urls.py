@@ -26,4 +26,7 @@ urlpatterns = [
     path('participantes/',views.Participantes_view, name='participantes'),
     #Informacion_proyecto son las "generalidades" del mismo
     path('generalidades/',views.Informacion_Proyecto_view, name='generalidades'),
+    path('est-proyecto/',views.Estructura_del_proyecto_view, name='est_proyecto'),
+    path('part-proyecto/',views.Analisis_Participantes_view, name='part_proyecto'),
+    path('entidad-aliada/',views.Entidades_aliadas_view, name='ent_aliada'),
 ]

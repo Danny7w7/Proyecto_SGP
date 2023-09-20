@@ -75,8 +75,8 @@ class Estructura_del_proyecto(models.Model):
     # arbol_de_problemas = models.CharField()
     identificacion_y_descripcion_problema = models.CharField(max_length=250, null=False)
     justificacion = models.CharField(max_length=250, null=False)
-    marco_conceptual = models.CharField(max_length=250, null=False)
-    informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
+    # marco_conceptual = models.CharField(max_length=250, null=False)
+    # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
 
 class Resultados_y_productos_esperados(models.Model):
     tipo_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
@@ -108,16 +108,16 @@ class Entidades_aliadas(models.Model):
     email_integrantes = models.EmailField(null=True)
     numeros_celular_integrantes = models.BigIntegerField(null=True)
     recursos_especie_entidad = models.BigIntegerField(null=True)
-    descripcion_recursos_especie_aportados = models.BigIntegerField(null=True)
+    descripcion_recursos_especie_aportados = models.CharField(max_length=150, null=True)
     recursos_dinero_entidad_aliada = models.BigIntegerField(null=True)
     descripcion_destinacion_dinero_aportado = models.CharField(max_length=150, null=True)
     nombre_grupo_inv_entidad_aliada = models.CharField(max_length=170, null=True)
-    codigo_gruplac_entidad_aliada = models.IntegerField(null=True)
+    codigo_gruplac_entidad_aliada = models.CharField(max_length=50, null=True)
     link_gruplac_entidad_aliada = models.CharField(max_length=500 ,null=True)
     actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=250, null=True)
     objetivo_especificos_relacionados = models.CharField(max_length=250, null=True)
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
-    informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    # informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
 class Informacion_de_centro(models.Model):
     Region = models.CharField(max_length=50, null=False)
@@ -153,6 +153,7 @@ class Autores(models.Model):
     Numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
     # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
+
 class Analisis_Participantes(models.Model):
     Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=False, max_length=100)
     Numero_Programas_Beneficiarios_Semilleros_Investigacion = models.IntegerField(null=False)
@@ -163,4 +164,4 @@ class Analisis_Participantes(models.Model):
     Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=False)
     Número_municipios_beneficiados = models.IntegerField(null=False)
     Nombre_municipios_beneficiados_descripción_beneficio = models.CharField(null=False, max_length=200)
-    Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)

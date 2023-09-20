@@ -1,351 +1,137 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>PDG</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-</head>
-
-<body class="container-fluid">
-    <header class="bg-light mt-2 ms-1 me-1 row border_radius">
-        <!-- <div class="col-2 ps-4 align-self-center">
-            <a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                aria-controls="offcanvasExample">
-                <span class="material-symbols-outlined" style="color: #39a900;">density_medium</span>
-            </a>
-        </div> -->
-        <div class="col-md-8 col-7 text-center">
-            <img class="pt-3 pb-3" src="LogoSenaVerde.png" style="margin: auto;" width="50">
-        </div>
-        </div>
-        <div class="col-2">
-            <img class="pt-3" src="sennova_logo.png" style="margin: auto;" width="60">
-            <!-- place navbar here -->
-    </header>
-
-    <section class="row ms-1 me-1 mt-2 bg-light border_radius justify-content-center">
-        <div class="col-3">
-            <a style="border: 1px solid #dfdfdf;" name="" id=""
-                class="btn-a btn-bg-white mt-2 mb-2 pt-2 pb-2 centradow border_radius" href="#" role="button">Centro</a>
-        </div>
-        <div class="col-3">
-            <a style="border: 1px solid #dfdfdf;" name="" id=""
-                class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="autorp.html"
-                role="button">Autor</a>
-        </div>
-        <div class="col-3">
-            <a style="border: 1px solid #dfdfdf;" name="" id=""
-                class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="#"
-                role="button">Participantes</a>
-        </div>
-        <!-- <div class="col-3">
-      <a style="border: 1px solid #dfdfdf;" name="" id="" class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="#" role="button">Button</a>
-    </div> -->
-    </section>
-
-    <main class="row ms-1 me-1 mt-2 bg-light border_radius">
-        <!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="crearp.html">Crear proyecto</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="infop.html">Información del proyecto</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Estructura del proyecto</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Proponente</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Objetivos generales específicos</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Metodología</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Participación</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Proyección</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Análisis de riesgo</a>
-                <a class="btn-a btn-bg-white mt-2 pt-2 pb-2 centradow border_radius" href="">Anexos</a>
-                <div class="btn-bg-white mt-2 pt-2 pb-2 centradow border_radius">
-                </div>
-            </div>
-        </div> -->
-
-        <div class="contenido">
-            <div class="row justify-content-center">
+numero_semilleros_inv_beneficiados = models.IntegerField(null=True)
+Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
+Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=False)
+Tipo_programas_de_formación_beneficiados_por_ejecución = models.CharField(null=True, max_length=100)
+Tipo_programas_formación_beneficiados_conforman_semillero = models.CharField(null=False, max_length=100)
+nombre_programas_beneficiados_semilleros = models.CharField(max_length=150, null=True)
+Numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=False)
+Numero_cedula_participantes = models.IntegerField(null=True)
+Numero_Telefono_participantes = models.IntegerField(null=True)
+# Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
 
-                <div class="col-12 col-md-10">
-                    <div class="bg-light mt-2 spos border_radius row me-0">
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Región</label>
-                            <select name="" id="" class="form-control selectmod">
-                                <option value="caribe">Caribe</option>
-                                <option value="pacifico">Pacífica</option>
-                                <option value="orinoquia">Orinoquía</option>
-                                <option value="amazonica">Amazónica</option>
-                                <option value="andina_insular">Andina e insular</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Nombre director(a) regional</label>
-                            <input type="text" class="form-control form-control-sm" name="" id=""
-                                aria-describedby="helpId" placeholder="">
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Nombre subdirector(a) regional</label>
-                            <input type="number" class="form-control form-control-sm" name="" id=""
-                                aria-describedby="helpId" placeholder="">
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Regional</label>
-                            <select name="" id="" class="form-control selectmod">
-                                <option value="">AMAZONAS</option>
-                                <option value="">ANTIOQUIA</option>
-                                <option value="">ARAUCA</option>
-                                <option value="">ATLÁNTICO</option>
-                                <option value="">BOLÍVAR</option>
-                                <option value="">BOYACÁ</option>
-                                <option value="">CALDAS</option>
-                                <option value="">CAQUETÁ</option>
-                                <option value="">CAUCA</option>
-                                <option value="">CESAR</option>
-                                <option value="">CHOCO</option>
-                                <option value="">CÓRDOBA</option>
-                                <option value="">CUNDINAMARCA</option>
-                                <option value="">DISTRITO CAPITAL</option>
-                                <option value="">GUAINÍA</option>
-                                <option value="">GUAJIRA</option>
-                                <option value="">GUAVIARE</option>
-                                <option value="">HUILA</option>
-                                <option value="">MAGDALENA</option>
-                                <option value="">META</option>
-                                <option value="">GUAJIRA</option>
-                                <option value="">NARIÑO</option>
-                                <option value="">NORTE DE SANTANDER</option>
-                                <option value="">PUTUMAYO</option>
-                                <option value="">QUINDÍO</option>
-                                <option value="">SAN ANDRÉS</option>
-                                <option value="">SANTANDER</option>
-                                <option value="">TOLIMA</option>
-                                <option value="">VAUPÉS</option>
-                                <option value="">VICHADA</option>
-                                <option value="">VALLE</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Email director(a) regional</label>
-                            <input type="email" class="form-control form-control-sm" name="" id=""
-                                aria-describedby="helpId" placeholder="">
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Email subdirector(a) regional</label>
-                            <input type="email" class="form-control form-control-sm" name="" id=""
-                                aria-describedby="helpId" placeholder="">
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Nombre centro de formación</label>
-                            <select name="" id="" class="form-control selectmod">
-                                <option value="9517">9517-Centro para la Biodiversidad y el Turismo del Amazonas
-                                </option>
-                                <option value="9101">9101-Centro de los Recursos Naturales Renovables -La Salada
-                                </option>
-                                <option value="9202">9202-Centro de Formación en Diseño, Confección y Moda.</option>
-                                <option value="9203">9203-Centro para el Desarrollo del Hábitat y la Construcción
-                                </option>
-                                <option value="9204">9204-Centro de Tecnología de la Manufactura Avanzada.</option>
-                                <option value="9205">9205-Centro Tecnológico del Mobiliario</option>
-                                <option value="9201"> 9201-Centro del Diseño y Manufactura del Cuero</option>
-                                <option value="9206">9206-Centro Textil y de Gestión Industrial</option>
-                                <option value="9301">9301-Centro de Comercio</option>
-                                <option value="9401">9401-Centro de Servicios de Salud</option>
-                                <option value="9402">9402-Centro de Servicios y Gestión Empresarial</option>
-                                <option value="9501">9501-Complejo Tecnológico para la Gestión Agroempresarial</option>
-                                <option value="9502">9502-Complejo Tecnológico Minero Agroempresarial</option>
-                                <option value="9503">9503-Centro de la Innovación, la Agroindustria y la Aviación
-                                </option>
-                                <option value="9504">9504-Complejo Tecnológico Agroindustrial, Pecuario y Turístico
-                                </option>
-                                <option value="9549">9549-Complejo Tecnológico, Turístico y Agroindustrial del Occidente
-                                    Antioqueño</option>
-                                <option value="9127">9127-Centro de Formación Minero Ambiental</option>
-                                <option value="9530">9530-Centro de Gestión y Desarrollo Agroindustrial de Arauca
-                                </option>
-                                <option value="9103">9103-Centro para el Desarrollo Agroecologico y Agroindustrial
-                                </option>
-                                <option value="9207">9207-Centro Nacional Colombo Alemán</option>
-                                <option value="9208">9208-Centro Industrial y de Aviación </option>
-                                <option value="9302">9302-Centro de Comercio y Servicios</option>
-                                <option value="9104">9104-Centro Agroempresarial y Minero</option>
-                                <option value="9105">9105-Centro Internacional Náutico, Fluvial y Portuario</option>
-                                <option value="9218">9218-Centro para la Industria Petroquímica</option>
-                                <option value="9304">9304-Centro de Comercio y Servicios</option>
-                                <option value="9110">9110-Centro de Desarrollo Agropecuario y Agroindustrial</option>
-                                <option value="9111">9111-Centro Minero</option>
-                                <option value="9305">9305-Centro de Gestión Administrativa y Fortalecimiento Empresarial
-                                </option>
-                                <option value="9514">9514-Centro Industrial de Mantenimiento y Manufactura</option>
-                                <option value="9112">9112-Centro para la Formación Cafetera</option>
-                                <option value="9219">9219-Centro de Automatización Industrial</option>
-                                <option value="9220">9220-Centro de Procesos Industriales y Construcción</option>
-                                <option value="9306">9306-Centro de Comercio y Servicios</option>
-                                <option value="9515">9515-Centro Pecuario y Agroempresarial</option>
-                                <option value="9516">9516-Centro Tecnológico de la Amazonia</option>
-                                <option value="9519">9519-Centro Agroindustrial y Fortalecimiento Empresarial de
-                                    Casanare</option>
-                                <option value="9113">113-Centro Agropecuario</option>
-                                <option value="9221">9221-Centro de Teleinformática y Producción Industrial</option>
-                                <option value="9307">9307-Centro de Comercio y Servicios</option>
-                                <option value="9114">9114-Centro Biotecnológico del Caribe</option>
-                                <option value="9520">9520-Centro Agroempresarial</option>
-                                <option value="9521">9521-Centro de Operación y Mantenimiento Minero</option>
-                                <option value="9522">9522-Centro de Recursos Naturales, Industria y Biodiversidad
-                                </option>
-                                <option value="9115">9115-Centro Agropecuario y de Biotecnología el Porvenir</option>
-                                <option value="9523">9523-Centro de Comercio, Industria y Turismo de Córdoba</option>
-                                <option value="9232">9232-Centro Industrial y de Desarrollo Empresarial de Soacha
-                                </option>
-                                <option value="9509">9509-Centro de Desarrollo Agroindustrial y Empresarial</option>
-                                <option value="9510">9510-Centro Agroecológico y Empresarial</option>
-                                <option value="9511">9511-Centro de la Tecnología de Diseño y la Productividad
-                                    Empresarial</option>
-                                <option value="9512">9512-Centro de Biotecnología Agropecuaria</option>
-                                <option value="9513">9513-Centro de Desarrollo Agroempresarial</option>
-                                <option value="9209">9209-Centro de Tecnologías para la Construcción y la Madera
-                                </option>
-                                <option value="9210">9210-Centro de Electricidad, Electrónica y Telecomunicaciones
-                                </option>
-                                <option value="9211">9211-Centro de Gestión Industrial</option>
-                                <option value="9212">9212-Centro de Manufactura en Textil y Cuero</option>
-                                <option value="9213">9213-Centro de Tecnologías del Transporte</option>
-                                <option value="9214">9214-Centro Metalmecánico</option>
-                                <option value="9215">9215-Centro de Materiales y Ensayos</option>
-                                <option value="9216">9216-Centro de Diseño y Metrología</option>
-                                <option value="9217">9217-Centro para la Industria de la Comunicación Grafica</option>
-                                <option value="9303">9303-Centro de Gestión de Mercados, Logística y Tecnologías de la
-                                    Información</option>
-                                <option value="9403">9403-Centro de Formación de Talento Humano en Salud</option>
-                                <option value="9404">9404-Centro de Gestión Administrativa</option>
-                                <option value="9405">9405-Centro de Servicios Financieros</option>
-                                <option value="9406">9406-Centro Nacional de Hoteleria, Turismo y Alimentos</option>
-                                <option value="9508">9508-Centro de Formación en Actividad Física y cultura</option>
-                                <option value="9547">9547-Centro Ambiental y Ecoturistico del Nororiente Amazónico
-                                </option>
-                                <option value="9222">9222-Centro Industrial y de Energías Alternativas</option>
-                                <option value="9524">9524-Centro Agroempresarial y Acuícola</option>
-                                <option value="9533">9533-Centro de Desarrollo Agroindustrial, Turístico y Tecnológico
-                                    del Guaviare </option>
-                                <option value="9116">9116-Centro de Formación Agroindustrial</option>
-                                <option value="9525">9525-Centro Agroempresarial y Desarrollo Pecuario del Huila
-                                </option>
-                                <option value="9526">9526-Centro de Desarrollo Agroempresarial y Turístico del Huila
-                                </option>
-                                <option value="9527">9527-Centro de la Industria, la Empresa y los Servicios</option>
-                                <option value="9528">9528-Centro de Gestión y Desarrollo Sostenible Surcolombiano
-                                </option>
-                                <option value="9118">9118-Centro Acuícola y Agroindustrial de Gaira</option>
-                                <option value="9529">9529-Centro de Logística y Promoción Ecoturística del Magdalena
-                                </option>
-                                <option value="9117">9117-Centro Agroindustrial del Meta</option>
-                                <option value="9532">9532-Centro de Industria y Servicios del Meta</option>
-                                <option value="9534">9534-Centro Sur Colombiano de Logística Internacional</option>
-                                <option value="9535">9535-Centro Agroindustrial y Pesquero de la Costa Pacifica</option>
-                                <option value="9536">9536-Centro Internacional de Producción Limpia - Lope</option>
-                                <option value="9119">9119-Centro de Formación para el Desarrollo Rural y Minero</option>
-                                <option value="9537">9537-Centro de la Industria, la Empresa y los Servicios</option>
-                                <option value="9518">9518-Centro Agroforestal y Acuícola Arapaima</option>
-                                <option value="9120">9120-Centro Agroindustrial</option>
-                                <option value="9231">9231-Centro para el Desarrollo Tecnológico de la Construcción y la
-                                    Industria</option>
-                                <option value="9538">9538-Centro de Comercio y Turismo</option>
-                                <option value="9121">9121-Centro Atención Sector Agropecuario</option>
-                                <option value="9223">9223-Centro de Diseño e Innovación Tecnológica Industrial</option>
-                                <option value="9308">9308-Centro de Comercio y Servicios</option>
-                                <option value="9539">9539-Centro de Formación Turística, Gente de Mar y de Servicios
-                                </option>
-                                <option value="9122">9122-Centro Atención Sector Agropecuario</option>
-                                <option value="9224">9224-Centro Industrial de Mantenimiento Integral</option>
-                                <option value="9225">9225-Centro Industrial del Diseño y la Manufactura</option>
-                                <option value="9309">9309-Centro de Servicios Empresariales y Turísticos</option>
-                                <option value="9540">9540-Centro Industrial y del Desarrollo Tecnológico</option>
-                                <option value="9541">9541-Centro Agroturístico</option>
-                                <option value="9545">9545-Centro Agroempresarial y Turístico de los Andes</option>
-                                <option value="9546">9546-Centro de Gestión Agroempresarial del Oriente</option>
-                                <option value="9542">9542-Centro de la Innovación, la Tecnología y los Servicios
-                                </option>
-                                <option value="9123">9123-Centro Agropecuario la Granja</option>
-                                <option value="9226">9226-Centro de Industria y Construcción</option>
-                                <option value="9310">9310-Centro de Comercio y Servicios</option>
-                                <option value="9124">9124-Centro Agropecuario de Buga</option>
-                                <option value="9125">9125-Centro Latinoamericano de Especies Menores</option>
-                                <option value="9126">9126-Centro Náutico Pesquero de Buenaventura</option>
-                                <option value="9227">9227-Centro de Electricidad y Automatización Industrial -CEAI
-                                </option>
-                                <option value="9228">9228-Centro de la Construcción</option>
-                                <option value="9229">9229-Centro de Diseño Tecnológico Industrial</option>
-                                <option value="9230">9230-Centro Nacional de Asistencia Técnica a la Industria -ASTIN
-                                </option>
-                                <option value="9311">9311-Centro de Gestión Tecnológica de Servicios</option>
-                                <option value="9543">9543-Centro de Tecnologías Agroindustriales</option>
-                                <option value="9544">9544-Centro de Biotecnología Industrial</option>
-                                <option value="9548">9548-Centro Agropecuario y de Servicios Ambientales "Jiri-jirimo"
-                                </option>
-                                <option value="9531">9531-Centro de Producción y Transformación Agroindustrial de la
-                                    Orinoquia</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Número de telefóno director(a) regional</label>
-                            <input type="number" class="form-control form-control-sm" name="" id=""
-                                aria-describedby="helpId" placeholder="">
-                        </div>
-                        <div class="col-12 col-md-4 mb-3">
-                            <label for="" class="form-label">Número de telefóno del sub-director</label>
-                            <input type="number" class="form-control form-control-sm" name="" id=""
-                                aria-describedby="helpId" placeholder="">
-                        </div>
-
-                        <!-- Botón Siguiente centrado -->
-                        <div class="d-flex justify-content-center col-12">
-                            <a type="button" name="" id="" href="autorp.html"
-                                class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        </div>
-        </div>
-        </div>
-    </main>
-
-    <footer class="border_radius mt-3 mb-3 bg-light border_radius">
-        <img class="pt-3 pb-3" src="LogoSenaVerde.png" style="margin: auto;" width="50">
-    </footer>
-
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-        </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
-        </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-        </script>
-    <script>
-
-        const stepper = document.querySelector('#stepper');
-        new CDB.Stepper(stepper);
-
-    </script>
-
-</body>
-
-</html>
+<!-- 
+                                                    <label for="" class="form-label">Código de GrupLAC (entidad aliada)</label>
+                                                <select name="" id="" class="form-control selectmod">
+                                                    <option value="" disabled selected>Seleccione una opción...</option>
+                                                    <option value="col0153676">COL0153676</option>
+                                                <option value="col0085647">COL0085647</option>
+                                                <option value="col0106783">COL0106783</option>
+                                                <option value="col0110481">COL0110481</option>
+                                                <option value="col0113017">COL0113017</option>
+                                                <option value="col0113975">COL0113975</option>
+                                                <option value="col0129409">COL0129409</option>
+                                                <option value="col0131024">COL0131024</option>
+                                                <option value="col0133799">COL0133799</option>
+                                                <option value="col0146626">COL0146626</option>
+                                                <option value="col0149529">COL0149529</option>
+                                                <option value="col0149869">COL0149869</option>
+                                                <option value="col0150772">COL0150772</option>
+                                                <option value="col0151199">COL0151199</option>
+                                                <option value="col0158921">COL0158921</option>
+                                                <option value="col0163494">COL0163494</option>
+                                                <option value="col0179313">COL0179313</option>
+                                                <option value="col0160339">COL0160339</option>
+                                                <option value="col0147712">COL0147712</option>
+                                                <option value="col0147991">COL0147991</option>
+                                                <option value="col0148246">COL0148246</option>
+                                                <option value="col0148273">COL0148273</option>
+                                                <option value="col0116654">COL0116654</option>
+                                                <option value="col0150389">COL0150389</option>
+                                                <option value="col0152427">COL0152427</option>
+                                                <option value="col0152739">COL0152739</option>
+                                                <option value="col0152937">COL0152937</option>
+                                                <option value="col0157352">COL0157352</option>
+                                                <option value="col0158019">COL0158019</option>
+                                                <option value="col0162236">COL0162236</option>
+                                                <option value="col0102695">COL0102695</option>
+                                                <option value="col0129797">COL0129797</option>
+                                                <option value="col0135328">COL0135328</option>
+                                                <option value="col0153193">COL0153193</option>
+                                                <option value="col0154978">COL0154978</option>
+                                                <option value="col0161426">COL0161426</option>
+                                                <option value="col0160536">COL0160536</option>
+                                                <option value="col0149369">COL0149369</option>
+                                                <option value="col0150487">COL0150487</option>
+                                                <option value="col0141469">COL0141469</option>
+                                                <option value="col0039958">COL0039958</option>
+                                                <option value="col0149637">COL0149637</option>
+                                                <option value="col0192825">COL0192825</option>
+                                                <option value="col0160376">COL0160376</option>
+                                                <option value="col0151189">COL0151189</option>
+                                                <option value="col0154548">COL0154548</option>
+                                                <option value="col0157577">COL0157577</option>
+                                                <option value="col0138544">COL0138544</option>
+                                                <option value="col0144004">COL0144004</option>
+                                                <option value="col0150244">COL0150244</option>
+                                                <option value="col0160438">COL0160438</option>
+                                                <option value="col0164025">COL0164025</option>
+                                                <option value="col0166807">COL0166807</option>
+                                                <option value="col0133996">COL0133996</option>
+                                                <option value="col0146223">COL0146223</option>
+                                                <option value="col0148068">COL0148068</option>
+                                                <option value="col0149305">COL0149305</option>
+                                                <option value="col0150478">COL0150478</option>
+                                                <option value="col0150899">COL0150899</option>
+                                                <option value="col0152356">COL0152356</option>
+                                                <option value="col0154539">COL0154539</option>
+                                                <option value="col0157835">COL0157835</option>
+                                                <option value="col0158663">COL0158663</option>
+                                                <option value="col0160287">COL0160287</option>
+                                                <option value="col0160607">COL0160607</option>
+                                                <option value="col0160616">COL0160616</option>
+                                                <option value="col0162871">COL0162871</option>
+                                                <option value="col0163529">COL0163529</option>
+                                                <option value="col0147276">COL0147276</option>
+                                                <option value="col0153719">COL0153719</option>
+                                                <option value="col0182408">COL0182408</option>
+                                                <option value="col0151018">COL0151018</option>
+                                                <option value="col0039288">COL0039288</option>
+                                                <option value="col0149439">COL0149439</option>
+                                                <option value="col0149468">COL0149468</option>
+                                                <option value="col0150674">COL0150674</option>
+                                                <option value="col0164713">COL0164713</option>
+                                                <option value="col0155376">COL0155376</option>
+                                                <option value="col0157737">COL0157737</option>
+                                                <option value="col0110285">COL0110285</option>
+                                                <option value="col0156739">COL0156739</option>
+                                                <option value="col0150057">COL0150057</option>
+                                                <option value="col0157906">COL0157906</option>
+                                                <option value="col0192754">COL0192754</option>
+                                                <option value="col0160679">COL0160679</option>
+                                                <option value="col0171834">COL0171834</option>
+                                                <option value="col0153709">COL0153709</option>
+                                                <option value="col0117491">COL0117491</option>
+                                                <option value="col0149628">COL0149628</option>
+                                                <option value="col0153433">COL0153433</option>
+                                                <option value="col0149566">COL0149566</option>
+                                                <option value="col0153291">COL0153291</option>
+                                                <option value="col0163609">COL0163609</option>
+                                                <option value="col0156149">COL0156149</option>
+                                                <option value="col0056672">COL0056672</option>
+                                                <option value="col0133029">COL0133029</option>
+                                                <option value="col0135139">COL0135139</option>
+                                                <option value="col0149501">COL0149501</option>
+                                                <option value="col0150932">COL0150932</option>
+                                                <option value="col0152098">COL0152098</option>
+                                                <option value="col0154486">COL0154486</option>
+                                                <option value="col0156462">COL0156462</option>
+                                                <option value="col0155044">COL0155044</option>
+                                                <option value="col0112154">COL0112154</option>
+                                                <option value="col0149225">COL0149225</option>
+                                                <option value="col0149388">COL0149388</option>
+                                                <option value="col0041052">COL0041052</option>
+                                                <option value="col0104635">COL0104635</option>
+                                                <option value="col0112332">COL0112332</option>
+                                                <option value="col0125779">COL0125779</option>
+                                                <option value="col0143188">COL0143188</option>
+                                                <option value="col0149323">COL0149323</option>
+                                                <option value="col0150745">COL0150745</option>
+                                                <option value="col0156229">COL0156229</option>
+                                                <option value="col0158699">COL0158699</option>
+                                                <option value="col0165784">COL0165784</option>
+                                                <option value="col0189276">COL0189276</option>
+                                                <option value="col0171843">COL0171843</option>
+                                                <option value="col0164249">COL0164249</option>
+                                                </select>
+ -->
