@@ -49,13 +49,44 @@ class Informacion_Proyecto(models.Model):
     justificacion_Politica_Discapacidad = models.CharField(max_length=500, null=True)
     # proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
-class Riesgos(models.Model):
+# class BaseRiesgo(models.Model):
+#     tipo = models.CharField(max_length=50, null=False)
+#     descripcion = models.CharField(max_length=150, null=False)
+#     probabilidad = models.CharField(max_length=15, null=False)
+#     impacto = models.CharField(max_length=150, null=False)
+#     medidas_Mitigacion = models.CharField(max_length=150, null=False)
+#     efectos = models.CharField(max_length=150, null=False)
+#     # info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+
+#     class Meta:
+#         abstract = True
+
+class RiesgoObjetivoGeneral(models.Model):
     tipo = models.CharField(max_length=50, null=False)
     descripcion = models.CharField(max_length=150, null=False)
-    probabilidad = models.IntegerField(null=False)
+    probabilidad = models.CharField(max_length=15, null=False)
     impacto = models.CharField(max_length=150, null=False)
     medidas_Mitigacion = models.CharField(max_length=150, null=False)
-    info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    efectos = models.CharField(max_length=150, null=False)
+    # info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+
+class RiesgoProductos(models.Model):
+    tipo2 = models.CharField(max_length=50, null=False)
+    descripcion2 = models.CharField(max_length=150, null=False)
+    probabilidad2 = models.CharField(max_length=15, null=False)
+    impacto2 = models.CharField(max_length=150, null=False)
+    medidas_Mitigacion2 = models.CharField(max_length=150, null=False)
+    efectos2 = models.CharField(max_length=150, null=False)
+    # info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+
+class RiesgoActividades(models.Model):
+    tipo3 = models.CharField(max_length=50, null=False)
+    descripcion3 = models.CharField(max_length=150, null=False)
+    probabilidad3 = models.CharField(max_length=15, null=False)
+    impacto3 = models.CharField(max_length=150, null=False)
+    medidas_Mitigacion3 = models.CharField(max_length=150, null=False)
+    efectos3 = models.CharField(max_length=150, null=False)
+    # info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
     
 class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=250, null=False)

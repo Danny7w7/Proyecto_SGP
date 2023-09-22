@@ -29,4 +29,7 @@ urlpatterns = [
     path('est-proyecto/',views.Estructura_del_proyecto_view, name='est_proyecto'),
     path('part-proyecto/',views.Analisis_Participantes_view, name='part_proyecto'),
     path('entidad-aliada/',views.Entidades_aliadas_view, name='ent_aliada'),
+    path('riesgos-proyecto/',views.Riesgos_objetivo_general_view, name='riesgos_proyecto'),
+    path('riesgo-productos/',views.Riesgo_productos_view, name='riesgo_productos'),
+    path('riesgo-actividades/',views.Riesgo_actividades_view, name='riesgo_actividades'),
 ]

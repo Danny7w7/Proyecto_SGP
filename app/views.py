@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from app.forms import AutoresForm, ProyectoForm, Informacion_de_centroForm, ParticipantesForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm
+from app.forms import AutoresForm, ProyectoForm, Informacion_de_centroForm, ParticipantesForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm
 from app.models import Proyecto
 
 
@@ -93,3 +93,36 @@ def  Entidades_aliadas_view(request):
     
     context = {'form': form}
     return render(request, 'partp.html', context)
+
+def Riesgos_objetivo_general_view(request):
+    if request.method == 'POST':
+        form = RiesgoObjetivoGeneralForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RiesgoObjetivoGeneralForm()
+
+    context = {'form': form}
+    return render(request, 'riesgosp.html', context)
+
+def Riesgo_productos_view(request):
+    if request.method == 'POST':
+        form = RiesgoProductosForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RiesgoProductosForm()
+
+    context = {'form': form}
+    return render(request, 'riesgosp.html', context)
+
+def Riesgo_actividades_view(request):
+    if request.method == 'POST':
+        form = RiesgoActividadesForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RiesgoActividadesForm()
+
+    context = {'form': form}
+    return render(request, 'riesgosp.html', context)

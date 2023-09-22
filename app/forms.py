@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Proyecto, Informacion_de_centro, Autores, Participantes_Proyecto, Informacion_Proyecto, Estructura_del_proyecto, Analisis_Participantes, Entidades_aliadas
+from .models import Proyecto, Informacion_de_centro, Autores, Participantes_Proyecto, Informacion_Proyecto, Estructura_del_proyecto, Analisis_Participantes, Entidades_aliadas, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades 
 
 class ProyectoForm(forms.ModelForm):
     class Meta:
@@ -43,3 +43,19 @@ class Entidades_aliadasForm(forms.ModelForm):
     class Meta:
         model = Entidades_aliadas
         fields = '__all__'
+
+class RiesgoObjetivoGeneralForm(forms.ModelForm):
+    class Meta:
+        model = RiesgoObjetivoGeneral
+        fields = '__all__'
+
+class RiesgoProductosForm(forms.ModelForm):
+    class Meta:
+        model = RiesgoProductos
+        fields = '__all__'
+
+class RiesgoActividadesForm(forms.ModelForm):
+    class Meta:
+        model = RiesgoActividades
+        fields = '__all__'
+
