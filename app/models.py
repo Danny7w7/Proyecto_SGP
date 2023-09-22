@@ -150,6 +150,7 @@ class Entidades_aliadas(models.Model):
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
     # informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
+# Informacion proponente
 class Informacion_de_centro(models.Model):
     Region = models.CharField(max_length=50, null=False)
     Regional = models.CharField(max_length=50, null=False)
@@ -184,7 +185,7 @@ class Autores(models.Model):
     Numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
     # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
-
+# Centro de formacion
 class Analisis_Participantes(models.Model):
     Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=False, max_length=100)
     Numero_Programas_Beneficiarios_Semilleros_Investigacion = models.IntegerField(null=False)
