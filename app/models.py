@@ -103,11 +103,15 @@ class Actividades_de_objetivos_especificos(models.Model):
 class Estructura_del_proyecto(models.Model):
     resumen_ejecutivo = models.CharField(max_length=250, null=False)
     antecedentes = models.CharField(max_length=250, null=False)
-    # arbol_de_problemas = models.CharField()
+    # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
+
+class Estructura_arbol_problemas(models.Model):
+    arbol_de_problemas = models.CharField(max_length=150, null=True)
+
+class Estructura_problema(models.Model):
     identificacion_y_descripcion_problema = models.CharField(max_length=250, null=False)
     justificacion = models.CharField(max_length=250, null=False)
-    # marco_conceptual = models.CharField(max_length=250, null=False)
-    # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
+    # marco_conceptual = models.ImageField()
 
 class Resultados_y_productos_esperados(models.Model):
     tipo_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)

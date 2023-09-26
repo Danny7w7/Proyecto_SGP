@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from app.forms import AutoresForm, ProyectoForm, Informacion_de_centroForm, ParticipantesForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm
+from app.forms import AutoresForm, ProyectoForm, Informacion_de_centroForm, ParticipantesForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
 from app.models import Proyecto
 
 
@@ -68,6 +68,28 @@ def  Estructura_del_proyecto_view(request):
             form.save()
     else:
         form = Estructura_del_proyectoForm()
+    
+    context = {'form': form}
+    return render(request, 'estp.html', context)
+    
+def  Estructura_arbol_problemas_view(request):
+    if request.method == "POST":
+        form = Estructura_arbol_problemasForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = Estructura_arbol_problemasForm()
+    
+    context = {'form': form}
+    return render(request, 'estp.html', context)
+
+def  Estructura_problema_view(request):
+    if request.method == "POST":
+        form = Estructura_problemaForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = Estructura_problemaForm()
     
     context = {'form': form}
     return render(request, 'estp.html', context)

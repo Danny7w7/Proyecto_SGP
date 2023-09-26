@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "Numero_Cedula_Autor": {
-            pattern: /^\d{10}$/,
-            errorMsg: 'El número de documento no es válido. Debe tener 10 digitos númericos',
+            pattern: /^\d{5,20}$/,
+            errorMsg: 'El número de documento no es válido. Debe tener digitos númericos',
         },
         "Email_Autor_Proyecto": {
             pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -53,8 +53,57 @@ document.addEventListener("DOMContentLoaded", function() {
         },
         "Numero_horas_Semanales_dedicadas_Autores": {
             pattern: /^(0|[1-9]\d?|1[0-6]\d|168)$/,
+            errorMsg: 'El número no es válido. Debe tener digitos númericos',
+        },
+       },
+    //    //Validacion participantes
+       "form3":{
+        "Nombre_participantes_de_desarrollo":{
+            pattern: /^[A-Za-z ]{5,50}$/,
+            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios',
+        }, 
+        "Numero_cedula_participantes": {
+            pattern: /^\d{5,20}$/,
+            errorMsg: 'El número de documento no es válido. Debe tener digitos númericos',
+        },
+        "Numero_meses_vinculacion_participantes": {
+            pattern: /^\d{1,2}$/,
+            errorMsg: 'El número no es válido. Debe tener digitos númericos',
+        },
+        "Email_participantes_de_desarrollo": {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+        },
+        "Numero_horas_Semanales_dedicadas_participantes": {
+            pattern: /^(0|[1-9]\d?|1[0-6]\d|168)$/,
+            errorMsg: 'El número no es válido. Debe tener digitos númericos',
+        },
+        "Numero_Telefono_participantes": {
+            pattern: /^\d{10}$/,
             errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
         },
+       },
+       "form4":{
+        "Numero_Telefono_participantes": {
+            pattern: /^\d{10}$/,
+            errorMsg: 'El link no es válido.',
+        },
+        "link_video_proyecto": {
+            pattern: /^(http|https):\/\/[^ "]+$/,
+            errorMsg: 'El link no es válido.',
+        },
+        "justificacion_Economia_Naranja":{
+            pattern: /^[A-Za-z ]{5,500}$/,
+            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
+        }, 
+        "justificacion_Politica_Discapacidad":{
+            pattern: /^[A-Za-z ]{5,500}$/,
+            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
+        }, 
+        "justificacion_Industrial":{
+            pattern: /^[A-Za-z ]{5,500}$/,
+            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
+        }, 
        }
     };
 
@@ -81,6 +130,8 @@ document.addEventListener("DOMContentLoaded", function() {
 //ids de los formularios
     const form1 = document.getElementById("form1");
     const form2 = document.getElementById("form2");
+    const form3 = document.getElementById("form3");
+    const form4 = document.getElementById("form4");
 
     if(form1) {
         form1.addEventListener("submit", function(event) {
@@ -93,6 +144,17 @@ document.addEventListener("DOMContentLoaded", function() {
             handleFormSubmit(event, 'form2');
         });
     }
+    if (form3) {
+        form3.addEventListener("submit", function(event) {
+            handleFormSubmit(event, 'form3');
+        });
+    }
+    if (form4) {
+        form4.addEventListener("submit", function(event) {
+            handleFormSubmit(event, 'form4');
+        });
+    }
+
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;

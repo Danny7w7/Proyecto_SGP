@@ -539,7 +539,7 @@
                                     <div class="bg-light mt-2 spos border_radius row me-0">
                                         <!-- Primera columna con 4 campos -->
                                         <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                            <form method="post" class="needs-validation">
+                                            <form method="post" class="needs-validation" id="form3">
                                                 {% csrf_token %}
                                             <label for="Nombre_participantes_de_desarrollo" class="form-label">Nombres y apellidos del participante
                                                 desarrollo del proyecto</label>
@@ -547,7 +547,7 @@
                                             <div class="invalid-feedback">
                                             </div>
 
-                                            <label for="" class="form-label">Rol Sennova del participante en el desarrollo del proyecto</label>
+                                            <label for="Rol_Sennova_De_Participantes_de_Proyecto" class="form-label">Rol Sennova del participante en el desarrollo del proyecto</label>
                                             <select name="Rol_Sennova_De_Participantes_de_Proyecto" id="Rol_Sennova_De_Participantes_de_Proyecto" class="form-control selectmod">
                                                 <option value="" disabled selected>Seleccione...</option>
                                                 <option value="formulador">Formulador</option>
@@ -575,7 +575,7 @@
                                         <div class="col-12 col-md-6 mb-3">
                                             <label for="Email_participantes_de_desarrollo" class="form-label">Correo electrónico del participante
                                                 desarrollo del proyecto</label>
-                                            <input type="number" name="Email_participantes_de_desarrollo" id="Email_participantes_de_desarrollo" class="form-control form-control-sm" placeholder="">
+                                            <input type="email" name="Email_participantes_de_desarrollo" id="Email_participantes_de_desarrollo" class="form-control form-control-sm" placeholder="">
                                             <div class="invalid-feedback">
                                             </div>
                                             
@@ -628,7 +628,7 @@
 
                                         <!-- Columna 1 -->
                                         <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                            <form method="post" class="needs-validation">
+                                            <form method="post" class="needs-validation" id="form4">
                                                 {% csrf_token %}
                                             <label for="codigo_Dependencia_Presupuestal" class="form-label">Codigo dependencia
                                                 prespuestal<br>(SIIF)</label>
@@ -640,9 +640,6 @@
                                                 <option value="fomento_innovacion_82">Fomento para la innovacion(82)
                                                 </option>
                                             </select>
-                                            
-
-
 
                                             <label for="tematicas_Estrategias_SENA" class="form-label mt-3">Temáticas estratégicas SENA</label>
                                             <select name="tematicas_Estrategias_SENA" id="tematicas_Estrategias_SENA" class="form-control selectmod">
@@ -759,9 +756,11 @@
                                                 <label class="form-check-label" for="flexRadioDefault4">No</label>
                                             </div>
 
-                                            <label for="" class="form-label">Si contestó la pregunta anterior de forma
+                                            <label for="justificacion_Economia_Naranja" class="form-label">Si contestó la pregunta anterior de forma
                                                 afirmativa, justifique.</label>
                                             <input type="text" name="justificacion_Economia_Naranja" id="justificacion_Economia_Naranja" class="form-control form-control-sm" placeholder="">
+                                            <div class="invalid-feedback">
+                                            </div>
 
                                             <label for="" class="form-label">¿El proyecto aporta a la Política
                                                 Institucional para Atención de las Personas con discapacidad?</label>
@@ -794,9 +793,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>

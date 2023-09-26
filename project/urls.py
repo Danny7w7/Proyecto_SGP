@@ -27,6 +27,8 @@ urlpatterns = [
     #Informacion_proyecto son las "generalidades" del mismo
     path('generalidades/',views.Informacion_Proyecto_view, name='generalidades'),
     path('est-proyecto/',views.Estructura_del_proyecto_view, name='est_proyecto'),
+    path('est-arbolp/',views.Estructura_arbol_problemas_view, name='est_arbolp'),
+    path('est-problema/',views.Estructura_problema_view, name='est_problema'),
     path('part-proyecto/',views.Analisis_Participantes_view, name='part_proyecto'),
     path('entidad-aliada/',views.Entidades_aliadas_view, name='ent_aliada'),
     path('riesgos-proyecto/',views.Riesgos_objetivo_general_view, name='riesgos_proyecto'),
