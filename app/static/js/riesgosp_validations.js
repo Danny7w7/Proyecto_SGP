@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
-
     //Riesgos nivel actividades
        "form3":{
         "descripcion3": {
@@ -108,8 +107,24 @@ document.addEventListener("DOMContentLoaded", function() {
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
 
-        if (!isValid) {
-            event.preventDefault();
+        event.preventDefault();
+        if (isValid) {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: 'Información registrada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                // Esto enviará realmente el formulario
+                event.target.submit();
+            });
+        }else{
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor, corrija los errores en el formulario antes de enviar.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         }
     }
 

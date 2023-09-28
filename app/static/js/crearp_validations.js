@@ -1,5 +1,4 @@
 
-//Validación de formulario creacion de proyecto
 document.addEventListener("DOMContentLoaded", function() {
     
     const validations = {
@@ -32,8 +31,22 @@ document.addEventListener("DOMContentLoaded", function() {
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
 
-        if (!isValid) {
-            event.preventDefault();
+        event.preventDefault();
+
+        if (isValid) {
+            Swal.fire({
+                title: '¡Éxito!',
+                text: 'Información registrada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Por favor, corrija los errores en el formulario antes de enviar.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         }
     });
 
@@ -51,4 +64,3 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
-

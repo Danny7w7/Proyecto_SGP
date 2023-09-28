@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="container-fluid">
@@ -66,6 +67,10 @@
                 </div>
             </div>
 
+            <div class="d-flex justify-content-center col-12">
+                <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">ESTRUCTURA PROYECTO</h5>
+            </div>
+
             <div class="card">
                 <div id="headingOne">
                 </div>
@@ -90,7 +95,7 @@
                                 <div class="col-12 md-10">
                                     <div class="bg-light mt-2 border_radius row me-0">
                                         <div class="col-12 md-10">
-                                            <form method="post" id="form1" class="needs-validation">
+                                            <form method="post" id="form1" action="{% url 'est_proyecto' %}" class="needs-validation">
                                                 {% csrf_token %}
                                             
                                             <div class="mt-3" style="width: 95%; margin-left: 2%;">
@@ -214,7 +219,7 @@
                                 <div class="col-12 md-10">
                                     <div class="bg-light mt-2 border_radius row me-0">
                                         <div class="col-12 md-10">
-                                            <form method="post" class="needs-validation" id="form3">
+                                            <form method="post" class="needs-validation" action="{% url 'est_problema' %}" id="form3">
                                                 {% csrf_token %}
                                             
                                             <div class="mt-3" style="width: 95%; margin-left: 2%;">
