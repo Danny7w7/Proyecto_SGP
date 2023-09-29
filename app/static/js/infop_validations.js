@@ -133,6 +133,27 @@ document.addEventListener("DOMContentLoaded", function() {
     const form3 = document.getElementById("form3");
     const form4 = document.getElementById("form4");
 
+    // //Agregar formularios dinamicamente
+    // document.getElementById('add-form').addEventListener('click', function() {
+    //     let container = document.getElementById('formset-container');
+    //     let forms = container.getElementsByClassName('single-form');
+    //     let newForm = forms[0].cloneNode(true);  // Clona el primer formulario
+
+    //     // Reiniciar campos y validaciones en el formulario clonado
+    //     let inputs = newForm.getElementsByTagName('input');
+    //     for(let input of inputs) {
+    //         input.value = '';
+    //         input.classList.remove("is-valid");
+    //         input.classList.remove("is-invalid");
+    //     }
+    //     let feedbacks = newForm.getElementsByClassName('invalid-feedback');
+    //     for(let feedback of feedbacks) {
+    //         feedback.textContent = '';
+    //     }
+
+    //     container.appendChild(newForm);  // Agrega el formulario clonado al contenedor
+    // });
+
     if(form1) {
         form1.addEventListener("submit", function(event) {
             handleFormSubmit(event, 'form1');
@@ -154,7 +175,6 @@ document.addEventListener("DOMContentLoaded", function() {
             handleFormSubmit(event, 'form4');
         });
     }
-
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;

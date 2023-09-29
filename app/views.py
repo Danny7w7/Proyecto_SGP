@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
-from app.forms import AutoresForm, ProyectoForm, Informacion_de_centroForm, ParticipantesForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
-from app.models import Proyecto
+from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
+from app.models import Autores, Participantes_Proyecto, Proyecto
 
 
 def crear_proyecto_view(request):
@@ -49,6 +49,42 @@ def  Participantes_view(request):
     
     context = {'form': form}
     return render(request, 'infop.html', context)
+
+
+#---------------------- Pruebas ---------------#
+
+# def Autores_view(request):
+#     if request.method == 'POST':
+#         autor_formset = AutorFormSet(request.POST, prefix='autor')
+
+
+#         if autor_formset.is_valid():
+            
+#             pass
+
+#     else:
+#         autor_formset = AutorFormSet(queryset=Autores.none(), prefix='autor')
+    
+#         return render(request, 'infop.html', {
+#         'autor_formset': autor_formset
+#     })
+        
+
+# def Participantes_view(request):
+#     if request.method == 'POST':
+#         participante_formset = ParticipanteFormSet(request.POST, prefix='participante')
+
+#         if participante_formset.is_valid():
+           
+#             pass
+
+#     else:
+#         participante_formset = ParticipanteFormSet(queryset=Participantes_Proyecto.none(), prefix='participante')
+
+#     return render(request, 'infop.html', {
+#         'participante_formset': participante_formset
+#     })
+
 
 def  Informacion_Proyecto_view(request):
     if request.method == "POST":

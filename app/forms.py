@@ -1,5 +1,6 @@
 # forms.py
 from django import forms
+from django.forms import modelformset_factory
 from .models import Proyecto, Informacion_de_centro, Autores, Participantes_Proyecto, Informacion_Proyecto, Estructura_del_proyecto, Analisis_Participantes, Entidades_aliadas, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Estructura_arbol_problemas, Estructura_problema 
 
 class ProyectoForm(forms.ModelForm):
@@ -23,6 +24,12 @@ class ParticipantesForm(forms.ModelForm):
         model = Participantes_Proyecto
         fields = '__all__'
 
+# AutorFormSet = modelformset_factory(
+#     Autores, 
+#     fields='__all__')
+# ParticipanteFormSet = modelformset_factory(
+#     Participantes_Proyecto
+#     , fields=('nombre',))
 #Generalidades
 class Informacion_ProyectoForm(forms.ModelForm):
     class Meta:
