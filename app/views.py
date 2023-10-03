@@ -3,6 +3,10 @@ from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_
 from app.models import Autores, Participantes_Proyecto, Proyecto
 
 
+def index_view(request):
+    
+    return render(request, 'index.html')
+
 def crear_proyecto_view(request):
     if request.method == "POST":
         form = ProyectoForm(request.POST)
