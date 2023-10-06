@@ -105,7 +105,7 @@
                                     <div class="bg-light mt-2 spos border_radius row me-0">
                                         <!-- Primera columna con 5 filas -->
                                         <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                            <form method="post" class="needs-validation" action="{% url 'info_proyecto' %} id="form1">
+                                            <form method="post" class="needs-validation" action="{% url 'info_proyecto' %}" id="form1">
                                                 {% csrf_token %}
                                             <label for="Region" class="form-label">Región</label>
                                             <select name="Region" id="Region" class="form-control selectmod">
@@ -438,11 +438,48 @@
                                         <div class="progress-bar bg-green" style="width: 25%">25%</div>
                                     </div>
                                 </div>
+                                
                             </div>
+                            
                             <div class="d-flex justify-content-center col-12">
                                 <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Autor</h5>
                             </div>
                             <div class="row justify-content-center">
+                                <div class="row justify-content-center mt-4">
+                                    <div class="col-12 col-md-10">
+                                        <table class="table table-bordered table-hover">
+                                            <thead class="bg-custom-green text-dark">
+                                                <tr>
+                                                    <th>Nombre del Autor</th>
+                                                    <th>Tipo de Vinculación</th>
+                                                    <th>Número de Documento</th>
+                                                    <th>Rol Sennova</th>
+                                                    <th>Email</th>
+                                                    <th>Meses Vinculación</th>
+                                                    <th>Teléfono</th>
+                                                    <th>Horas Semanales</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                                    {% for m_autor in m_autores %}
+                                                    <tr>
+                                                        <td>{{ m_autor.Nombre_Autor_Proyecto }}</td>
+                                                        <td>{{ m_autor.Tipo_Vinculacion_entidad }}</td>
+                                                        <td>{{ m_autor.Numero_Cedula_Autor }}</td>
+                                                        <td>{{ m_autor.Rol_Sennova_De_Participantes_de_Proyecto }}</td>
+                                                        <td>{{ m_autor.Email_Autor_Proyecto }}</td>
+                                                        <td>{{ m_autor.Numero_meses_vinculacion_Autor }}</td>
+                                                        <td>{{ m_autor.Numero_Telefono_Autor }}</td>
+                                                        <td>{{ m_autor.Numero_horas_Semanales_dedicadas_Autores }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
                                 <div class="col-12 col-md-10">
                                     <div class="bg-light mt-2 spos border_radius row me-0">
                                         <!-- Primera columna con 4 filas -->
@@ -508,6 +545,7 @@
                                             <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                         </div>
                                     </form>
+                                    
                                     </div>
                                 </div>
                             </div>

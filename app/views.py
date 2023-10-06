@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
 from app.models import Autores, Participantes_Proyecto, Proyecto
+from django.http import JsonResponse
 
 
 def index_view(request):
@@ -12,8 +13,8 @@ def crear_proyecto_view(request):
         form = ProyectoForm(request.POST)
         if form.is_valid():
             form.save()
-            redirect('info_proyecto')
-           
+            return redirect('info_proyecto')
+        
     else:
         form = ProyectoForm()
 
@@ -42,6 +43,11 @@ def  Autores_view(request):
     
     context = {'form': form}
     return render(request, 'infop.html', context)
+
+# Mostrar info de autores
+def Mostrar_autores(request):
+    m_autores = Autores.objects.all()  # obtiene todos los registros del modelo
+    return render(request, 'infop.html', {'m_autores': m_autores})
 
 def  Participantes_view(request):
     if request.method == "POST":
@@ -93,6 +99,7 @@ def  Participantes_view(request):
 def  Informacion_Proyecto_view(request):
     if request.method == "POST":
         form = Informacion_ProyectoForm(request.POST)
+        # print(form.erros)
         if form.is_valid():
             form.save()
     else:

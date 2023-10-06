@@ -88,7 +88,7 @@
                                     <div class="bg-light mt-2 spos border_radius row me-0">
                                         <!-- Primera columna con 5 campos -->
                                         <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                            <form method="post">
+                                            <form method="post" action="{% url 'part_proyecto' %}">
                                                 {% csrf_token %}
                                             <label for="" class="form-label">Nombres de los semilleros de investigación beneficiados</label>
                                             <input type="text" name="Nombre_Semillero_Investigacion_Beneficiados" id="Nombre_Semillero_Investigacion_Beneficiados" class="form-control form-control-sm" placeholder="">
@@ -175,7 +175,7 @@
                                         <!-- Primera columna con 11 campos -->
                                         <div class="col-12 col-md-6">
                                             <div class="mb-3 border-end pe-4 border-color-custom">
-                                                <form method="post">
+                                                <form method="post" action="{% url 'ent_aliada' %}">
                                                     {% csrf_token %}
                                                 
                                                 <label for="" class="form-label">Nombre de la entidad aliada/Centro de Formación</label>

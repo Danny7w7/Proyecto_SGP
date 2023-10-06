@@ -84,10 +84,10 @@ document.addEventListener("DOMContentLoaded", function() {
         },
        },
        "form4":{
-        "Numero_Telefono_participantes": {
-            pattern: /^\d{10}$/,
-            errorMsg: 'El link no es válido.',
-        },
+        // "Numero_Telefono_participantes": {
+        //     pattern: /^\d{10}$/,
+        //     errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
+        // },
         "link_video_proyecto": {
             pattern: /^(http|https):\/\/[^ "]+$/,
             errorMsg: 'El link no es válido.',
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                // Esto enviará realmente el formulario
+               // Esto enviará realmente el formulario
                 event.target.submit();
             });
         }else{

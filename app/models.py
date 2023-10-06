@@ -160,10 +160,10 @@ class Informacion_de_centro(models.Model):
     Regional = models.CharField(max_length=50, null=False)
     Nombre_centro_formacion = models.CharField(max_length=100, null=False)
     Nombre_Director = models.CharField(max_length=50, null=False)
-    Numero_Director = models.IntegerField(null=False)
+    Numero_Director = models.BigIntegerField(null=False)
     email_director = models.CharField(max_length=100, null=False)
     Nombre_Sub_Director = models.CharField(max_length=50, null=False)
-    Numero_Sub_Director = models.IntegerField(null=False)
+    Numero_Sub_Director = models.BigIntegerField(null=False)
     email_sub_director = models.CharField(max_length=100, null=False)
 
     # Info_Proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
@@ -175,7 +175,7 @@ class Participantes_Proyecto(models.Model):
     Numero_meses_vinculacion_participantes = models.IntegerField(null=False)
     Email_participantes_de_desarrollo = models.EmailField(null=True)
     Numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=False)
-    Numero_Telefono_participantes = models.IntegerField(null=True)
+    Numero_Telefono_participantes = models.BigIntegerField(null=True)
     # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
     
 class Autores(models.Model):
@@ -185,7 +185,7 @@ class Autores(models.Model):
     Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
     Email_Autor_Proyecto = models.EmailField(null=False)
     Numero_meses_vinculacion_Autor = models.IntegerField(null=False)
-    Numero_Telefono_Autor = models.IntegerField(null=False)
+    Numero_Telefono_Autor = models.BigIntegerField(null=False)
     Numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
     # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 

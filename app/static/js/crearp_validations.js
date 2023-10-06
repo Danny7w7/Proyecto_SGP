@@ -1,7 +1,9 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     
-    const validations = {
+    const allValidations = {
+        //Estructura del proyecto
+       "form1": {
         "titulo_Proyecto": {
             pattern: /^[A-Za-z0-9 ,.]{5,100}$/,
             errorMsg: 'El título no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
@@ -10,37 +12,67 @@ document.addEventListener("DOMContentLoaded", function() {
             pattern: /^[A-Za-z0-9 ,.]{5,100}$/,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         }
-    };
 
-    for (let fieldId in validations) {
-        const inputField = document.getElementById(fieldId);
-        const feedbackElement = inputField.nextElementSibling;
-        const { pattern, errorMsg } = validations[fieldId];
+    }
+}
 
-        inputField.addEventListener("input", function() {
-            validateField(inputField, feedbackElement, pattern, errorMsg);
+    // Itera sobre cada conjunto de validaciones
+    for (let formKey in allValidations) {
+        for (let fieldId in allValidations[formKey]) {
+            const inputField = document.getElementById(fieldId);
+            
+            // Verifica si el inputField realmente existe
+            if(!inputField) {
+                console.error(`El campo con id ${fieldId} no fue encontrado.`);
+                continue;
+            }
+
+            const feedbackElement = inputField.nextElementSibling;
+            const { pattern, errorMsg } = allValidations[formKey][fieldId];
+
+            inputField.addEventListener("input", function() {
+                validateField(inputField, feedbackElement, pattern, errorMsg);
+            });
+        }
+    }
+
+//ids de los formularios
+    const form1 = document.getElementById("form1");
+
+
+    if(form1) {
+        form1.addEventListener("submit", function(event) {
+            handleFormSubmit(event, 'form1');
         });
     }
 
-    document.querySelector("form").addEventListener("submit", function(event) {
+
+    function handleFormSubmit(event, formKey) {
         let isValid = true;
-        for (let fieldId in validations) {
+        
+        for (let fieldId in allValidations[formKey]) {
             const inputField = document.getElementById(fieldId);
+                
+            // Nueva comprobación para evitar errores
+            if(!inputField) continue;
+
             const feedbackElement = inputField.nextElementSibling;
-            const { pattern, errorMsg } = validations[fieldId];
+            const { pattern, errorMsg } = allValidations[formKey][fieldId];
+
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
-
         event.preventDefault();
-
         if (isValid) {
             Swal.fire({
                 title: '¡Éxito!',
                 text: 'Información registrada correctamente.',
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
+            }).then(() => {
+                // Esto enviará realmente el formulario
+                event.target.submit();
             });
-        } else {
+        }else{
             Swal.fire({
                 title: 'Error!',
                 text: 'Por favor, corrija los errores en el formulario antes de enviar.',
@@ -48,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 confirmButtonText: 'Aceptar'
             });
         }
-    });
+    }
 
     function validateField(field, feedback, pattern, errorMsg) {
         if (pattern.test(field.value)) {

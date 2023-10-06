@@ -1,137 +1,351 @@
-numero_semilleros_inv_beneficiados = models.IntegerField(null=True)
-Rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
-Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=False)
-Tipo_programas_de_formación_beneficiados_por_ejecución = models.CharField(null=True, max_length=100)
-Tipo_programas_formación_beneficiados_conforman_semillero = models.CharField(null=False, max_length=100)
-nombre_programas_beneficiados_semilleros = models.CharField(max_length=150, null=True)
-Numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=False)
-Numero_cedula_participantes = models.IntegerField(null=True)
-Numero_Telefono_participantes = models.IntegerField(null=True)
-# Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SGP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+<!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none">contacto@sennova.edu.co</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none">3002001001</a>
+                </div>
+                <!-- <div>
+                    <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                </div> -->
+            </div>
+        </div>
+    </nav>
+    <!-- Close Top Nav -->
 
 
-<!-- 
-                                                    <label for="" class="form-label">Código de GrupLAC (entidad aliada)</label>
-                                                <select name="" id="" class="form-control selectmod">
-                                                    <option value="" disabled selected>Seleccione una opción...</option>
-                                                    <option value="col0153676">COL0153676</option>
-                                                <option value="col0085647">COL0085647</option>
-                                                <option value="col0106783">COL0106783</option>
-                                                <option value="col0110481">COL0110481</option>
-                                                <option value="col0113017">COL0113017</option>
-                                                <option value="col0113975">COL0113975</option>
-                                                <option value="col0129409">COL0129409</option>
-                                                <option value="col0131024">COL0131024</option>
-                                                <option value="col0133799">COL0133799</option>
-                                                <option value="col0146626">COL0146626</option>
-                                                <option value="col0149529">COL0149529</option>
-                                                <option value="col0149869">COL0149869</option>
-                                                <option value="col0150772">COL0150772</option>
-                                                <option value="col0151199">COL0151199</option>
-                                                <option value="col0158921">COL0158921</option>
-                                                <option value="col0163494">COL0163494</option>
-                                                <option value="col0179313">COL0179313</option>
-                                                <option value="col0160339">COL0160339</option>
-                                                <option value="col0147712">COL0147712</option>
-                                                <option value="col0147991">COL0147991</option>
-                                                <option value="col0148246">COL0148246</option>
-                                                <option value="col0148273">COL0148273</option>
-                                                <option value="col0116654">COL0116654</option>
-                                                <option value="col0150389">COL0150389</option>
-                                                <option value="col0152427">COL0152427</option>
-                                                <option value="col0152739">COL0152739</option>
-                                                <option value="col0152937">COL0152937</option>
-                                                <option value="col0157352">COL0157352</option>
-                                                <option value="col0158019">COL0158019</option>
-                                                <option value="col0162236">COL0162236</option>
-                                                <option value="col0102695">COL0102695</option>
-                                                <option value="col0129797">COL0129797</option>
-                                                <option value="col0135328">COL0135328</option>
-                                                <option value="col0153193">COL0153193</option>
-                                                <option value="col0154978">COL0154978</option>
-                                                <option value="col0161426">COL0161426</option>
-                                                <option value="col0160536">COL0160536</option>
-                                                <option value="col0149369">COL0149369</option>
-                                                <option value="col0150487">COL0150487</option>
-                                                <option value="col0141469">COL0141469</option>
-                                                <option value="col0039958">COL0039958</option>
-                                                <option value="col0149637">COL0149637</option>
-                                                <option value="col0192825">COL0192825</option>
-                                                <option value="col0160376">COL0160376</option>
-                                                <option value="col0151189">COL0151189</option>
-                                                <option value="col0154548">COL0154548</option>
-                                                <option value="col0157577">COL0157577</option>
-                                                <option value="col0138544">COL0138544</option>
-                                                <option value="col0144004">COL0144004</option>
-                                                <option value="col0150244">COL0150244</option>
-                                                <option value="col0160438">COL0160438</option>
-                                                <option value="col0164025">COL0164025</option>
-                                                <option value="col0166807">COL0166807</option>
-                                                <option value="col0133996">COL0133996</option>
-                                                <option value="col0146223">COL0146223</option>
-                                                <option value="col0148068">COL0148068</option>
-                                                <option value="col0149305">COL0149305</option>
-                                                <option value="col0150478">COL0150478</option>
-                                                <option value="col0150899">COL0150899</option>
-                                                <option value="col0152356">COL0152356</option>
-                                                <option value="col0154539">COL0154539</option>
-                                                <option value="col0157835">COL0157835</option>
-                                                <option value="col0158663">COL0158663</option>
-                                                <option value="col0160287">COL0160287</option>
-                                                <option value="col0160607">COL0160607</option>
-                                                <option value="col0160616">COL0160616</option>
-                                                <option value="col0162871">COL0162871</option>
-                                                <option value="col0163529">COL0163529</option>
-                                                <option value="col0147276">COL0147276</option>
-                                                <option value="col0153719">COL0153719</option>
-                                                <option value="col0182408">COL0182408</option>
-                                                <option value="col0151018">COL0151018</option>
-                                                <option value="col0039288">COL0039288</option>
-                                                <option value="col0149439">COL0149439</option>
-                                                <option value="col0149468">COL0149468</option>
-                                                <option value="col0150674">COL0150674</option>
-                                                <option value="col0164713">COL0164713</option>
-                                                <option value="col0155376">COL0155376</option>
-                                                <option value="col0157737">COL0157737</option>
-                                                <option value="col0110285">COL0110285</option>
-                                                <option value="col0156739">COL0156739</option>
-                                                <option value="col0150057">COL0150057</option>
-                                                <option value="col0157906">COL0157906</option>
-                                                <option value="col0192754">COL0192754</option>
-                                                <option value="col0160679">COL0160679</option>
-                                                <option value="col0171834">COL0171834</option>
-                                                <option value="col0153709">COL0153709</option>
-                                                <option value="col0117491">COL0117491</option>
-                                                <option value="col0149628">COL0149628</option>
-                                                <option value="col0153433">COL0153433</option>
-                                                <option value="col0149566">COL0149566</option>
-                                                <option value="col0153291">COL0153291</option>
-                                                <option value="col0163609">COL0163609</option>
-                                                <option value="col0156149">COL0156149</option>
-                                                <option value="col0056672">COL0056672</option>
-                                                <option value="col0133029">COL0133029</option>
-                                                <option value="col0135139">COL0135139</option>
-                                                <option value="col0149501">COL0149501</option>
-                                                <option value="col0150932">COL0150932</option>
-                                                <option value="col0152098">COL0152098</option>
-                                                <option value="col0154486">COL0154486</option>
-                                                <option value="col0156462">COL0156462</option>
-                                                <option value="col0155044">COL0155044</option>
-                                                <option value="col0112154">COL0112154</option>
-                                                <option value="col0149225">COL0149225</option>
-                                                <option value="col0149388">COL0149388</option>
-                                                <option value="col0041052">COL0041052</option>
-                                                <option value="col0104635">COL0104635</option>
-                                                <option value="col0112332">COL0112332</option>
-                                                <option value="col0125779">COL0125779</option>
-                                                <option value="col0143188">COL0143188</option>
-                                                <option value="col0149323">COL0149323</option>
-                                                <option value="col0150745">COL0150745</option>
-                                                <option value="col0156229">COL0156229</option>
-                                                <option value="col0158699">COL0158699</option>
-                                                <option value="col0165784">COL0165784</option>
-                                                <option value="col0189276">COL0189276</option>
-                                                <option value="col0171843">COL0171843</option>
-                                                <option value="col0164249">COL0164249</option>
-                                                </select>
- -->
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand text-success logo h1 align-self-center" href="{% url 'index' %}">
+                SENNOVA
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">Acerca</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'crear_proyecto' %}">Plataforma</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <div class="input-group-text">
+                                <i class="fa fa-fw fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ICONO BUSQUEDA -->
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    <!-- ICONO USUARIO -->
+                    <a class="nav-icon position-relative text-decoration-none" href="">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Close Header -->
+
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Start Banner Hero -->
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{% static 'img/gestion-de-proyectos-min.jpg' %}" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left align-self-center">
+                                <h1 class="h1 text-success"><b>SGP</b> SENNOVA</h1>
+                                <h3 class="h2">Sistema de gestión de proyectos</h3>
+                                <p>
+                                    SGP es un sistema de gestión de proyectos que tiene como objetivo gestionar la formulación de todos los proyectos de la unidad SENNOVA.  
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{% static 'img/img_frm.png' %}" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h1">Formulación de proyectos</h1>
+                                <h3 class="h2">Característica de SGP</h3>
+                                <p>
+                                    Esto es una de las funcionalidades que permite la formulación de proyectos de investigacion a medida, permitiendo comodidad y practicidad al momento de digitar la información.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{% static 'img/banner_img_03.jpg' %}" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h1">Gestión de proyectos</h1>
+                                <h3 class="h2">Característica de SGP </h3>
+                                <p>
+                                    La gestión de proyectos es la función principal de SGP, cuya finalidad es facilitar la creación, edición y visualización de los proyectos de investigación de la unidad SENNOVA.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+    <!-- End Banner Hero -->
+
+    <!-- Start Featured Product -->
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Líneas temáticas</h1>
+                    <p>
+                        A continuación se muestran las líneas temáticas con enfoques priorizados y multidisciplinarios para los proyectos de investigación.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'img/inv_apl.jpg' %}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Investigación aplicada (66)</a>
+                            <br>
+                            <p class="card-text">
+                                La investigación aplicada tiene como objetivo aplicar los resultados de la investigación científica para mejorar la calidad de vida de las personas, impulsar el desarrollo económico y social, y solucionar problemas específicos de la sociedad.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'img/srv_tcno.jpg' %}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Servicios tecnológicos (68)</a>
+                            <p class="card-text">
+                               Servicios tecnológicos que que se basan en las nuevas tecnolgías para su implementación.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'img/apr_social.jpg' %}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Apropiación social del conocimiento (65)</a>
+                            <p class="card-text">
+                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'img/fmto_inn.jpg' %}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Fomento para la innovación (82)</a>
+                            <p class="card-text">
+                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="shop-single.html">
+                            <img src="{% static 'img/des_tecno.jpg' %}" class="card-img-top" alt="...">
+                        </a>
+                        <div class="card-body">
+                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">Desarrollo tecnológico(Modernización de ambientes) (23)</a>
+                            <p class="card-text">
+                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Product -->
+
+
+    <!-- Start Footer -->
+    <footer class="bg-dark" id="tempaltemo_footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">SENNOVA</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                           <a class="text-decoration-none">Centro Industrial y de Aviación, Oficina 3er piso biblioteca</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none">3002001001</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none">contacto@sennova.edu.co</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Ayudas</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Inicio</a></li>
+                        <li><a class="text-decoration-none" href="#">Acerca</a></li>
+                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
+                        <li><a class="text-decoration-none" href="#">Contacto</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row text-light mb-4">
+                <div class="col-12 mb-3">
+                    <div class="w-100 my-3 border-top border-light"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                            Copyright &copy; 2023 SENNOVA
+                            | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    <script src="{% static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/templatemo.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <!-- End Script -->
+</body>
+
+</html>
