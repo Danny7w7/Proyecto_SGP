@@ -1,14 +1,59 @@
 from django.shortcuts import redirect, render
-from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
-from app.models import Autores, Participantes_Proyecto, Proyecto
+from django.contrib.auth import authenticate, login, logout
+
+from django.db.models import Q
 from django.http import JsonResponse
 
+from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
+from app.models import Usuarios, Autores, Participantes_Proyecto, Proyecto
 
-def index_view(request):
-    
+def register(request):
+    if request.method == 'POST':
+        if Usuarios.objects.filter(email=request.POST["email"]).exists():
+            msg = "Este email ya existe"
+            return render(request, 'register.html', {'msg': msg})
+        else:
+            afterhashed = request.POST["password"]
+            user = Usuarios.objects.create_user(email=request.POST["email"],
+                                            password=request.POST["password"],
+                                            username=request.POST["first_name"],
+                                            first_name=request.POST["first_name"],
+                                            last_name=request.POST["last_name"],
+                                            tipo_documento=request.POST["tipo_documento"],
+                                            num_documento=request.POST["num_documento"])
+            user.save()
+            userl = authenticate(
+                request, username=user.username, password=afterhashed)
+            login(request, userl)
+            return redirect(index)
+    else:
+        return render(request, 'register.html')
+
+
+def login_(request):
+    if request.user.is_authenticated:
+        return redirect(index)
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        usuario = Usuarios.objects.filter(Q(email=email)).first()
+        if not usuario.is_active and password==usuario.temp_password:
+            return activate_user(request, usuario, password)
+
+        user = authenticate(request, username=usuario, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(index)
+        else:
+            msg = 'Datos incorrectos, intente de nuevo'
+            return render(request, 'login.html', {'msg':msg})
+    else:
+        return render(request, 'login.html')
+
+def index(request):
     return render(request, 'index.html')
 
-def crear_proyecto_view(request):
+def crear_proyecto(request):
     if request.method == "POST":
         form = ProyectoForm(request.POST)
         if form.is_valid():

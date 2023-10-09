@@ -1,20 +1,32 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
-
 class Roles(models.Model):
-    administrador = models.BooleanField()
-    formulador = models.BooleanField()
-    evaluador = models.BooleanField()
-    lector = models.BooleanField()
+    ROLES_CHOICES = (
+        ('Admin', 'Administrador'),
+        ('F', 'Formulador'),
+        ('E', 'Evaluador'),
+        ('L', 'Lector'),
+    )
+    rol = models.CharField(max_length=20, choices=ROLES_CHOICES)
 
 class Usuarios(AbstractUser):
-    cc_nit = models.IntegerField()
+    DOCUMENTS_CHOICES = (
+        ('CC', 'Cedula de Ciudadania'),
+        ('TI', 'Tarjeta de Identidad'),
+        ('CE', 'Cedula de Extranjería'),
+    )
+    
+    tipo_documento = models.CharField(max_length=20, choices=DOCUMENTS_CHOICES)
+    num_documento = models.IntegerField()
     roles = models.ManyToManyField(Roles)
 
     def __str__(self):
         return self.username
+
+
+
+
 
 class Proyecto(models.Model):
     titulo_Proyecto = models.CharField(max_length=100, null=False)
