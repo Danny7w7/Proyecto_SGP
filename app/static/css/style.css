@@ -2,6 +2,12 @@ body {
   background-color: #9aa5a231;
   font-family: 'Roboto', sans-serif;
 }
+header{
+  background-color: #212934;
+}
+main{
+  background-color: #e9eef5;
+}
 .img-header {
   margin-left: 5%;
 }
@@ -33,7 +39,7 @@ body {
   text-align: center;
 }
 .btn-bg-white:hover {
-  background-color: #39a900;
+  background-color: #59ab6e;
   color: white;
   text-decoration: none;
 }
@@ -167,7 +173,8 @@ img[src="sennova_logo.png"] {
 .step-button[aria-expanded="true"] {
   width: 60px;
   height: 60px;
-  background-color: rgb(7, 195, 48);
+  /* background-color: rgb(7, 195, 48); */
+  background-color: #59ab6e;
   color: #fff;
 }
 /* Despues de finalizar dicho paso(pasado)*/
@@ -195,18 +202,18 @@ img[src="sennova_logo.png"] {
 }
 /* Barra de progreso sin completar */
 #progress::-webkit-progress-bar {
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.294);
 }
 .pasop {
   margin-top: 1%;
 }
 .dcanva {
-  background-color: white;
+  background-color: #212934;
   width: 25%;
 }
 .btn-n {
   color: #59ab6e;
-  background-color: white;
+  background-color: #212934;
   border-color: gray;
 }
 .contenido {
