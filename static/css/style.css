@@ -208,12 +208,12 @@ img[src="sennova_logo.png"] {
   margin-top: 1%;
 }
 .dcanva {
-  background-color: #212934;
+  background-color: white;
   width: 25%;
 }
 .btn-n {
   color: #59ab6e;
-  background-color: #212934;
+  background-color: white;
   border-color: gray;
 }
 .contenido {

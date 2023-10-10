@@ -41,4 +41,8 @@ urlpatterns = [
     path('riesgos-proyecto/',views.Riesgos_objetivo_general_view, name='riesgos_proyecto'),
     path('riesgo-productos/',views.Riesgo_productos_view, name='riesgo_productos'),
     path('riesgo-actividades/',views.Riesgo_actividades_view, name='riesgo_actividades'),
+    path('metodologia/',views.Metodologia_view, name='metodologia'),
+    path('objetivos/',views.Objetivos_view, name='objetivos'),
+    path('anexos/',views.Anexos_view, name='anexos'),
+    path('proyeccion/',views.Proyeccion_view, name='proyeccion'),
 ]
