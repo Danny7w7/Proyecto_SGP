@@ -20,7 +20,8 @@
         <div class="d-flex justify-content-center align-items-center" style="margin-top: 4%;">
             <div class="col-md-4 p-5 shadow-sm border rounded-3" style="background-color: white;">
                 <h2 class="text-center mb-4" style="font-family: 'Lucida Sans';">Regístrate</h2>
-                <form>
+                <form method="POST">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="exampleInputName" class="form-label" style="font-family: 'Lucida Sans';">Nombre</label>
                         <input name="first_name" type="text" class="form-control border border-secondary" aria-describedby="emailHelp">

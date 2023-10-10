@@ -17,6 +17,7 @@ class Usuarios(AbstractUser):
         ('CE', 'Cedula de Extranjería'),
     )
     
+    temp_password = models.CharField(max_length=8)
     tipo_documento = models.CharField(max_length=20, choices=DOCUMENTS_CHOICES)
     num_documento = models.IntegerField()
     roles = models.ManyToManyField(Roles)
