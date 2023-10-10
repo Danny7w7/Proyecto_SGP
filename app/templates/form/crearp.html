@@ -40,48 +40,49 @@
             <img class="img-fluid pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" alt="LogoSenaVerde" width="50">
         </div>
         <div class="col-2 d-flex align-items-center justify-content-end">
-            <img class="img-fluid me-2" src="{% static 'img/Logo_gici_n2.png' %}" alt="Logo Gici" width="70">
+            <img class="img-fluid me-2" src="{% static 'img/Logo_GICI.png' %}" alt="Logo Gici" width="70">
             <img class="img-fluid" src="{% static 'img/sennova_logo.png' %}" alt="Sennova Logo" width="160;">
         </div>
     </header>
+    <!-- OFFCANVAS -->
+    <div class="offcanvas offcanvas-start w-25 w-md-25 dcanva" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
+            proyecto</a> -->
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'info_proyecto' %}">Información del
+                proyecto</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'est_proyecto' %}">Estructura del
+                proyecto</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'objetivos' %}">Objetivos generales
+                específicos</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'metodologia' %}">Metodología</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'part_proyecto' %}">Participación</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'proyeccion' %}">Proyección</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'riesgos_proyecto' %}">Análisis de
+                riesgo</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'anexos' %}">Anexos</a>
+            <div class="btn-n btn-bg-white mt-2 pt-2 pb-2 centradow border_radius">
+            </div>
+        </div>
+    </div>
 
+    <!-- BARRA DE PROGRESO -->
+    <div class="d-flex justify-content-end mt-3 mr-3">
+        <div class="col-4 mb-4">
+            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100" style="width: 25;">
+                <div class="progress-bar bg-green" style="width: 25%">25%</div>
+            </div>
+        </div>
+    </div>
+        
     <main class="row ms-1 me-1 mt-2 border_radius">
-        <!-- OFFCANVAS -->
-        <div class="offcanvas offcanvas-start w-25 w-md-25 dcanva" tabindex="-1" id="offcanvasExample"
-            aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
-                proyecto</a> -->
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'info_proyecto' %}">Información del
-                    proyecto</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'est_proyecto' %}">Estructura del
-                    proyecto</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'objetivos' %}">Objetivos generales
-                    específicos</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'metodologia' %}">Metodología</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'part_proyecto' %}">Participación</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proyección</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'riesgos_proyecto' %}">Análisis de
-                    riesgo</a>
-                <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'anexos' %}">Anexos</a>
-                <div class="btn-n btn-bg-white mt-2 pt-2 pb-2 centradow border_radius">
-                </div>
-            </div>
-        </div>
-
-        <!-- BARRA DE PROGRESO -->
-        <div class="d-flex justify-content-end mt-3 mr-3">
-            <div class="col-4 mb-4">
-                <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
-                    aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                </div>
-            </div>
-        </div>
+        {% block forms %}
         <div class="d-flex justify-content-center col-12">
             <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Crear proyecto</h5>
         </div>
@@ -899,9 +900,10 @@
                 </div>
             </div>
         </div>
-
+        
     </main>
-
+    {% endblock %}
+    
     <footer class="border_radius mt-3 mb-3 border_radius">
         <img class="pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" style="margin: auto;" width="50">
     </footer>
@@ -913,6 +915,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
         </script>
+{% block scripts %}
+    <script src="{% static 'js/infop_validations.js' %}"></script>
+{% endblock%}
+    <!-- Stepper JavaScript -->
+    <script>
+        const stepButtons = document.querySelectorAll('.step-button');
+        const progress = document.querySelector('#progress');
+
+        Array.from(stepButtons).forEach((button, index) => {
+            button.addEventListener('click', () => {
+                progress.setAttribute('value', index * 100 / (stepButtons.length - 1));//there are 3 buttons. 2 spaces.
+
+                stepButtons.forEach((item, secindex) => {
+                    if (index > secindex) {
+                        item.classList.add('done');
+                    }
+                    if (index < secindex) {
+                        item.classList.remove('done');
+                    }
+                })
+            })
+        })
+    </script>
 
 
 </body>

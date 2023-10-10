@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login_, name='login'),
     path('logout/', views.logout_, name='logout'),
-    path('registrarse/', views.register, name='register'),
+    path('register/', views.register, name='register'),
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/', views.Informacion_de_centro_view, name='info_proyecto'),

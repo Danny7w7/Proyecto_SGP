@@ -18,7 +18,7 @@ def register(request):
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
             msg = "Este email ya existe"
-            return render(request, 'register.html', {'msg': msg})
+            return render(request, 'login/register.html', {'msg': msg})
         else:
             afterhashed = request.POST["password"]
             user = Usuarios.objects.create_user(email=request.POST["email"],
@@ -34,7 +34,7 @@ def register(request):
             login(request, userl)
             return redirect(index)
     else:
-        return render(request, 'register.html')
+        return render(request, 'login/register.html')
 
 
 def login_(request):
@@ -53,9 +53,9 @@ def login_(request):
             return redirect(index)
         else:
             msg = 'Datos incorrectos, intente de nuevo'
-            return render(request, 'login.html', {'msg':msg})
+            return render(request, 'login/login.html', {'msg':msg})
     else:
-        return render(request, 'login.html')
+        return render(request, 'login/login.html')
     
 def logout_(request):
     logout(request)
@@ -63,7 +63,7 @@ def logout_(request):
 
 def activate_user(request, usuario, password):
     if request.POST['newpassword'] == 'True':
-        return render(request, 'activateUser.html', {'password':password, 'email':usuario.email})
+        return render(request, 'login/activateUser.html', {'password':password, 'email':usuario.email})
     else:
         usuario.set_password(request.POST['newpassword'])
         usuario.is_active = True
@@ -90,9 +90,9 @@ def recover_password(request):
             return redirect(login_)
         else:
             msg = "Este email no esta registrado a nuestra pagina"
-        return render(request, "recoverPassword.html", {'msg':msg})
+        return render(request, "login/recoverPassword.html", {'msg':msg})
     else:
-        return render(request, "recoverPassword.html")
+        return render(request, "login/recoverPassword.html")
     
 def generar_password(longitud=8):
     caracteres = string.ascii_letters + string.digits
@@ -118,6 +118,8 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return False
 
 def index(request):
+    get_user_with_roles(request)
+    print("UwU")
     return render(request, 'index.html')
 
 def crear_proyecto(request):
@@ -131,7 +133,7 @@ def crear_proyecto(request):
         form = ProyectoForm()
 
     context = {'form': form}
-    return render(request, 'crearp.html', context)
+    return render(request, 'form/crearp.html', context)
 
 # Informacion proponente
 def Informacion_de_centro_view(request):
@@ -143,7 +145,7 @@ def Informacion_de_centro_view(request):
         form = Informacion_de_centroForm()
     
     context = {'form': form}
-    return render(request, 'infop.html', context)
+    return render(request, 'form/infop.html', context)
 
 def  Autores_view(request):
     if request.method == "POST":
@@ -154,12 +156,12 @@ def  Autores_view(request):
         form = AutoresForm()
     
     context = {'form': form}
-    return render(request, 'infop.html', context)
+    return render(request, 'form/infop.html', context)
 
 # Mostrar info de autores
 def Mostrar_autores(request):
     m_autores = Autores.objects.all()  # obtiene todos los registros del modelo
-    return render(request, 'infop.html', {'m_autores': m_autores})
+    return render(request, 'form/infop.html', {'m_autores': m_autores})
 
 def  Participantes_view(request):
     if request.method == "POST":
@@ -170,7 +172,7 @@ def  Participantes_view(request):
         form = ParticipantesForm()
     
     context = {'form': form}
-    return render(request, 'infop.html', context)
+    return render(request, 'form/infop.html', context)
 
 
 #---------------------- Pruebas ---------------#
@@ -218,7 +220,7 @@ def  Informacion_Proyecto_view(request):
         form = Informacion_ProyectoForm()
     
     context = {'form': form}
-    return render(request, 'infop.html', context)
+    return render(request, 'form/infop.html', context)
 
 def  Estructura_del_proyecto_view(request):
     if request.method == "POST":
@@ -229,7 +231,7 @@ def  Estructura_del_proyecto_view(request):
         form = Estructura_del_proyectoForm()
     
     context = {'form': form}
-    return render(request, 'estp.html', context)
+    return render(request, 'form/estp.html', context)
     
 def  Estructura_arbol_problemas_view(request):
     if request.method == "POST":
@@ -240,7 +242,7 @@ def  Estructura_arbol_problemas_view(request):
         form = Estructura_arbol_problemasForm()
     
     context = {'form': form}
-    return render(request, 'estp.html', context)
+    return render(request, 'form/estp.html', context)
 
 def  Estructura_problema_view(request):
     if request.method == "POST":
@@ -251,7 +253,7 @@ def  Estructura_problema_view(request):
         form = Estructura_problemaForm()
     
     context = {'form': form}
-    return render(request, 'estp.html', context)
+    return render(request, 'form/estp.html', context)
 
 def  Analisis_Participantes_view(request):
     if request.method == "POST":
@@ -262,7 +264,7 @@ def  Analisis_Participantes_view(request):
         form = Analisis_ParticipantesForm()
     
     context = {'form': form}
-    return render(request, 'partp.html', context)
+    return render(request, 'form/partp.html', context)
 
 def  Entidades_aliadas_view(request):
     if request.method == "POST":
@@ -273,7 +275,7 @@ def  Entidades_aliadas_view(request):
         form = Entidades_aliadasForm()
     
     context = {'form': form}
-    return render(request, 'partp.html', context)
+    return render(request, 'form/partp.html', context)
 
 def Riesgos_objetivo_general_view(request):
     if request.method == 'POST':
@@ -284,7 +286,7 @@ def Riesgos_objetivo_general_view(request):
         form = RiesgoObjetivoGeneralForm()
 
     context = {'form': form}
-    return render(request, 'riesgosp.html', context)
+    return render(request, 'form/riesgosp.html', context)
 
 def Riesgo_productos_view(request):
     if request.method == 'POST':
@@ -295,7 +297,7 @@ def Riesgo_productos_view(request):
         form = RiesgoProductosForm()
 
     context = {'form': form}
-    return render(request, 'riesgosp.html', context)
+    return render(request, 'form/riesgosp.html', context)
 
 def Riesgo_actividades_view(request):
     if request.method == 'POST':
@@ -306,19 +308,21 @@ def Riesgo_actividades_view(request):
         form = RiesgoActividadesForm()
 
     context = {'form': form}
-    return render(request, 'riesgosp.html', context)
+    return render(request, 'form/riesgosp.html', context)
 
 def Metodologia_view(request):
-
-    return render(request, 'metodologia.html')
+    return render(request, 'form/metodologia.html')
 
 def Objetivos_view(request):
-
-    return render(request, 'objetivos.html')
+    return render(request, 'form/objetivos.html')
 
 def Anexos_view(request):
+    return render(request, 'form/anexos.html')
 
-    return render(request, 'anexos.html')
 def Proyeccion_view(request):
+    return render(request, 'form/proyeccion.html')
 
-    return render(request, 'proyeccion.html')
+def get_user_with_roles(request):
+    user = request.user
+    roles = user.roles.all()
+    return print(roles)
