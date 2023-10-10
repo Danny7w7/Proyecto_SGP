@@ -307,3 +307,18 @@ def Riesgo_actividades_view(request):
 
     context = {'form': form}
     return render(request, 'riesgosp.html', context)
+
+def Metodologia_view(request):
+
+    return render(request, 'metodologia.html')
+
+def Objetivos_view(request):
+
+    return render(request, 'objetivos.html')
+
+def Anexos_view(request):
+
+    return render(request, 'anexos.html')
+def Proyeccion_view(request):
+
+    return render(request, 'proyeccion.html')
