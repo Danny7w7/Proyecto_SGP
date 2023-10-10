@@ -1,0 +1,130 @@
+{% extends "form/crearp.html" %}
+
+{% load static %}
+{% block forms %}
+    <div class="accordion" id="accordionExample">
+        <div class="steps pasop">
+            <progress id="progress" value=0 max=100></progress>
+            <div class="step-item flex-fill">
+                <button class="step-button text-center" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    1
+                </button>
+                <div class="step-title">
+                    <label for="" class="form-label">Anexos del proyecto</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center col-12">
+            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">ANEXOS</h5>
+        </div>
+
+        <div class="card">
+            <div id="headingOne">
+            </div>
+            <!-- Contenido de primer boton -->
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="contenido">
+                        <!-- BARRA DE PROGRESO -->
+                        <div class="d-flex justify-content-end mt-3 mr-3">
+                            <div class="col-4 mb-4">
+                                <div class="progress" role="progressbar" aria-label="Example with label"
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
+                                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center col-12">
+                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Anexos vinculados al proyecto</h5>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12 md-10">
+                                <div class="bg-light mt-2 border_radius row me-0">
+                                    <div class="col-12 md-10">
+                                        <form method="post" id="form1" action="{% url 'anexos' %}" class="needs-validation">
+                                            {% csrf_token %}
+                                        
+                                        <div class="mt-3" style="width: 95%; margin-left: 2%;">
+
+                                            <div class="mb-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">ANEXO 1A. Acta Reunión Regional</label>
+                                                    <input class="form-control" name="" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
+                                            <!-- Segundo textarea con label -->
+                                            <div class="mb-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">ANEXO 1C. Carta C.I Director Regional</label>
+                                                    <input class="form-control" name="marco_conceptual" type="file" id="formFile">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">ANEXO 2. Ficha técnica para maquinaria y equipos.</label>
+                                                    <input class="form-control" name="marco_conceptual" type="file" id="formFile">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">ANEXO 4. Modernización. (Obligatorio para los proyectos cuyo objeto sea la actualización y modernización de ambientes de formación (SIIF 23))</label>
+                                                    <input class="form-control" name="marco_conceptual" type="file" id="formFile">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">ANEXO 7. Carta de intención o acta que soporta el trabajo articulado con entidades aliadas (diferentes al SENA) (Obligatorio si se articula con entidad aliada o con otro Centro de Formación)</label>
+                                                    <input class="form-control" name="marco_conceptual" type="file" id="formFile">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">ANEXO 8. Propiedad intelectual (Obligatorio si se articula con entidad aliada o con otro Centro de Formación)</label>
+                                                    <input class="form-control" name="" type="file" id="formFile">
+                                                </div>
+                                            </div>
+
+                                            <!-- Botón Siguiente centrado -->
+                                            <div class="d-flex justify-content-center col-12">
+                                                <button type="submit"
+                                                    class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/estp_validations.js' %}"></script>
+    <!-- Stepper JavaScript -->
+    <script>
+        const stepButtons = document.querySelectorAll('.step-button');
+        const progress = document.querySelector('#progress');
+
+        Array.from(stepButtons).forEach((button, index) => {
+            button.addEventListener('click', () => {
+                progress.setAttribute('value', index * 100 / (stepButtons.length - 1));//there are 3 buttons. 2 spaces.
+
+                stepButtons.forEach((item, secindex) => {
+                    if (index > secindex) {
+                        item.classList.add('done');
+                    }
+                    if (index < secindex) {
+                        item.classList.remove('done');
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}

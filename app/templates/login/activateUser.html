@@ -1,3 +1,8 @@
+{% extends "login/login.html" %}
+
+{% load static %}
+{% block login %}
+
 <form method="POST">
     <h4 class="text-center mt-3"><strong>Cambiar contraseña</strong></h4>
     <p style="color: rgb(255, 0, 0); text-align: center;">Recuperaste acceso con contraseña temporal. Por seguridad, crea ahora una nueva contraseña personalizada. Gracias por tu comprensión.</p>
@@ -12,3 +17,4 @@
     <button class="btn first mb-5 mt-5" type="submit">Confirmar</button>
     {% csrf_token %}
 </form>
+{% endblock %}
