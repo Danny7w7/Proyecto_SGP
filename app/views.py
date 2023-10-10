@@ -118,6 +118,8 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return False
 
 def index(request):
+    get_user_with_roles(request)
+    print("UwU")
     return render(request, 'index.html')
 
 def crear_proyecto(request):
@@ -319,3 +321,8 @@ def Anexos_view(request):
 
 def Proyeccion_view(request):
     return render(request, 'form/proyeccion.html')
+
+def get_user_with_roles(request):
+    user = request.user
+    roles = user.roles.all()
+    return print(roles)
