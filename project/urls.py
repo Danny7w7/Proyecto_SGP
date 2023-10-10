@@ -19,9 +19,13 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
-    path('',views.index_view, name='index'),
+    path('',views.index, name='index'),
     path('admin/', admin.site.urls),
-    path('crear-proyecto/', views.crear_proyecto_view, name='crear_proyecto'),
+    path('login/', views.login_, name='login'),
+    path('logout/', views.logout_, name='logout'),
+    path('registrarse/', views.register, name='register'),
+    path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
+    path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/', views.Informacion_de_centro_view, name='info_proyecto'),
     path('autores/',views.Autores_view, name='autores'),
     #Mostrar autores
