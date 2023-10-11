@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from django.conf import settings
 from django.http import JsonResponse
+from functools import wraps
 
 from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
 from app.models import Usuarios, Autores, Participantes_Proyecto, Proyecto
@@ -121,6 +122,22 @@ def index(request):
     print("UwU")
     return render(request, 'index.html')
 
+def user_has_role(*required_roles):
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):
+            # Comprobar primero si el usuario está autenticado
+            if not request.user.is_authenticated:
+                return redirect('login') 
+            # Si está autenticado, verifica los roles
+            
+            if not request.user.roles.filter(rol__in=required_roles).exists():
+                return redirect('index')
+            return view_func(request, *args, **kwargs)
+        return _wrapped_view
+    return decorator
+
+@user_has_role('Admin', 'F')
 def crear_proyecto(request):
     if request.method == "POST":
         form = ProyectoForm(request.POST)
@@ -320,41 +337,28 @@ def Anexos_view(request):
 
 def Proyeccion_view(request):
     return render(request, 'form/proyeccion.html')
-
-# def get_user_with_roles(request):
-#     user = request.user
-#     roles = user.roles.all()
-#     return print(roles)
-
+  
 #Funciones de ADMIN MENU
 def admin(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/Admin.html')
 
 def not404(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/404.html')
 
 def anexosdoc(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/Anexos.html')
 
 def usuarios(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/Eliminar.html')
 
 def preguntas(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/PreguntasP.html')
 
 def proyectosINA(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/Proyectos-eliminados.html')
 
 def proyectoP(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/Proyectos-pendientes.html')
 
 def proyectoT(request):
-    print("SI FUNCA")
     return render(request, 'Dashboard/Proyectos-terminado.html')
