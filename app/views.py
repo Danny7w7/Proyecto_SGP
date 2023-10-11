@@ -118,7 +118,6 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return False
 
 def index(request):
-    get_user_with_roles(request)
     print("UwU")
     return render(request, 'index.html')
 
@@ -322,7 +321,40 @@ def Anexos_view(request):
 def Proyeccion_view(request):
     return render(request, 'form/proyeccion.html')
 
-def get_user_with_roles(request):
-    user = request.user
-    roles = user.roles.all()
-    return print(roles)
+# def get_user_with_roles(request):
+#     user = request.user
+#     roles = user.roles.all()
+#     return print(roles)
+
+#Funciones de ADMIN MENU
+def admin(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/Admin.html')
+
+def not404(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/404.html')
+
+def anexosdoc(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/Anexos.html')
+
+def usuarios(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/Eliminar.html')
+
+def preguntas(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/PreguntasP.html')
+
+def proyectosINA(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/Proyectos-eliminados.html')
+
+def proyectoP(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/Proyectos-pendientes.html')
+
+def proyectoT(request):
+    print("SI FUNCA")
+    return render(request, 'Dashboard/Proyectos-terminado.html')

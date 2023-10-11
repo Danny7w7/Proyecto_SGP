@@ -45,4 +45,26 @@ urlpatterns = [
     path('objetivos/',views.Objetivos_view, name='objetivos'),
     path('anexos/',views.Anexos_view, name='anexos'),
     path('proyeccion/',views.Proyeccion_view, name='proyeccion'),
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # paths admin menu
+    path('Dashboard/', views.admin, name='Dashboard'),
+    path('Dashboard/404/notfount/', views.not404, name='404'),
+    path('Dashboard/Doc-Anexos/', views.anexosdoc, name='anexosdoc'),
+    path('Dashboard/Usuarios/', views.usuarios, name='Usuarios'),
+    path('Dashboard/PreguntasPoli/', views.preguntas, name='preguntaspoli'),
+    path('Dashboard/Proyectos-Inactivos/', views.proyectosINA, name='Proyecto-inactivo'),
+    path('Dashboard/Proyectos-Completos/', views.proyectoT, name='Proyecto-Completo'),
+    path('Dashboard/Proyectos-Pendientes', views.proyectoP, name='Proyecto-Pendiente'),
 ]
