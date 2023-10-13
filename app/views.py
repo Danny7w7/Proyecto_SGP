@@ -14,7 +14,7 @@ from functools import wraps
 
 from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
 from app.models import Usuarios, Autores, Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
-
+from django.contrib.auth.decorators import login_required
 def register(request):
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
@@ -143,34 +143,29 @@ def edit_proyect(request):
 def index(request):
     return render(request, 'index.html')
 
-def user_has_role(*required_roles):
-    def decorator(view_func):
-        @wraps(view_func)
-        def _wrapped_view(request, *args, **kwargs):
-            # Comprobar primero si el usuario está autenticado
-            if not request.user.is_authenticated:
-                return redirect('login') 
-            # Si está autenticado, verifica los roles
-            
-            if not request.user.roles.filter(rol__in=required_roles).exists():
-                return redirect('index')
-            return view_func(request, *args, **kwargs)
-        return _wrapped_view
-    return decorator
+def user_has_role(user, *roles):
+    user_roles = set(user.roles.values_list('rol', flat=True))
+    required_roles = set(roles)
+    
+    return bool(user_roles & required_roles)
 
-@user_has_role('Admin', 'F')
+@login_required(login_url='/login')   
 def crear_proyecto(request):
-    if request.method == "POST":
-        form = ProyectoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('info_proyecto')
-        
-    else:
-        form = ProyectoForm()
-    context = {'form': form,
+    # Validacion que permita solo admin y formulador
+    if user_has_role(request.user, 'Admin', 'F'):
+        if request.method == "POST":
+            form = ProyectoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('info_proyecto')
+        else:
+            form = ProyectoForm()
+
+        context = {'form': form,
                'listaPlegable':contex_form()}
-    return render(request, 'form/crearp.html', context)
+        return render(request, 'form/crearp.html', context)
+    
+    return redirect('index')
 
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
