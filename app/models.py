@@ -24,10 +24,7 @@ class Usuarios(AbstractUser):
 
     def __str__(self):
         return self.username
-
-
-
-
+    
 
 class Proyecto(models.Model):
     titulo_Proyecto = models.CharField(max_length=100, null=False)
@@ -39,7 +36,7 @@ class Proyecto(models.Model):
     area_conocimiento = models.CharField(max_length=80, null=False)
     linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
     subarea_conocimiento = models.CharField(max_length=100, null=False)
-    # usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE) 
+    usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
 
 # Revisar
 class Conocimientos(models.Model):
@@ -60,7 +57,7 @@ class Informacion_Proyecto(models.Model):
     justificacion_Economia_Naranja = models.CharField(max_length=500, null=True)
     proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=False)
     justificacion_Politica_Discapacidad = models.CharField(max_length=500, null=True)
-    # proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 # class BaseRiesgo(models.Model):
 #     tipo = models.CharField(max_length=50, null=False)
@@ -214,3 +211,18 @@ class Analisis_Participantes(models.Model):
     Número_municipios_beneficiados = models.IntegerField(null=False)
     Nombre_municipios_beneficiados_descripción_beneficio = models.CharField(null=False, max_length=200)
     # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    
+class Codigos_grupo_investigacion(models.Model):
+    codigo = models.CharField(max_length=10)
+
+class Nombre_grupo_investigacion(models.Model):
+    nombre = models.CharField(max_length=200)
+
+class Redes_conocimiento(models.Model):
+    nombre = models.CharField(max_length=200)
+
+class Subareas_conocimiento(models.Model):
+    nombre = models.CharField(max_length=200)
+
+class Diciplina_subarea(models.Model):
+    nombre = models.CharField(max_length=200)

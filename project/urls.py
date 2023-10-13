@@ -46,17 +46,8 @@ urlpatterns = [
     path('anexos/',views.Anexos_view, name='anexos'),
     path('proyeccion/',views.Proyeccion_view, name='proyeccion'),
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    #Editar
+    path('edit_proyec/', views.edit_proyect, name='edit_proyec'),
     
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
