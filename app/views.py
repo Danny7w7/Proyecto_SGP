@@ -13,7 +13,7 @@ from django.http import JsonResponse
 from functools import wraps
 
 from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
-from app.models import Usuarios, Autores, Participantes_Proyecto, Proyecto
+from app.models import Usuarios, Autores, Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
 
 def register(request):
     if request.method == 'POST':
@@ -117,9 +117,30 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return True
     except:
         return False
+    
+def edit_proyect(request):
+    user = request.user
+    proyecto = user.proyecto_set.first()
+    print(proyecto)
+    if request.method == 'POST':
+        #Aqui se va a obtener el proyecto asociado al usuario (Cuando Cova termine la asociacion :v)
+
+        model = Proyecto
+        column_names = [field.name for field in model._meta.fields]
+        
+        for name in column_names:
+            if name == 'id' or name == 'usuario':
+                continue
+            print(request.POST.get(name))
+            print("Guardo"+name+"\n")
+            setattr(proyecto, name, request.POST.get(name))
+        proyecto.save()
+
+    context = {'proyecto':user.proyecto_set.first(),
+            'listaPlegable':contex_form()}
+    return render(request, 'edit_form/edit_proy.html', context)
 
 def index(request):
-    print("UwU")
     return render(request, 'index.html')
 
 def user_has_role(*required_roles):
@@ -147,9 +168,21 @@ def crear_proyecto(request):
         
     else:
         form = ProyectoForm()
-
-    context = {'form': form}
+    context = {'form': form,
+               'listaPlegable':contex_form()}
     return render(request, 'form/crearp.html', context)
+
+def contex_form():
+    codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
+    nombres = Nombre_grupo_investigacion.objects.all().order_by('nombre')
+    redes = Redes_conocimiento.objects.all().order_by('nombre')
+    subareas = Subareas_conocimiento.objects.all().order_by('nombre')
+    diciplinas = Diciplina_subarea.objects.all().order_by('nombre')
+    return {'codigos':codigos,
+            'nombres':nombres,
+            'redes':redes,
+            'subareas':subareas,
+            'diciplinas':diciplinas}
 
 # Informacion proponente
 def Informacion_de_centro_view(request):
@@ -163,7 +196,7 @@ def Informacion_de_centro_view(request):
     context = {'form': form}
     return render(request, 'form/infop.html', context)
 
-def  Autores_view(request):
+def Autores_view(request):
     if request.method == "POST":
         form = AutoresForm(request.POST)
         if form.is_valid():
