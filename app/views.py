@@ -14,7 +14,7 @@ from functools import wraps
 
 from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
 from app.models import Usuarios, Autores, Participantes_Proyecto, Proyecto
-
+from django.contrib.auth.decorators import login_required
 def register(request):
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
@@ -119,37 +119,32 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return False
 
 def index(request):
-    print("UwU")
+
     return render(request, 'index.html')
 
-def user_has_role(*required_roles):
-    def decorator(view_func):
-        @wraps(view_func)
-        def _wrapped_view(request, *args, **kwargs):
-            # Comprobar primero si el usuario está autenticado
-            if not request.user.is_authenticated:
-                return redirect('login') 
-            # Si está autenticado, verifica los roles
-            
-            if not request.user.roles.filter(rol__in=required_roles).exists():
-                return redirect('index')
-            return view_func(request, *args, **kwargs)
-        return _wrapped_view
-    return decorator
+def user_has_role(user, *roles):
+    user_roles = set(user.roles.values_list('rol', flat=True))
+    required_roles = set(roles)
+    
+    return bool(user_roles & required_roles)
 
-@user_has_role('Admin', 'F')
+@login_required(login_url='/login')   
 def crear_proyecto(request):
-    if request.method == "POST":
-        form = ProyectoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('info_proyecto')
-        
-    else:
-        form = ProyectoForm()
 
-    context = {'form': form}
-    return render(request, 'form/crearp.html', context)
+    # Validacion que permita solo admin y formulador
+    if user_has_role(request.user, 'Admin', 'F'):
+        if request.method == "POST":
+            form = ProyectoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('info_proyecto')
+        else:
+            form = ProyectoForm()
+
+        context = {'form': form}
+        return render(request, 'form/crearp.html', context)
+    
+    return redirect('index')
 
 # Informacion proponente
 def Informacion_de_centro_view(request):
