@@ -55,18 +55,18 @@
         <div class="offcanvas-body">
             <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
             proyecto</a> -->
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'info_proyecto' %}">Información del
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Información del
                 proyecto</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'est_proyecto' %}">Estructura del
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Estructura del
                 proyecto</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'objetivos' %}">Objetivos generales
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Objetivos generales
                 específicos</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'metodologia' %}">Metodología</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'part_proyecto' %}">Participación</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'proyeccion' %}">Proyección</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'riesgos_proyecto' %}">Análisis de
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Metodología</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Participación</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proyección</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Análisis de
                 riesgo</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'anexos' %}">Anexos</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Anexos</a>
             <div class="btn-n btn-bg-white mt-2 pt-2 pb-2 centradow border_radius">
             </div>
         </div>
@@ -92,11 +92,11 @@
         <div class="row justify-content-center cnt_gen">
             <div class="col-12 col-md-10">
                 <div class="mt-2 spos border_radius row me-0">
-                    
+                <form method="post" action="" class="needs-validation" id="form1">
                     <!-- Fila 1 -->
                     <!-- Columna 1 -->
                     <div class="col-12 col-sm-12 mb-3 p-1">
-                        <form method="post" class="needs-validation" id="form1">
+                      
                             {% csrf_token %}
                             <label for="titulo_Proyecto">Título</label>
                             <textarea
@@ -207,7 +207,7 @@
                         <button type="submit"
                             class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Guardar</button>
                     </div>
-                    </form>
+                </form>
                 </div>
             </div>
         </div>

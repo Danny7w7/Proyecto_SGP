@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('',views.index, name='index'),
@@ -26,7 +28,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
-    # path('info-proyecto/', views.Informacion_de_centro_view, name='info_proyecto'),
+    path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
     
     #Editar
     path('edit_proyec/', views.edit_proyect, name='edit_proyec'),
@@ -40,4 +42,4 @@ urlpatterns = [
     path('Dashboard/Proyectos-Inactivos/', views.proyectosINA, name='Proyecto-inactivo'),
     path('Dashboard/Proyectos-Completos/', views.proyectoT, name='Proyecto-Completo'),
     path('Dashboard/Proyectos-Pendientes', views.proyectoP, name='Proyecto-Pendiente'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

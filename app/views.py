@@ -4,7 +4,7 @@ import smtplib
 
 from email.message import EmailMessage
 
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
 
 from django.db.models import Q
@@ -12,7 +12,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from functools import wraps
 
-from app.forms import ProyectoForm
+from app.forms import Informacion_proponenteForm, ProyectoForm
 from app.models import Usuarios, Autores, Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
 from django.contrib.auth.decorators import login_required
 def register(request):
@@ -149,23 +149,36 @@ def user_has_role(user, *roles):
     
     return bool(user_roles & required_roles)
 
-@login_required(login_url='/login')   
+@login_required(login_url='/login') 
 def crear_proyecto(request):
-    # Validacion que permita solo admin y formulador
     if user_has_role(request.user, 'Admin', 'F'):
-        if request.method == "POST":
+        if request.method == 'POST':
             form = ProyectoForm(request.POST)
             if form.is_valid():
-                form.save()
-                return redirect('info_proyecto')
+                proyecto = form.save(commit=False)
+                proyecto.usuario = request.user
+                proyecto.save()
+                return redirect('crear_proyecto')
         else:
             form = ProyectoForm()
+    return render(request, 'form/crearp.html', {'form': form})
 
-        context = {'form': form,
-               'listaPlegable':contex_form()}
-        return render(request, 'form/crearp.html', context)
-    
-    return redirect('index')
+def Informacion_de_centro(request, id_proyecto):
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    if request.method == 'POST':
+        form = Informacion_proponenteForm(request.POST)
+        if form.is_valid():
+            informacion_centro = form.save(commit=False)   
+            informacion_centro.proyecto = proyecto
+            informacion_centro.save()
+            print("Información del centro guardada correctamente.")
+        else:
+            print(form.errors)
+            print("El formulario no es válido.")
+    else:
+        form = Informacion_proponenteForm(initial={'proyecto': proyecto})
+        
+    return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
 
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
