@@ -30,6 +30,7 @@ class Usuarios(AbstractUser):
 
 
 class Proyecto(models.Model):
+    usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE) 
     titulo_Proyecto = models.CharField(max_length=100, null=False)
     descripcion = models.CharField(max_length=200, null=False)
     codigo_Grupo_Investigacion = models.CharField(max_length=30, null=False)
@@ -39,7 +40,7 @@ class Proyecto(models.Model):
     area_conocimiento = models.CharField(max_length=80, null=False)
     linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
     subarea_conocimiento = models.CharField(max_length=100, null=False)
-    # usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE) 
+    
 
 # Revisar
 class Conocimientos(models.Model):
@@ -53,13 +54,13 @@ class Informacion_Proyecto(models.Model):
     codigo_Dependencia_Presupuestal = models.CharField(max_length=50, null=False)
     tematicas_Estrategias_SENA = models.CharField(max_length=100, null=False)
     link_video_proyecto = models.CharField(max_length=500, null=False)
-    proyecto_Relacionado_Industrial40 = models.BooleanField(null=False)
+    # proyecto_Relacionado_Industrial40 = models.BooleanField(null=False)
     justificacion_Industrial = models.CharField(max_length=500, null=True)
     actividades_economicas_del_proyecto_investigacion = models.CharField(max_length=100, null=False)
-    proyecto_Relacionado_Economia_Naranja = models.BooleanField(null=False)
-    justificacion_Economia_Naranja = models.CharField(max_length=500, null=True)
-    proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=False)
-    justificacion_Politica_Discapacidad = models.CharField(max_length=500, null=True)
+    # proyecto_Relacionado_Economia_Naranja = models.BooleanField(null=False)
+    justificacion_Economia_Naranja = models.CharField(max_length=500, null=False)
+    # proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=False)
+    justificacion_Politica_Discapacidad = models.CharField(max_length=500, null=False)
     # proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 # class BaseRiesgo(models.Model):
@@ -178,7 +179,7 @@ class Informacion_de_centro(models.Model):
     Nombre_Sub_Director = models.CharField(max_length=50, null=False)
     Numero_Sub_Director = models.BigIntegerField(null=False)
     email_sub_director = models.CharField(max_length=100, null=False)
-
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # Info_Proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
     
 class Participantes_Proyecto(models.Model):

@@ -4,16 +4,16 @@ import smtplib
 
 from email.message import EmailMessage
 
-from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout
-
+from django.shortcuts import redirect, render ,get_object_or_404
+from django.contrib.auth import authenticate, login, logout 
+from django.contrib import messages
 from django.db.models import Q
 from django.conf import settings
 from django.http import JsonResponse
 from functools import wraps
 
 from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
-from app.models import Usuarios, Autores, Participantes_Proyecto, Proyecto
+from app.models import Informacion_Proyecto, Usuarios, Autores, Participantes_Proyecto, Proyecto
 
 def register(request):
     if request.method == 'POST':
@@ -139,29 +139,18 @@ def user_has_role(*required_roles):
 
 @user_has_role('Admin', 'F')
 def crear_proyecto(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = ProyectoForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('info_proyecto')
-        
+            proyecto = form.save(commit=False)
+            proyecto.usuario = request.user
+            proyecto.save()
+            messages.success(request, 'Proyecto creado con éxito.')
+            return redirect('crear_proyecto')
     else:
         form = ProyectoForm()
+    return render(request, 'form/crearp.html', {'form': form})
 
-    context = {'form': form}
-    return render(request, 'form/crearp.html', context)
-
-# Informacion proponente
-def Informacion_de_centro_view(request):
-    if request.method == "POST":
-        form = Informacion_de_centroForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = Informacion_de_centroForm()
-    
-    context = {'form': form}
-    return render(request, 'form/infop.html', context)
 
 def  Autores_view(request):
     if request.method == "POST":
@@ -174,9 +163,9 @@ def  Autores_view(request):
     context = {'form': form}
     return render(request, 'form/infop.html', context)
 
-# Mostrar info de autores
+
 def Mostrar_autores(request):
-    m_autores = Autores.objects.all()  # obtiene todos los registros del modelo
+    m_autores = Autores.objects.all()
     return render(request, 'form/infop.html', {'m_autores': m_autores})
 
 def  Participantes_view(request):
@@ -191,52 +180,22 @@ def  Participantes_view(request):
     return render(request, 'form/infop.html', context)
 
 
-#---------------------- Pruebas ---------------#
-
-# def Autores_view(request):
-#     if request.method == 'POST':
-#         autor_formset = AutorFormSet(request.POST, prefix='autor')
-
-
-#         if autor_formset.is_valid():
-            
-#             pass
-
-#     else:
-#         autor_formset = AutorFormSet(queryset=Autores.none(), prefix='autor')
-    
-#         return render(request, 'infop.html', {
-#         'autor_formset': autor_formset
-#     })
-        
-
-# def Participantes_view(request):
-#     if request.method == 'POST':
-#         participante_formset = ParticipanteFormSet(request.POST, prefix='participante')
-
-#         if participante_formset.is_valid():
-           
-#             pass
-
-#     else:
-#         participante_formset = ParticipanteFormSet(queryset=Participantes_Proyecto.none(), prefix='participante')
-
-#     return render(request, 'infop.html', {
-#         'participante_formset': participante_formset
-#     })
-
-
-def  Informacion_Proyecto_view(request):
-    if request.method == "POST":
-        form = Informacion_ProyectoForm(request.POST)
-        # print(form.erros)
+def Informacion_de_centro(request, id_proyecto):
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    if request.method == 'POST':
+        form = Informacion_de_centroForm(request.POST)
         if form.is_valid():
-            form.save()
+            informacion_centro = form.save(commit=False)   
+            informacion_centro.proyecto = proyecto
+            informacion_centro.save()
+            print("Información del centro guardada correctamente.")
+        else:
+            print("El formulario no es válido.")
     else:
-        form = Informacion_ProyectoForm()
-    
-    context = {'form': form}
-    return render(request, 'form/infop.html', context)
+        form = Informacion_de_centroForm(initial={'proyecto': proyecto})
+        
+    return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
+
 
 def  Estructura_del_proyecto_view(request):
     if request.method == "POST":

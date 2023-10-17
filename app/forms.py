@@ -7,12 +7,14 @@ class ProyectoForm(forms.ModelForm):
     class Meta:
         model = Proyecto
         fields = '__all__'
+        exclude = ['usuario']
 
 # Informacion proponente
 class Informacion_de_centroForm(forms.ModelForm):
     class Meta:
         model = Informacion_de_centro
         fields = '__all__'
+        exclude = ['proyecto']
 
 class AutoresForm(forms.ModelForm):
     class Meta:
@@ -24,12 +26,6 @@ class ParticipantesForm(forms.ModelForm):
         model = Participantes_Proyecto
         fields = '__all__'
 
-# AutorFormSet = modelformset_factory(
-#     Autores, 
-#     fields='__all__')
-# ParticipanteFormSet = modelformset_factory(
-#     Participantes_Proyecto
-#     , fields=('nombre',))
 #Generalidades
 class Informacion_ProyectoForm(forms.ModelForm):
     class Meta:

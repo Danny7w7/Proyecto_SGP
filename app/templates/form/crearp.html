@@ -54,7 +54,7 @@
         <div class="offcanvas-body">
             <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
             proyecto</a> -->
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'info_proyecto' %}">Información del
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Información del
                 proyecto</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'est_proyecto' %}">Estructura del
                 proyecto</a>
@@ -91,12 +91,12 @@
             <div class="col-12 col-md-10">
 
                 <div class="mt-2 spos border_radius row me-0">
-
+                <form method="post" action="" class="needs-validation" id="form1">
                     <!-- Fila 1 -->
                     <!-- Columna 1 -->
 
                     <div class="col-12 col-sm-12 mb-3 p-1">
-                        <form method="post" action="{% url 'crear_proyecto' %}" class="needs-validation" id="form1">
+                    
                             {% csrf_token %}
                             <!-- {{ form.as_p }} -->
                             <label for="titulo_Proyecto">Título</label>
@@ -896,7 +896,7 @@
                         <button type="submit"
                             class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Guardar</button>
                     </div>
-                    </form>
+                </form>
                 </div>
             </div>
         </div>
