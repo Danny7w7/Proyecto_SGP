@@ -29,35 +29,7 @@ urlpatterns = [
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
-    path('autores/',views.Autores_view, name='autores'),
-    #Mostrar autores
-    path('ver-autores/', views.Mostrar_autores, name='mostrar_autores'),
-    path('participantes/',views.Participantes_view, name='participantes'),
-    #Informacion_proyecto son las "generalidades" del mismo
-    # path('generalidades/',views.Informacion_de_centro_view, name='generalidades'),
-    path('est-proyecto/',views.Estructura_del_proyecto_view, name='est_proyecto'),
-    path('est-arbolp/',views.Estructura_arbol_problemas_view, name='est_arbolp'),
-    path('est-problema/',views.Estructura_problema_view, name='est_problema'),
-    path('part-proyecto/',views.Analisis_Participantes_view, name='part_proyecto'),
-    path('entidad-aliada/',views.Entidades_aliadas_view, name='ent_aliada'),
-    path('riesgos-proyecto/',views.Riesgos_objetivo_general_view, name='riesgos_proyecto'),
-    path('riesgo-productos/',views.Riesgo_productos_view, name='riesgo_productos'),
-    path('riesgo-actividades/',views.Riesgo_actividades_view, name='riesgo_actividades'),
-    path('metodologia/',views.Metodologia_view, name='metodologia'),
-    path('objetivos/',views.Objetivos_view, name='objetivos'),
-    path('anexos/',views.Anexos_view, name='anexos'),
-    path('proyeccion/',views.Proyeccion_view, name='proyeccion'),
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    # path('info-proyecto/', views.Informacion_de_centro_view, name='info_proyecto'),
     
     
     # paths admin menu

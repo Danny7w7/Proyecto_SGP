@@ -4,17 +4,17 @@ import smtplib
 
 from email.message import EmailMessage
 
-from django.shortcuts import redirect, render ,get_object_or_404
-from django.contrib.auth import authenticate, login, logout 
-from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth import authenticate, login, logout
+
 from django.db.models import Q
 from django.conf import settings
 from django.http import JsonResponse
 from functools import wraps
 
-from app.forms import AutoresForm, ParticipantesForm, ProyectoForm, Informacion_de_centroForm, Informacion_ProyectoForm, Estructura_del_proyectoForm, Analisis_ParticipantesForm, Entidades_aliadasForm, RiesgoObjetivoGeneralForm, RiesgoProductosForm, RiesgoActividadesForm, Estructura_arbol_problemasForm, Estructura_problemaForm
-from app.models import Informacion_Proyecto, Usuarios, Autores, Participantes_Proyecto, Proyecto
-
+from app.forms import Informacion_proponenteForm, ProyectoForm
+from app.models import Usuarios, Autores, Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
+from django.contrib.auth.decorators import login_required
 def register(request):
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
@@ -117,185 +117,81 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return True
     except:
         return False
+    
+def edit_proyect(request):
+    user = request.user
+    proyecto = user.proyecto_set.first()
+    print(proyecto)
+    if request.method == 'POST':
+        #Aqui se va a obtener el proyecto asociado al usuario (Cuando Cova termine la asociacion :v)
+
+        model = Proyecto
+        column_names = [field.name for field in model._meta.fields]
+        
+        for name in column_names:
+            if name == 'id' or name == 'usuario':
+                continue
+            print(request.POST.get(name))
+            print("Guardo"+name+"\n")
+            setattr(proyecto, name, request.POST.get(name))
+        proyecto.save()
+
+    context = {'proyecto':user.proyecto_set.first(),
+            'listaPlegable':contex_form()}
+    return render(request, 'edit_form/edit_proy.html', context)
 
 def index(request):
-    print("UwU")
     return render(request, 'index.html')
 
-def user_has_role(*required_roles):
-    def decorator(view_func):
-        @wraps(view_func)
-        def _wrapped_view(request, *args, **kwargs):
-            # Comprobar primero si el usuario está autenticado
-            if not request.user.is_authenticated:
-                return redirect('login') 
-            # Si está autenticado, verifica los roles
-            
-            if not request.user.roles.filter(rol__in=required_roles).exists():
-                return redirect('index')
-            return view_func(request, *args, **kwargs)
-        return _wrapped_view
-    return decorator
+def user_has_role(user, *roles):
+    user_roles = set(user.roles.values_list('rol', flat=True))
+    required_roles = set(roles)
+    
+    return bool(user_roles & required_roles)
 
-@user_has_role('Admin', 'F')
+
 def crear_proyecto(request):
-    if request.method == 'POST':
-        form = ProyectoForm(request.POST)
-        if form.is_valid():
-            proyecto = form.save(commit=False)
-            proyecto.usuario = request.user
-            proyecto.save()
-            messages.success(request, 'Proyecto creado con éxito.')
-            return redirect('crear_proyecto')
-    else:
-        form = ProyectoForm()
+    if user_has_role(request.user, 'Admin', 'F'):
+        if request.method == 'POST':
+            form = ProyectoForm(request.POST)
+            if form.is_valid():
+                proyecto = form.save(commit=False)
+                proyecto.usuario = request.user
+                proyecto.save()
+                return redirect('crear_proyecto')
+        else:
+            form = ProyectoForm()
     return render(request, 'form/crearp.html', {'form': form})
-
-
-def  Autores_view(request):
-    if request.method == "POST":
-        form = AutoresForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = AutoresForm()
-    
-    context = {'form': form}
-    return render(request, 'form/infop.html', context)
-
-
-def Mostrar_autores(request):
-    m_autores = Autores.objects.all()
-    return render(request, 'form/infop.html', {'m_autores': m_autores})
-
-def  Participantes_view(request):
-    if request.method == "POST":
-        form = ParticipantesForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = ParticipantesForm()
-    
-    context = {'form': form}
-    return render(request, 'form/infop.html', context)
-
 
 def Informacion_de_centro(request, id_proyecto):
     proyecto = get_object_or_404(Proyecto, id=id_proyecto)
     if request.method == 'POST':
-        form = Informacion_de_centroForm(request.POST)
+        form = Informacion_proponenteForm(request.POST)
         if form.is_valid():
             informacion_centro = form.save(commit=False)   
             informacion_centro.proyecto = proyecto
             informacion_centro.save()
             print("Información del centro guardada correctamente.")
         else:
+            print(form.errors)
             print("El formulario no es válido.")
     else:
-        form = Informacion_de_centroForm(initial={'proyecto': proyecto})
+        form = Informacion_proponenteForm(initial={'proyecto': proyecto})
         
     return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
 
+def contex_form():
+    codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
+    nombres = Nombre_grupo_investigacion.objects.all().order_by('nombre')
+    redes = Redes_conocimiento.objects.all().order_by('nombre')
+    subareas = Subareas_conocimiento.objects.all().order_by('nombre')
+    diciplinas = Diciplina_subarea.objects.all().order_by('nombre')
+    return {'codigos':codigos,
+            'nombres':nombres,
+            'redes':redes,
+            'subareas':subareas,
+            'diciplinas':diciplinas}
 
-def  Estructura_del_proyecto_view(request):
-    if request.method == "POST":
-        form = Estructura_del_proyectoForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = Estructura_del_proyectoForm()
-    
-    context = {'form': form}
-    return render(request, 'form/estp.html', context)
-    
-def  Estructura_arbol_problemas_view(request):
-    if request.method == "POST":
-        form = Estructura_arbol_problemasForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = Estructura_arbol_problemasForm()
-    
-    context = {'form': form}
-    return render(request, 'form/estp.html', context)
-
-def  Estructura_problema_view(request):
-    if request.method == "POST":
-        form = Estructura_problemaForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = Estructura_problemaForm()
-    
-    context = {'form': form}
-    return render(request, 'form/estp.html', context)
-
-def  Analisis_Participantes_view(request):
-    if request.method == "POST":
-        form = Analisis_ParticipantesForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = Analisis_ParticipantesForm()
-    
-    context = {'form': form}
-    return render(request, 'form/partp.html', context)
-
-def  Entidades_aliadas_view(request):
-    if request.method == "POST":
-        form = Entidades_aliadasForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = Entidades_aliadasForm()
-    
-    context = {'form': form}
-    return render(request, 'form/partp.html', context)
-
-def Riesgos_objetivo_general_view(request):
-    if request.method == 'POST':
-        form = RiesgoObjetivoGeneralForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = RiesgoObjetivoGeneralForm()
-
-    context = {'form': form}
-    return render(request, 'form/riesgosp.html', context)
-
-def Riesgo_productos_view(request):
-    if request.method == 'POST':
-        form = RiesgoProductosForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = RiesgoProductosForm()
-
-    context = {'form': form}
-    return render(request, 'form/riesgosp.html', context)
-
-def Riesgo_actividades_view(request):
-    if request.method == 'POST':
-        form = RiesgoActividadesForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = RiesgoActividadesForm()
-
-    context = {'form': form}
-    return render(request, 'form/riesgosp.html', context)
-
-def Metodologia_view(request):
-    return render(request, 'form/metodologia.html')
-
-def Objetivos_view(request):
-    return render(request, 'form/objetivos.html')
-
-def Anexos_view(request):
-    return render(request, 'form/anexos.html')
-
-def Proyeccion_view(request):
-    return render(request, 'form/proyeccion.html')
   
 #Funciones de ADMIN MENU
 def admin(request):
