@@ -44,15 +44,16 @@ def login_(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        usuario = Usuarios.objects.filter(Q(email=email)).first()
-        if not usuario.is_active and password==usuario.temp_password:
-            return activate_user(request, usuario, password)
+        try:
+            usuario = Usuarios.objects.filter(Q(email=email)).first()
+            if not usuario.is_active and password==usuario.temp_password:
+                return activate_user(request, usuario, password)
 
-        user = authenticate(request, username=usuario, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect(index)
-        else:
+                user = authenticate(request, username=usuario, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect(index)
+        except:
             msg = 'Datos incorrectos, intente de nuevo'
             return render(request, 'login/login.html', {'msg':msg})
     else:
