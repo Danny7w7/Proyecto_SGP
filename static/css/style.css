@@ -289,3 +289,9 @@ select option:hover {
   } 
   
 }
+
+.img-tematica{ 
+  width: 800px;
+  height: 800px;
+  object-fit: cover;
+}
