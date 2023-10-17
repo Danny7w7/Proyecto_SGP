@@ -149,7 +149,7 @@ def user_has_role(user, *roles):
     
     return bool(user_roles & required_roles)
 
-
+@login_required(login_url='/login') 
 def crear_proyecto(request):
     if user_has_role(request.user, 'Admin', 'F'):
         if request.method == 'POST':

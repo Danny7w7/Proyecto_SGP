@@ -29,8 +29,9 @@ urlpatterns = [
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
-    # path('info-proyecto/', views.Informacion_de_centro_view, name='info_proyecto'),
     
+    #Editar
+    path('edit_proyec/', views.edit_proyect, name='edit_proyec'),
     
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),

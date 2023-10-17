@@ -37,7 +37,6 @@ class Proyecto(models.Model):
     subarea_conocimiento = models.CharField(max_length=100, null=False)
     usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
 
-
 # Informacion del Proyecto
 class Informacion_proponente(models.Model):
     Region = models.CharField(max_length=50, null=False)
@@ -51,7 +50,9 @@ class Informacion_proponente(models.Model):
     email_sub_director = models.CharField(max_length=100, null=False)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # Info_Proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
-
+    
+    
+    
 class Autores(models.Model):
     nombre_Autor_Proyecto = models.CharField(null=False, max_length=50)
     tipo_Vinculacion_entidad = models.CharField(max_length=15 ,null=False, choices=[('planta', 'Planta'), ('contratista', 'Contratista') , ('planta_temporal' , 'Planta_temporal')])
@@ -62,7 +63,7 @@ class Autores(models.Model):
     numero_Telefono_Autor = models.BigIntegerField(null=False)
     numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
     # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
-
+    
 class Participantes_Proyecto(models.Model):
     nombre_participantes_de_desarrollo = models.CharField(max_length=50, null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
