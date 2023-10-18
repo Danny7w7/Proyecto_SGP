@@ -1,20 +1,18 @@
+from django.shortcuts import redirect, render
+
+from app.models import Usuarios
+from django.contrib.auth import authenticate, login, logout
 import random
 import string
 import smtplib
-
-from email.message import EmailMessage
-
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth import authenticate, login, logout
-
 from django.db.models import Q
 from django.conf import settings
-from django.http import JsonResponse
-from functools import wraps
+from email.message import EmailMessage
 
-from app.forms import Informacion_proponenteForm, ProyectoForm
-from app.models import Usuarios, Autores, Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
-from django.contrib.auth.decorators import login_required
+def index(request):
+    return render(request, 'index.html')
+
+
 def register(request):
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
@@ -88,7 +86,7 @@ def recover_password(request):
 
             print(sendEmail(email_subject, receiver_email_address, "Hola caballero, al parecer usted ha perdido el acceso a nuestra pagina web, este es su contraseña temporal: " + password))
 
-            request.session['msg'] = "Se envio su nueva contraseña via correo, revise su bandeja"
+            request.session['msg'] = "Se envio su nueva contraseña via correo, revise su bandeja"  # noqa: E501
             return redirect(login_)
         else:
             msg = "Este email no esta registrado a nuestra pagina"
@@ -118,103 +116,3 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return True
     except:
         return False
-    
-def edit_proyect(request):
-    user = request.user
-    proyecto = user.proyecto_set.first()
-    print(proyecto)
-    if request.method == 'POST':
-        #Aqui se va a obtener el proyecto asociado al usuario (Cuando Cova termine la asociacion :v)
-
-        model = Proyecto
-        column_names = [field.name for field in model._meta.fields]
-        
-        for name in column_names:
-            if name == 'id' or name == 'usuario':
-                continue
-            print(request.POST.get(name))
-            print("Guardo"+name+"\n")
-            setattr(proyecto, name, request.POST.get(name))
-        proyecto.save()
-
-    context = {'proyecto':user.proyecto_set.first(),
-            'listaPlegable':contex_form()}
-    return render(request, 'edit_form/edit_proy.html', context)
-
-def index(request):
-    return render(request, 'index.html')
-
-def user_has_role(user, *roles):
-    user_roles = set(user.roles.values_list('rol', flat=True))
-    required_roles = set(roles)
-    
-    return bool(user_roles & required_roles)
-
-@login_required(login_url='/login') 
-def crear_proyecto(request):
-    if user_has_role(request.user, 'Admin', 'F'):
-        if request.method == 'POST':
-            form = ProyectoForm(request.POST)
-            if form.is_valid():
-                proyecto = form.save(commit=False)
-                proyecto.usuario = request.user
-                proyecto.save()
-                return redirect('crear_proyecto')
-        else:
-            form = ProyectoForm()
-    return render(request, 'form/crearp.html', {'form': form})
-
-def Informacion_de_centro(request, id_proyecto):
-    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
-    if request.method == 'POST':
-        form = Informacion_proponenteForm(request.POST)
-        if form.is_valid():
-            informacion_centro = form.save(commit=False)   
-            informacion_centro.proyecto = proyecto
-            informacion_centro.save()
-            print("Información del centro guardada correctamente.")
-        else:
-            print(form.errors)
-            print("El formulario no es válido.")
-    else:
-        form = Informacion_proponenteForm(initial={'proyecto': proyecto})
-        
-    return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
-
-def contex_form():
-    codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
-    nombres = Nombre_grupo_investigacion.objects.all().order_by('nombre')
-    redes = Redes_conocimiento.objects.all().order_by('nombre')
-    subareas = Subareas_conocimiento.objects.all().order_by('nombre')
-    diciplinas = Diciplina_subarea.objects.all().order_by('nombre')
-    return {'codigos':codigos,
-            'nombres':nombres,
-            'redes':redes,
-            'subareas':subareas,
-            'diciplinas':diciplinas}
-
-  
-#Funciones de ADMIN MENU
-def admin(request):
-    return render(request, 'Dashboard/Admin.html')
-
-def not404(request):
-    return render(request, 'Dashboard/404.html')
-
-def anexosdoc(request):
-    return render(request, 'Dashboard/Anexos.html')
-
-def usuarios(request):
-    return render(request, 'Dashboard/Eliminar.html')
-
-def preguntas(request):
-    return render(request, 'Dashboard/PreguntasP.html')
-
-def proyectosINA(request):
-    return render(request, 'Dashboard/Proyectos-eliminados.html')
-
-def proyectoP(request):
-    return render(request, 'Dashboard/Proyectos-pendientes.html')
-
-def proyectoT(request):
-    return render(request, 'Dashboard/Proyectos-terminado.html')
