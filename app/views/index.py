@@ -14,24 +14,30 @@ def index(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect(index)
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
             msg = "Este email ya existe"
             return render(request, 'login/register.html', {'msg': msg})
         else:
             afterhashed = request.POST["password"]
-            user = Usuarios.objects.create_user(email=request.POST["email"],
-                                            password=request.POST["password"],
-                                            username=request.POST["email"],
-                                            first_name=request.POST["first_name"],
-                                            last_name=request.POST["last_name"],
-                                            tipo_documento=request.POST["tipo_documento"],
-                                            num_documento=request.POST["num_documento"])
-            user.save()
-            userl = authenticate(
-                request, username=user.username, password=afterhashed)
-            login(request, userl)
-            return redirect(index)
+            try:
+                user = Usuarios.objects.create_user(email=request.POST["email"],
+                                                password=request.POST["password"],
+                                                username=request.POST["email"],
+                                                first_name=request.POST["first_name"],
+                                                last_name=request.POST["last_name"],
+                                                tipo_documento=request.POST["tipo_documento"],
+                                                num_documento=request.POST["num_documento"])
+                user.save()
+                userl = authenticate(
+                    request, username=user.username, password=afterhashed)
+                login(request, userl)
+                return redirect(index)
+            except:
+                msg = "Por favor selecciona tu tipo de documento correctamente"
+                return render(request, 'login/register.html', {'msg':msg})
     else:
         return render(request, 'login/register.html')
 
@@ -47,10 +53,13 @@ def login_(request):
             if not usuario.is_active and password==usuario.temp_password:
                 return activate_user(request, usuario, password)
 
-                user = authenticate(request, username=usuario, password=password)
-                if user is not None:
-                    login(request, user)
-                    return redirect(index)
+            user = authenticate(request, username=usuario, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect(index)
+            else:
+                msg = 'Datos incorrectos, intente de nuevo'
+                return render(request, 'login/login.html', {'msg':msg})
         except:
             msg = 'Datos incorrectos, intente de nuevo'
             return render(request, 'login/login.html', {'msg':msg})

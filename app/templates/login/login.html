@@ -21,6 +21,7 @@
                 <h2 class="text-center mb-5" style="font-family: 'Lucida Sans';">Login</h2>
                 <form method="POST">
                     {% csrf_token %}
+                    <h6>{{msg}}</h6>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label" style="font-family: 'Lucida Sans';">Correo Electronico</label>
                         <input name="email" type="email" class="form-control border border-secondary" id="exampleInputEmail1" aria-describedby="emailHelp">
