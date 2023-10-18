@@ -33,7 +33,7 @@ urlpatterns = [
     path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
     
     #Editar
-    path('edit_proyec/', views.edit_proyect, name='edit_proyec'),
+    path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
     
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),

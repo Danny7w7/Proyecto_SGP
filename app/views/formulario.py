@@ -3,36 +3,16 @@ from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm
 from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
 from django.contrib.auth.decorators import login_required
+from app.views.index import index
 
-
-def edit_proyect(request):
-    user = request.user
-    proyecto = user.proyecto_set.first()
-    print(proyecto)
-    if request.method == 'POST':
-        #Aqui se va a obtener el proyecto asociado al usuario (Cuando Cova termine la asociacion :v)
-
-        model = Proyecto
-        column_names = [field.name for field in model._meta.fields]
-        
-        for name in column_names:
-            if name == 'id' or name == 'usuario':
-                continue
-            print(request.POST.get(name))
-            print("Guardo"+name+"\n")
-            setattr(proyecto, name, request.POST.get(name))
-        proyecto.save()
-
-    context = {'proyecto':user.proyecto_set.first(),
-            'listaPlegable':contex_form()}
-    return render(request, 'edit_form/edit_proy.html', context)
-
+#------Decoradores------
 def user_has_role(user, *roles):
     user_roles = set(user.roles.values_list('rol', flat=True))
     required_roles = set(roles)
     
     return bool(user_roles & required_roles)
 
+#------Formulario------
 @login_required(login_url='/login') 
 def crear_proyecto(request):
     if user_has_role(request.user, 'Admin', 'F'):
@@ -42,10 +22,12 @@ def crear_proyecto(request):
                 proyecto = form.save(commit=False)
                 proyecto.usuario = request.user
                 proyecto.save()
-                return redirect('crear_proyecto')
+                return redirect('info_proyecto', id_proyecto=proyecto.id)
         else:
             form = ProyectoForm()
-    return render(request, 'form/crearp.html', {'form': form})
+            context = {'form': form,
+                        'listaPlegable':contex_form()}
+    return render(request, 'form/crearp.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
     proyecto = get_object_or_404(Proyecto, id=id_proyecto)
@@ -77,3 +59,23 @@ def contex_form():
             'diciplinas':diciplinas}
 
   
+#------Editar proyecto------
+def edit_proyect(request, id_proyecto):
+    user = request.user
+    proyecto = Proyecto.objects.filter(id=id_proyecto).first()
+    if not user.id == proyecto.usuario_id:
+        return redirect(index)
+    if request.method == 'POST':
+
+        model = Proyecto
+        column_names = [field.name for field in model._meta.fields]
+        
+        for name in column_names:
+            if name == 'id' or name == 'usuario':
+                continue
+            setattr(proyecto, name, request.POST.get(name))
+        proyecto.save()
+
+    context = {'proyecto':user.proyecto_set.first(),
+            'listaPlegable':contex_form()}
+    return render(request, 'edit_form/edit_proy.html', context)
