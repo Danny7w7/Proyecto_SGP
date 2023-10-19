@@ -67,17 +67,15 @@
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Análisis de
                 riesgo</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Anexos</a>
-            <div class="btn-n btn-bg-white mt-2 pt-2 pb-2 centradow border_radius">
-            </div>
-        </div>
-    </div>
-
-    <!-- BARRA DE PROGRESO -->
-    <div class="d-flex justify-content-end mt-3 mr-3">
-        <div class="col-4 mb-4">
-            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
-                aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                <div class="progress-bar bg-green" style="width: 25%">25%</div>
+            <!-- BARRA DE PROGRESO -->
+            <div class="d-flex justify-content-end mt-3 mr-3">
+                <div class="col-12 mb-4">
+                    <small>Progreso</small>
+                    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100" style="width: 25;">
+                        <div class="progress-bar bg-green" style="width: {{percentaje}}%">{{percentaje}}%</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -92,11 +90,10 @@
         <div class="row justify-content-center cnt_gen">
             <div class="col-12 col-md-10">
                 <div class="mt-2 spos border_radius row me-0">
-                <form method="post" action="" class="needs-validation" id="form1">
-                    <!-- Fila 1 -->
-                    <!-- Columna 1 -->
-                    <div class="col-12 col-sm-12 mb-3 p-1">
-                      
+                    <form method="post" action="" class="needs-validation" id="form1">
+                        <!-- Fila 1 -->
+                        <!-- Columna 1 -->
+                        <div class="col-12 col-sm-12 mb-3 p-1">
                             {% csrf_token %}
                             <label for="titulo_Proyecto">Título</label>
                             <textarea
@@ -104,114 +101,113 @@
                                 style="height: 60px;" name="titulo_Proyecto" id="titulo_Proyecto">{{proyecto.titulo_Proyecto}}</textarea>
                             <div class="invalid-feedback">
                             </div>
-                    </div>
-                    <!-- Columna 2 -->
-                    <div class="col-12 col-sm-12 mb-3 p-1">
-                        <label for="descripcion">Descripción</label>
-                        <textarea
-                            class="form-control form-control-sm rectangular-textarea medium-textarea txtarea txt_crp"
-                            name="descripcion" id="descripcion">{{proyecto.descripcion}}</textarea>
-                        <div class="invalid-feedback">
                         </div>
-                    </div>
-                    <!-- Columna 3 -->
-                    <div class="col-12 col-sm-4 mb-3 p-1">
-                        <label for="codigo1">Código grupo de investigación</label>
-                        <select name="codigo_Grupo_Investigacion" class="form-select" id="select_box">
-                            <option value="" disabled selected>Selecciona una opción...</option>
-                            {% for codigo in listaPlegable.codigos %}
-                            <option{% if codigo.codigo == proyecto.codigo_Grupo_Investigacion %} selected{% endif %} value="{{codigo.codigo}}">{{codigo.codigo}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        <!-- Columna 2 -->
+                        <div class="col-12 col-sm-12 mb-3 p-1">
+                            <label for="descripcion">Descripción</label>
+                            <textarea
+                                class="form-control form-control-sm rectangular-textarea medium-textarea txtarea txt_crp"
+                                name="descripcion" id="descripcion">{{proyecto.descripcion}}</textarea>
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                        <!-- Columna 3 -->
+                        <div class="col-12 col-sm-4 mb-3 p-1">
+                            <label for="codigo1">Código grupo de investigación</label>
+                            <select name="codigo_Grupo_Investigacion" class="form-select" id="select_box">
+                                <option value="" disabled selected>Selecciona una opción...</option>
+                                {% for codigo in listaPlegable.codigos %}
+                                <option{% if codigo.codigo == proyecto.codigo_Grupo_Investigacion %} selected{% endif %} value="{{codigo.codigo}}">{{codigo.codigo}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <!-- Fila 2 -->
-                    <!-- Columna 1 -->
-                    <div class="col-12 col-sm-4 mb-3 p-1">
-                        <label for="nombre_grupo1">Nombre grupo de investigación</label>
-                        <select name="nombre_Grupo_Investigacion" class="form-select" id="select_box1">
-                            <option value="" disabled selected>Selecciona una opción...</option>
-                            {% for nombre in listaPlegable.nombres %}
-                            <option{% if nombre.nombre == proyecto.nombre_Grupo_Investigacion %} selected{% endif %} value="{{nombre.nombre}}">{{nombre.nombre}}</option>
-                            {% endfor %} 
-                        </select>
-                    </div>
-                    <!-- Columna 2 -->
-                    <div class="col-12 col-sm-4 mb-3 p-1">
-                        <label for="titulo2">Línea de investigación</label>
-                        <select name="linea_Grupo_Investigacion" class="form-select" id="select_box2">
-                            <option value="" disabled selected>Selecciona una opción...</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Desarrollo tecnológico' %} selected{%endif%} value="Desarrollo tecnológico">Desarrollo tecnológico</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Eventos nacionales' %} selected{%endif%} value="Eventos nacionales">Eventos nacionales</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Fomento para la innovación' %} selected{%endif%} value="Fomento para la innovación">Fomento para la innovación</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Investigación aplicada' %} selected{%endif%} value="Investigación aplicada">Investigación aplicada</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Red Tecnoparque Colombia' %} selected{%endif%} value="Red Tecnoparque Colombia">Red Tecnoparque Colombia</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Tecnoacademia fija' %} selected{%endif%} value="Tecnoacademia fija">Tecnoacademia fija</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Tecnoacademia itinerante' %} selected{%endif%} value="Tecnoacademia itinerante">Tecnoacademia itinerante</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Transferencia de conocimiento al sector productivo' %} selected{%endif%} value="Transferencia de conocimiento al sector productivo">Transferencia de conocimiento al sector productivo</option>
-                            <option{% if proyecto.linea_Grupo_Investigacion == 'Revistas' %} selected{%endif%} value="Revistas">Revistas</option>
-                        </select>
-                    </div>
-                    <!-- Columna 3 -->
-                    <div class="col-12 col-sm-4 mb-3 p-1">
-                        <label for="descripcion2">Red de conocimiento sectorial</label>
-                        <select name="red_Conocimiento_Sectorial" class="form-select" id="select_box3">
-                            <option value="" disabled selected>Selecciona una opción...</option>
-                            {% for red in listaPlegable.redes %}
-                            <option{% if red.nombre == proyecto.red_Conocimiento_Sectorial %} selected{% endif %} value="{{red.nombre}}">{{red.nombre}}</option>
-                            {% endfor %} 
-                        </select>
-                    </div>
+                        <!-- Fila 2 -->
+                        <!-- Columna 1 -->
+                        <div class="col-12 col-sm-4 mb-3 p-1">
+                            <label for="nombre_grupo1">Nombre grupo de investigación</label>
+                            <select name="nombre_Grupo_Investigacion" class="form-select" id="select_box1">
+                                <option value="" disabled selected>Selecciona una opción...</option>
+                                {% for nombre in listaPlegable.nombres %}
+                                <option{% if nombre.nombre == proyecto.nombre_Grupo_Investigacion %} selected{% endif %} value="{{nombre.nombre}}">{{nombre.nombre}}</option>
+                                {% endfor %} 
+                            </select>
+                        </div>
+                        <!-- Columna 2 -->
+                        <div class="col-12 col-sm-4 mb-3 p-1">
+                            <label for="titulo2">Línea de investigación</label>
+                            <select name="linea_Grupo_Investigacion" class="form-select" id="select_box2">
+                                <option value="" disabled selected>Selecciona una opción...</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Desarrollo tecnológico' %} selected{%endif%} value="Desarrollo tecnológico">Desarrollo tecnológico</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Eventos nacionales' %} selected{%endif%} value="Eventos nacionales">Eventos nacionales</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Fomento para la innovación' %} selected{%endif%} value="Fomento para la innovación">Fomento para la innovación</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Investigación aplicada' %} selected{%endif%} value="Investigación aplicada">Investigación aplicada</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Red Tecnoparque Colombia' %} selected{%endif%} value="Red Tecnoparque Colombia">Red Tecnoparque Colombia</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Tecnoacademia fija' %} selected{%endif%} value="Tecnoacademia fija">Tecnoacademia fija</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Tecnoacademia itinerante' %} selected{%endif%} value="Tecnoacademia itinerante">Tecnoacademia itinerante</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Transferencia de conocimiento al sector productivo' %} selected{%endif%} value="Transferencia de conocimiento al sector productivo">Transferencia de conocimiento al sector productivo</option>
+                                <option{% if proyecto.linea_Grupo_Investigacion == 'Revistas' %} selected{%endif%} value="Revistas">Revistas</option>
+                            </select>
+                        </div>
+                        <!-- Columna 3 -->
+                        <div class="col-12 col-sm-4 mb-3 p-1">
+                            <label for="descripcion2">Red de conocimiento sectorial</label>
+                            <select name="red_Conocimiento_Sectorial" class="form-select" id="select_box3">
+                                <option value="" disabled selected>Selecciona una opción...</option>
+                                {% for red in listaPlegable.redes %}
+                                <option{% if red.nombre == proyecto.red_Conocimiento_Sectorial %} selected{% endif %} value="{{red.nombre}}">{{red.nombre}}</option>
+                                {% endfor %} 
+                            </select>
+                        </div>
 
-                    <!-- Fila 3 -->
-                    <!-- Columna 1 -->
-                    <div class="col-12 col-sm-4 mb-3 p-1">
-                        <label for="codigo2">Área de conocimiento</label>
-                        <select name="area_conocimiento" class="form-select" id="select_box4">
-                            <option value="" disabled selected>Seleccione una opción...</option>
-                            <option{% if proyecto.area_conocimiento == 'Ciencias agrícolas' %} selected{%endif%} value="Ciencias agrícolas">Ciencias agrícolas</option>
-                            <option{% if proyecto.area_conocimiento == 'Ciencias médicas y de salud' %} selected{%endif%} value="Ciencias médicas y de salud">Ciencias médicas y de salud</option>
-                            <option{% if proyecto.area_conocimiento == 'Ciencias sociales' %} selected{%endif%} value="Ciencias sociales">Ciencias sociales</option>
-                            <option{% if proyecto.area_conocimiento == 'Ciencias veterinarias' %} selected{%endif%} value="Ciencias veterinarias">Ciencias veterinarias</option>
-                            <option{% if proyecto.area_conocimiento == 'Ciencias naturales' %} selected{%endif%} value="Ciencias naturales">Ciencias naturales</option>
-                            <option{% if proyecto.area_conocimiento == 'Cuarta revolución industrial' %} selected{%endif%} value="Cuarta revolución industrial">Cuarta revolución industrial</option>
-                            <option{% if proyecto.area_conocimiento == 'Humanidades' %} selected{%endif%} value="Humanidades">Humanidades</option>
-                            <option{% if proyecto.area_conocimiento == 'Industrias creativas' %} selected{%endif%} value="Industrias creativas">Industrias creativas</option>
-                            <option{% if proyecto.area_conocimiento == 'Ingeniería y tecnología' %} selected{%endif%} value="Ingeniería y tecnología">Ingeniería y tecnología</option>                            
-                        </select>
-                    </div>
-                    <!-- Columna 2 -->
-                    <div class="col-12 col-sm-4 mb-3 p-1">
-                        <label for="nombre_grupo2">Sub-área del conocimiento</label>
-                        <select name="subarea_conocimiento" class="form-select" id="select_box5">
-                            <option value="" disabled selected>Selecciona una opción...</option>
-                            {% for subarea in listaPlegable.subareas %}
-                            <option{% if subarea.nombre == proyecto.subarea_conocimiento %} selected{% endif %} value="{{subarea.nombre}}">{{subarea.nombre}}</option>
-                            {% endfor %} 
-                        </select>
-                    </div>
-                    <!-- Columna 3 -->
-                    <div class="col-12 col-sm-4 mb-3 p-1">
-                        <label for="nombre_grupo2">Disciplina en cada sub-área</label>
-                        <select name="disciplina_subarea" class="form-select" id="select_box6">
-                            <option value="" disabled selected>Selecciona una opción...</option>
-                            {% for diciplina in listaPlegable.diciplinas %}
-                            <option{% if diciplina.nombre == proyecto.disciplina_subarea %} selected{% endif %} value="{{diciplina.nombre}}">{{diciplina.nombre}}</option>
-                            {% endfor %} 
-                        </select>
-                    </div>
+                        <!-- Fila 3 -->
+                        <!-- Columna 1 -->
+                        <div class="col-12 col-sm-4 mb-3 p-1">
+                            <label for="codigo2">Área de conocimiento</label>
+                            <select name="area_conocimiento" class="form-select" id="select_box4">
+                                <option value="" disabled selected>Seleccione una opción...</option>
+                                <option{% if proyecto.area_conocimiento == 'Ciencias agrícolas' %} selected{%endif%} value="Ciencias agrícolas">Ciencias agrícolas</option>
+                                <option{% if proyecto.area_conocimiento == 'Ciencias médicas y de salud' %} selected{%endif%} value="Ciencias médicas y de salud">Ciencias médicas y de salud</option>
+                                <option{% if proyecto.area_conocimiento == 'Ciencias sociales' %} selected{%endif%} value="Ciencias sociales">Ciencias sociales</option>
+                                <option{% if proyecto.area_conocimiento == 'Ciencias veterinarias' %} selected{%endif%} value="Ciencias veterinarias">Ciencias veterinarias</option>
+                                <option{% if proyecto.area_conocimiento == 'Ciencias naturales' %} selected{%endif%} value="Ciencias naturales">Ciencias naturales</option>
+                                <option{% if proyecto.area_conocimiento == 'Cuarta revolución industrial' %} selected{%endif%} value="Cuarta revolución industrial">Cuarta revolución industrial</option>
+                                <option{% if proyecto.area_conocimiento == 'Humanidades' %} selected{%endif%} value="Humanidades">Humanidades</option>
+                                <option{% if proyecto.area_conocimiento == 'Industrias creativas' %} selected{%endif%} value="Industrias creativas">Industrias creativas</option>
+                                <option{% if proyecto.area_conocimiento == 'Ingeniería y tecnología' %} selected{%endif%} value="Ingeniería y tecnología">Ingeniería y tecnología</option>                            
+                            </select>
+                        </div>
+                        <!-- Columna 2 -->
+                        <div class="col-12 col-sm-4 mb-3 p-1">
+                            <label for="nombre_grupo2">Sub-área del conocimiento</label>
+                            <select name="subarea_conocimiento" class="form-select" id="select_box5">
+                                <option value="" disabled selected>Selecciona una opción...</option>
+                                {% for subarea in listaPlegable.subareas %}
+                                <option{% if subarea.nombre == proyecto.subarea_conocimiento %} selected{% endif %} value="{{subarea.nombre}}">{{subarea.nombre}}</option>
+                                {% endfor %} 
+                            </select>
+                        </div>
+                        <!-- Columna 3 -->
+                        <div class="col-12 col-sm-4 mb-3 p-1">
+                            <label for="nombre_grupo2">Disciplina en cada sub-área</label>
+                            <select name="disciplina_subarea" class="form-select" id="select_box6">
+                                <option value="" disabled selected>Selecciona una opción...</option>
+                                {% for diciplina in listaPlegable.diciplinas %}
+                                <option{% if diciplina.nombre == proyecto.disciplina_subarea %} selected{% endif %} value="{{diciplina.nombre}}">{{diciplina.nombre}}</option>
+                                {% endfor %} 
+                            </select>
+                        </div>
 
-                    <!-- Botón Siguiente centrado -->
-                    <div class="d-flex justify-content-center col-12">
-                        <!-- <a type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Guardar</a> -->
-                        <button type="submit"
-                            class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Guardar</button>
-                    </div>
-                </form>
+                        <!-- Botón Siguiente centrado -->
+                        <div class="d-flex justify-content-center col-12">
+                            <!-- <a type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Guardar</a> -->
+                            <button type="submit"
+                                class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Guardar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </div>
-        
+        </div>  
     </main>
     {% endblock %}
     

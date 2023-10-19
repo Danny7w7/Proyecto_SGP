@@ -12,8 +12,19 @@ def user_has_role(user, *roles):
     
     return bool(user_roles & required_roles)
 
+#------Funciones generales------
+def progress_bar(id):
+    proyecto = Proyecto.objects.get(id=id)
+    print(proyecto.progress)
+    return round((proyecto.progress / 89) * 100, 1)
+# Falta ponerlo a funcionar en todos los formularios y que tambien trabaje con AJAX que va a implementar Miguel.
+
+def own_user(user, proyecto_id):
+    proyecto = Proyecto.objects.filter(id=proyecto_id).first()
+    return user.id == proyecto.usuario_id
+
 #------Formulario------
-@login_required(login_url='/login') 
+@login_required(login_url='/login')
 def crear_proyecto(request):
     if user_has_role(request.user, 'Admin', 'F'):
         if request.method == 'POST':
@@ -21,15 +32,19 @@ def crear_proyecto(request):
             if form.is_valid():
                 proyecto = form.save(commit=False)
                 proyecto.usuario = request.user
+                proyecto.progress = 10
                 proyecto.save()
                 return redirect('info_proyecto', id_proyecto=proyecto.id)
         else:
             form = ProyectoForm()
             context = {'form': form,
-                        'listaPlegable':contex_form()}
+                       'listaPlegable':contex_form(),
+                       'percentaje':0}
     return render(request, 'form/crearp.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
+    if not own_user(request.user, id_proyecto):
+        return redirect(index)
     proyecto = get_object_or_404(Proyecto, id=id_proyecto)
     if request.method == 'POST':
         form = Informacion_proponenteForm(request.POST)
@@ -37,14 +52,20 @@ def Informacion_de_centro(request, id_proyecto):
             informacion_centro = form.save(commit=False)   
             informacion_centro.proyecto = proyecto
             informacion_centro.save()
+            proyecto.progress += 9
+            proyecto.save()
             print("Información del centro guardada correctamente.")
         else:
             print(form.errors)
             print("El formulario no es válido.")
-    else:
-        form = Informacion_proponenteForm(initial={'proyecto': proyecto})
+
+    form = Informacion_proponenteForm(initial={'proyecto': proyecto})
+    percentaje = progress_bar(id_proyecto)
+    context = {'form':form,
+                'proyecto':proyecto,
+                'percentaje':percentaje}
         
-    return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
+    return render(request, 'form/infop.html', context)
 
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
@@ -63,10 +84,9 @@ def contex_form():
 def edit_proyect(request, id_proyecto):
     user = request.user
     proyecto = Proyecto.objects.filter(id=id_proyecto).first()
-    if not user.id == proyecto.usuario_id:
+    if not own_user(user, proyecto.id):
         return redirect(index)
     if request.method == 'POST':
-
         model = Proyecto
         column_names = [field.name for field in model._meta.fields]
         
