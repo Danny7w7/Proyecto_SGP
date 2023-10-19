@@ -1,4 +1,5 @@
 
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm
 from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
@@ -41,10 +42,12 @@ def Informacion_de_centro(request, id_proyecto):
         else:
             print(form.errors)
             print("El formulario no es válido.")
+            return JsonResponse({"success": False, "errors": form.errors})
     else:
         form = Informacion_proponenteForm(initial={'proyecto': proyecto})
         
-    return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
+    # return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
+    return render(request, 'form/infop.html', {'proyecto': proyecto})
 
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
@@ -79,3 +82,4 @@ def edit_proyect(request, id_proyecto):
     context = {'proyecto':user.proyecto_set.first(),
             'listaPlegable':contex_form()}
     return render(request, 'edit_form/edit_proy.html', context)
+
