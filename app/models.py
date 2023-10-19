@@ -107,6 +107,7 @@ class Descripcion_problema(models.Model):
 # Objetivos
 class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=250, null=False)
+    objetivo_proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
 
 # Metodologia

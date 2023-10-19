@@ -1,7 +1,7 @@
 
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm
-from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
+from app.forms import Informacion_proponenteForm, ProyectoForm , ObjetivoForm
+from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 
@@ -99,3 +99,39 @@ def edit_proyect(request, id_proyecto):
     context = {'proyecto':user.proyecto_set.first(),
             'listaPlegable':contex_form()}
     return render(request, 'edit_form/edit_proy.html', context)
+
+def guardar_objetivos(request, objetivo_proyecto_id):
+    objetivo = get_object_or_404(Proyecto, id=objetivo_proyecto_id)
+    if request.method == 'POST':
+        form = ObjetivoForm(request.POST)
+        if form.is_valid():
+            objetivo_nuevo = form.save(commit=False)
+            objetivo_nuevo.objetivo_proyecto = objetivo
+            objetivo_nuevo.save()
+            print("Los objetivos se guardaron correctamente.")
+        else:
+            print(form.errors)
+            print("El formulario no es válido.")
+    else:
+        form = ObjetivoForm(initial={'objetivo': objetivo})
+        
+    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo})
+
+
+def editar_objetivo(request, id_proyecto):
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    
+    objetivo_general = Objetivos.objects.filter(objetivo_proyecto=proyecto).first()
+
+    if request.method == 'POST':
+        form = ObjetivoForm(request.POST, instance=objetivo_general)
+        if form.is_valid():
+            objetivo_general = form.save(commit=False)
+            objetivo_general.objetivo_proyecto = proyecto
+            objetivo_general.save()
+            print("El objetivo se actualizó correctamente.")
+            return redirect('index')
+    else:
+        form = ObjetivoForm(instance=objetivo_general)
+
+    return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general})
