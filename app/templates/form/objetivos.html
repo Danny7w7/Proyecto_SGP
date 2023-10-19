@@ -44,7 +44,7 @@
                             <div class="col-12 md-10">
                                 <div class="bg-light mt-2 border_radius row me-0">
                                     <div class="col-12 md-10">
-                                        <form method="post" id="form1" action="{% url 'objetivos' %}" class="needs-validation">
+                                        <form method="post" id="form1" action="" class="needs-validation">
                                             {% csrf_token %}
                                         
                                         <div class="mt-3" style="width: 95%; margin-left: 2%;">
@@ -53,7 +53,7 @@
                                                 <label for="" class="form-label">Objetivo general </label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="" id="" cols="20" rows="10"></textarea>
+                                                    name="objetivo_general"  cols="20" rows="10"></textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
                                             </div>
@@ -63,7 +63,7 @@
                                                 <label for="" class="form-label">Objetivo específico</label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="" id="" cols="20" rows="10"></textarea>
+                                                    name="objetivo_especificos" cols="20" rows="10"></textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
                                             </div>
