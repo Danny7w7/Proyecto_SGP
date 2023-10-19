@@ -8,7 +8,7 @@ class ProyectoForm(forms.ModelForm):
     class Meta:
         model = Proyecto
         fields = '__all__'
-        exclude = ['usuario']
+        exclude = ['usuario','progress']
 
 # Informacion proponente
 class Informacion_proponenteForm(forms.ModelForm):
