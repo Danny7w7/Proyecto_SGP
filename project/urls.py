@@ -32,6 +32,8 @@ urlpatterns = [
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
     path('objetivos/<int:objetivo_proyecto_id>/', views.guardar_objetivos, name='objetivos'),
+    path('continuar-sesion/', views.continuar_sesion, name='continuar_sesion'),
+    path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
     
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),

@@ -1,7 +1,7 @@
 
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm , ObjetivoForm
-from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos
+from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos , UltimaVista
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 
@@ -135,3 +135,18 @@ def editar_objetivo(request, id_proyecto):
         form = ObjetivoForm(instance=objetivo_general)
 
     return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general})
+
+def proyectos_usuario(request):
+    proyectos = Proyecto.objects.filter(usuario=request.user)
+    if request:
+        return render(request, 'proyectos.html', {'proyectos': proyectos})
+    else:
+         return redirect('continuar_sesion')
+
+
+def continuar_sesion(request):
+    if request.user.is_authenticated:
+        ultima_vista = UltimaVista.objects.filter(usuario=request.user).first()
+        if ultima_vista:
+            return redirect(ultima_vista.ultima_vista)
+    return redirect(proyectos_usuario)
