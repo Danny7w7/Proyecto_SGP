@@ -30,7 +30,10 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
-    path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
+    path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
+
+    #Json
+    path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info-proponente'),
     
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),

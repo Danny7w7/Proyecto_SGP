@@ -2,9 +2,11 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm
-from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto
+from app.models import  Proyecto, Informacion_proponente
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
+#Listas desplegables
+from app.models import Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea
 
 #------Decoradores------
 def user_has_role(user, *roles):
@@ -30,24 +32,10 @@ def crear_proyecto(request):
                         'listaPlegable':contex_form()}
     return render(request, 'form/crearp.html', context)
 
-def Informacion_de_centro(request, id_proyecto):
-    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
-    if request.method == 'POST':
-        form = Informacion_proponenteForm(request.POST)
-        if form.is_valid():
-            informacion_centro = form.save(commit=False)   
-            informacion_centro.proyecto = proyecto
-            informacion_centro.save()
-            print("Información del centro guardada correctamente.")
-        else:
-            print(form.errors)
-            print("El formulario no es válido.")
-            return JsonResponse({"success": False, "errors": form.errors})
-    else:
-        form = Informacion_proponenteForm(initial={'proyecto': proyecto})
-        
-    # return render(request, 'form/infop.html', {'form': form, 'proyecto': proyecto})
-    return render(request, 'form/infop.html', {'proyecto': proyecto})
+def informacion_proponente(request, id_proyecto):
+    context = {'proyecto':get_object_or_404(Proyecto, id=id_proyecto),
+               'infoProyecto':get_object_or_404(Informacion_proponente)}
+    return render(request, 'form/infop.html', context)
 
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
@@ -60,6 +48,28 @@ def contex_form():
             'redes':redes,
             'subareas':subareas,
             'diciplinas':diciplinas}
+
+
+#------JSON------
+def info_proponente(request, id_proyecto):
+    try:
+        informacion_proponente = Informacion_proponente.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        informacion_proponente = Informacion_proponente.objects.create(proyecto=proyecto)
+    model = Informacion_proponente
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(informacion_proponente, name, request.POST.get(name))
+    try:
+        informacion_proponente.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
 
   
 #------Editar proyecto------

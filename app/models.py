@@ -39,19 +39,16 @@ class Proyecto(models.Model):
 
 # Informacion del Proyecto
 class Informacion_proponente(models.Model):
-    Region = models.CharField(max_length=50, null=False)
-    Regional = models.CharField(max_length=50, null=False)
-    Nombre_centro_formacion = models.CharField(max_length=100, null=False)
-    Nombre_Director = models.CharField(max_length=50, null=False)
-    Numero_Director = models.BigIntegerField(null=False)
-    email_director = models.CharField(max_length=100, null=False)
-    Nombre_Sub_Director = models.CharField(max_length=50, null=False)
-    Numero_Sub_Director = models.BigIntegerField(null=False)
-    email_sub_director = models.CharField(max_length=100, null=False)
+    Region = models.CharField(max_length=50, null=True)
+    Regional = models.CharField(max_length=50, null=True)
+    Nombre_centro_formacion = models.CharField(max_length=100, null=True)
+    Nombre_Director = models.CharField(max_length=50, null=True)
+    Numero_Director = models.BigIntegerField(null=True)
+    email_director = models.CharField(max_length=100, null=True)
+    Nombre_Sub_Director = models.CharField(max_length=50, null=True)
+    Numero_Sub_Director = models.BigIntegerField(null=True)
+    email_sub_director = models.CharField(max_length=100, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
-    # Info_Proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
-    
-    
     
 class Autores(models.Model):
     nombre_Autor_Proyecto = models.CharField(null=False, max_length=50)
