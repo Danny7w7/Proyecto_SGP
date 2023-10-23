@@ -226,3 +226,9 @@ class Diciplina_subarea(models.Model):
 class UltimaVista(models.Model):
     usuario = models.OneToOneField(Usuarios, on_delete=models.CASCADE)
     ultima_vista = models.CharField(max_length=255, null=True)
+
+
+class Document(models.Model):
+    anexo = models.ImageField(upload_to="")
+    fecha = models.DateTimeField(auto_now=True)
+    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)

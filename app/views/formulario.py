@@ -1,7 +1,7 @@
 
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm , ObjetivoForm
-from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos , UltimaVista
+from app.forms import Informacion_proponenteForm, ProyectoForm , ObjetivoForm , DocumentForm
+from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos , UltimaVista , Document
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 
@@ -150,3 +150,31 @@ def continuar_sesion(request):
         if ultima_vista:
             return redirect(ultima_vista.ultima_vista)
     return redirect(proyectos_usuario)
+
+
+def subir_anexos(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+
+    if request.method == "POST":
+        for archivo in request.FILES.getlist('anexo'):
+            document = Document(anexo=archivo, proyecto=proyecto)
+            document.save()
+
+    documents = Document.objects.filter(proyecto=proyecto)
+
+    return render(request, "form/anexos.html", context={"docs": documents, "proyecto": proyecto})
+
+
+def editar_anexo(request, proyecto_id, documento_id):
+    proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+    document = get_object_or_404(Document, pk=documento_id)
+
+    if request.method == "POST":
+        form = DocumentForm(request.POST, request.FILES, instance=document)
+        if form.is_valid():
+            form.save()
+            return redirect('subir_anexos', proyecto_id=proyecto_id)
+    else:
+        form = DocumentForm(instance=document)
+        
+    return render(request, "edit_form/edit_anexos.html", context={"form": form, "proyecto": proyecto, "document": document})
