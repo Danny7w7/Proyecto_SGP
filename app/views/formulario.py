@@ -26,20 +26,21 @@ def own_user(user, proyecto_id):
 #------Formulario------
 @login_required(login_url='/login')
 def crear_proyecto(request):
-    if user_has_role(request.user, 'Admin', 'F'):
-        if request.method == 'POST':
-            form = ProyectoForm(request.POST)
-            if form.is_valid():
-                proyecto = form.save(commit=False)
-                proyecto.usuario = request.user
-                proyecto.progress = 10
-                proyecto.save()
-                return redirect('info_proyecto', id_proyecto=proyecto.id)
-        else:
-            form = ProyectoForm()
-            context = {'form': form,
-                       'listaPlegable':contex_form(),
-                       'percentaje':0}
+    if not user_has_role(request.user, 'Admin', 'F'):
+        return redirect(index)
+    if request.method == 'POST':
+        form = ProyectoForm(request.POST)
+        if form.is_valid():
+            proyecto = form.save(commit=False)
+            proyecto.usuario = request.user
+            proyecto.progress = 10
+            proyecto.save()
+            return redirect('info_proyecto', id_proyecto=proyecto.id)
+    else:
+        form = ProyectoForm()
+        context = {'form': form,
+                    'listaPlegable':contex_form(),
+                    'percentaje':0}
     return render(request, 'form/crearp.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
