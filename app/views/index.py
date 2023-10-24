@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 
-from app.models import Usuarios
+from app.models import Roles, Usuarios
 from django.contrib.auth import authenticate, login, logout
 import random
 import string
@@ -30,6 +30,8 @@ def register(request):
                                                 last_name=request.POST["last_name"],
                                                 tipo_documento=request.POST["tipo_documento"],
                                                 num_documento=request.POST["num_documento"])
+                rol_lector = Roles.objects.get(rol='L')
+                user.roles.add(rol_lector)
                 user.save()
                 userl = authenticate(
                     request, username=user.username, password=afterhashed)
