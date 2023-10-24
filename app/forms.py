@@ -26,5 +26,5 @@ class ObjetivoForm(forms.ModelForm):
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
-        fields = '__all__'
+        fields = ['anexo1', 'anexo2', 'anexo3', 'anexo4', 'anexo5', 'anexo6']
         exclude = ['proyecto']

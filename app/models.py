@@ -229,6 +229,11 @@ class UltimaVista(models.Model):
 
 
 class Document(models.Model):
-    anexo = models.ImageField(upload_to="")
+    anexo1 = models.ImageField(upload_to="", null=True)
+    anexo2 = models.ImageField(upload_to="", null=True)
+    anexo3 = models.ImageField(upload_to="", null=True)
+    anexo4 = models.ImageField(upload_to="", null=True)
+    anexo5 = models.ImageField(upload_to="", null=True)
+    anexo6 = models.ImageField(upload_to="", null=True)
     fecha = models.DateTimeField(auto_now=True)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)

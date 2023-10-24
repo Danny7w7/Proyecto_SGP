@@ -156,12 +156,16 @@ def subir_anexos(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
 
     if request.method == "POST":
-        for archivo in request.FILES.getlist('anexo'):
-            document = Document(anexo=archivo, proyecto=proyecto)
-            document.save()
+        for i in range(1, 7):
+            nombre_anexo = f'anexo{i}'
+            archivo = request.FILES.get(nombre_anexo, None)
+            if archivo:
+                # Crear un nuevo objeto Document asociado al proyecto
+                document = Document(proyecto=proyecto)
+                setattr(document, nombre_anexo, archivo)
+                document.save()
 
     documents = Document.objects.filter(proyecto=proyecto)
-
     return render(request, "form/anexos.html", context={"docs": documents, "proyecto": proyecto})
 
 
@@ -174,7 +178,9 @@ def editar_anexo(request, proyecto_id, documento_id):
         if form.is_valid():
             form.save()
             return redirect('subir_anexos', proyecto_id=proyecto_id)
+        else:
+            print(form.errors)
     else:
         form = DocumentForm(instance=document)
-        
+
     return render(request, "edit_form/edit_anexos.html", context={"form": form, "proyecto": proyecto, "document": document})
