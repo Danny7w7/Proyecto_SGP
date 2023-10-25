@@ -37,7 +37,7 @@ urlpatterns = [
     path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
     
     #Editar
-    path('editar_anexo/<int:proyecto_id>/<int:documento_id>/', views.editar_anexo, name='editar_anexo'),
+    path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
     path('editar_objetivo/<int:id_proyecto>/', views.editar_objetivo, name='editar_objetivo_proyecto'),
     

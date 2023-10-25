@@ -236,4 +236,4 @@ class Document(models.Model):
     anexo5 = models.ImageField(upload_to="", null=True)
     anexo6 = models.ImageField(upload_to="", null=True)
     fecha = models.DateTimeField(auto_now=True)
-    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)

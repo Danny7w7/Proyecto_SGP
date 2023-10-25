@@ -102,9 +102,6 @@
                     </div>
                 </div>
             </div>
-            {% for document in docs %}
-                <a href="{% url 'editar_anexo' proyecto_id=proyecto.id documento_id=document.id %}">Editar Anexo {{ forloop.counter }}</a>
-            {% endfor %}
     </div>
 {% endblock %}
 

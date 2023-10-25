@@ -1,6 +1,6 @@
 
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm , ObjetivoForm , DocumentForm
+from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
 from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos , UltimaVista , Document
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -154,33 +154,36 @@ def continuar_sesion(request):
 
 def subir_anexos(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
-
+    
     if request.method == "POST":
-        for i in range(1, 7):
-            nombre_anexo = f'anexo{i}'
-            archivo = request.FILES.get(nombre_anexo, None)
-            if archivo:
-                # Crear un nuevo objeto Document asociado al proyecto
-                document = Document(proyecto=proyecto)
-                setattr(document, nombre_anexo, archivo)
-                document.save()
-
-    documents = Document.objects.filter(proyecto=proyecto)
-    return render(request, "form/anexos.html", context={"docs": documents, "proyecto": proyecto})
-
-
-def editar_anexo(request, proyecto_id, documento_id):
-    proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
-    document = get_object_or_404(Document, pk=documento_id)
-
-    if request.method == "POST":
-        form = DocumentForm(request.POST, request.FILES, instance=document)
+        form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('subir_anexos', proyecto_id=proyecto_id)
-        else:
-            print(form.errors)
-    else:
-        form = DocumentForm(instance=document)
+            anexo = form.save(commit=False)
+            anexo.proyecto = proyecto
+            anexo.save()
+    
+    documents = Document.objects.filter(proyecto=proyecto)
+    return render(request, "form/anexos.html", {"docs": documents, "proyecto": proyecto})
 
-    return render(request, "edit_form/edit_anexos.html", context={"form": form, "proyecto": proyecto, "document": document})
+
+def editar_anexo(request, proyecto_id):
+    try:
+        proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+        anexo = Document.objects.filter(proyecto=proyecto).first()
+        print(anexo)
+    except:
+        return redirect('subir_anexos', proyecto_id)
+
+    if request.method == "POST":
+        model = Document
+        column_names = [field.name for field in model._meta.fields]
+        
+        for name in column_names:
+            if name == 'id' or name == 'fecha' or name == 'proyecto_id' or request.FILES.get(name) == None:
+                continue
+            setattr(anexo, name, request.FILES.get(name))
+        anexo.save()
+
+    form = DocumentForm()
+    return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
+
