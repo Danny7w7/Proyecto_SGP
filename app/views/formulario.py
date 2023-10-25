@@ -40,7 +40,8 @@ def crear_proyecto(request):
             context = {'form': form,
                        'listaPlegable':contex_form(),
                        'percentaje':0}
-    return render(request, 'form/crearp.html', context)
+        return render(request, 'form/crearp.html', context)
+    return redirect('index')
 
 def Informacion_de_centro(request, id_proyecto):
     if not own_user(request.user, id_proyecto):
