@@ -114,7 +114,13 @@ class Objetivos_especificos(models.Model):
 
 class Actividades_de_objetivos_especificos(models.Model):
     actividades_obj_especificos = models.CharField(max_length=250, null=False)
-    objetivos_especificos = models.ForeignKey(Objetivos_especificos, on_delete=models.CASCADE)
+    objetivos_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+
+class causa_efecto(models.Model):
+    causa = models.CharField(max_length=200, null=False)
+    efecto= models.CharField(max_length=200, null=False)
+    obejetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+    
 
 
 # Analisis de participantes

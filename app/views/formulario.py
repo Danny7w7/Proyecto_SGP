@@ -1,7 +1,7 @@
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
+from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm, Objetivo_espeForm
 from app.models import  Proyecto, Informacion_proponente, Proyecto, Objetivos, UltimaVista, Document
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -215,4 +215,19 @@ def editar_anexo(request, proyecto_id):
 
     form = DocumentForm()
     return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
+
+def guardar_objetivo_especifico(request, objetivos):
+    objetivo_espe = get_object_or_404(Objetivos, pk=objetivos)
+    
+    if request.method == "POST":
+        form = Objetivo_espeForm(request.POST)
+        if form.is_valid():
+            objetivo_espe = form.save(commit=False)
+            objetivo_espe.objetivos = objetivos
+            objetivo_espe.save()
+        else:
+            print(form.errors)
+    
+    return render(request, "form/objetivos.html", {"form": form, "obejtivo_espe": objetivo_espe})
+    
 
