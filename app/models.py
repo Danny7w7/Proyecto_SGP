@@ -35,6 +35,7 @@ class Proyecto(models.Model):
     area_conocimiento = models.CharField(max_length=80, null=False)
     linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
     subarea_conocimiento = models.CharField(max_length=100, null=False)
+    progress = models.IntegerField(null=True)
     usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
 
 # Informacion del Proyecto
@@ -103,6 +104,7 @@ class Descripcion_problema(models.Model):
 # Objetivos
 class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=250, null=False)
+    objetivo_proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
 
 # Metodologia
@@ -216,3 +218,8 @@ class Subareas_conocimiento(models.Model):
 
 class Diciplina_subarea(models.Model):
     nombre = models.CharField(max_length=200)
+    
+    
+class UltimaVista(models.Model):
+    usuario = models.OneToOneField(Usuarios, on_delete=models.CASCADE)
+    ultima_vista = models.CharField(max_length=255, null=True)

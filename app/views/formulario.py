@@ -1,8 +1,8 @@
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm
-from app.models import  Proyecto, Informacion_proponente
+from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm
+from app.models import  Proyecto, Informacion_proponente, Proyecto, Objetivos, UltimaVista
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 #Listas desplegables
@@ -15,8 +15,19 @@ def user_has_role(user, *roles):
     
     return bool(user_roles & required_roles)
 
+#------Funciones generales------
+def progress_bar(id):
+    proyecto = Proyecto.objects.get(id=id)
+    print(proyecto.progress)
+    return round((proyecto.progress / 89) * 100, 1)
+# Falta ponerlo a funcionar en todos los formularios y que tambien trabaje con AJAX que va a implementar Miguel.
+
+def own_user(user, proyecto_id):
+    proyecto = Proyecto.objects.filter(id=proyecto_id).first()
+    return user.id == proyecto.usuario_id
+
 #------Formulario------
-@login_required(login_url='/login') 
+@login_required(login_url='/login')
 def crear_proyecto(request):
     if user_has_role(request.user, 'Admin', 'F'):
         if request.method == 'POST':
@@ -24,18 +35,43 @@ def crear_proyecto(request):
             if form.is_valid():
                 proyecto = form.save(commit=False)
                 proyecto.usuario = request.user
+                proyecto.progress = 10
                 proyecto.save()
                 return redirect('info_proyecto', id_proyecto=proyecto.id)
         else:
             form = ProyectoForm()
             context = {'form': form,
-                        'listaPlegable':contex_form()}
+                       'listaPlegable':contex_form(),
+                       'percentaje':0}
     return render(request, 'form/crearp.html', context)
 
 def informacion_proponente(request, id_proyecto):
     context = {'proyecto':get_object_or_404(Proyecto, id=id_proyecto),
                'infoProyecto':get_object_or_404(Informacion_proponente)}
     return render(request, 'form/infop.html', context)
+
+def Informacion_de_centro(request, id_proyecto):
+    if not own_user(request.user, id_proyecto):
+        return redirect(index)
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    if request.method == 'POST':
+        form = Informacion_proponenteForm(request.POST)
+        if form.is_valid():
+            informacion_centro = form.save(commit=False)   
+            informacion_centro.proyecto = proyecto
+            informacion_centro.save()
+            proyecto.progress += 9
+            proyecto.save()
+            print("Información del centro guardada correctamente.")
+        else:
+            print(form.errors)
+            print("El formulario no es válido.")
+
+    form = Informacion_proponenteForm(initial={'proyecto': proyecto})
+    percentaje = progress_bar(id_proyecto)
+    context = {'form':form,
+                'proyecto':proyecto,
+                'percentaje':percentaje}
 
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
@@ -76,10 +112,9 @@ def info_proponente(request, id_proyecto):
 def edit_proyect(request, id_proyecto):
     user = request.user
     proyecto = Proyecto.objects.filter(id=id_proyecto).first()
-    if not user.id == proyecto.usuario_id:
+    if not own_user(user, proyecto.id):
         return redirect(index)
     if request.method == 'POST':
-
         model = Proyecto
         column_names = [field.name for field in model._meta.fields]
         
@@ -93,3 +128,53 @@ def edit_proyect(request, id_proyecto):
             'listaPlegable':contex_form()}
     return render(request, 'edit_form/edit_proy.html', context)
 
+def guardar_objetivos(request, objetivo_proyecto_id):
+    objetivo = get_object_or_404(Proyecto, id=objetivo_proyecto_id)
+    if request.method == 'POST':
+        form = ObjetivoForm(request.POST)
+        if form.is_valid():
+            objetivo_nuevo = form.save(commit=False)
+            objetivo_nuevo.objetivo_proyecto = objetivo
+            objetivo_nuevo.save()
+            print("Los objetivos se guardaron correctamente.")
+        else:
+            print(form.errors)
+            print("El formulario no es válido.")
+    else:
+        form = ObjetivoForm(initial={'objetivo': objetivo})
+        
+    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo})
+
+
+def editar_objetivo(request, id_proyecto):
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    
+    objetivo_general = Objetivos.objects.filter(objetivo_proyecto=proyecto).first()
+
+    if request.method == 'POST':
+        form = ObjetivoForm(request.POST, instance=objetivo_general)
+        if form.is_valid():
+            objetivo_general = form.save(commit=False)
+            objetivo_general.objetivo_proyecto = proyecto
+            objetivo_general.save()
+            print("El objetivo se actualizó correctamente.")
+            return redirect('index')
+    else:
+        form = ObjetivoForm(instance=objetivo_general)
+
+    return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general})
+
+def proyectos_usuario(request):
+    proyectos = Proyecto.objects.filter(usuario=request.user)
+    if request:
+        return render(request, 'proyectos.html', {'proyectos': proyectos})
+    else:
+         return redirect('continuar_sesion')
+
+
+def continuar_sesion(request):
+    if request.user.is_authenticated:
+        ultima_vista = UltimaVista.objects.filter(usuario=request.user).first()
+        if ultima_vista:
+            return redirect(ultima_vista.ultima_vista)
+    return redirect(proyectos_usuario)
