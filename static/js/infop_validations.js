@@ -1,5 +1,17 @@
+document.getElementById("enviar1").addEventListener("click", function() {
+    validation();
+});
+document.getElementById("enviar2").addEventListener("click", function() {
+    validation();
+});
+document.getElementById("enviar3").addEventListener("click", function() {
+    validation();
+});
+document.getElementById("enviar4").addEventListener("click", function() {
+    validation();
+});
 
-document.addEventListener("DOMContentLoaded", function() {
+function validation() {
     
     const allValidations = {
         //Validacion info proponente
@@ -84,10 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
         },
        },
        "form4":{
-        // "Numero_Telefono_participantes": {
-        //     pattern: /^\d{10}$/,
-        //     errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
-        // },
         "link_video_proyecto": {
             pattern: /^(http|https):\/\/[^ "]+$/,
             errorMsg: 'El link no es válido.',
@@ -127,54 +135,22 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-//ids de los formularios
-    const form1 = document.getElementById("form1");
-    const form2 = document.getElementById("form2");
-    const form3 = document.getElementById("form3");
-    const form4 = document.getElementById("form4");
 
-    // //Agregar formularios dinamicamente
-    // document.getElementById('add-form').addEventListener('click', function() {
-    //     let container = document.getElementById('formset-container');
-    //     let forms = container.getElementsByClassName('single-form');
-    //     let newForm = forms[0].cloneNode(true);  // Clona el primer formulario
+    document.getElementById("enviar1").addEventListener("click", function(event) {
+        handleFormSubmit(event, 'form1');
+    });
 
-    //     // Reiniciar campos y validaciones en el formulario clonado
-    //     let inputs = newForm.getElementsByTagName('input');
-    //     for(let input of inputs) {
-    //         input.value = '';
-    //         input.classList.remove("is-valid");
-    //         input.classList.remove("is-invalid");
-    //     }
-    //     let feedbacks = newForm.getElementsByClassName('invalid-feedback');
-    //     for(let feedback of feedbacks) {
-    //         feedback.textContent = '';
-    //     }
+    document.getElementById("enviar2").addEventListener("click", function(event) {
+        handleFormSubmit(event, 'form2');
+    });
 
-    //     container.appendChild(newForm);  // Agrega el formulario clonado al contenedor
-    // });
+    document.getElementById("enviar3").addEventListener("click", function(event) {
+        handleFormSubmit(event, 'form3');
+    });
 
-    if(form1) {
-        form1.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form1');
-        });
-    }
-
-    if(form2) {
-        form2.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form2');
-        });
-    }
-    if (form3) {
-        form3.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form3');
-        });
-    }
-    if (form4) {
-        form4.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form4');
-        });
-    }
+    document.getElementById("enviar4").addEventListener("click", function(event) {
+        handleFormSubmit(event, 'form4');
+    });
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
@@ -199,8 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-               // Esto enviará realmente el formulario
-                event.target.submit();
+                sendPost()
             });
         }else{
             Swal.fire({
@@ -225,4 +200,51 @@ document.addEventListener("DOMContentLoaded", function() {
             return false;
         }
     }
-});
+};
+
+function sendPost() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    // Obtener los valores de los campos del formulario
+    var region = document.getElementById("Region").value;
+    var regional = document.getElementById("Regional").value;
+    var nombre_centro_formacion = document.getElementById("Nombre_centro_formacion").value;
+    var nombre_Director = document.getElementById("Nombre_Director").value;
+    var email_director = document.getElementById("email_director").value;
+    var numero_Director = document.getElementById("Numero_Director").value;
+    var nombre_Sub_Director = document.getElementById("Nombre_Sub_Director").value;
+    var email_sub_director = document.getElementById("email_sub_director").value;
+    var numero_Sub_Director = document.getElementById("Numero_Sub_Director").value;
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("Region", region);
+    formData.append("Regional", regional);
+    formData.append("Nombre_centro_formacion", nombre_centro_formacion);
+    formData.append("Nombre_Director", nombre_Director);
+    formData.append("Numero_Director", numero_Director);
+    formData.append("email_director", email_director);
+    formData.append("Nombre_Sub_Director", nombre_Sub_Director);
+    formData.append("email_sub_director", email_sub_director);
+    formData.append("Numero_Sub_Director", numero_Sub_Director);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/info-proyecto/info-proponente/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
