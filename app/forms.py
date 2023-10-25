@@ -2,7 +2,7 @@
 from django import forms
 from django.forms import modelformset_factory
 
-from .models import Objetivos, Proyecto, Informacion_proponente
+from .models import Objetivos, Proyecto, Informacion_proponente , Document
 
 class ProyectoForm(forms.ModelForm):
     class Meta:
@@ -22,3 +22,9 @@ class ObjetivoForm(forms.ModelForm):
         model = Objetivos
         fields = '__all__'
         exclude = ['objetivo_proyecto']
+        
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ['anexo1', 'anexo2', 'anexo3', 'anexo4', 'anexo5', 'anexo6']
+        exclude = ['proyecto']

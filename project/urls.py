@@ -34,15 +34,17 @@ urlpatterns = [
     path('objetivos/<int:objetivo_proyecto_id>/', views.guardar_objetivos, name='objetivos'),
     path('continuar-sesion/', views.continuar_sesion, name='continuar_sesion'),
     path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
+    path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
     
     #Editar
+    path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
     path('editar_objetivo/<int:id_proyecto>/', views.editar_objetivo, name='editar_objetivo_proyecto'),
     
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
     path('Dashboard/404/notfount/', views.not404, name='404'),
-    path('Dashboard/Doc-Anexos/', views.anexosdoc, name='anexosdoc'),
+    path('Dashboard/anexosdoc/<int:proyecto_id>/', views.anexosdoc, name='anexosdoc'),
     path('Dashboard/Usuarios/', views.usuarios, name='Usuarios'),
     path('Dashboard/PreguntasPoli/', views.preguntas, name='preguntaspoli'),
     path('Dashboard/Proyectos-Inactivos/', views.proyectosINA, name='Proyecto-inactivo'),

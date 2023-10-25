@@ -88,7 +88,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'anexosdoc' %}">
+                <a class="nav-link" href="">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Anexos</span></a>
             </li>
@@ -160,16 +160,16 @@
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
-        </div>
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h2 mb-0 text-gray-800">Anexos</h1>
                     </div>
                 </div>
+        </div>
                 <div class="card-body">
                     <div class="table-responsive">
+                        {% for document in documents %}
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
@@ -187,23 +187,14 @@
                             </tfoot>
                             <tbody>
                                 <tr>
-                                    <td>Anexo#1</td>
-                                    <td>Fecha</td>
+                                    <td>{{ document.anexo }}</td>
+                                    <td>{{ document.fecha }}</td>
                                     <td><button type="button" class="btn btn-outline-primary fas fa-file"></button> <button type="button" class="btn btn-outline-danger fa-eye fas"></button></td>
                                     
                                 </tr>
-                                <tr>
-                                    <td>Anexo#2</td>
-                                    <td>Fecha</td>
-                                    <td><button type="button" class="btn btn-outline-primary fas fa-file"></button> <button type="button" class="btn btn-outline-danger fa-eye fas"></button></td>
-                                </tr>
-                                <tr>
-                                    <td>Anexo#3</td>
-                                    <td>Fecha</td>
-                                    <td><button type="button" class="btn btn-outline-primary fas fa-file"></button> <button type="button" class="btn btn-outline-danger fa-eye fas"></button></td>
-                                </tr>
                             </tbody>
                         </table>
+                        {% endfor %}
                     </div>
                 </div> 
                 

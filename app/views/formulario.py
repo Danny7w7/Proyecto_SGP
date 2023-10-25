@@ -1,7 +1,7 @@
 
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm , ObjetivoForm
-from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos , UltimaVista
+from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
+from app.models import  Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea, Proyecto, Objetivos , UltimaVista , Document
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 
@@ -151,3 +151,40 @@ def continuar_sesion(request):
         if ultima_vista:
             return redirect(ultima_vista.ultima_vista)
     return redirect(proyectos_usuario)
+
+
+def subir_anexos(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+    
+    if request.method == "POST":
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            anexo = form.save(commit=False)
+            anexo.proyecto = proyecto
+            anexo.save()
+    
+    documents = Document.objects.filter(proyecto=proyecto)
+    return render(request, "form/anexos.html", {"docs": documents, "proyecto": proyecto})
+
+
+def editar_anexo(request, proyecto_id):
+    try:
+        proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+        anexo = Document.objects.filter(proyecto=proyecto).first()
+        print(anexo)
+    except:
+        return redirect('subir_anexos', proyecto_id)
+
+    if request.method == "POST":
+        model = Document
+        column_names = [field.name for field in model._meta.fields]
+        
+        for name in column_names:
+            if name == 'id' or name == 'fecha' or name == 'proyecto_id' or request.FILES.get(name) == None:
+                continue
+            setattr(anexo, name, request.FILES.get(name))
+        anexo.save()
+
+    form = DocumentForm()
+    return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
+
