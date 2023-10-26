@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Proyecto, Objetivos, UltimaVista, Document, Generalidades_del_proyecto, Participantes_Proyecto, Autores
+from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -27,6 +27,12 @@ def own_user(user, proyecto_id):
     proyecto = Proyecto.objects.filter(id=proyecto_id).first()
     return user.id == proyecto.usuario_id
 
+def get_or_none(model, *args, **kwargs):
+    try:
+        return model.objects.get(*args, **kwargs)
+    except model.DoesNotExist:
+        return None
+
 #------Formulario------
 @login_required(login_url='/login')
 def crear_proyecto(request):
@@ -48,9 +54,14 @@ def crear_proyecto(request):
     return redirect('index')
 
 def informacion_proponente(request, id_proyecto):
-    context = {'proyecto':get_object_or_404(Proyecto, id=id_proyecto),
-               'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_object_or_404(Proyecto, id=id_proyecto)).first()}
+    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first()}
     return render(request, 'form/infop.html', context)
+
+def estructura_proyecto(request, id_proyecto):
+    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'resumen':get_or_none(Resumen_antecedentes)}
+    return render(request, 'form/estp.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
     if not own_user(request.user, id_proyecto):
@@ -109,6 +120,36 @@ def info_proponente(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
+def resumen_antecedentes(request, id_proyecto):
+    try:
+        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
+    print('Prueba esta mierda mamaguevo')
+    resumen.resumen_ejecutivo = request.POST['Resumen_ejecutivo']
+    resumen.antecedentes = request.POST['Antecedentes']
+    try:
+        resumen.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def descripcion_problema(request, id_proyecto):
+    try:
+        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
+    print('Prueba esta mierda mamaguevo')
+    descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
+    descripcion.justificacion = request.POST['Justificacion']
+    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
+    try:
+        descripcion.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
 
 def info_autores(request, id_proyecto):
     try:
