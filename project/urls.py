@@ -32,13 +32,17 @@ urlpatterns = [
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
 
-    #Json
-    path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info-proponente'),
     path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
     path('objetivos/<int:objetivo_proyecto_id>/', views.guardar_objetivos, name='objetivos'),
     path('continuar-sesion/', views.continuar_sesion, name='continuar_sesion'),
     path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
     path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
+
+    #Json
+    path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info-proponente'),
+    path('proyecto/info-proyecto/info-autor/<int:id_proyecto>/', views.info_autores, name='info-autores'),
+    path('proyecto/info-proyecto/info-participante/<int:id_proyecto>/', views.info_participantes, name='info-participantes'),
+    path('proyecto/info-proyecto/info-generalidades/<int:id_proyecto>/', views.info_generalidades, name='info-generalidades'),
     
     #Editar
     path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),

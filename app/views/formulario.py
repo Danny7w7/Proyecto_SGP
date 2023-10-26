@@ -2,7 +2,8 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Proyecto, Objetivos, UltimaVista, Document
+from app.models import  Proyecto, Informacion_proponente, Proyecto, Objetivos, UltimaVista, Document, Generalidades_del_proyecto, Participantes_Proyecto, Autores
+
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 #Listas desplegables
@@ -48,7 +49,7 @@ def crear_proyecto(request):
 
 def informacion_proponente(request, id_proyecto):
     context = {'proyecto':get_object_or_404(Proyecto, id=id_proyecto),
-               'infoProyecto':get_object_or_404(Informacion_proponente)}
+               'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_object_or_404(Proyecto, id=id_proyecto)).first()}
     return render(request, 'form/infop.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
@@ -73,6 +74,7 @@ def Informacion_de_centro(request, id_proyecto):
     context = {'form':form,
                 'proyecto':proyecto,
                 'percentaje':percentaje}
+    return render(request, 'form/infop.html', context)
 
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
@@ -108,6 +110,72 @@ def info_proponente(request, id_proyecto):
         return JsonResponse({"error": str(e)}, status=400)
 
 
+def info_autores(request, id_proyecto):
+    try:
+        autores = Autores.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        autores = Autores.objects.create(proyecto=proyecto)
+       
+    model = Autores
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(autores, name, request.POST.get(name))
+    try:
+        autores.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def info_participantes(request, id_proyecto):
+    try:
+        participantes = Participantes_Proyecto.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        participantes = Participantes_Proyecto.objects.create(proyecto=proyecto)
+       
+    model = Participantes_Proyecto
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(participantes, name, request.POST.get(name))
+    try:
+        participantes.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def info_generalidades(request, id_proyecto):
+    try:
+        generalidades = Generalidades_del_proyecto.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        generalidades = Generalidades_del_proyecto.objects.create(proyecto=proyecto)
+       
+    model = Generalidades_del_proyecto
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(generalidades, name, request.POST.get(name))
+    try:
+        generalidades.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+# ---FIN YEISON ---
   
 #------Editar proyecto------
 def edit_proyect(request, id_proyecto):
