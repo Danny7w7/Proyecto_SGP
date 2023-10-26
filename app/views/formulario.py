@@ -119,38 +119,7 @@ def info_proponente(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
-def resumen_antecedentes(request, id_proyecto):
-    try:
-        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
-    print('Prueba esta mierda mamaguevo')
-    resumen.resumen_ejecutivo = request.POST['Resumen_ejecutivo']
-    resumen.antecedentes = request.POST['Antecedentes']
-    try:
-        resumen.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
     
-def descripcion_problema(request, id_proyecto):
-    try:
-        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
-    print('Prueba esta mierda mamaguevo')
-    descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
-    descripcion.justificacion = request.POST['Justificacion']
-    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
-    try:
-        descripcion.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
 def info_autores(request, id_proyecto):
     try:
         autores = Autores.objects.get(proyecto=id_proyecto)
@@ -212,6 +181,36 @@ def info_generalidades(request, id_proyecto):
         setattr(generalidades, name, request.POST.get(name))
     try:
         generalidades.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+def resumen_antecedentes(request, id_proyecto):
+    try:
+        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
+    resumen.resumen_ejecutivo = request.POST['Resumen_ejecutivo']
+    resumen.antecedentes = request.POST['Antecedentes']
+    try:
+        resumen.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def descripcion_problema(request, id_proyecto):
+    try:
+        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
+    print('Prueba esta mierda mamaguevo')
+    descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
+    descripcion.justificacion = request.POST['Justificacion']
+    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
+    try:
+        descripcion.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
