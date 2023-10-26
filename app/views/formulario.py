@@ -263,6 +263,44 @@ def riesgos_obj_g_json(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
+def riesgos_p_json(request, id_proyecto):
+    try:
+        riesgos_p_json = RiesgoProductos.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgos_p_json = RiesgoProductos.objects.create(proyecto=proyecto)
+    model = RiesgoObjetivoGeneral
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgos_p_json, name, request.POST.get(name))
+    try:
+        riesgos_p_json.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+def riesgo_a_json(request, id_proyecto):
+    try:
+        riesgo_a_json = RiesgoActividades.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgo_a_json = RiesgoActividades.objects.create(proyecto=proyecto)
+    model = RiesgoObjetivoGeneral
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgo_a_json, name, request.POST.get(name))
+    try:
+        riesgo_a_json.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
 # ---FIN YEISON ---
   
 #------Editar proyecto------

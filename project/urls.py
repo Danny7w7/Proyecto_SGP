@@ -37,6 +37,7 @@ urlpatterns = [
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
     path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
+    path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
 
     #Json
     #Informacion proyecto
@@ -48,6 +49,12 @@ urlpatterns = [
     #Esctructura de proyecto
     path('proyecto/est-proyecto/resumen-antecedentes/<int:id_proyecto>/', views.resumen_antecedentes, name='est_proyecto'),
     path('proyecto/est-proyecto/descripcion-problema/<int:id_proyecto>/', views.descripcion_problema, name='desc_problema'),
+
+
+    #Analisis de riesgo
+    path('proyecto/riesgos/riesgo-general/<int:id_proyecto>/', views.riesgos_obj_g_json, name='r_general'),
+    path('proyecto/riesgos/riesgo-producto/<int:id_proyecto>/', views.riesgos_p_json, name='r_producto'),
+    path('proyecto/riesgos/riesgo-actividad/<int:id_proyecto>/', views.riesgo_a_json, name='r_actividad'),
 
 
     #Editar

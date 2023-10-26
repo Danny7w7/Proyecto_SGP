@@ -140,20 +140,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// Riesgo obj general
 function sendPost() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var resumen_ejecutivo = document.getElementById("resumen_ejecutivo").value;
-    var antecedentes = document.getElementById("antecedentes").value;
+    var tipo = document.getElementById("tipo").value;
+    var descripcion = document.getElementById("descripcion").value;
+    var probabilidad = document.getElementById("probabilidad").value;
+    var impacto = document.getElementById("impacto").value;
+    var medidas_Mitigacion = document.getElementById("medidas_Mitigacion").value;
+    var efectos = document.getElementById("efectos").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Resumen_ejecutivo", resumen_ejecutivo);
-    formData.append("Antecedentes", antecedentes);
+    formData.append("tipo", tipo);
+    formData.append("descripcion", descripcion);
+    formData.append("probabilidad", probabilidad);
+    formData.append("impacto", impacto);
+    formData.append("medidas_Mitigacion", medidas_Mitigacion);
+    formData.append("efectos", efectos);
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`/proyecto/est-proyecto/resumen-antecedentes/${id_proyecto}/`, {
+    fetch(`/proyecto/riesgos/riesgo-general/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
@@ -173,22 +182,71 @@ function sendPost() {
     });
 };
 
+// Riesgo productos
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var identificacion_y_descripcion_problema = document.getElementById("identificacion_y_descripcion_problema").value;
-    var justificacion = document.getElementById("justificacion").value;
-    var formFile = document.getElementById("formFile").files[0];
+    var tipo = document.getElementById("tipo2").value;
+    var descripcion = document.getElementById("descripcion2").value;
+    var probabilidad = document.getElementById("probabilidad2").value;
+    var impacto = document.getElementById("impacto2").value;
+    var medidas_Mitigacion = document.getElementById("medidas_Mitigacion2").value;
+    var efectos = document.getElementById("efectos2").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Identificacion_y_descripcion_problema", identificacion_y_descripcion_problema);
-    formData.append("Justificacion", justificacion);
-    formData.append("Marco_conceptual", formFile);
+    formData.append("tipo", tipo);
+    formData.append("descripcion", descripcion);
+    formData.append("probabilidad", probabilidad);
+    formData.append("impacto", impacto);
+    formData.append("medidas_Mitigacion", medidas_Mitigacion);
+    formData.append("efectos", efectos);
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`/proyecto/est-proyecto/descripcion-problema/${id_proyecto}/`, {
+    fetch(`/proyecto/riesgos/riesgo-producto/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+
+// Riesgo actividad
+function sendPost3() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    // Obtener los valores de los campos del formulario
+    var tipo = document.getElementById("tipo3").value;
+    var descripcion = document.getElementById("descripcion3").value;
+    var probabilidad = document.getElementById("probabilidad3").value;
+    var impacto = document.getElementById("impacto3").value;
+    var medidas_Mitigacion = document.getElementById("medidas_Mitigacion3").value;
+    var efectos = document.getElementById("efectos3").value;
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("tipo", tipo);
+    formData.append("descripcion", descripcion);
+    formData.append("probabilidad", probabilidad);
+    formData.append("impacto", impacto);
+    formData.append("medidas_Mitigacion", medidas_Mitigacion);
+    formData.append("efectos", efectos);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/riesgos/riesgo-actividad/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
