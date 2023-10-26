@@ -75,22 +75,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const form3 = document.getElementById("form3");
 
 
-    if(form1) {
-        form1.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form1');
-        });
-    }
-
-    if(form2) {
-        form2.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form2');
-        });
-    }
-    if (form3) {
-        form3.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form3');
-        });
-    }
+    document.getElementById("enviar1").addEventListener("click", function() {
+        handleFormSubmit(event, 'form1');
+    });
+    document.getElementById("enviar2").addEventListener("click", function() {
+        handleFormSubmit(event, 'form2');
+    });
+    document.getElementById("enviar3").addEventListener("click", function() {
+        handleFormSubmit(event, 'form3');
+    });
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
@@ -106,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
-
         event.preventDefault();
         if (isValid) {
             Swal.fire({
@@ -115,8 +107,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                // Esto enviará realmente el formulario
-                event.target.submit();
+                if (formKey == 'form1'){
+                    sendPost()
+                }else if (formKey == 'form2'){
+                    sendPost2()
+                }else if(formKey == 'form3'){
+                    sendPost3()
+                }
             });
         }else{
             Swal.fire({
@@ -142,3 +139,72 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+function sendPost() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    // Obtener los valores de los campos del formulario
+    var resumen_ejecutivo = document.getElementById("resumen_ejecutivo").value;
+    var antecedentes = document.getElementById("antecedentes").value;
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("Resumen_ejecutivo", resumen_ejecutivo);
+    formData.append("Antecedentes", antecedentes);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/est-proyecto/resumen-antecedentes/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+
+function sendPost2() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    // Obtener los valores de los campos del formulario
+    var identificacion_y_descripcion_problema = document.getElementById("identificacion_y_descripcion_problema").value;
+    var justificacion = document.getElementById("justificacion").value;
+    var formFile = document.getElementById("formFile").files[0];
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("Identificacion_y_descripcion_problema", identificacion_y_descripcion_problema);
+    formData.append("Justificacion", justificacion);
+    formData.append("Marco_conceptual", formFile);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/est-proyecto/descripcion-problema/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+

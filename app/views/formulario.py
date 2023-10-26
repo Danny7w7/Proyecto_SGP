@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document
+from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -62,6 +62,28 @@ def estructura_proyecto(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
                'resumen':get_or_none(Resumen_antecedentes)}
     return render(request, 'form/estp.html', context)
+
+
+
+
+
+
+
+
+def riesgo_general(request, id_proyecto):
+    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'riesgos_g':get_or_none(RiesgoObjetivoGeneral)}
+    return render(request, 'form/riesgosp.html', context)
+
+def riesgo_producto(request, id_proyecto):
+    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'riesgos_p':get_or_none(RiesgoProductos)}
+    return render(request, 'form/riesgosp.html', context)
+
+def riesgo_actividad(request, id_proyecto):
+    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'riesgos_a':get_or_none(RiesgoActividades)}
+    return render(request, 'form/riesgosp.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
     if not own_user(request.user, id_proyecto):
@@ -212,6 +234,31 @@ def info_generalidades(request, id_proyecto):
         setattr(generalidades, name, request.POST.get(name))
     try:
         generalidades.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+
+
+
+
+
+
+def riesgos_obj_g_json(request, id_proyecto):
+    try:
+        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.create(proyecto=proyecto)
+    model = RiesgoObjetivoGeneral
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgos_obj_g_json, name, request.POST.get(name))
+    try:
+        riesgos_obj_g_json.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
