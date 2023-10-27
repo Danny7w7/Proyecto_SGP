@@ -47,27 +47,26 @@
                                         <form method="post" id="form1" action="" class="needs-validation">
                                             {% csrf_token %}
                                         
-                                        <div class="mt-3" style="width: 95%; margin-left: 2%;">
-                                            <!-- Primer textarea con label -->
+                                            <!-- Primer textarea con label para Objetivo General -->
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Objetivo general </label>
+                                                <label for="id_objetivo_general" class="form-label">Objetivo general </label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="objetivo_general"  cols="20" rows="10"></textarea>
-                                                    <div class="invalid-feedback">
-                                                    </div>
+                                                    name="objetivo_general" id="id_objetivo_general" cols="20" rows="10"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
                                             </div>
-
-                                            <!-- Segundo textarea con label -->
+                                        
+                                            <!-- Segundo textarea con label para Objetivo Específico -->
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Objetivo específico</label>
+                                                <label for="id_objetivo_especificos" class="form-label">Objetivo específico</label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="objetivo_especificos" cols="20" rows="10"></textarea>
-                                                    <div class="invalid-feedback">
-                                                    </div>
+                                                    name="objetivo_especificos" id="id_objetivo_especificos" cols="20" rows="10"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
                                             </div>
-
+                                        
                                             <!-- Botón Siguiente centrado -->
                                             <div class="d-flex justify-content-center col-12">
                                                 <button type="submit"

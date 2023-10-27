@@ -116,12 +116,13 @@ class Actividades_de_objetivos_especificos(models.Model):
     actividades_obj_especificos = models.CharField(max_length=250, null=False)
     objetivos_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
 
-class causa_efecto(models.Model):
+class Causa(models.Model):
     causa = models.CharField(max_length=200, null=False)
-    efecto= models.CharField(max_length=200, null=False)
     obejetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
     
-
+class Efecto(models.Model):
+    efecto = models.CharField(max_length=200, null=False)
+    causas = models.OneToOneField(Causa, on_delete=models.CASCADE)
 
 # Analisis de participantes
 class Centro_de_formacion(models.Model):

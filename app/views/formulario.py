@@ -1,8 +1,8 @@
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm, Objetivo_espeForm
-from app.models import  Proyecto, Informacion_proponente, Proyecto, Objetivos, UltimaVista, Document
+from app.forms import Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ObjetivoEspecificoForm
+from app.models import  Proyecto, Informacion_proponente, Proyecto, Objetivos, UltimaVista, Document, Objetivos_especificos
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 #Listas desplegables
@@ -129,41 +129,53 @@ def edit_proyect(request, id_proyecto):
             'listaPlegable':contex_form()}
     return render(request, 'edit_form/edit_proy.html', context)
 
+
 def guardar_objetivos(request, objetivo_proyecto_id):
     objetivo = get_object_or_404(Proyecto, id=objetivo_proyecto_id)
+    
     if request.method == 'POST':
-        form = ObjetivoForm(request.POST)
-        if form.is_valid():
-            objetivo_nuevo = form.save(commit=False)
-            objetivo_nuevo.objetivo_proyecto = objetivo
-            objetivo_nuevo.save()
+        objetivo_form = ObjetivoForm(request.POST)
+        objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
+
+        if objetivo_form.is_valid() and objetivo_especifico_form.is_valid():
+            # Crear o recuperar el objetivo general
+            objetivo_general, created = Objetivos.objects.get_or_create(objetivo_proyecto=objetivo)
+
+            # Actualizar el objetivo general con la información del formulario ObjetivoForm
+            objetivo_general.objetivo_general = objetivo_form.cleaned_data['objetivo_general']
+            objetivo_general.save()
+
+            # Crear el objetivo específico asociado al objetivo general usando ObjetivoEspecificoForm
+            Objetivos_especificos.objects.create(objetivo_especificos=objetivo_especifico_form.cleaned_data['objetivo_especificos'], objetivos=objetivo_general)
+
             print("Los objetivos se guardaron correctamente.")
         else:
-            print(form.errors)
-            print("El formulario no es válido.")
+            print("Uno o ambos formularios no son válidos.")
     else:
-        form = ObjetivoForm(initial={'objetivo': objetivo})
-        
-    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo})
+        objetivo_form = ObjetivoForm()
+        objetivo_especifico_form = ObjetivoEspecificoForm()
 
+    return render(request, 'form/objetivos.html', {'objetivo_form': objetivo_form, 'objetivo_especifico_form': objetivo_especifico_form, 'objetivo': objetivo})
 
 def editar_objetivo(request, id_proyecto):
     proyecto = get_object_or_404(Proyecto, id=id_proyecto)
-    
-    objetivo_general = Objetivos.objects.filter(objetivo_proyecto=proyecto).first()
+
+    objetivo_general, created = Objetivos.objects.get_or_create(objetivo_proyecto=proyecto)
+    objetivo_especifico = objetivo_general.objetivosespecificos_set.first()
 
     if request.method == 'POST':
-        form = ObjetivoForm(request.POST, instance=objetivo_general)
+        form = ObjetivoEspecificoForm(request.POST, instance=objetivo_especifico)
         if form.is_valid():
-            objetivo_general = form.save(commit=False)
-            objetivo_general.objetivo_proyecto = proyecto
-            objetivo_general.save()
-            print("El objetivo se actualizó correctamente.")
+            objetivo_especifico = form.save(commit=False)
+            objetivo_especifico.objetivos = objetivo_general
+            objetivo_especifico.save()
+            print("El objetivo específico se actualizó correctamente.")
             return redirect('index')
     else:
-        form = ObjetivoForm(instance=objetivo_general)
+        form = ObjetivoEspecificoForm(instance=objetivo_especifico)
 
-    return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general})
+    return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general, 'objetivo_especifico': objetivo_especifico})
+
 
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
@@ -216,18 +228,5 @@ def editar_anexo(request, proyecto_id):
     form = DocumentForm()
     return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
 
-def guardar_objetivo_especifico(request, objetivos):
-    objetivo_espe = get_object_or_404(Objetivos, pk=objetivos)
-    
-    if request.method == "POST":
-        form = Objetivo_espeForm(request.POST)
-        if form.is_valid():
-            objetivo_espe = form.save(commit=False)
-            objetivo_espe.objetivos = objetivos
-            objetivo_espe.save()
-        else:
-            print(form.errors)
-    
-    return render(request, "form/objetivos.html", {"form": form, "obejtivo_espe": objetivo_espe})
     
 
