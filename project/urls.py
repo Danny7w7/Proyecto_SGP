@@ -29,14 +29,17 @@ urlpatterns = [
     path('logout/', views.logout_, name='logout'),
     path('register/', views.register, name='register'),
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
-    path('objetivos/<int:objetivo_proyecto_id>/', views.guardar_objetivos, name='objetivos'),
     path('continuar-sesion/', views.continuar_sesion, name='continuar_sesion'),
     path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
-    path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
+
+    #Views Form
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
-    path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
     path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
+
+    #Form
+    path('objetivos/<int:objetivo_proyecto_id>/', views.guardar_objetivos, name='objetivos'),
+    path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
 
     #Json
     #Informacion proyecto
@@ -51,8 +54,8 @@ urlpatterns = [
 
 
     #Editar
-    path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
+    path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
     path('editar_objetivo/<int:id_proyecto>/', views.editar_objetivo, name='editar_objetivo_proyecto'),
     
     # paths admin menu
