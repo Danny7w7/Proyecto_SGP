@@ -72,17 +72,20 @@ def estructura_proyecto(request, id_proyecto):
 
 def riesgo_general(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'riesgos_g':get_or_none(RiesgoObjetivoGeneral)}
+               'riesgos_g':get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)}
+    cnt = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
     return render(request, 'form/riesgosp.html', context)
 
 def riesgo_producto(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'riesgos_p':get_or_none(RiesgoProductos)}
+               'riesgos_p':get_or_none(RiesgoProductos, proyecto= id_proyecto)}
+    cnt = get_or_none(RiesgoProductos, proyecto=id_proyecto)
     return render(request, 'form/riesgosp.html', context)
 
 def riesgo_actividad(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'riesgos_a':get_or_none(RiesgoActividades)}
+               'riesgos_a':get_or_none(RiesgoActividades, proyecto=id_proyecto)}
+    cnt = get_or_none(RiesgoActividades, proyecto=id_proyecto)
     return render(request, 'form/riesgosp.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
