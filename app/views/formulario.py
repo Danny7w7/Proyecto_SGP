@@ -70,23 +70,39 @@ def estructura_proyecto(request, id_proyecto):
 
 
 
+# def riesgo_general(request, id_proyecto):
+#     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+#                'riesgos_g':get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)}
+#     cnt = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
+#     return render(request, 'form/riesgosp.html', context)
+
+# def riesgo_producto(request, id_proyecto):
+#     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+#                'riesgos_p':get_or_none(RiesgoProductos, proyecto= id_proyecto)}
+#     cnt2 = get_or_none(RiesgoProductos, proyecto=id_proyecto)
+#     return render(request, 'form/riesgosp.html', context)
+
+# def riesgo_actividad(request, id_proyecto):
+#     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+#                'riesgos_a':get_or_none(RiesgoActividades, proyecto=id_proyecto)}
+#     cnt3= get_or_none(RiesgoActividades, proyecto=id_proyecto)
+#     return render(request, 'form/riesgosp.html', context)
 def riesgo_general(request, id_proyecto):
-    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'riesgos_g':get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)}
-    cnt = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    
+    riesgos_g = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
+    riesgos_p = get_or_none(RiesgoProductos, proyecto=id_proyecto)
+    riesgos_a = get_or_none(RiesgoActividades, proyecto=id_proyecto)
+    
+    context = {
+        'proyecto': proyecto,
+        'riesgos_g': riesgos_g,
+        'riesgos_p': riesgos_p,
+        'riesgos_a': riesgos_a
+    }
+    
     return render(request, 'form/riesgosp.html', context)
 
-def riesgo_producto(request, id_proyecto):
-    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'riesgos_p':get_or_none(RiesgoProductos, proyecto= id_proyecto)}
-    cnt = get_or_none(RiesgoProductos, proyecto=id_proyecto)
-    return render(request, 'form/riesgosp.html', context)
-
-def riesgo_actividad(request, id_proyecto):
-    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'riesgos_a':get_or_none(RiesgoActividades, proyecto=id_proyecto)}
-    cnt = get_or_none(RiesgoActividades, proyecto=id_proyecto)
-    return render(request, 'form/riesgosp.html', context)
 
 def Informacion_de_centro(request, id_proyecto):
     if not own_user(request.user, id_proyecto):
@@ -272,7 +288,7 @@ def riesgos_p_json(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         riesgos_p_json = RiesgoProductos.objects.create(proyecto=proyecto)
-    model = RiesgoObjetivoGeneral
+    model = RiesgoProductos
     column_names = [field.name for field in model._meta.fields]
     
     for name in column_names:
@@ -291,7 +307,7 @@ def riesgo_a_json(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         riesgo_a_json = RiesgoActividades.objects.create(proyecto=proyecto)
-    model = RiesgoObjetivoGeneral
+    model = RiesgoActividades
     column_names = [field.name for field in model._meta.fields]
     
     for name in column_names:

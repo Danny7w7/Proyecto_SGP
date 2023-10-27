@@ -76,22 +76,21 @@
                                                             <label for="tipo" class="form-label">Tipo de riesgo</label>
                                                             <select name="tipo" id="tipo"
                                                             class="form-control selectmod">
-                                                            <option value="" disabled>Selecciona una
-                                                                opción...</option>
-                                                            <option value="mercado" {% if riesgo_g.tipo == "mercado" %}selected{% endif %}>Mercado</option>
-                                                            <option value="operacionales" {% if riesgo_g.tipo == "operacionales" %}selected{% endif %}>Operacionales</option>
-                                                            <option value="legales" {% if riesgo_g.tipo == "legales" %}selected{% endif %}>Legales</option>
-                                                            <option value="administrativos" {% if riesgo_g.tipo == "administrativos" %}selected{% endif %}>Administrativos</option>
+                                                            <option value="" disabled {% if not riesgos_g.tipo %}selected{% endif %}>Selecciona una opción...</option>
+                                                            <option value="mercado" {% if riesgos_g.tipo == "mercado" %}selected{% endif %}>Mercado</option>
+                                                            <option value="operacionales" {% if riesgos_g.tipo == "operacionales" %}selected{% endif %}>Operacionales</option>
+                                                            <option value="legales" {% if riesgos_g.tipo == "legales" %}selected{% endif %}>Legales</option>
+                                                            <option value="administrativos" {% if riesgos_g.tipo == "administrativos" %}selected{% endif %}>Administrativos</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="impacto" class="form-label">Impacto</label>
                                                         <select name="impacto" id="impacto" class="form-control selectmod">
-                                                            <option value="" disabled {% if not riesgo_g.impacto %}selected{% endif %}>Selecciona una opción...</option>
-                                                            <option value="alto" {% if riesgo_g.impacto == "alto" %}selected{% endif %}>Alto</option>
-                                                            <option value="moderado" {% if riesgo_g.impacto == "moderado" %}selected{% endif %}>Moderado</option>
-                                                            <option value="leve" {% if riesgo_g.impacto == "leve" %}selected{% endif %}>Leve</option>
+                                                            <option value="" disabled {% if not riesgos_g.impacto %}selected{% endif %}>Selecciona una opción...</option>
+                                                            <option value="alto" {% if riesgos_g.impacto == "alto" %}selected{% endif %}>Alto</option>
+                                                            <option value="moderado" {% if riesgos_g.impacto == "moderado" %}selected{% endif %}>Moderado</option>
+                                                            <option value="leve" {% if riesgos_g.impacto == "leve" %}selected{% endif %}>Leve</option>
                                                         </select>
                                                     </div>
 
@@ -99,7 +98,7 @@
                                                     <div class="mb-3">
                                                         <label for="" class="form-label">Descripción de
                                                             riesgo</label>
-                                                        <input type="text" name="descripcion" id="descripcion" value="{{ riesgo_g.descripcion }}"
+                                                        <input type="text" name="descripcion" id="descripcion" value="{{ riesgos_g.descripcion }}"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
                                                             </div>
@@ -110,7 +109,7 @@
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <label for="efectos" class="form-label">Efectos</label>
-                                                        <input type="text" name="efectos" id="efectos" value="{{ riesgo_g.efectos }}"
+                                                        <input type="text" name="efectos" id="efectos" value="{{ riesgos_g.efectos }}"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
                                                             </div>
@@ -119,9 +118,9 @@
                                                     <div class="mb-3">
                                                         <label for="probabilidad" class="form-label">Probabilidad</label>
                                                         <select name="probabilidad" id="probabilidad" class="form-control selectmod">
-                                                            <option value="" disabled {% if not riesgo_g.probabilidad %}selected{% endif %}>Selecciona una opción...</option>
-                                                            <option value="posible" {% if riesgo_g.probabilidad == "posible" %}selected{% endif %}>Posible</option>
-                                                            <option value="probable" {% if riesgo_g.probabilidad == "probable" %}selected{% endif %}>Probable</option>
+                                                            <option value="" disabled {% if not riesgos_g.probabilidad %}selected{% endif %}>Selecciona una opción...</option>
+                                                            <option value="posible" {% if riesgos_g.probabilidad == "posible" %}selected{% endif %}>Posible</option>
+                                                            <option value="probable" {% if riesgos_g.probabilidad == "probable" %}selected{% endif %}>Probable</option>
                                                         </select>
                                                         
                                                     </div>
@@ -129,7 +128,7 @@
                                                     <div class="mb-3">
                                                         <label for="" class="form-label">Medidas de
                                                             mitigación</label>
-                                                        <input type="text" name="medidas_Mitigacion" value="{{ riesgo_g.medidas_Mitigacion }}"
+                                                        <input type="text" name="medidas_Mitigacion" value="{{ riesgos_g.medidas_Mitigacion }}"
                                                             id="medidas_Mitigacion"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
@@ -189,11 +188,10 @@
                                                             <label for="tipo" class="form-label">Tipo de riesgo</label>
                                                             <select name="tipo" id="tipo2"
                                                                 class="form-control selectmod">
-                                                                <option value="" disabled selected>Selecciona una
-                                                                    opción...</option>
+                                                                <option value="" disabled {% if not riesgos_p.tipo %}selected{% endif %}>Selecciona una opción...</option>
                                                                 <option value="mercado" {% if riesgos_p.tipo == 'mercado' %}selected{% endif %}>Mercado</option>
                                                                 <option value="operacionales" {% if riesgos_p.tipo == "operacionales" %}selected{% endif %}>Operacionales</option>
-                                                                <option value="legales" {% if riesgos_p.tipo == "legales" %}selected{% endif %}>Legales</option>
+                                                                <option value="legales" {% if riesgos_gptipo == "legales" %}selected{% endif %}>Legales</option>
                                                                 <option value="administrativos" {% if riesgos_p.tipo == "administrativos" %}selected{% endif %}>Administrativos
                                                                 </option>
                                                             </select>
@@ -203,10 +201,10 @@
                                                         <label for="impacto" class="form-label">Impacto</label>
                                                         <select name="impacto" id="impacto2"
                                                             class="form-control selectmod">
-                                                            <option value="" disabled {% if not riesgo_p.impacto %}selected{% endif %}>Selecciona una opción...</option>
-                                                            <option value="alto" {% if riesgo_p.impacto == "alto" %}selected{% endif %}>Alto</option>
-                                                            <option value="moderado" {% if riesgo_p.impacto == "moderado" %}selected{% endif %}>Moderado</option>
-                                                            <option value="leve" {% if riesgo_p.impacto == "leve" %}selected{% endif %}>Leve</option>
+                                                            <option value="" disabled {% if not riesgos_p.impacto %}selected{% endif %}>Selecciona una opción...</option>
+                                                            <option value="alto" {% if riesgos_p.impacto == "alto" %}selected{% endif %}>Alto</option>
+                                                            <option value="moderado" {% if riesgos_p.impacto == "moderado" %}selected{% endif %}>Moderado</option>
+                                                            <option value="leve" {% if riesgos_p.impacto == "leve" %}selected{% endif %}>Leve</option>
                                                         </select>
 
                                                     </div>
@@ -214,7 +212,7 @@
                                                     <div class="mb-3">
                                                         <label for="descripcion" class="form-label">Descripción de
                                                             riesgo</label>
-                                                        <input type="text" name="descripcion" id="descripcion2"
+                                                        <input type="text" name="descripcion" id="descripcion2" value="{{ riesgos_p.descripcion }}"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
                                                             </div>
@@ -225,7 +223,7 @@
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <label for="efectos" class="form-label">Efecto</label>
-                                                        <input type="text" name="efectos" id="efectos2"
+                                                        <input type="text" name="efectos" id="efectos2" value="{{ riesgos_p.efectos }}"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
                                                             </div>
@@ -233,19 +231,18 @@
 
                                                     <div class="mb-3">
                                                         <label for="probabilidad" class="form-label">Probabilidad</label>
-                                                        <select name="probabilidad" id="probabilidad2"
+                                                        <select name="probabilidad" id="probabilidad2" 
                                                             class="form-control selectmod">
-                                                            <option value="" disabled selected>Selecciona una
-                                                                opción...</option>
-                                                            <option value="posible">Posible</option>
-                                                            <option value="probable">Probable</option>
+                                                            <option value="" disabled {% if not riesgos_g.probabilidad %}selected{% endif %}>Selecciona una opción...</option>
+                                                            <option value="posible" {% if riesgos_g.probabilidad == "posible" %}selected{% endif %}>Posible</option>
+                                                            <option value="probable" {% if riesgos_g.probabilidad == "probable" %}selected{% endif %}>Probable</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="medidas_Mitigacion" class="form-label">Medidas de
                                                             mitigación</label>
-                                                        <input type="text" name="medidas_Mitigacion"
+                                                        <input type="text" name="medidas_Mitigacion" value="{{ riesgos_p.medidas_Mitigacion }}"
                                                             id="medidas_Mitigacion2"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
@@ -306,10 +303,11 @@
                                                             <label for="tipo" class="form-label">Tipo de riesgo</label>
                                                             <select name="tipo" id="tipo3"
                                                                 class="form-control selectmod">
-                                                                <option value="mercado" {% if riesgo_a.tipo == "mercado" %}selected{% endif %}>Mercado</option>
-                                                                <option value="operacionales" {% if riesgo_a.tipo == "operacionales" %}selected{% endif %}>Operacionales</option>
-                                                                <option value="legales" {% if riesgo_a.tipo == "legales" %}selected{% endif %}>Legales</option>
-                                                                <option value="administrativos" {% if riesgo_a.tipo == "administrativos" %}selected{% endif %}>Administrativos</option>
+                                                                <option value="" disabled {% if not riesgos_a.tipo %}selected{% endif %}>Selecciona una opción...</option>
+                                                                <option value="mercado" {% if riesgos_a.tipo == "mercado" %}selected{% endif %}>Mercado</option>
+                                                                <option value="operacionales" {% if riesgos_a.tipo == "operacionales" %}selected{% endif %}>Operacionales</option>
+                                                                <option value="legales" {% if riesgos_a.tipo == "legales" %}selected{% endif %}>Legales</option>
+                                                                <option value="administrativos" {% if riesgos_a.tipo == "administrativos" %}selected{% endif %}>Administrativos</option>
                                                             </select>
                                                     </div>
 
@@ -317,17 +315,17 @@
                                                         <label for="impacto" class="form-label">Impacto</label>
                                                         <select name="impacto" id="impacto3"
                                                             class="form-control selectmod">
-                                                            <option value="" disabled {% if not riesgo_a.impacto %}selected{% endif %}>Selecciona una opción...</option>
-                                                            <option value="alto" {% if riesgo_a.impacto == "alto" %}selected{% endif %}>Alto</option>
-                                                            <option value="moderado" {% if riesgo_a.impacto == "moderado" %}selected{% endif %}>Moderado</option>
-                                                            <option value="leve" {% if riesgo_a.impacto == "leve" %}selected{% endif %}>Leve</option>
+                                                            <option value="" disabled {% if not riesgos_a.impacto %}selected{% endif %}>Selecciona una opción...</option>
+                                                            <option value="alto" {% if riesgos_a.impacto == "alto" %}selected{% endif %}>Alto</option>
+                                                            <option value="moderado" {% if riesgos_a.impacto == "moderado" %}selected{% endif %}>Moderado</option>
+                                                            <option value="leve" {% if riesgos_a.impacto == "leve" %}selected{% endif %}>Leve</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="descripcion" class="form-label">Descripción de
                                                             riesgo</label>
-                                                        <input type="text" name="descripcion" id="descripcion3"  value="{{ riesgo_a.descripcion }}"
+                                                        <input type="text" name="descripcion" id="descripcion3"  value="{{ riesgos_a.descripcion }}"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
                                                             </div>
@@ -338,7 +336,7 @@
                                                 <div class="col-12 col-md-6">
                                                     <div class="mb-3">
                                                         <label for="efectos" class="form-label">Efecto</label>
-                                                        <input type="text" name="efectos" id="efectos3"  value="{{ riesgo_a.efectos }}"
+                                                        <input type="text" name="efectos" id="efectos3"  value="{{ riesgos_a.efectos }}"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
                                                             </div>
@@ -348,9 +346,9 @@
                                                         <label for="probabilidad" class="form-label">Probabilidad</label>
                                                         <select name="probabilidad" id="probabilidad3"
                                                             class="form-control selectmod">
-                                                            <option value="" disabled {% if not riesgo_a.probabilidad %}selected{% endif %}>Selecciona una opción...</option>
-                                                            <option value="posible" {% if riesgo_a.probabilidad == "posible" %}selected{% endif %}>Posible</option>
-                                                            <option value="probable" {% if riesgo_a.probabilidad == "probable" %}selected{% endif %}>Probable</option>
+                                                            <option value="" disabled {% if not riesgos_a.probabilidad %}selected{% endif %}>Selecciona una opción...</option>
+                                                            <option value="posible" {% if riesgos_a.probabilidad == "posible" %}selected{% endif %}>Posible</option>
+                                                            <option value="probable" {% if riesgos_a.probabilidad == "probable" %}selected{% endif %}>Probable</option>
                                                         </select>
                                                     </div>
 
@@ -358,7 +356,7 @@
                                                         <label for="medidas_Mitigacion" class="form-label">Medidas de
                                                             mitigación</label>
                                                         <input type="text" name="medidas_Mitigacion"
-                                                            id="medidas_Mitigacion3" value="{{ riesgo_a.medidas_Mitigacion }}"
+                                                            id="medidas_Mitigacion3" value="{{ riesgos_a.medidas_Mitigacion }}"
                                                             class="form-control form-control-sm" placeholder="">
                                                             <div class="invalid-feedback">
                                                             </div>
