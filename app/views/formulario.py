@@ -54,10 +54,13 @@ def crear_proyecto(request):
     return render(request, 'form/crearp.html', context)
 
 def informacion_proponente(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
                'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+               'autores': Autores.objects.filter(proyecto = proyecto),
                'percentaje':id_proyecto}
     return render(request, 'form/infop.html', context)
+    
 
 def estructura_proyecto(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
@@ -98,13 +101,36 @@ def info_proponente(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
     
-def info_autores(request, id_proyecto):
-    try:
-        autores = Autores.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        autores = Autores.objects.create(proyecto=proyecto)
+# def info_autores(request, id_proyecto):
+#     try:
+#         autores = Autores.objects.get(proyecto=id_proyecto)
+#     except:
+#         proyecto = Proyecto.objects.get(id=id_proyecto)
+#         autores = Autores.objects.create(proyecto=proyecto)
        
+#     model = Autores
+#     column_names = [field.name for field in model._meta.fields]
+    
+#     for name in column_names:
+#         if name == 'id' or name == 'proyecto':
+#             continue
+        
+#         setattr(autores, name, request.POST.get(name))
+#     try:
+#         autores.save()
+#         return JsonResponse({"mensaje": "Operación exitosa"})
+#     except Exception as e:
+#         return JsonResponse({"error": str(e)}, status=400)
+def info_autores(request, id_proyecto):
+    num_autores = Autores.objects.filter(proyecto=id_proyecto).count()
+
+    # Verifica si ya tienes 3 autores para este proyecto
+    if num_autores >= 3:
+        return JsonResponse({"error": "Ya has registrado el máximo de autores permitidos."}, status=400)
+
+    proyecto = Proyecto.objects.get(id=id_proyecto)
+    autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente
+
     model = Autores
     column_names = [field.name for field in model._meta.fields]
     
@@ -115,9 +141,17 @@ def info_autores(request, id_proyecto):
         setattr(autores, name, request.POST.get(name))
     try:
         autores.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
+        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_autor": {
+            "nombre_Autor_Proyecto": autores.nombre_Autor_Proyecto,
+            "tipo_Vinculacion_entidad": autores.tipo_Vinculacion_entidad,
+            "numero_Cedula_Autor": autores.numero_Cedula_Autor,
+            "rol_Sennova_De_Participantes_de_Proyecto": autores.rol_Sennova_De_Participantes_de_Proyecto,
+            "email_Autor_Proyecto": autores.email_Autor_Proyecto,
+            "numero_Telefono_Autor": autores.numero_Telefono_Autor
+        }})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+
 
 
 def info_participantes(request, id_proyecto):
