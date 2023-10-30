@@ -1,17 +1,5 @@
-document.getElementById("enviar1").addEventListener("click", function() {
-    validation();
-});
-document.getElementById("enviar2").addEventListener("click", function() {
-    validation();
-});
-document.getElementById("enviar3").addEventListener("click", function() {
-    validation();
-});
-document.getElementById("enviar4").addEventListener("click", function() {
-    validation();
-});
-
-function validation() {
+document.addEventListener("DOMContentLoaded", function() {
+    
     const allValidations = {
         //Validacion info proponente
        "form1": {
@@ -113,7 +101,6 @@ function validation() {
         }, 
        }
     };
-    
 
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {
@@ -134,6 +121,10 @@ function validation() {
             });
         }
     }
+
+//ids de los formularios
+    const form1 = document.getElementById("form1");
+    const form2 = document.getElementById("form2");
 
 
     document.getElementById("enviar1").addEventListener("click", function(event) {
@@ -166,7 +157,6 @@ function validation() {
 
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
-
         event.preventDefault();
         if (isValid) {
             Swal.fire({
@@ -176,7 +166,7 @@ function validation() {
                 confirmButtonText: 'Aceptar'
             }).then(() => {
                 if (formKey == 'form1'){
-                    sendPost()
+                    sendPost1()
                 }else if (formKey == 'form2'){
                     sendPost2()
                 }
@@ -210,9 +200,9 @@ function validation() {
             return false;
         }
     }
-};
+});
 
-function sendPost() {
+function sendPost1() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
     var region = document.getElementById("Region").value;

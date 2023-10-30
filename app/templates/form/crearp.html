@@ -30,11 +30,15 @@
 
 <body class="container-fluid">
     <header class=" mt-2 ms-1 me-1 row border_radius">
-        <div class="col-2 ps-4 align-self-center">
+        <div class="col-2 ps-4 align-self-center">  
+        {% if percentaje == 0 %}
+
+        {% else %}
             <a class="" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                 aria-controls="offcanvasExample">
                 <span class="material-symbols-outlined" style="color: #59ab6e;">density_medium</span>
             </a>
+        {% endif %}
         </div>
         <div class="col-md-8 col-8 text-center align-self-center">
             <img class="img-fluid pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" alt="LogoSenaVerde" width="50">
@@ -52,20 +56,24 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <!-- <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="crearp.html">Crear
-            proyecto</a> -->
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'info_proyecto' 1 %}">Información del
+            {% if percentaje == 0 %}
+            
+            {% else %}
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2  izq border_radius" href="{% url 'edit_proyec' percentaje %}">Crear
                 proyecto</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'estructura_proyecto' 1 %}">Estructura del
+            {% endif %}
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'info_proyecto' percentaje %}">Información del
                 proyecto</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Objetivos generales
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'estructura_proyecto' percentaje %}">Estructura del
+                proyecto</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'objetivos' percentaje %}">Objetivos generales
                 específicos</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Metodología</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Participación</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Proyección</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Análisis de
                 riesgo</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="">Anexos</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'subir_anexos' percentaje %}">Anexos</a>
             <!-- BARRA DE PROGRESO -->
             <div class="d-flex justify-content-end mt-3 mr-3">
                 <div class="col-12 mb-4">

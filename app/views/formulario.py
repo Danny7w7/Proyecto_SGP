@@ -36,57 +36,36 @@ def get_or_none(model, *args, **kwargs):
 #------Formulario------
 @login_required(login_url='/login')
 def crear_proyecto(request):
-    if user_has_role(request.user, 'Admin', 'F'):
-        if request.method == 'POST':
-            form = ProyectoForm(request.POST)
-            if form.is_valid():
-                proyecto = form.save(commit=False)
-                proyecto.usuario = request.user
-                proyecto.progress = 10
-                proyecto.save()
-                return redirect('info_proyecto', id_proyecto=proyecto.id)
-        else:
-            form = ProyectoForm()
-            context = {'form': form,
-                       'listaPlegable':contex_form(),
-                       'percentaje':0}
-        return render(request, 'form/crearp.html', context)
-    return redirect('index')
+    if not user_has_role(request.user, 'Admin', 'F'):
+        return redirect('index')
+    if request.method == 'POST':
+        form = ProyectoForm(request.POST)
+        if form.is_valid():
+            proyecto = form.save(commit=False)
+            proyecto.usuario = request.user
+            proyecto.progress = 10
+            proyecto.save()
+            return redirect('info_proyecto', id_proyecto=proyecto.id)
+    else:
+        form = ProyectoForm()
+        context = {'form': form,
+                   'listaPlegable':contex_form(),
+                   'percentaje':0}
+    return render(request, 'form/crearp.html', context)
 
 def informacion_proponente(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first()}
+               'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+               'percentaje':id_proyecto}
     return render(request, 'form/infop.html', context)
 
 def estructura_proyecto(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'resumen':get_or_none(Resumen_antecedentes)}
+               'resumen':get_or_none(Resumen_antecedentes),
+               'percentaje':id_proyecto}
     return render(request, 'form/estp.html', context)
-
-
-
-
-
-
-
-
-# def riesgo_general(request, id_proyecto):
-#     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-#                'riesgos_g':get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)}
-#     cnt = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
-#     return render(request, 'form/riesgosp.html', context)
-
-# def riesgo_producto(request, id_proyecto):
-#     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-#                'riesgos_p':get_or_none(RiesgoProductos, proyecto= id_proyecto)}
-#     cnt2 = get_or_none(RiesgoProductos, proyecto=id_proyecto)
-#     return render(request, 'form/riesgosp.html', context)
-
-# def riesgo_actividad(request, id_proyecto):
-#     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-#                'riesgos_a':get_or_none(RiesgoActividades, proyecto=id_proyecto)}
-#     cnt3= get_or_none(RiesgoActividades, proyecto=id_proyecto)
-#     return render(request, 'form/riesgosp.html', context)
+  
+  
 def riesgo_general(request, id_proyecto):
     proyecto = get_or_none(Proyecto, id=id_proyecto)
     
@@ -127,7 +106,6 @@ def Informacion_de_centro(request, id_proyecto):
                 'proyecto':proyecto,
                 'percentaje':percentaje}
     return render(request, 'form/infop.html', context)
-
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
     nombres = Nombre_grupo_investigacion.objects.all().order_by('nombre')
@@ -160,38 +138,7 @@ def info_proponente(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
-def resumen_antecedentes(request, id_proyecto):
-    try:
-        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
-    print('Prueba esta mierda mamaguevo')
-    resumen.resumen_ejecutivo = request.POST['Resumen_ejecutivo']
-    resumen.antecedentes = request.POST['Antecedentes']
-    try:
-        resumen.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
     
-def descripcion_problema(request, id_proyecto):
-    try:
-        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
-    print('Prueba esta mierda mamaguevo')
-    descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
-    descripcion.justificacion = request.POST['Justificacion']
-    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
-    try:
-        descripcion.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
 def info_autores(request, id_proyecto):
     try:
         autores = Autores.objects.get(proyecto=id_proyecto)
@@ -320,6 +267,36 @@ def riesgo_a_json(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
+def resumen_antecedentes(request, id_proyecto):
+    try:
+        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
+    resumen.resumen_ejecutivo = request.POST['Resumen_ejecutivo']
+    resumen.antecedentes = request.POST['Antecedentes']
+    try:
+        resumen.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def descripcion_problema(request, id_proyecto):
+    try:
+        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
+    print('Prueba esta mierda mamaguevo')
+    descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
+    descripcion.justificacion = request.POST['Justificacion']
+    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
+    try:
+        descripcion.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
 # ---FIN YEISON ---
   
 #------Editar proyecto------
@@ -339,7 +316,8 @@ def edit_proyect(request, id_proyecto):
         proyecto.save()
 
     context = {'proyecto':user.proyecto_set.first(),
-            'listaPlegable':contex_form()}
+               'listaPlegable':contex_form(),
+               'percentaje':id_proyecto}
     return render(request, 'edit_form/edit_proy.html', context)
 
 def guardar_objetivos(request, objetivo_proyecto_id):
@@ -403,9 +381,11 @@ def subir_anexos(request, proyecto_id):
             anexo = form.save(commit=False)
             anexo.proyecto = proyecto
             anexo.save()
-    
     documents = Document.objects.filter(proyecto=proyecto)
-    return render(request, "form/anexos.html", {"docs": documents, "proyecto": proyecto})
+    contex = {'docs':documents,
+              'proyecto':proyecto,
+            'percentaje':proyecto_id}
+    return render(request, "form/anexos.html", contex)
 
 
 def editar_anexo(request, proyecto_id):
