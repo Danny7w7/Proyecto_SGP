@@ -129,7 +129,7 @@ class Centro_de_formacion(models.Model):
     Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=False)
     Número_municipios_beneficiados = models.IntegerField(null=False)
     Nombre_municipios_beneficiados_descripción_beneficio = models.CharField(null=False, max_length=200)
-    # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    proyecto_centro = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 class Entidades_aliadas(models.Model):
     nombre_entidad = models.CharField(max_length=170, null=True)

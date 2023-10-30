@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades
+from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Centro_de_formacion
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -327,6 +327,36 @@ def descripcion_problema(request, id_proyecto):
     descripcion.marco_conceptual = request.FILES['Marco_conceptual']
     try:
         descripcion.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def centro(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'centro_de_formacion':Centro_de_formacion.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+               'proyecto_centro': Centro_de_formacion.objects.filter(proyecto = proyecto),
+               'percentaje':id_proyecto}
+    return render(request, 'form/partp.html', context)
+    
+
+def centro_formacion(request, id_proyecto):
+    try:
+        centro = Centro_de_formacion.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        centro = Centro_de_formacion.objects.create(proyecto=proyecto)
+       
+    model = Centro_de_formacion
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto_centro':
+            continue
+        
+        setattr(centro, name, request.POST.get(name))
+    try:
+        centro.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
