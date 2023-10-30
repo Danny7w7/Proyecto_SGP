@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document
+from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -64,7 +64,48 @@ def estructura_proyecto(request, id_proyecto):
                'resumen':get_or_none(Resumen_antecedentes),
                'percentaje':id_proyecto}
     return render(request, 'form/estp.html', context)
+  
+  
+def riesgo_general(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    
+    riesgos_g = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
+    riesgos_p = get_or_none(RiesgoProductos, proyecto=id_proyecto)
+    riesgos_a = get_or_none(RiesgoActividades, proyecto=id_proyecto)
+    
+    context = {
+        'proyecto': proyecto,
+        'riesgos_g': riesgos_g,
+        'riesgos_p': riesgos_p,
+        'riesgos_a': riesgos_a
+    }
+    
+    return render(request, 'form/riesgosp.html', context)
 
+
+def Informacion_de_centro(request, id_proyecto):
+    if not own_user(request.user, id_proyecto):
+        return redirect(index)
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    if request.method == 'POST':
+        form = Informacion_proponenteForm(request.POST)
+        if form.is_valid():
+            informacion_centro = form.save(commit=False)   
+            informacion_centro.proyecto = proyecto
+            informacion_centro.save()
+            proyecto.progress += 9
+            proyecto.save()
+            print("Información del centro guardada correctamente.")
+        else:
+            print(form.errors)
+            print("El formulario no es válido.")
+
+    form = Informacion_proponenteForm(initial={'proyecto': proyecto})
+    percentaje = progress_bar(id_proyecto)
+    context = {'form':form,
+                'proyecto':proyecto,
+                'percentaje':percentaje}
+    return render(request, 'form/infop.html', context)
 def contex_form():
     codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
     nombres = Nombre_grupo_investigacion.objects.all().order_by('nombre')
@@ -159,6 +200,69 @@ def info_generalidades(request, id_proyecto):
         setattr(generalidades, name, request.POST.get(name))
     try:
         generalidades.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+
+
+
+
+
+
+def riesgos_obj_g_json(request, id_proyecto):
+    try:
+        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.create(proyecto=proyecto)
+    model = RiesgoObjetivoGeneral
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgos_obj_g_json, name, request.POST.get(name))
+    try:
+        riesgos_obj_g_json.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+def riesgos_p_json(request, id_proyecto):
+    try:
+        riesgos_p_json = RiesgoProductos.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgos_p_json = RiesgoProductos.objects.create(proyecto=proyecto)
+    model = RiesgoProductos
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgos_p_json, name, request.POST.get(name))
+    try:
+        riesgos_p_json.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+def riesgo_a_json(request, id_proyecto):
+    try:
+        riesgo_a_json = RiesgoActividades.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgo_a_json = RiesgoActividades.objects.create(proyecto=proyecto)
+    model = RiesgoActividades
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgo_a_json, name, request.POST.get(name))
+    try:
+        riesgo_a_json.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
