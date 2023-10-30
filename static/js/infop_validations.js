@@ -284,10 +284,38 @@ function sendPost2() {
     .then(data => {
         if (data.error) {
             console.error('Error:', data.error);
-            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+            alert(data.error); // O muestra el error de alguna otra manera
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            // Realizar acciones de éxito, si es necesario
+            
+            // Aquí, puedes agregar el nuevo autor a la tabla
+            let tableBody = document.querySelector('.table tbody');
+            let newRow = tableBody.insertRow();
+            
+            newRow.insertCell(0).textContent = data.nuevo_autor.nombre_Autor_Proyecto;
+            newRow.insertCell(1).textContent = data.nuevo_autor.tipo_Vinculacion_entidad;
+            newRow.insertCell(2).textContent = data.nuevo_autor.numero_Cedula_Autor;
+            newRow.insertCell(3).textContent = data.nuevo_autor.rol_Sennova_De_Participantes_de_Proyecto;
+            newRow.insertCell(4).textContent = data.nuevo_autor.email_Autor_Proyecto;
+            newRow.insertCell(5).textContent = data.nuevo_autor.numero_Telefono_Autor;
+    
+            let actionsCell = newRow.insertCell(6);
+            let actionDiv = document.createElement('div');
+            actionDiv.className = "d-flex";
+            
+            let editButton = document.createElement('button');
+            editButton.className = "btn btn-sm btn-outline-primary me-2";
+            editButton.textContent = "Editar";
+            // Aquí puedes añadir eventos al botón editar si lo necesitas
+            
+            let deleteButton = document.createElement('button');
+            deleteButton.className = "btn btn-sm btn-outline-danger";
+            deleteButton.textContent = "Eliminar";
+            // Aquí puedes añadir eventos al botón eliminar si lo necesitas
+    
+            actionDiv.appendChild(editButton);
+            actionDiv.appendChild(deleteButton);
+            actionsCell.appendChild(actionDiv);
         }
     })
     .catch(error => {
