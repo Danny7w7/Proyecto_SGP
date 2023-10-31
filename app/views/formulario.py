@@ -7,7 +7,7 @@ from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proy
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
 #Listas desplegables
-from app.models import Codigos_grupo_investigacion, Nombre_grupo_investigacion, Redes_conocimiento, Subareas_conocimiento, Diciplina_subarea
+from app.models import Listas_plegables
 
 #------Decoradores------
 def user_has_role(user, *roles):
