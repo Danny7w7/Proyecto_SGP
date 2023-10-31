@@ -146,6 +146,21 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleFormSubmit(event, formKey) {
         let isValid = true;
         
+                        // Verifica cuántas filas hay en la tabla (autores registrados)
+                var numRows = document.querySelectorAll('.table tbody tr').length;
+
+                // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
+                if (formKey === 'form2' && numRows > 3) {
+                    Swal.fire({
+                        title: 'Advertencia',
+                        text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
+                        icon: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    event.preventDefault(); // Detener el envío del formulario
+                    return;
+                }
+
         for (let fieldId in allValidations[formKey]) {
             const inputField = document.getElementById(fieldId);
                 
@@ -253,6 +268,21 @@ function sendPost1() {
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     console.log(id_proyecto)
+
+        // // Verifica cuántas filas hay en la tabla (autores registrados)
+        // var numRows = document.querySelectorAll('.table tbody tr').length;
+
+        // // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
+        // if (numRows >= 3) {
+        //     Swal.fire({
+        //         title: 'Advertencia',
+        //         text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
+        //         icon: 'warning',
+        //         confirmButtonText: 'Aceptar'
+        //     });
+        //     return;
+        // }
+
     // Obtener los valores de los campos del formulario
     var nombre_autor_proyecto = document.getElementById("Nombre_Autor_Proyecto").value;
     var tipo_vinculacion_entidad = document.getElementById("Tipo_Vinculacion_entidad").value;

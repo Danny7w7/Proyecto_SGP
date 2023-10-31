@@ -165,10 +165,6 @@ def info_proponente(request, id_proyecto):
 def info_autores(request, id_proyecto):
     num_autores = Autores.objects.filter(proyecto=id_proyecto).count()
 
-    # Verifica si ya tienes 3 autores para este proyecto
-    if num_autores >= 3:
-        return JsonResponse({"error": "Ya has registrado el máximo de autores permitidos."}, status=400)
-
     proyecto = Proyecto.objects.get(id=id_proyecto)
     autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente
 
