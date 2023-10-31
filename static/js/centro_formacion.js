@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const allValidations = {
         //Validacion info proponente
        "form1": {
+        "nombre_entidad": {
+            pattern: /^[A-Za-z ]{5,100}$/,
+            errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+        },
         "nit": {
             pattern: /^\d{8,12}$/,
             errorMsg: 'El numero no es válido. Debe tener entre 6 y 12 caracteres'
@@ -36,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El nombre no es válido debe llevar minimo 5 caracteres.',
         },
         "recursos_dinero_entidad_aliada": {
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^\d{10}$/,
             errorMsg: 'El nombre no es válido debe llevar minimo 5 caracteres.',
         },
         "descripcion_destinacion_dinero_aportado": {
@@ -90,6 +94,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const form1 = document.getElementById("form1");
 
     document.getElementById("enviar1").addEventListener("click", function(event) {
+        event.preventDefault();
+        
+        // Llamar a la función handleFormSubmit
         handleFormSubmit(event, 'form1');
     });
     
@@ -147,8 +154,28 @@ document.addEventListener("DOMContentLoaded", function() {
 );
 
 function sendPost1() {
+        // Obtén el id del proyecto
+        var idProyecto = $('#id_proyecto').val();
+
+        // Obtén los datos del formulario
+        var formData = $('#form1').serialize();
+    
+        // Realiza la solicitud AJAX
+        $.ajax({
+            type: 'POST',
+            url: '/informacion_centro/' + idProyecto + '/',
+            data: formData,
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                // Maneja los errores
+            }
+        });
+
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
+    var nombre_entidad = document.getElementById("nombre_entidad").value;
     var nit = document.getElementById("nit").value;
     var especifique_tipo_codigo_convenio = document.getElementById("especifique_tipo_codigo_convenio").value;
     var nombres_integrantes_participantes_entidad_aliada = document.getElementById("nombres_integrantes_participantes_entidad_aliada").value;
@@ -168,6 +195,7 @@ function sendPost1() {
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
+    formData.append("nombre_entidad",nombre_entidad)
     formData.append("nit", nit);
     formData.append("especifique_tipo_codigo_convenio", especifique_tipo_codigo_convenio);
     formData.append("nombres_integrantes_participantes_entidad_aliada", nombres_integrantes_participantes_entidad_aliada);

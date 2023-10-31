@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Centro_de_formacion
+from app.models import  Entidades_aliadas, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Centro_de_formacion
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -342,21 +342,20 @@ def centro(request, id_proyecto):
 
 def centro_formacion(request, id_proyecto):
     try:
-        centro = Centro_de_formacion.objects.get(proyecto=id_proyecto)
-    except:
+        centro = Entidades_aliadas.objects.get(proyecto_id=id_proyecto)
+    except Entidades_aliadas.DoesNotExist:
         proyecto = Proyecto.objects.get(id=id_proyecto)
-        centro = Centro_de_formacion.objects.create(proyecto=proyecto)
-       
-    model = Centro_de_formacion
-    column_names = [field.name for field in model._meta.fields]
-    
+        centro = Entidades_aliadas(proyecto=proyecto)
+   
+    model = Entidades_aliadas
+    column_names = [field.name for field in model._meta.fields if field.name not in ('id', 'proyecto')]
+
     for name in column_names:
-        if name == 'id' or name == 'proyecto_centro':
-            continue
-        
-        setattr(centro, name, request.POST.get(name))
+        setattr(centro, name, request.POST.get(name, None))
+
     try:
         centro.save()
+        print("Guardado exitosamente")
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)

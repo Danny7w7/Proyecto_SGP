@@ -51,12 +51,12 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-10">
-                                <form method="post"></form>
-                                <div class="bg-light mt-2 spos border_radius row me-0">
+                            <form method="post" id="form2">
+                                {% csrf_token %}
+                                    <div class="bg-light mt-2 spos border_radius row me-0">
                                     <!-- Primera columna con 5 campos -->
                                     <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                        <form method="post" action="{% url 'part_proyecto' %}">
-                                            {% csrf_token %}
+                                        <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
                                         <label for="" class="form-label">Nombres de los semilleros de investigación beneficiados</label>
                                         <input type="text" name="Nombre_Semillero_Investigacion_Beneficiados" id="Nombre_Semillero_Investigacion_Beneficiados" class="form-control form-control-sm" placeholder="">
             
@@ -105,7 +105,7 @@
             
                                     <!-- Botón Siguiente centrado -->
                                     <div class="d-flex justify-content-center col-12">
-                                        <button type="submit"
+                                        <button id="enviar1"
                                             class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                     </div>
                                 </form>
@@ -137,20 +137,22 @@
                             <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Entidades aliadas</h5>
                         </div>
                         <div class="row justify-content-center">
+                            <form method="post" id="form1">
+                                {% csrf_token %}
                             <div class="col-12 col-md-10">
                                 <div class="bg-light mt-2 spos border_radius row me-0">
                                     <!-- Primera columna con 11 campos -->
+
                                     <div class="col-12 col-md-6">
                                         <div class="mb-3 border-end pe-4 border-color-custom">
-                                            <form method="post" id="form1" action="{% url 'ent_aliada' %}">
-                                                {% csrf_token %}
+
                                             <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
                                             
                                             <label for="" class="form-label">Nombre de la entidad aliada/Centro de Formación</label>
                                             <input type="text" name="nombre_entidad" id="nombre_entidad" class="form-control form-control-sm" placeholder="">
 
                                             <label for="" class="form-label">Tipo de entidad aliada en el proyecto</label>
-                                            <select name="tipo_entidad_aliada" id="tipo_entidad_aliada" class="form-control selectmod">
+                                            <select name="Tipo_entidad_aliada" id="tipo_entidad_aliada" class="form-control selectmod">
                                                 <option value="" disabled selected>Seleccione una opción...</option>
                                                 <option value="empresa">Empresa</option>
                                                 <option value="universidad">Universidad</option>
@@ -380,7 +382,7 @@
                                     </div>
                                     <!-- Botón Siguiente centrado -->
                                     <div class="d-flex justify-content-center col-12">
-                                        <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
+                                        <button id="enviar1" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                     </div>
                                 </form>
                                 </div>
@@ -388,9 +390,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </div>  
     </div>
+    {% block scripts %}
     <script src="{% static 'js/centro_formacion.js' %}"></script>
-
+{% endblock%}
 {% endblock %}

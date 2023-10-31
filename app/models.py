@@ -120,16 +120,16 @@ class Actividades_de_objetivos_especificos(models.Model):
 
 # Analisis de participantes
 class Centro_de_formacion(models.Model):
-    Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=False, max_length=100)
-    Numero_Programas_Beneficiarios_Semilleros_Investigacion = models.IntegerField(null=False)
-    Tipo_programas_formación_beneficiados_conforman_semillero = models.CharField(null=False, max_length=100)
-    Nombre_programas_formación_beneficiados_semillero = models.CharField(null=False, max_length=100)
+    Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=True, max_length=100)
+    Numero_Programas_Beneficiarios_Semilleros_Investigacion = models.IntegerField(null=True)
+    Tipo_programas_formación_beneficiados_conforman_semillero = models.CharField(null=True, max_length=100)
+    Nombre_programas_formación_beneficiados_semillero = models.CharField(null=True, max_length=100)
     Tipo_programas_de_formación_beneficiados_por_ejecución = models.CharField(null=True, max_length=100)
     Nombre_programas_formación_beneficiados_ejecución_proyecto = models.CharField(null=True, max_length=100)
-    Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=False)
-    Número_municipios_beneficiados = models.IntegerField(null=False)
-    Nombre_municipios_beneficiados_descripción_beneficio = models.CharField(null=False, max_length=200)
-    proyecto_centro = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
+    Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=True)
+    Número_municipios_beneficiados = models.IntegerField(null=True)
+    Nombre_municipios_beneficiados_descripción_beneficio = models.CharField(null=True, max_length=200)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 class Entidades_aliadas(models.Model):
     nombre_entidad = models.CharField(max_length=170, null=True)
@@ -153,6 +153,7 @@ class Entidades_aliadas(models.Model):
     actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=250, null=True)
     objetivo_especificos_relacionados = models.CharField(max_length=250, null=True)
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
 
