@@ -365,7 +365,7 @@ def guardar_objetivos(request, objetivo_proyecto_id):
     else:
         form = ObjetivoForm(initial={'objetivo': objetivo})
         
-    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo})
+    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo, 'percentaje': 0})
 
 
 def editar_objetivo(request, id_proyecto):

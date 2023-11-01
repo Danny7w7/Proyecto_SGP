@@ -9,8 +9,19 @@ from django.db.models import Q
 from django.conf import settings
 from email.message import EmailMessage
 
+import importlib
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='/login')
 def index(request):
-    return render(request, 'index.html')
+    # Importa el módulo de forma dinámica
+    formulario_module = importlib.import_module('app.views.formulario')
+    
+    context = {
+        # Verifica si el usuario tiene rol admin
+        "is_admin": formulario_module.user_has_role(request.user, 'Admin')
+    }
+    return render(request, 'index.html', context)
 
 
 def register(request):
