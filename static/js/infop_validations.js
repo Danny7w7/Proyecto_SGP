@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
         //Validacion info proponente
        "form1": {
         "Nombre_Director": {
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "email_director": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_Director": {
@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
         },
         "Nombre_Sub_Director": {
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "email_sub_director": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_Sub_Director": {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
        // Validacion autor
        "form2":{
         "Nombre_Autor_Proyecto": {
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "Numero_Cedula_Autor": {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El número de documento no es válido. Debe tener digitos númericos',
         },
         "Email_Autor_Proyecto": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_meses_vinculacion_Autor": {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //    //Validacion participantes
        "form3":{
         "Nombre_participantes_de_desarrollo":{
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios',
         }, 
         "Numero_cedula_participantes": {
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El número no es válido. Debe tener digitos númericos',
         },
         "Email_participantes_de_desarrollo": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_horas_Semanales_dedicadas_participantes": {
@@ -88,15 +88,15 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El link no es válido.',
         },
         "justificacion_Economia_Naranja":{
-            pattern: /^[A-Za-z ]{5,500}$/,
+            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
             errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
         }, 
         "justificacion_Politica_Discapacidad":{
-            pattern: /^[A-Za-z ]{5,500}$/,
+            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
             errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
         }, 
         "justificacion_Industrial":{
-            pattern: /^[A-Za-z ]{5,500}$/,
+            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
             errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
         }, 
        }
@@ -146,6 +146,21 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleFormSubmit(event, formKey) {
         let isValid = true;
         
+                        // Verifica cuántas filas hay en la tabla (autores registrados)
+                var numRows = document.querySelectorAll('.table tbody tr').length;
+
+                // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
+                if (formKey === 'form2' && numRows > 3) {
+                    Swal.fire({
+                        title: 'Advertencia',
+                        text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
+                        icon: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    event.preventDefault(); // Detener el envío del formulario
+                    return;
+                }
+
         for (let fieldId in allValidations[formKey]) {
             const inputField = document.getElementById(fieldId);
                 
@@ -253,6 +268,21 @@ function sendPost1() {
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     console.log(id_proyecto)
+
+        // // Verifica cuántas filas hay en la tabla (autores registrados)
+        // var numRows = document.querySelectorAll('.table tbody tr').length;
+
+        // // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
+        // if (numRows >= 3) {
+        //     Swal.fire({
+        //         title: 'Advertencia',
+        //         text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
+        //         icon: 'warning',
+        //         confirmButtonText: 'Aceptar'
+        //     });
+        //     return;
+        // }
+
     // Obtener los valores de los campos del formulario
     var nombre_autor_proyecto = document.getElementById("Nombre_Autor_Proyecto").value;
     var tipo_vinculacion_entidad = document.getElementById("Tipo_Vinculacion_entidad").value;
