@@ -104,13 +104,13 @@ class Descripcion_problema(models.Model):
 
 # Objetivos
 class Objetivos(models.Model):
-    objetivo_general = models.CharField(max_length=250, null=False)
+    objetivo_general = models.CharField(max_length=250, null=True)
     objetivo_proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
 
 # Metodologia
 class Objetivos_especificos(models.Model):
-    objetivo_especificos = models.CharField(max_length=250, null=False)
+    objetivo_especificos = models.CharField(max_length=250, null=True)
     objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
 class Actividades_de_objetivos_especificos(models.Model):
@@ -118,11 +118,11 @@ class Actividades_de_objetivos_especificos(models.Model):
     objetivos_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
 
 class Causa(models.Model):
-    causa = models.CharField(max_length=200, null=False)
+    causa = models.CharField(max_length=200, null=True)
     obejetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
     
 class Efecto(models.Model):
-    efecto = models.CharField(max_length=200, null=False)
+    efecto = models.CharField(max_length=200, null=True)
     causas = models.OneToOneField(Causa, on_delete=models.CASCADE)
 
 # Analisis de participantes

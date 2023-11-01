@@ -44,9 +44,10 @@
                             <div class="col-12 md-10">
                                 <div class="bg-light mt-2 border_radius row me-0">
                                     <div class="col-12 md-10">
-                                        <form method="post" id="form1" action="" class="needs-validation">
+                                    <form method="post" id="form1" action="" class="needs-validation">
                                             {% csrf_token %}
-                                        
+                                            <input type="hidden" name="objetivo_proyecto_id" value="{{ objetivo_proyecto }}">
+                                            
                                             <!-- Primer textarea con label para Objetivo General -->
                                             <div class="mb-3">
                                                 <label for="id_objetivo_general" class="form-label">Objetivo general </label>
@@ -63,6 +64,22 @@
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
                                                     name="objetivo_especificos" id="id_objetivo_especificos" cols="20" rows="10"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Causa</label>
+                                                <textarea
+                                                    class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
+                                                    name="causa" id="id_causa" cols="20" rows="10"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label  class="form-label">Efecto</label>
+                                                <textarea
+                                                    class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
+                                                    name="efecto" id="id_efecto" cols="20" rows="10"></textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                             </div>
