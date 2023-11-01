@@ -52,45 +52,45 @@ class Informacion_proponente(models.Model):
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     
 class Autores(models.Model):
-    nombre_Autor_Proyecto = models.CharField(null=False, max_length=50)
-    tipo_Vinculacion_entidad = models.CharField(max_length=15 ,null=False, choices=[('planta', 'Planta'), ('contratista', 'Contratista') , ('planta_temporal' , 'Planta_temporal')])
-    numero_Cedula_Autor = models.IntegerField(null=False)
+    nombre_Autor_Proyecto = models.CharField(null=True, max_length=50)
+    tipo_Vinculacion_entidad = models.CharField(max_length=15 ,null=True, choices=[('planta', 'Planta'), ('contratista', 'Contratista') , ('planta_temporal' , 'Planta_temporal')])
+    numero_Cedula_Autor = models.IntegerField(null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
-    email_Autor_Proyecto = models.EmailField(null=False)
-    numero_meses_vinculacion_Autor = models.IntegerField(null=False)
-    numero_Telefono_Autor = models.BigIntegerField(null=False)
-    numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=False)
-    # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    email_Autor_Proyecto = models.EmailField(null=True)
+    numero_meses_vinculacion_Autor = models.IntegerField(null=True)
+    numero_Telefono_Autor = models.BigIntegerField(null=True)
+    numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=True)
+    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
     
 class Participantes_Proyecto(models.Model):
     nombre_participantes_de_desarrollo = models.CharField(max_length=50, null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
     numero_cedula_participantes = models.IntegerField(null=True)
-    numero_meses_vinculacion_participantes = models.IntegerField(null=False)
+    numero_meses_vinculacion_participantes = models.IntegerField(null=True)
     email_participantes_de_desarrollo = models.EmailField(null=True)
-    numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=False)
+    numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=True)
     numero_Telefono_participantes = models.BigIntegerField(null=True)
-    # Info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
 class Generalidades_del_proyecto(models.Model):
-    codigo_Dependencia_Presupuestal = models.CharField(max_length=50, null=False)
-    tematicas_Estrategias_SENA = models.CharField(max_length=100, null=False)
-    link_video_proyecto = models.CharField(max_length=500, null=False)
-    proyecto_Relacionado_Industrial40 = models.BooleanField(null=False)
+    codigo_Dependencia_Presupuestal = models.CharField(max_length=50, null=True)
+    tematicas_Estrategias_SENA = models.CharField(max_length=100, null=True)
+    link_video_proyecto = models.CharField(max_length=500, null=True)
+    proyecto_Relacionado_Industrial40 = models.BooleanField(null=True)
     justificacion_Industrial = models.CharField(max_length=500, null=True)
-    actividades_economicas_del_proyecto_investigacion = models.CharField(max_length=100, null=False)
-    proyecto_Relacionado_Economia_Naranja = models.BooleanField(null=False)
+    actividades_economicas_del_proyecto_investigacion = models.CharField(max_length=100, null=True)
+    proyecto_Relacionado_Economia_Naranja = models.BooleanField(null=True)
     justificacion_Economia_Naranja = models.CharField(max_length=500, null=True)
-    proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=False)
+    proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=True)
     justificacion_Politica_Discapacidad = models.CharField(max_length=500, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 
 #Estructura del proyecto
 class Resumen_antecedentes(models.Model):
-    resumen_ejecutivo = models.CharField(max_length=250, null=False)
-    antecedentes = models.CharField(max_length=250, null=False)
-    # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
+    resumen_ejecutivo = models.CharField(max_length=250, null=True)
+    antecedentes = models.CharField(max_length=250, null=True)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 class Arbol_problemas(models.Model):
     arbol_de_problemas = models.CharField(max_length=150, null=True)
@@ -98,7 +98,8 @@ class Arbol_problemas(models.Model):
 class Descripcion_problema(models.Model):
     identificacion_y_descripcion_problema = models.CharField(max_length=250, null=False)
     justificacion = models.CharField(max_length=250, null=False)
-    # marco_conceptual = models.ImageField()
+    marco_conceptual = models.ImageField(upload_to='')
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 
 # Objetivos
@@ -182,32 +183,27 @@ class Resultados_y_productos_esperados(models.Model):
 
 
 #Riesgos
-class RiesgoObjetivoGeneral(models.Model):
-    tipo = models.CharField(max_length=50, null=False)
-    descripcion = models.CharField(max_length=150, null=False)
-    probabilidad = models.CharField(max_length=15, null=False)
-    impacto = models.CharField(max_length=150, null=False)
-    medidas_Mitigacion = models.CharField(max_length=150, null=False)
-    efectos = models.CharField(max_length=150, null=False)
-    # info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+class BaseRiesgo(models.Model):
+    tipo = models.CharField(max_length=50, null=True)
+    descripcion = models.CharField(max_length=150, null=True)
+    probabilidad = models.CharField(max_length=15, null=True)
+    impacto = models.CharField(max_length=150, null=True)
+    medidas_Mitigacion = models.CharField(max_length=150, null=True)
+    efectos = models.CharField(max_length=150, null=True)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
-class RiesgoProductos(models.Model):
-    tipo2 = models.CharField(max_length=50, null=False)
-    descripcion2 = models.CharField(max_length=150, null=False)
-    probabilidad2 = models.CharField(max_length=15, null=False)
-    impacto2 = models.CharField(max_length=150, null=False)
-    medidas_Mitigacion2 = models.CharField(max_length=150, null=False)
-    efectos2 = models.CharField(max_length=150, null=False)
-    # info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    class Meta:
+        abstract = True
 
-class RiesgoActividades(models.Model):
-    tipo3 = models.CharField(max_length=50, null=False)
-    descripcion3 = models.CharField(max_length=150, null=False)
-    probabilidad3 = models.CharField(max_length=15, null=False)
-    impacto3 = models.CharField(max_length=150, null=False)
-    medidas_Mitigacion3 = models.CharField(max_length=150, null=False)
-    efectos3 = models.CharField(max_length=150, null=False)
-    # info_Proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+class RiesgoObjetivoGeneral(BaseRiesgo):
+    pass
+
+class RiesgoProductos(BaseRiesgo):
+    pass
+
+class RiesgoActividades(BaseRiesgo):
+    pass
+
 
 
 # Listas plegable

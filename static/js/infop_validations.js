@@ -1,17 +1,4 @@
-document.getElementById("enviar1").addEventListener("click", function() {
-    validation();
-});
-document.getElementById("enviar2").addEventListener("click", function() {
-    validation();
-});
-document.getElementById("enviar3").addEventListener("click", function() {
-    validation();
-});
-document.getElementById("enviar4").addEventListener("click", function() {
-    validation();
-});
-
-function validation() {
+document.addEventListener("DOMContentLoaded", function() {
     
     const allValidations = {
         //Validacion info proponente
@@ -135,6 +122,10 @@ function validation() {
         }
     }
 
+//ids de los formularios
+    const form1 = document.getElementById("form1");
+    const form2 = document.getElementById("form2");
+
 
     document.getElementById("enviar1").addEventListener("click", function(event) {
         handleFormSubmit(event, 'form1');
@@ -166,7 +157,6 @@ function validation() {
 
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
-
         event.preventDefault();
         if (isValid) {
             Swal.fire({
@@ -175,7 +165,17 @@ function validation() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                sendPost()
+                if (formKey == 'form1'){
+                    sendPost1()
+                }else if (formKey == 'form2'){
+                    sendPost2()
+                }
+                else if (formKey == 'form3'){
+                    sendPost3()
+                }
+                else if (formKey == 'form4'){
+                    sendPost4()
+                }
             });
         }else{
             Swal.fire({
@@ -200,9 +200,9 @@ function validation() {
             return false;
         }
     }
-};
+});
 
-function sendPost() {
+function sendPost1() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
     var region = document.getElementById("Region").value;
@@ -230,6 +230,177 @@ function sendPost() {
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
     fetch(`/proyecto/info-proyecto/info-proponente/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+
+// Autores
+function sendPost2() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    console.log(id_proyecto)
+    // Obtener los valores de los campos del formulario
+    var nombre_autor_proyecto = document.getElementById("Nombre_Autor_Proyecto").value;
+    var tipo_vinculacion_entidad = document.getElementById("Tipo_Vinculacion_entidad").value;
+    var numero_cedula_autor = document.getElementById("Numero_Cedula_Autor").value;
+    var rol_sennova_participantes_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
+    var email_autor_proyecto = document.getElementById("Email_Autor_Proyecto").value;
+    var numero_meses_vinculacion_autor = document.getElementById("Numero_meses_vinculacion_Autor").value;
+    var numero_telefono_autor = document.getElementById("Numero_Telefono_Autor").value;
+    var numero_horas_semanales_dedicadas_Autores = document.getElementById("Numero_horas_Semanales_dedicadas_Autores").value;
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("nombre_Autor_Proyecto", nombre_autor_proyecto);
+    formData.append("tipo_Vinculacion_entidad", tipo_vinculacion_entidad);
+    formData.append("numero_Cedula_Autor", numero_cedula_autor);
+    formData.append("rol_Sennova_De_Participantes_de_Proyecto", rol_sennova_participantes_proyecto);
+    formData.append("email_Autor_Proyecto", email_autor_proyecto);
+    formData.append("numero_meses_vinculacion_Autor", numero_meses_vinculacion_autor);
+    formData.append("numero_Telefono_Autor", numero_telefono_autor);
+    formData.append("numero_horas_Semanales_dedicadas_Autores", numero_horas_semanales_dedicadas_Autores);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/info-proyecto/info-autor/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            alert(data.error); // O muestra el error de alguna otra manera
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            
+            // Aquí, puedes agregar el nuevo autor a la tabla
+            let tableBody = document.querySelector('.table tbody');
+            let newRow = tableBody.insertRow();
+            
+            newRow.insertCell(0).textContent = data.nuevo_autor.nombre_Autor_Proyecto;
+            newRow.insertCell(1).textContent = data.nuevo_autor.tipo_Vinculacion_entidad;
+            newRow.insertCell(2).textContent = data.nuevo_autor.numero_Cedula_Autor;
+            newRow.insertCell(3).textContent = data.nuevo_autor.rol_Sennova_De_Participantes_de_Proyecto;
+            newRow.insertCell(4).textContent = data.nuevo_autor.email_Autor_Proyecto;
+            newRow.insertCell(5).textContent = data.nuevo_autor.numero_Telefono_Autor;
+    
+            let actionsCell = newRow.insertCell(6);
+            let actionDiv = document.createElement('div');
+            actionDiv.className = "d-flex";
+            
+            let editButton = document.createElement('button');
+            editButton.className = "btn btn-sm btn-outline-primary me-2";
+            editButton.textContent = "Editar";
+            // Aquí puedes añadir eventos al botón editar si lo necesitas
+            
+            let deleteButton = document.createElement('button');
+            deleteButton.className = "btn btn-sm btn-outline-danger";
+            deleteButton.textContent = "Eliminar";
+            // Aquí puedes añadir eventos al botón eliminar si lo necesitas
+    
+            actionDiv.appendChild(editButton);
+            actionDiv.appendChild(deleteButton);
+            actionsCell.appendChild(actionDiv);
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+
+// Participantes
+function sendPost3() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    console.log(id_proyecto)
+    // Obtener los valores de los campos del formulario
+    var nombre_participantes_de_desarrollo = document.getElementById("Nombre_participantes_de_desarrollo").value;
+    var rol_sennova_de_participantes_de_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
+    var numero_Cedula_participantes = document.getElementById("Numero_cedula_participantes").value;
+    var numero_meses_vinculacion_participantes = document.getElementById("Numero_meses_vinculacion_participantes").value;
+    var email_participantes_de_desarrollo = document.getElementById("Email_participantes_de_desarrollo").value;
+    var numero_horas_semanales_dedicadas_participantes = document.getElementById("Numero_horas_Semanales_dedicadas_participantes").value;
+    var numero_telefono_participantes = document.getElementById("Numero_Telefono_participantes").value;
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("nombre_participantes_de_desarrollo", nombre_participantes_de_desarrollo);
+    formData.append("rol_Sennova_De_Participantes_de_Proyecto", rol_sennova_de_participantes_de_proyecto);
+    formData.append("numero_cedula_participantes", numero_Cedula_participantes);
+    formData.append("numero_meses_vinculacion_participantes", numero_meses_vinculacion_participantes);
+    formData.append("email_participantes_de_desarrollo", email_participantes_de_desarrollo);
+    formData.append("numero_horas_Semanales_dedicadas_participantes", numero_horas_semanales_dedicadas_participantes);
+    formData.append("numero_Telefono_participantes", numero_telefono_participantes);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/info-proyecto/info-participante/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+
+// Generalidades
+function sendPost4() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    // Obtener los valores de los campos del formulario
+    var codigo_dependencia_presupuestal = document.getElementById("codigo_Dependencia_Presupuestal").value;
+    var tematicas_estrategias_sena = document.getElementById("tematicas_Estrategias_SENA").value;
+    var link_video_proyecto = document.getElementById("link_video_proyecto").value;
+    var proyecto_relacionado_industrial40 = document.getElementById("proyecto_Relacionado_Industrial40").value;
+    var justificacion_industrial = document.getElementById("justificacion_Industrial").value;
+    var actividades_economicas_del_proyecto_investigacion = document.getElementById("actividades_economicas_del_proyecto_investigacion").value;
+    var proyecto_relacionado_economia_naranja = document.getElementById("proyecto_Relacionado_Economia_Naranja").value;
+    var justificacion_economia_naranja = document.getElementById("justificacion_Economia_Naranja").value;
+    var proyecto_relacionado_politica_discapacidad = document.getElementById("proyecto_Relacionado_Politica_Discapacidad").value;
+    var justificacion_politica_discapacidad = document.getElementById("justificacion_Politica_Discapacidad").value;
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    console.log(csrfToken)
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("codigo_Dependencia_Presupuestal", codigo_dependencia_presupuestal);
+    formData.append("tematicas_Estrategias_SENA", tematicas_estrategias_sena);
+    formData.append("link_video_proyecto", link_video_proyecto);
+    formData.append("proyecto_Relacionado_Industrial40", proyecto_relacionado_industrial40);
+    formData.append("justificacion_Industrial", justificacion_industrial);
+    formData.append("actividades_economicas_del_proyecto_investigacion", actividades_economicas_del_proyecto_investigacion);
+    formData.append("proyecto_Relacionado_Economia_Naranja", proyecto_relacionado_economia_naranja);
+    formData.append("justificacion_Economia_Naranja", justificacion_economia_naranja);
+    formData.append("proyecto_Relacionado_Politica_Discapacidad", proyecto_relacionado_politica_discapacidad);
+    formData.append("justificacion_Politica_Discapacidad", justificacion_politica_discapacidad);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/info-proyecto/info-generalidades/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })

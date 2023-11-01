@@ -13,16 +13,9 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
         },
        },
-       // Arbol de problemas(por definir)
-    //    "form2":{
-    //     "arbol_de_problemas": {
-    //         pattern: /^[\w\s.,?!;:'"()\-–—]{5,250}$/,
-    //         errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
-    //     },
-    //    },
 
     //Descripcion del problema
-       "form3":{
+       "form2":{
         "identificacion_y_descripcion_problema": {
             pattern: /^[\w\s.,?!;:'"()\-–—]{5,250}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
@@ -56,26 +49,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //ids de los formularios
     const form1 = document.getElementById("form1");
-    // const form2 = document.getElementById("form2");
-    const form3 = document.getElementById("form3");
+    const form2 = document.getElementById("form2");
 
 
-    if(form1) {
-        form1.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form1');
-        });
-    }
-
-    // if(form2) {
-    //     form2.addEventListener("submit", function(event) {
-    //         handleFormSubmit(event, 'form2');
-    //     });
-    // }
-    if (form3) {
-        form3.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form3');
-        });
-    }
+    document.getElementById("enviar1").addEventListener("click", function() {
+        handleFormSubmit(event, 'form1');
+    });
+    document.getElementById("enviar2").addEventListener("click", function() {
+        handleFormSubmit(event, 'form2');
+    });
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
@@ -99,8 +81,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                // Esto enviará realmente el formulario
-                event.target.submit();
+                if (formKey == 'form1'){
+                    sendPost1()
+                }else if (formKey == 'form2'){
+                    sendPost2()
+                }
             });
         }else{
             Swal.fire({
@@ -126,3 +111,72 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+function sendPost1() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    // Obtener los valores de los campos del formulario
+    var resumen_ejecutivo = document.getElementById("resumen_ejecutivo").value;
+    var antecedentes = document.getElementById("antecedentes").value;
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("Resumen_ejecutivo", resumen_ejecutivo);
+    formData.append("Antecedentes", antecedentes);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/est-proyecto/resumen-antecedentes/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+
+function sendPost2() {
+    var id_proyecto = document.getElementById("id_proyecto").value;
+    // Obtener los valores de los campos del formulario
+    var identificacion_y_descripcion_problema = document.getElementById("identificacion_y_descripcion_problema").value;
+    var justificacion = document.getElementById("justificacion").value;
+    var formFile = document.getElementById("formFile").files[0];
+    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("Identificacion_y_descripcion_problema", identificacion_y_descripcion_problema);
+    formData.append("Justificacion", justificacion);
+    formData.append("Marco_conceptual", formFile);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/est-proyecto/descripcion-problema/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};
+

@@ -6,6 +6,8 @@
 <div class="accordion" id="accordionExample">
     <div class="steps pasop mt-3">
         <progress id="progress" value=0 max=100 class="mb-4"></progress>
+
+        <!-- Step 1 -->
         <div class="step-item flex-fill mb-3">
             <button class="step-button text-center mb-2" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="step1">
@@ -15,6 +17,8 @@
                 <label for="text" class="form-label">Información<br>proponente</label>
             </div>
         </div>
+
+        <!-- Step 2 -->
         <div class="step-item flex-fill mb-3">
             <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="step2">
@@ -24,6 +28,8 @@
                 <label for="text" class="form-label">Autor</label>
             </div>
         </div>
+
+        <!-- Step 3 -->
         <div class="step-item flex-fill mb-3">
             <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="step3">
@@ -33,6 +39,8 @@
                 <label for="text" class="form-label">Participantes</label>
             </div>
         </div>
+
+        <!-- Step 4 -->
         <div class="step-item flex-fill mb-3">
             <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" id="step4">
@@ -43,342 +51,401 @@
             </div>
         </div>
     </div>
+
+    <!-- Info Project -->
     <div class="d-flex justify-content-center col-12">
         <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">INFORMACIÓN PROYECTO</h5>
     </div>
     <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
 
+    <!-- Tabla de autores -->
+        <div class="container mt-5">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del autor(a)</th>
+                            <th>Tipo de vinculación</th>
+                            <th>Número de documento</th>
+                            <th>Rol sennova</th>
+                            <th>Correo electrónico</th>
+                            <!-- <th>Num. meses vinculación proyecto</th> -->
+                            <th>Número de teléfono</th>
+                            <!-- <th>Num. horas semanales del proyecto</th> -->
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            <!-- Contenido a cargar -->
+                            <td>
+                                <div class="d-flex">
+                                    <!-- <button class="btn btn-sm btn-outline-primary me-2">Editar</button>
+                                    <button class="btn btn-sm btn-outline-danger">Eliminar</button> -->
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+
+    <!-- Card Element -->
     <div class="card">
         <div id="headingOne">
         </div>
-        <!-- Contenido de primer boton -->
+
+        <!-- Content of First Button -->
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <form method="post" class="needs-validation" action="" id="form1">
                 <div class="card-body">
                     <div class="contenido">
                         <div class="d-flex justify-content-center col-12">
-                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Información proponente</h5>
+                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">
+                                Información proponente</h5>
                         </div>
-                     <div class="row justify-content-center">
 
-                        <div class="col-12 col-md-10">
-                            <div class="bg-light mt-2 spos border_radius row me-0">
-                                <!-- Primera columna con 5 filas -->
-                                <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-10">
+                                <div class="bg-light mt-2 spos border_radius row me-0">
+
+                                    <!-- First Column with 5 rows -->
+                                    <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
                                         {% csrf_token %}
-                                    <label for="Region" class="form-label">Región</label>
-                                    <select name="Region" id="Region" class="form-control selectmod">
-                                        <option value="" disabled selected>Selecciona una opción...</option>
-                                        <option value="caribe">Caribe</option>
-                                        <option value="pacifico">Pacífica</option>
-                                        <option value="orinoquia">Orinoquía</option>
-                                        <option value="amazonica">Amazónica</option>
-                                        <option value="andina_insular">Andina e insular</option>
-                                    </select>
-        
-                                    <label for="Regional" class="form-label">Regional</label>
-                                    <select name="Regional" id="Regional" class="form-control selectmod">
-                                        <option value="" disabled selected>Selecciona una opción...</option>
-                                        <option value="amazonas">AMAZONAS</option>
-                                        <option value="antioquia">ANTIOQUIA</option>
-                                        <option value="arauca">ARAUCA</option>
-                                        <option value="atlantico">ATLÁNTICO</option>
-                                        <option value="bolivar">BOLÍVAR</option>
-                                        <option value="boyaca">BOYACÁ</option>
-                                        <option value="caldas">CALDAS</option>
-                                        <option value="caqueta">CAQUETÁ</option>
-                                        <option value="cauca">CAUCA</option>
-                                        <option value="cesar">CESAR</option>
-                                        <option value="choco">CHOCO</option>
-                                        <option value="cordoba">CÓRDOBA</option>
-                                        <option value="cundinamarca">CUNDINAMARCA</option>
-                                        <option value="distrito_capital">DISTRITO CAPITAL</option>
-                                        <option value="guainia">GUAINÍA</option>
-                                        <option value="guajira">GUAJIRA</option>
-                                        <option value="guaviare">GUAVIARE</option>
-                                        <option value="huila">HUILA</option>
-                                        <option value="magdalena">MAGDALENA</option>
-                                        <option value="meta">META</option>
-                                        <option value="narinio">NARIÑO</option>
-                                        <option value="norte_santander">NORTE DE SANTANDER</option>
-                                        <option value="putumayo">PUTUMAYO</option>
-                                        <option value="quindio">QUINDÍO</option>
-                                        <option value="san_andres">SAN ANDRÉS</option>
-                                        <option value="santander">SANTANDER</option>
-                                        <option value="tolima">TOLIMA</option>
-                                        <option value="vaupes">VAUPÉS</option>
-                                        <option value="vichada">VICHADA</option>
-                                        <option value="valle">VALLE</option>
-                                    </select>
-        
-                                    <label for="Nombre_centro_formacion" class="form-label">Nombre centro de formación</label>
-                                    <select name="Nombre_centro_formacion" id="Nombre_centro_formacion" class="form-control selectmod">
-                                        <option value="" disabled selected>Selecciona una opción...</option>
-                                        <option value="9517">9517-Centro para la Biodiversidad y el Turismo del
-                                            Amazonas
-                                        </option>
-                                        <option value="9101">9101-Centro de los Recursos Naturales Renovables
-                                            -La Salada
-                                        </option>
-                                        <option value="9202">9202-Centro de Formación en Diseño, Confección y
-                                            Moda.</option>
-                                        <option value="9203">9203-Centro para el Desarrollo del Hábitat y la
-                                            Construcción
-                                        </option>
-                                        <option value="9204">9204-Centro de Tecnología de la Manufactura
-                                            Avanzada.</option>
-                                        <option value="9205">9205-Centro Tecnológico del Mobiliario</option>
-                                        <option value="9201"> 9201-Centro del Diseño y Manufactura del Cuero
-                                        </option>
-                                        <option value="9206">9206-Centro Textil y de Gestión Industrial</option>
-                                        <option value="9301">9301-Centro de Comercio</option>
-                                        <option value="9401">9401-Centro de Servicios de Salud</option>
-                                        <option value="9402">9402-Centro de Servicios y Gestión Empresarial
-                                        </option>
-                                        <option value="9501">9501-Complejo Tecnológico para la Gestión
-                                            Agroempresarial</option>
-                                        <option value="9502">9502-Complejo Tecnológico Minero Agroempresarial
-                                        </option>
-                                        <option value="9503">9503-Centro de la Innovación, la Agroindustria y la
-                                            Aviación
-                                        </option>
-                                        <option value="9504">9504-Complejo Tecnológico Agroindustrial, Pecuario
-                                            y Turístico
-                                        </option>
-                                        <option value="9549">9549-Complejo Tecnológico, Turístico y
-                                            Agroindustrial del Occidente
-                                            Antioqueño</option>
-                                        <option value="9127">9127-Centro de Formación Minero Ambiental</option>
-                                        <option value="9530">9530-Centro de Gestión y Desarrollo Agroindustrial
-                                            de Arauca
-                                        </option>
-                                        <option value="9103">9103-Centro para el Desarrollo Agroecologico y
-                                            Agroindustrial
-                                        </option>
-                                        <option value="9207">9207-Centro Nacional Colombo Alemán</option>
-                                        <option value="9208">9208-Centro Industrial y de Aviación </option>
-                                        <option value="9302">9302-Centro de Comercio y Servicios</option>
-                                        <option value="9104">9104-Centro Agroempresarial y Minero</option>
-                                        <option value="9105">9105-Centro Internacional Náutico, Fluvial y
-                                            Portuario</option>
-                                        <option value="9218">9218-Centro para la Industria Petroquímica</option>
-                                        <option value="9304">9304-Centro de Comercio y Servicios</option>
-                                        <option value="9110">9110-Centro de Desarrollo Agropecuario y
-                                            Agroindustrial</option>
-                                        <option value="9111">9111-Centro Minero</option>
-                                        <option value="9305">9305-Centro de Gestión Administrativa y
-                                            Fortalecimiento Empresarial
-                                        </option>
-                                        <option value="9514">9514-Centro Industrial de Mantenimiento y
-                                            Manufactura</option>
-                                        <option value="9112">9112-Centro para la Formación Cafetera</option>
-                                        <option value="9219">9219-Centro de Automatización Industrial</option>
-                                        <option value="9220">9220-Centro de Procesos Industriales y Construcción
-                                        </option>
-                                        <option value="9306">9306-Centro de Comercio y Servicios</option>
-                                        <option value="9515">9515-Centro Pecuario y Agroempresarial</option>
-                                        <option value="9516">9516-Centro Tecnológico de la Amazonia</option>
-                                        <option value="9519">9519-Centro Agroindustrial y Fortalecimiento
-                                            Empresarial de
-                                            Casanare</option>
-                                        <option value="9113">113-Centro Agropecuario</option>
-                                        <option value="9221">9221-Centro de Teleinformática y Producción
-                                            Industrial</option>
-                                        <option value="9307">9307-Centro de Comercio y Servicios</option>
-                                        <option value="9114">9114-Centro Biotecnológico del Caribe</option>
-                                        <option value="9520">9520-Centro Agroempresarial</option>
-                                        <option value="9521">9521-Centro de Operación y Mantenimiento Minero
-                                        </option>
-                                        <option value="9522">9522-Centro de Recursos Naturales, Industria y
-                                            Biodiversidad
-                                        </option>
-                                        <option value="9115">9115-Centro Agropecuario y de Biotecnología el
-                                            Porvenir</option>
-                                        <option value="9523">9523-Centro de Comercio, Industria y Turismo de
-                                            Córdoba</option>
-                                        <option value="9232">9232-Centro Industrial y de Desarrollo Empresarial
-                                            de Soacha
-                                        </option>
-                                        <option value="9509">9509-Centro de Desarrollo Agroindustrial y
-                                            Empresarial</option>
-                                        <option value="9510">9510-Centro Agroecológico y Empresarial</option>
-                                        <option value="9511">9511-Centro de la Tecnología de Diseño y la
-                                            Productividad
-                                            Empresarial</option>
-                                        <option value="9512">9512-Centro de Biotecnología Agropecuaria</option>
-                                        <option value="9513">9513-Centro de Desarrollo Agroempresarial</option>
-                                        <option value="9209">9209-Centro de Tecnologías para la Construcción y
-                                            la Madera
-                                        </option>
-                                        <option value="9210">9210-Centro de Electricidad, Electrónica y
-                                            Telecomunicaciones
-                                        </option>
-                                        <option value="9211">9211-Centro de Gestión Industrial</option>
-                                        <option value="9212">9212-Centro de Manufactura en Textil y Cuero
-                                        </option>
-                                        <option value="9213">9213-Centro de Tecnologías del Transporte</option>
-                                        <option value="9214">9214-Centro Metalmecánico</option>
-                                        <option value="9215">9215-Centro de Materiales y Ensayos</option>
-                                        <option value="9216">9216-Centro de Diseño y Metrología</option>
-                                        <option value="9217">9217-Centro para la Industria de la Comunicación
-                                            Grafica</option>
-                                        <option value="9303">9303-Centro de Gestión de Mercados, Logística y
-                                            Tecnologías de la
-                                            Información</option>
-                                        <option value="9403">9403-Centro de Formación de Talento Humano en Salud
-                                        </option>
-                                        <option value="9404">9404-Centro de Gestión Administrativa</option>
-                                        <option value="9405">9405-Centro de Servicios Financieros</option>
-                                        <option value="9406">9406-Centro Nacional de Hoteleria, Turismo y
-                                            Alimentos</option>
-                                        <option value="9508">9508-Centro de Formación en Actividad Física y
-                                            cultura</option>
-                                        <option value="9547">9547-Centro Ambiental y Ecoturistico del Nororiente
-                                            Amazónico
-                                        </option>
-                                        <option value="9222">9222-Centro Industrial y de Energías Alternativas
-                                        </option>
-                                        <option value="9524">9524-Centro Agroempresarial y Acuícola</option>
-                                        <option value="9533">9533-Centro de Desarrollo Agroindustrial, Turístico
-                                            y Tecnológico
-                                            del Guaviare </option>
-                                        <option value="9116">9116-Centro de Formación Agroindustrial</option>
-                                        <option value="9525">9525-Centro Agroempresarial y Desarrollo Pecuario
-                                            del Huila
-                                        </option>
-                                        <option value="9526">9526-Centro de Desarrollo Agroempresarial y
-                                            Turístico del Huila
-                                        </option>
-                                        <option value="9527">9527-Centro de la Industria, la Empresa y los
-                                            Servicios</option>
-                                        <option value="9528">9528-Centro de Gestión y Desarrollo Sostenible
-                                            Surcolombiano
-                                        </option>
-                                        <option value="9118">9118-Centro Acuícola y Agroindustrial de Gaira
-                                        </option>
-                                        <option value="9529">9529-Centro de Logística y Promoción Ecoturística
-                                            del Magdalena
-                                        </option>
-                                        <option value="9117">9117-Centro Agroindustrial del Meta</option>
-                                        <option value="9532">9532-Centro de Industria y Servicios del Meta
-                                        </option>
-                                        <option value="9534">9534-Centro Sur Colombiano de Logística
-                                            Internacional</option>
-                                        <option value="9535">9535-Centro Agroindustrial y Pesquero de la Costa
-                                            Pacifica</option>
-                                        <option value="9536">9536-Centro Internacional de Producción Limpia -
-                                            Lope</option>
-                                        <option value="9119">9119-Centro de Formación para el Desarrollo Rural y
-                                            Minero</option>
-                                        <option value="9537">9537-Centro de la Industria, la Empresa y los
-                                            Servicios</option>
-                                        <option value="9518">9518-Centro Agroforestal y Acuícola Arapaima
-                                        </option>
-                                        <option value="9120">9120-Centro Agroindustrial</option>
-                                        <option value="9231">9231-Centro para el Desarrollo Tecnológico de la
-                                            Construcción y la
-                                            Industria</option>
-                                        <option value="9538">9538-Centro de Comercio y Turismo</option>
-                                        <option value="9121">9121-Centro Atención Sector Agropecuario</option>
-                                        <option value="9223">9223-Centro de Diseño e Innovación Tecnológica
-                                            Industrial</option>
-                                        <option value="9308">9308-Centro de Comercio y Servicios</option>
-                                        <option value="9539">9539-Centro de Formación Turística, Gente de Mar y
-                                            de Servicios
-                                        </option>
-                                        <option value="9122">9122-Centro Atención Sector Agropecuario</option>
-                                        <option value="9224">9224-Centro Industrial de Mantenimiento Integral
-                                        </option>
-                                        <option value="9225">9225-Centro Industrial del Diseño y la Manufactura
-                                        </option>
-                                        <option value="9309">9309-Centro de Servicios Empresariales y Turísticos
-                                        </option>
-                                        <option value="9540">9540-Centro Industrial y del Desarrollo Tecnológico
-                                        </option>
-                                        <option value="9541">9541-Centro Agroturístico</option>
-                                        <option value="9545">9545-Centro Agroempresarial y Turístico de los
-                                            Andes</option>
-                                        <option value="9546">9546-Centro de Gestión Agroempresarial del Oriente
-                                        </option>
-                                        <option value="9542">9542-Centro de la Innovación, la Tecnología y los
-                                            Servicios
-                                        </option>
-                                        <option value="9123">9123-Centro Agropecuario la Granja</option>
-                                        <option value="9226">9226-Centro de Industria y Construcción</option>
-                                        <option value="9310">9310-Centro de Comercio y Servicios</option>
-                                        <option value="9124">9124-Centro Agropecuario de Buga</option>
-                                        <option value="9125">9125-Centro Latinoamericano de Especies Menores
-                                        </option>
-                                        <option value="9126">9126-Centro Náutico Pesquero de Buenaventura
-                                        </option>
-                                        <option value="9227">9227-Centro de Electricidad y Automatización
-                                            Industrial -CEAI
-                                        </option>
-                                        <option value="9228">9228-Centro de la Construcción</option>
-                                        <option value="9229">9229-Centro de Diseño Tecnológico Industrial
-                                        </option>
-                                        <option value="9230">9230-Centro Nacional de Asistencia Técnica a la
-                                            Industria -ASTIN
-                                        </option>
-                                        <option value="9311">9311-Centro de Gestión Tecnológica de Servicios
-                                        </option>
-                                        <option value="9543">9543-Centro de Tecnologías Agroindustriales
-                                        </option>
-                                        <option value="9544">9544-Centro de Biotecnología Industrial</option>
-                                        <option value="9548">9548-Centro Agropecuario y de Servicios Ambientales
-                                            "Jiri-jirimo"
-                                        </option>
-                                        <option value="9531">9531-Centro de Producción y Transformación
-                                            Agroindustrial de la
-                                            Orinoquia</option>
-                                    </select>
-        
-                                    <label for="Nombre_Director" class="form-label">Nombre del director(a) regional</label>
-                                    <input type="text" class="form-control form-control-sm" name="Nombre_Director" id="Nombre_Director" aria-describedby="helpId" placeholder="">
-                                    <div class="invalid-feedback">
+                                        <label for="Region" class="form-label">Región</label>
+                                        <select name="Region" id="Region" class="form-control selectmod">
+                                            <option value="" disabled selected>Selecciona una opción...</option>
+                                            <option value="caribe">Caribe</option>
+                                            <option value="pacifico">Pacífica</option>
+                                            <option value="orinoquia">Orinoquía</option>
+                                            <option value="amazonica">Amazónica</option>
+                                            <option value="andina_insular">Andina e insular</option>
+                                        </select>
+
+                                        <label for="Regional" class="form-label">Regional</label>
+                                        <select name="Regional" id="Regional" class="form-control selectmod">
+                                            <option value="" disabled selected>Selecciona una opción...</option>
+                                            <option value="amazonas">AMAZONAS</option>
+                                            <option value="antioquia">ANTIOQUIA</option>
+                                            <option value="arauca">ARAUCA</option>
+                                            <option value="atlantico">ATLÁNTICO</option>
+                                            <option value="bolivar">BOLÍVAR</option>
+                                            <option value="boyaca">BOYACÁ</option>
+                                            <option value="caldas">CALDAS</option>
+                                            <option value="caqueta">CAQUETÁ</option>
+                                            <option value="cauca">CAUCA</option>
+                                            <option value="cesar">CESAR</option>
+                                            <option value="choco">CHOCO</option>
+                                            <option value="cordoba">CÓRDOBA</option>
+                                            <option value="cundinamarca">CUNDINAMARCA</option>
+                                            <option value="distrito_capital">DISTRITO CAPITAL</option>
+                                            <option value="guainia">GUAINÍA</option>
+                                            <option value="guajira">GUAJIRA</option>
+                                            <option value="guaviare">GUAVIARE</option>
+                                            <option value="huila">HUILA</option>
+                                            <option value="magdalena">MAGDALENA</option>
+                                            <option value="meta">META</option>
+                                            <option value="narinio">NARIÑO</option>
+                                            <option value="norte_santander">NORTE DE SANTANDER</option>
+                                            <option value="putumayo">PUTUMAYO</option>
+                                            <option value="quindio">QUINDÍO</option>
+                                            <option value="san_andres">SAN ANDRÉS</option>
+                                            <option value="santander">SANTANDER</option>
+                                            <option value="tolima">TOLIMA</option>
+                                            <option value="vaupes">VAUPÉS</option>
+                                            <option value="vichada">VICHADA</option>
+                                            <option value="valle">VALLE</option>
+                                        </select>
+
+                                        <label for="Nombre_centro_formacion" class="form-label">Nombre centro de
+                                            formación</label>
+                                        <select name="Nombre_centro_formacion" id="Nombre_centro_formacion"
+                                            class="form-control selectmod">
+                                            <option value="" disabled selected>Selecciona una opción...</option>
+                                            <option value="9517">9517-Centro para la Biodiversidad y el Turismo del
+                                                Amazonas
+                                            </option>
+                                            <option value="9101">9101-Centro de los Recursos Naturales Renovables
+                                                -La Salada
+                                            </option>
+                                            <option value="9202">9202-Centro de Formación en Diseño, Confección y
+                                                Moda.</option>
+                                            <option value="9203">9203-Centro para el Desarrollo del Hábitat y la
+                                                Construcción
+                                            </option>
+                                            <option value="9204">9204-Centro de Tecnología de la Manufactura
+                                                Avanzada.</option>
+                                            <option value="9205">9205-Centro Tecnológico del Mobiliario</option>
+                                            <option value="9201"> 9201-Centro del Diseño y Manufactura del Cuero
+                                            </option>
+                                            <option value="9206">9206-Centro Textil y de Gestión Industrial</option>
+                                            <option value="9301">9301-Centro de Comercio</option>
+                                            <option value="9401">9401-Centro de Servicios de Salud</option>
+                                            <option value="9402">9402-Centro de Servicios y Gestión Empresarial
+                                            </option>
+                                            <option value="9501">9501-Complejo Tecnológico para la Gestión
+                                                Agroempresarial</option>
+                                            <option value="9502">9502-Complejo Tecnológico Minero Agroempresarial
+                                            </option>
+                                            <option value="9503">9503-Centro de la Innovación, la Agroindustria y la
+                                                Aviación
+                                            </option>
+                                            <option value="9504">9504-Complejo Tecnológico Agroindustrial, Pecuario
+                                                y Turístico
+                                            </option>
+                                            <option value="9549">9549-Complejo Tecnológico, Turístico y
+                                                Agroindustrial del Occidente
+                                                Antioqueño</option>
+                                            <option value="9127">9127-Centro de Formación Minero Ambiental</option>
+                                            <option value="9530">9530-Centro de Gestión y Desarrollo Agroindustrial
+                                                de Arauca
+                                            </option>
+                                            <option value="9103">9103-Centro para el Desarrollo Agroecologico y
+                                                Agroindustrial
+                                            </option>
+                                            <option value="9207">9207-Centro Nacional Colombo Alemán</option>
+                                            <option value="9208">9208-Centro Industrial y de Aviación </option>
+                                            <option value="9302">9302-Centro de Comercio y Servicios</option>
+                                            <option value="9104">9104-Centro Agroempresarial y Minero</option>
+                                            <option value="9105">9105-Centro Internacional Náutico, Fluvial y
+                                                Portuario</option>
+                                            <option value="9218">9218-Centro para la Industria Petroquímica</option>
+                                            <option value="9304">9304-Centro de Comercio y Servicios</option>
+                                            <option value="9110">9110-Centro de Desarrollo Agropecuario y
+                                                Agroindustrial</option>
+                                            <option value="9111">9111-Centro Minero</option>
+                                            <option value="9305">9305-Centro de Gestión Administrativa y
+                                                Fortalecimiento Empresarial
+                                            </option>
+                                            <option value="9514">9514-Centro Industrial de Mantenimiento y
+                                                Manufactura</option>
+                                            <option value="9112">9112-Centro para la Formación Cafetera</option>
+                                            <option value="9219">9219-Centro de Automatización Industrial</option>
+                                            <option value="9220">9220-Centro de Procesos Industriales y Construcción
+                                            </option>
+                                            <option value="9306">9306-Centro de Comercio y Servicios</option>
+                                            <option value="9515">9515-Centro Pecuario y Agroempresarial</option>
+                                            <option value="9516">9516-Centro Tecnológico de la Amazonia</option>
+                                            <option value="9519">9519-Centro Agroindustrial y Fortalecimiento
+                                                Empresarial de
+                                                Casanare</option>
+                                            <option value="9113">113-Centro Agropecuario</option>
+                                            <option value="9221">9221-Centro de Teleinformática y Producción
+                                                Industrial</option>
+                                            <option value="9307">9307-Centro de Comercio y Servicios</option>
+                                            <option value="9114">9114-Centro Biotecnológico del Caribe</option>
+                                            <option value="9520">9520-Centro Agroempresarial</option>
+                                            <option value="9521">9521-Centro de Operación y Mantenimiento Minero
+                                            </option>
+                                            <option value="9522">9522-Centro de Recursos Naturales, Industria y
+                                                Biodiversidad
+                                            </option>
+                                            <option value="9115">9115-Centro Agropecuario y de Biotecnología el
+                                                Porvenir</option>
+                                            <option value="9523">9523-Centro de Comercio, Industria y Turismo de
+                                                Córdoba</option>
+                                            <option value="9232">9232-Centro Industrial y de Desarrollo Empresarial
+                                                de Soacha
+                                            </option>
+                                            <option value="9509">9509-Centro de Desarrollo Agroindustrial y
+                                                Empresarial</option>
+                                            <option value="9510">9510-Centro Agroecológico y Empresarial</option>
+                                            <option value="9511">9511-Centro de la Tecnología de Diseño y la
+                                                Productividad
+                                                Empresarial</option>
+                                            <option value="9512">9512-Centro de Biotecnología Agropecuaria</option>
+                                            <option value="9513">9513-Centro de Desarrollo Agroempresarial</option>
+                                            <option value="9209">9209-Centro de Tecnologías para la Construcción y
+                                                la Madera
+                                            </option>
+                                            <option value="9210">9210-Centro de Electricidad, Electrónica y
+                                                Telecomunicaciones
+                                            </option>
+                                            <option value="9211">9211-Centro de Gestión Industrial</option>
+                                            <option value="9212">9212-Centro de Manufactura en Textil y Cuero
+                                            </option>
+                                            <option value="9213">9213-Centro de Tecnologías del Transporte</option>
+                                            <option value="9214">9214-Centro Metalmecánico</option>
+                                            <option value="9215">9215-Centro de Materiales y Ensayos</option>
+                                            <option value="9216">9216-Centro de Diseño y Metrología</option>
+                                            <option value="9217">9217-Centro para la Industria de la Comunicación
+                                                Grafica</option>
+                                            <option value="9303">9303-Centro de Gestión de Mercados, Logística y
+                                                Tecnologías de la
+                                                Información</option>
+                                            <option value="9403">9403-Centro de Formación de Talento Humano en Salud
+                                            </option>
+                                            <option value="9404">9404-Centro de Gestión Administrativa</option>
+                                            <option value="9405">9405-Centro de Servicios Financieros</option>
+                                            <option value="9406">9406-Centro Nacional de Hoteleria, Turismo y
+                                                Alimentos</option>
+                                            <option value="9508">9508-Centro de Formación en Actividad Física y
+                                                cultura</option>
+                                            <option value="9547">9547-Centro Ambiental y Ecoturistico del Nororiente
+                                                Amazónico
+                                            </option>
+                                            <option value="9222">9222-Centro Industrial y de Energías Alternativas
+                                            </option>
+                                            <option value="9524">9524-Centro Agroempresarial y Acuícola</option>
+                                            <option value="9533">9533-Centro de Desarrollo Agroindustrial, Turístico
+                                                y Tecnológico
+                                                del Guaviare </option>
+                                            <option value="9116">9116-Centro de Formación Agroindustrial</option>
+                                            <option value="9525">9525-Centro Agroempresarial y Desarrollo Pecuario
+                                                del Huila
+                                            </option>
+                                            <option value="9526">9526-Centro de Desarrollo Agroempresarial y
+                                                Turístico del Huila
+                                            </option>
+                                            <option value="9527">9527-Centro de la Industria, la Empresa y los
+                                                Servicios</option>
+                                            <option value="9528">9528-Centro de Gestión y Desarrollo Sostenible
+                                                Surcolombiano
+                                            </option>
+                                            <option value="9118">9118-Centro Acuícola y Agroindustrial de Gaira
+                                            </option>
+                                            <option value="9529">9529-Centro de Logística y Promoción Ecoturística
+                                                del Magdalena
+                                            </option>
+                                            <option value="9117">9117-Centro Agroindustrial del Meta</option>
+                                            <option value="9532">9532-Centro de Industria y Servicios del Meta
+                                            </option>
+                                            <option value="9534">9534-Centro Sur Colombiano de Logística
+                                                Internacional</option>
+                                            <option value="9535">9535-Centro Agroindustrial y Pesquero de la Costa
+                                                Pacifica</option>
+                                            <option value="9536">9536-Centro Internacional de Producción Limpia -
+                                                Lope</option>
+                                            <option value="9119">9119-Centro de Formación para el Desarrollo Rural y
+                                                Minero</option>
+                                            <option value="9537">9537-Centro de la Industria, la Empresa y los
+                                                Servicios</option>
+                                            <option value="9518">9518-Centro Agroforestal y Acuícola Arapaima
+                                            </option>
+                                            <option value="9120">9120-Centro Agroindustrial</option>
+                                            <option value="9231">9231-Centro para el Desarrollo Tecnológico de la
+                                                Construcción y la
+                                                Industria</option>
+                                            <option value="9538">9538-Centro de Comercio y Turismo</option>
+                                            <option value="9121">9121-Centro Atención Sector Agropecuario</option>
+                                            <option value="9223">9223-Centro de Diseño e Innovación Tecnológica
+                                                Industrial</option>
+                                            <option value="9308">9308-Centro de Comercio y Servicios</option>
+                                            <option value="9539">9539-Centro de Formación Turística, Gente de Mar y
+                                                de Servicios
+                                            </option>
+                                            <option value="9122">9122-Centro Atención Sector Agropecuario</option>
+                                            <option value="9224">9224-Centro Industrial de Mantenimiento Integral
+                                            </option>
+                                            <option value="9225">9225-Centro Industrial del Diseño y la Manufactura
+                                            </option>
+                                            <option value="9309">9309-Centro de Servicios Empresariales y Turísticos
+                                            </option>
+                                            <option value="9540">9540-Centro Industrial y del Desarrollo Tecnológico
+                                            </option>
+                                            <option value="9541">9541-Centro Agroturístico</option>
+                                            <option value="9545">9545-Centro Agroempresarial y Turístico de los
+                                                Andes</option>
+                                            <option value="9546">9546-Centro de Gestión Agroempresarial del Oriente
+                                            </option>
+                                            <option value="9542">9542-Centro de la Innovación, la Tecnología y los
+                                                Servicios
+                                            </option>
+                                            <option value="9123">9123-Centro Agropecuario la Granja</option>
+                                            <option value="9226">9226-Centro de Industria y Construcción</option>
+                                            <option value="9310">9310-Centro de Comercio y Servicios</option>
+                                            <option value="9124">9124-Centro Agropecuario de Buga</option>
+                                            <option value="9125">9125-Centro Latinoamericano de Especies Menores
+                                            </option>
+                                            <option value="9126">9126-Centro Náutico Pesquero de Buenaventura
+                                            </option>
+                                            <option value="9227">9227-Centro de Electricidad y Automatización
+                                                Industrial -CEAI
+                                            </option>
+                                            <option value="9228">9228-Centro de la Construcción</option>
+                                            <option value="9229">9229-Centro de Diseño Tecnológico Industrial
+                                            </option>
+                                            <option value="9230">9230-Centro Nacional de Asistencia Técnica a la
+                                                Industria -ASTIN
+                                            </option>
+                                            <option value="9311">9311-Centro de Gestión Tecnológica de Servicios
+                                            </option>
+                                            <option value="9543">9543-Centro de Tecnologías Agroindustriales
+                                            </option>
+                                            <option value="9544">9544-Centro de Biotecnología Industrial</option>
+                                            <option value="9548">9548-Centro Agropecuario y de Servicios Ambientales
+                                                "Jiri-jirimo"
+                                            </option>
+                                            <option value="9531">9531-Centro de Producción y Transformación
+                                                Agroindustrial de la
+                                                Orinoquia</option>
+                                        </select>
+
+                                        <label for="Nombre_Director" class="form-label">Nombre del director(a)
+                                            regional</label>
+                                        <input type="text" class="form-control form-control-sm" name="Nombre_Director"
+                                            id="Nombre_Director" aria-describedby="helpId" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
+
+                                        <label for="email_director" class="form-label">Email director(a)
+                                            regional</label>
+                                        <input type="email" class="form-control form-control-sm" name="email_director"
+                                            id="email_director" aria-describedby="helpId" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
                                     </div>
-        
-                                    <label for="email_director" class="form-label">Email director(a) regional</label>
-                                    <input type="email" class="form-control form-control-sm" name="email_director" id="email_director" aria-describedby="helpId" placeholder="">
-                                    <div class="invalid-feedback">
+
+                                    <!-- Second Column with 4 rows -->
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <label for="Numero_Director" class="form-label">Telefono director(a)
+                                            regional</label>
+                                        <input type="number" class="form-control form-control-sm" name="Numero_Director"
+                                            id="Numero_Director" aria-describedby="helpId" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
+
+                                        <label for="Nombre_Sub_Director" class="form-label">Nombre subdirector(a)
+                                            regional</label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            name="Nombre_Sub_Director" id="Nombre_Sub_Director"
+                                            aria-describedby="helpId" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
+
+                                        <label for="email_sub_director" class="form-label">Email subdirector(a)
+                                            regional</label>
+                                        <input type="email" class="form-control form-control-sm"
+                                            name="email_sub_director" id="email_sub_director" aria-describedby="helpId"
+                                            placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
+
+                                        <label for="Numero_Sub_Director" class="form-label">Telefono subdirector(a)
+                                            regional</label>
+                                        <input type="number" class="form-control form-control-sm"
+                                            name="Numero_Sub_Director" id="Numero_Sub_Director"
+                                            aria-describedby="helpId" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
                                     </div>
-                                
-                                </div>
-        
-                                <!-- Segunda columna con 4 filas -->
-                                <div class="col-12 col-md-6 mb-3">
-                                    <label for="Numero_Director" class="form-label">Telefono director(a) regional</label>
-                                    <input type="number" class="form-control form-control-sm" name="Numero_Director" id="Numero_Director" aria-describedby="helpId" placeholder="">
-                                    <div class="invalid-feedback">
+
+                                    <!-- Next Button Centered -->
+                                    <div class="d-flex justify-content-center col-12">
+                                        <button type="button" id="enviar1"
+                                            class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                     </div>
-        
-                                    <label for="Nombre_Sub_Director" class="form-label">Nombre subdirector(a) regional</label>
-                                    <input type="text" class="form-control form-control-sm" name="Nombre_Sub_Director" id="Nombre_Sub_Director" aria-describedby="helpId" placeholder="">
-                                    <div class="invalid-feedback">
-                                    </div>
-        
-                                    <label for="email_sub_director" class="form-label">Email subdirector(a) regional</label>
-                                    <input type="email" class="form-control form-control-sm" name="email_sub_director" id="email_sub_director" aria-describedby="helpId" placeholder="">
-                                    <div class="invalid-feedback">
-                                    </div>
-        
-                                    <label for="Numero_Sub_Director" class="form-label">Telefono subdirector(a) regional</label>
-                                    <input type="number" class="form-control form-control-sm" name="Numero_Sub_Director" id="Numero_Sub_Director" aria-describedby="helpId" placeholder="">
-                                    <div class="invalid-feedback">
-                                    </div>
-                                </div>
-        
-                                <!-- Botón Siguiente centrado -->
-                                <div class="d-flex justify-content-center col-12">
-                                    <button type="button" id="enviar1"
-                                        class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                 </div>
                             </div>
                         </div>
-                </form>
-            </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+
    
 <div class="card">
     <div id="headingTwo">
@@ -391,55 +458,20 @@
                     <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Autor</h5>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="row justify-content-center mt-4">
-                        <div class="col-12 col-md-10">
-                            <table class="table table-bordered table-hover">
-                                <thead class="bg-custom-green text-dark">
-                                    <tr>
-                                        <th>Nombre del Autor</th>
-                                        <th>Tipo de Vinculación</th>
-                                        <th>Número de Documento</th>
-                                        <th>Rol Sennova</th>
-                                        <th>Email</th>
-                                        <th>Meses Vinculación</th>
-                                        <th>Teléfono</th>
-                                        <th>Horas Semanales</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                        {% for m_autor in m_autores %}
-                                        <tr>
-                                            <td>{{ m_autor.Nombre_Autor_Proyecto }}</td>
-                                            <td>{{ m_autor.Tipo_Vinculacion_entidad }}</td>
-                                            <td>{{ m_autor.Numero_Cedula_Autor }}</td>
-                                            <td>{{ m_autor.Rol_Sennova_De_Participantes_de_Proyecto }}</td>
-                                            <td>{{ m_autor.Email_Autor_Proyecto }}</td>
-                                            <td>{{ m_autor.Numero_meses_vinculacion_Autor }}</td>
-                                            <td>{{ m_autor.Numero_Telefono_Autor }}</td>
-                                            <td>{{ m_autor.Numero_horas_Semanales_dedicadas_Autores }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                     
                     <div class="col-12 col-md-10">
                     <form method="post" class="needs-validation" action="" id="form2">
+                        {% csrf_token %}
                         <div class="bg-light mt-2 spos border_radius row me-0">
                             <!-- Primera columna con 4 filas -->
                             <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                            
-                                    {% csrf_token %}
-                                <label for="Nombre_Autor_Proyecto" class="form-label">Nombre del autor(a) del proyecto 1</label>
-                                <input type="text" name="Nombre_Autor_Proyecto" id="Nombre_Autor_Proyecto" class="form-control form-control-sm" placeholder="">
+                                <label for="nombre_Autor_Proyecto" class="form-label">Nombre del autor(a) del proyecto 1</label>
+                                <input type="text" name="nombre_Autor_Proyecto" id="Nombre_Autor_Proyecto" class="form-control form-control-sm" placeholder="">
                                 <div class="invalid-feedback">
                                 </div>
                                 
                                 <label for="Tipo_Vinculacion_entidad" class="form-label">Tipo de vinculación a la entidad</label>
-                                <select name="Tipo_Vinculacion_entidad" id="Tipo_Vinculacion_entidad" class="form-control form-control-sm selectmod">
+                                <select name="tipo_Vinculacion_entidad" id="Tipo_Vinculacion_entidad" class="form-control form-control-sm selectmod">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="contratista">Contratista</option>
                                     <option value="planta">Planta</option>
@@ -447,12 +479,12 @@
                                 </select>
                                 
                                 <label for="Numero_Cedula_Autor" class="form-label">Número de documento del autor 1</label>
-                                <input name="Numero_Cedula_Autor" id="Numero_Cedula_Autor" type="number" class="form-control form-control-sm" placeholder="">
+                                <input name="numero_Cedula_Autor" id="Numero_Cedula_Autor" type="number" class="form-control form-control-sm" placeholder="">
                                 <div class="invalid-feedback">
                                 </div>
                                 
                                 <label for="Rol_Sennova_De_Participantes_de_Proyecto" class="form-label">Rol sennova del autor 1 del proyecto</label>
-                                <select name="Rol_Sennova_De_Participantes_de_Proyecto" id="Rol_Sennova_De_Participantes_de_Proyecto" class="form-control form-control-sm selectmod">
+                                <select name="rol_Sennova_De_Participantes_de_Proyecto" id="Rol_Sennova_De_Participantes_de_Proyecto" class="form-control form-control-sm selectmod">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="formulador">Formulador</option>
                                     <option value="investigador">Investigador</option>
@@ -466,7 +498,7 @@
                             <!-- Segunda columna con 4 filas -->
                             <div class="col-12 col-md-6 mb-3">
                                 <label for="Email_Autor_Proyecto" class="form-label">Correo electrónico del autor 1</label>
-                                <input name="Email_Autor_Proyecto" id="Email_Autor_Proyecto" type="email" class="form-control form-control-sm" placeholder="">
+                                <input name="email_Autor_Proyecto" id="Email_Autor_Proyecto" type="email" class="form-control form-control-sm" placeholder="">
                                 <div class="invalid-feedback">
                                 </div>
                                 
@@ -489,7 +521,8 @@
     
                             <!-- Botón Siguiente centrado -->
                             <div class="d-flex justify-content-center col-12">
-                                <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
+                                <button class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviar2">Siguiente</button>
+                                
                             </div>
                         </form>
                     </div>
@@ -525,6 +558,7 @@
                             <!-- Primera columna con 4 campos -->
                             <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
                                     {% csrf_token %}
+                             
                                 <label for="Nombre_participantes_de_desarrollo" class="form-label">Nombres y apellidos del participante
                                     desarrollo del proyecto</label>
                                 <input type="text" name="Nombre_participantes_de_desarrollo" id="Nombre_participantes_de_desarrollo" class="form-control form-control-sm" placeholder="">
@@ -579,7 +613,7 @@
                             
                             <!-- Botón Siguiente centrado -->
                             <div class="d-flex justify-content-center col-12">
-                                <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
+                                <button class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviar3">Siguiente</button>
                             </div>
                         </form>
                     </div>
@@ -590,190 +624,154 @@
 </div>
         
 <!-- Cuarto boton de contenido -->
-<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-    data-bs-parent="#accordionExample">
-<form method="post" class="needs-validation" action=""  id="form4">
-    <div class="card-body">
-        <div class="contenido">
-            <!-- BARRA DE PROGRESO -->
-            <div class="d-flex justify-content-end mt-3 mr-3">
-                <div class="col-4 mb-4">
-                    <div class="progress" role="progressbar" aria-label="Example with label"
-                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                        <div class="progress-bar bg-green" style="width: 25%">25%</div>
+<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+    <form method="post" class="needs-validation" action="" id="form4">
+        <div class="card-body">
+            <div class="contenido">
+                <!-- BARRA DE PROGRESO -->
+                <div class="d-flex justify-content-end mt-3 mr-3">
+                    <div class="col-4 mb-4">
+                        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                            <div class="progress-bar bg-green" style="width: 25%">25%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center col-12">
+                    <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Generalidades</h5>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10">
+                        <div class="bg-light mt-2 spos border_radius row me-0">
+                            <!-- Columna 1 -->
+                            <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
+                                {% csrf_token %}
+                                <label for="codigo_Dependencia_Presupuestal" class="form-label">Codigo dependencia prespuestal<br>(SIIF)</label>
+                                <select name="codigo_Dependencia_Presupuestal" id="codigo_Dependencia_Presupuestal" class="form-control selectmod">
+                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                    <option value="inv_aplicada_66">Investigación aplicada 66</option>
+                                    <option value="desarrollo_tec_mod_ambiente_23">Desarrollo
+                                        tecnológico(23-Modernización de ambientes)</option>
+                                    <option value="fomento_innovacion_82">Fomento para la innovacion(82)
+                                    </option>
+                                </select>
+                                <label for="tematicas_Estrategias_SENA" class="form-label mt-3">Temáticas estratégicas SENA</label>
+                                <select name="tematicas_Estrategias_SENA" id="tematicas_Estrategias_SENA" class="form-control selectmod">
+                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                    <option value="sostenibilidad_medio_ambiente">Sostenibilidad y medio
+                                        ambiente</option>
+                                    </option>
+                                    <option value="salud">Salud</option>
+                                    <option value="productos_bid">Productos BIO</option>
+                                    <option value="digitalidad_tech">Digitalidad y TECH</option>
+                                    <option value="innov_tecno_sociedad">Innovación y tecnología y sociedad
+                                    </option>
+                                    <option value="econ_naranja">Economía naranja</option>
+                                    <option value="industria_40">Industria 4.0</option>
+                                    <option value="movilidad_industria">Movilidad e industria</option>
+                                </select>
+                                <label for="link_video_proyecto" class="form-label mt-4">Link de video del proyecto</label>
+                                <input type="url" name="link_video_proyecto" id="link_video_proyecto" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback"></div>
+                                <label for="" class="form-label mt-3">¿El proyecto está relacionado con Industrial 4.0?</label>
+                                <select name="proyecto_Relacionado_Industrial40" id="proyecto_Relacionado_Industrial40" class="form-control selectmod">
+                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
+                                <label for="justificacion_Industrial" class="form-label mt-5">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                <input type="text" name="justificacion_Industrial" id="justificacion_Industrial" class="form-control form-control-sm">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <!-- Columna 2 -->
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="" class="form-label mt-2 fuente_p">¿En cuál de estas actividades económicas se puede aplicar el proyecto de investigación?<br> Código CIIU versión 4AC REV Colombia</label>
+                                <select name="actividades_economicas_del_proyecto_investigacion" id="actividades_economicas_del_proyecto_investigacion" class="form-control selectmod">
+                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                    <option value="agricultura_ganaderia_1"
+                                        data-title="Agricultura, ganadería, caza y actividades de servicios conexas">
+                                        Agricultura, ganadería, caza y actividades de servicios conexas
+                                    </option>
+
+                                    <option value="silvicultura_extraccion_2">Silvicultura y extracción de
+                                        madera</option>
+                                    <option value="pesca_acuicultura_3">Pesca y acuicultura</option>
+                                    <option value="extraccion_carbon_4">Extracción de carbón de piedra y
+                                        lignito</option>
+                                    <option value="extraccion_petroleo_5">Extracción de petróleo crudo y gas
+                                        natural</option>
+                                    <option value="extraccion_minerales_6">Extracción de minerales
+                                        metalíferos</option>
+                                    <option value="extraccion_minas_7">Extracción de otras minas y canteras
+                                    </option>
+                                    <option value="servicios_explotacion_8">Actividades de servicios de
+                                        apoyo para la explotación de minas</option>
+                                    <option value="elaboracion_alimentos_9">Elaboración de productos
+                                        alimenticios</option>
+                                    <option value="elaboracion_bebidas_10">Elaboración de bebidas</option>
+                                    <option value="productos_tabaco_11">Elaboración de productos de tabaco
+                                    </option>
+                                    <option value="fabricacion_textiles_12">Fabricación de productos
+                                        textiles</option>
+                                    <option value="confeccion_vestir_13">Confección de prendas de vestir
+                                    </option>
+                                    <option value="curtido_cueros_14">Curtido y recurtido de cueros;
+                                        fabricación de calzado; fabricación de artículos de viaje, maletas,
+                                        bolsos de mano y artículos similares, y fabricación de artículos de
+                                        talabartería y guarnicionería; adobo y teñido de pieles</option>
+                                    <option value="transformacion_madera_15">Transformación de la madera y
+                                        fabricación de productos de madera y de corcho, excepto muebles;
+                                        fabricación de artículos de cestería y espartería</option>
+                                    <option value="fabricacion_papel_16">Fabricación de papel, cartón y
+                                        productos de papel y cartón</option>
+                                    <option value="actividades_impresion_17">Actividades de impresión y de
+                                        producción de copias a partir de grabaciones originales</option>
+                                    <option value="coquizacion_18">Coquización, fabricación de productos de
+                                        la refinación del petróleo y actividad de mezcla de combustibles
+                                    </option>
+                                    <option value="sustancias_quimicas_19">Fabricación de sustancias y
+                                        productos químicos</option>
+                                    <option value="productos_farmaceuticos_20">Fabricación de productos
+                                        farmacéuticos, sustancias químicas medicinales y productos botánicos
+                                        de uso farmacéutico</option>
+                                    <!-- ... Y así sucesivamente. La lista es muy extensa y aquí solo muestro una parte -->
+
+                                    <!-- Asegúrate de continuar el patrón hasta completar la lista total -->
+                                </select>
+                                <label for="" class="form-label">¿El proyecto está relacionado con la economía naranja?</label>
+                                <select name="proyecto_Relacionado_Economia_Naranja" id="proyecto_Relacionado_Economia_Naranja" class="form-control selectmod">
+                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
+                                
+                                <label for="justificacion_Economia_Naranja" class="form-label">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                <input type="text" name="justificacion_Economia_Naranja" id="justificacion_Economia_Naranja" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback"></div>
+                                
+                                <label for="" class="form-label">¿El proyecto aporta a la Política Institucional para Atención de las Personas con discapacidad?</label>
+                                <select name="proyecto_Relacionado_Politica_Discapacidad" id="proyecto_Relacionado_Politica_Discapacidad" class="form-control selectmod">
+                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                    <option value="1">Sí</option>
+                                    <option value="0">No</option>
+                                </select>
+                                
+                                <label for="justificacion_Politica_Discapacidad" class="form-label mt-3">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                <input type="text" class="form-control form-control-sm" name="justificacion_Politica_Discapacidad" id="justificacion_Politica_Discapacidad" placeholder="">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <!-- Botón Siguiente centrado -->
+                        <div class="d-flex justify-content-center col-12">
+                            <button id="enviar4" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center col-12">
-                <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Generalidades</h5>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-10">
-                    <div class="bg-light mt-2 spos border_radius row me-0">
-
-                        <!-- Columna 1 -->
-                        <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                {% csrf_token %}
-                            <label for="codigo_Dependencia_Presupuestal" class="form-label">Codigo dependencia
-                                prespuestal<br>(SIIF)</label>
-                            <select name="codigo_Dependencia_Presupuestal" id="codigo_Dependencia_Presupuestal" class="form-control selectmod">
-                                <option value="" disabled selected>Selecciona una opción...</option>
-                                <option value="inv_aplicada_66">Investigación aplicada 66</option>
-                                <option value="desarrollo_tec_mod_ambiente_23">Desarrollo
-                                    tecnológico(23-Modernización de ambientes)</option>
-                                <option value="fomento_innovacion_82">Fomento para la innovacion(82)
-                                </option>
-                            </select>
-
-                            <label for="tematicas_Estrategias_SENA" class="form-label mt-3">Temáticas estratégicas SENA</label>
-                            <select name="tematicas_Estrategias_SENA" id="tematicas_Estrategias_SENA" class="form-control selectmod">
-                                <option value="" disabled selected>Selecciona una opción...</option>
-                                <option value="sostenibilidad_medio_ambiente">Sostenibilidad y medio
-                                    ambiente</option>
-                                </option>
-                                <option value="salud">Salud</option>
-                                <option value="productos_bid">Productos BIO</option>
-                                <option value="digitalidad_tech">Digitalidad y TECH</option>
-                                <option value="innov_tecno_sociedad">Innovación y tecnología y sociedad
-                                </option>
-                                <option value="econ_naranja">Economía naranja</option>
-                                <option value="industria_40">Industria 4.0</option>
-                                <option value="movilidad_industria">Movilidad e industria</option>
-
-                            </select>
-
-                            <label for="link_video_proyecto" class="form-label mt-4">Link de video del proyecto</label>
-                            <input type="url" name="link_video_proyecto" id="link_video_proyecto" class="form-control form-control-sm" placeholder="">
-                            <div class="invalid-feedback">
-                            </div>
-
-
-                            <label for="" class="form-label mt-3">¿El proyecto está relacionado con
-                                Industrial 4.0?</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="proyecto_Relacionado_Industrial40" value="True" id="industrial4_0_yes">
-                                    <label class="form-check-label" for="industrial4_0_si">Sí</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="proyecto_Relacionado_Industrial40" value="False" id="industrial4_0_no" checked>
-                                    <label class="form-check-label" for="industrial4_0_no">No</label>
-                                </div>
-                                
-                            <label for="justificacion_Industrial" class="form-label mt-5">Si contestó la pregunta anterior de
-                                forma afirmativa, justifique.</label>
-                            <input type="text" name="justificacion_Industrial" id="justificacion_Industrial" class="form-control form-control-sm">
-                            <div class="invalid-feedback">
-                            </div>
-                        </div>
-
-                        <!-- Columna 2 -->
-                        <div class="col-12 col-md-6 mb-3">
-                            <label for="" class="form-label mt-2 fuente_p">¿En cuál de estas actividades
-                                económicas se puede aplicar el proyecto de investigación?<br> Código
-                                CIIU
-                                versión 4AC REV Colombia</label>
-                            <select name="actividades_economicas_del_proyecto_investigacion" id="actividades_economicas_del_proyecto_investigacion" class="form-control selectmod">
-                                <option value="" disabled selected>Selecciona una opción...</option>
-                                <option value="agricultura_ganaderia_1"
-                                    data-title="Agricultura, ganadería, caza y actividades de servicios conexas">
-                                    Agricultura, ganadería, caza y actividades de servicios conexas
-                                </option>
-
-                                <option value="silvicultura_extraccion_2">Silvicultura y extracción de
-                                    madera</option>
-                                <option value="pesca_acuicultura_3">Pesca y acuicultura</option>
-                                <option value="extraccion_carbon_4">Extracción de carbón de piedra y
-                                    lignito</option>
-                                <option value="extraccion_petroleo_5">Extracción de petróleo crudo y gas
-                                    natural</option>
-                                <option value="extraccion_minerales_6">Extracción de minerales
-                                    metalíferos</option>
-                                <option value="extraccion_minas_7">Extracción de otras minas y canteras
-                                </option>
-                                <option value="servicios_explotacion_8">Actividades de servicios de
-                                    apoyo para la explotación de minas</option>
-                                <option value="elaboracion_alimentos_9">Elaboración de productos
-                                    alimenticios</option>
-                                <option value="elaboracion_bebidas_10">Elaboración de bebidas</option>
-                                <option value="productos_tabaco_11">Elaboración de productos de tabaco
-                                </option>
-                                <option value="fabricacion_textiles_12">Fabricación de productos
-                                    textiles</option>
-                                <option value="confeccion_vestir_13">Confección de prendas de vestir
-                                </option>
-                                <option value="curtido_cueros_14">Curtido y recurtido de cueros;
-                                    fabricación de calzado; fabricación de artículos de viaje, maletas,
-                                    bolsos de mano y artículos similares, y fabricación de artículos de
-                                    talabartería y guarnicionería; adobo y teñido de pieles</option>
-                                <option value="transformacion_madera_15">Transformación de la madera y
-                                    fabricación de productos de madera y de corcho, excepto muebles;
-                                    fabricación de artículos de cestería y espartería</option>
-                                <option value="fabricacion_papel_16">Fabricación de papel, cartón y
-                                    productos de papel y cartón</option>
-                                <option value="actividades_impresion_17">Actividades de impresión y de
-                                    producción de copias a partir de grabaciones originales</option>
-                                <option value="coquizacion_18">Coquización, fabricación de productos de
-                                    la refinación del petróleo y actividad de mezcla de combustibles
-                                </option>
-                                <option value="sustancias_quimicas_19">Fabricación de sustancias y
-                                    productos químicos</option>
-                                <option value="productos_farmaceuticos_20">Fabricación de productos
-                                    farmacéuticos, sustancias químicas medicinales y productos botánicos
-                                    de uso farmacéutico</option>
-                                <!-- ... Y así sucesivamente. La lista es muy extensa y aquí solo muestro una parte -->
-
-                                <!-- Asegúrate de continuar el patrón hasta completar la lista total -->
-
-
-                            </select>
-
-                            <label for="" class="form-label">¿El proyecto está relacionado con la
-                                economía naranja?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="proyecto_Relacionado_Economia_Naranja" value="True"
-                                    id="flexRadioDefault3">
-                                <label class="form-check-label" for="flexRadioDefault3">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="proyecto_Relacionado_Economia_Naranja"
-                                    id="flexRadioDefault4" checked value="False">
-                                <label class="form-check-label" for="flexRadioDefault4">No</label>
-                            </div>
-
-                            <label for="justificacion_Economia_Naranja" class="form-label">Si contestó la pregunta anterior de forma
-                                afirmativa, justifique.</label>
-                            <input type="text" name="justificacion_Economia_Naranja" id="justificacion_Economia_Naranja" class="form-control form-control-sm" placeholder="">
-                            <div class="invalid-feedback">
-                            </div>
-
-                            <label for="" class="form-label">¿El proyecto aporta a la Política
-                                Institucional para Atención de las Personas con discapacidad?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio"
-                                    name="proyecto_Relacionado_Politica_Discapacidad" id="flexRadioDefault5" value="True">
-                                <label class="form-check-label" for="flexRadioDefault5">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio"
-                                    name="proyecto_Relacionado_Politica_Discapacidad" id="flexRadioDefault6" checked value="False">
-                                <label class="form-check-label" for="flexRadioDefault6">No</label>
-                            </div>
-
-                            <label for="justificacion_Politica_Discapacidad" class="form-label mt-3">Si contestó la pregunta anterior de
-                                forma afirmativa, justifique.</label>
-                            <input type="text" class="form-control form-control-sm" name="justificacion_Politica_Discapacidad" id="justificacion_Politica_Discapacidad" placeholder="">
-                            <div class="invalid-feedback">
-                            </div>
-
-                        </div>
-
-                        <!-- Botón Siguiente centrado -->
-                        <div class="d-flex justify-content-center col-12">
-                            <button type="button" id="enviar"
-                                class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
-                        </div>
-                    </form>
+        </div>
+    </form>
 </div>
+
+
 {% endblock %}
 
 {% block scripts %}

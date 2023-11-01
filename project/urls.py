@@ -29,21 +29,42 @@ urlpatterns = [
     path('logout/', views.logout_, name='logout'),
     path('register/', views.register, name='register'),
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
-    path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
-    path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
-
-    #Json
-    path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info-proponente'),
-    path('info-proyecto/<int:id_proyecto>/', views.Informacion_de_centro, name='info_proyecto'),
-    path('objetivos/<int:objetivo_proyecto_id>/', views.guardar_objetivos, name='objetivos'),
     path('continuar-sesion/', views.continuar_sesion, name='continuar_sesion'),
     path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
+
+    #Views Form
+    path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
+    path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
+    path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
+    path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
+
+    #Form
+    path('objetivos/<int:objetivo_proyecto_id>/', views.guardar_objetivos, name='objetivos'),
     path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
+
+    #Json
+    #Informacion proyecto
+    path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info_proponente'),
+    path('proyecto/info-proyecto/info-autor/<int:id_proyecto>/', views.info_autores, name='info-autores'),
+    path('proyecto/info-proyecto/info-participante/<int:id_proyecto>/', views.info_participantes, name='info-participantes'),
+    path('proyecto/info-proyecto/info-generalidades/<int:id_proyecto>/', views.info_generalidades, name='info-generalidades'),
     
+    #Esctructura de proyecto
+    path('proyecto/est-proyecto/resumen-antecedentes/<int:id_proyecto>/', views.resumen_antecedentes, name='est_proyecto'),
+    path('proyecto/est-proyecto/descripcion-problema/<int:id_proyecto>/', views.descripcion_problema, name='desc_problema'),
+
+
+    #Analisis de riesgo
+    path('proyecto/riesgos/riesgo-general/<int:id_proyecto>/', views.riesgos_obj_g_json, name='r_general'),
+    path('proyecto/riesgos/riesgo-producto/<int:id_proyecto>/', views.riesgos_p_json, name='r_producto'),
+    path('proyecto/riesgos/riesgo-actividad/<int:id_proyecto>/', views.riesgo_a_json, name='r_actividad'),
+
+
     #Editar
-    path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
+    path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
     path('editar_objetivo/<int:id_proyecto>/', views.editar_objetivo, name='editar_objetivo_proyecto'),
+
     
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
