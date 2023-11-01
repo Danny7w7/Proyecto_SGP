@@ -205,8 +205,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function sendPost1() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var region = document.getElementById("Region").value;
-    var regional = document.getElementById("Regional").value;
+    var region = document.getElementById("select_box").value; 
+    var regional = document.getElementById("select_box2").value;
     var nombre_centro_formacion = document.getElementById("Nombre_centro_formacion").value;
     var nombre_Director = document.getElementById("Nombre_Director").value;
     var email_director = document.getElementById("email_director").value;
@@ -255,9 +255,9 @@ function sendPost2() {
     console.log(id_proyecto)
     // Obtener los valores de los campos del formulario
     var nombre_autor_proyecto = document.getElementById("Nombre_Autor_Proyecto").value;
-    var tipo_vinculacion_entidad = document.getElementById("Tipo_Vinculacion_entidad").value;
+    var tipo_vinculacion_entidad = document.getElementById("select_box4").value;
     var numero_cedula_autor = document.getElementById("Numero_Cedula_Autor").value;
-    var rol_sennova_participantes_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
+    var rol_sennova_participantes_proyecto = document.getElementById("select_box5").value;
     var email_autor_proyecto = document.getElementById("Email_Autor_Proyecto").value;
     var numero_meses_vinculacion_autor = document.getElementById("Numero_meses_vinculacion_Autor").value;
     var numero_telefono_autor = document.getElementById("Numero_Telefono_Autor").value;
@@ -330,7 +330,7 @@ function sendPost3() {
     console.log(id_proyecto)
     // Obtener los valores de los campos del formulario
     var nombre_participantes_de_desarrollo = document.getElementById("Nombre_participantes_de_desarrollo").value;
-    var rol_sennova_de_participantes_de_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
+    var rol_sennova_de_participantes_de_proyecto = document.getElementById("select_box6").value;
     var numero_Cedula_participantes = document.getElementById("Numero_cedula_participantes").value;
     var numero_meses_vinculacion_participantes = document.getElementById("Numero_meses_vinculacion_participantes").value;
     var email_participantes_de_desarrollo = document.getElementById("Email_participantes_de_desarrollo").value;
@@ -373,8 +373,8 @@ function sendPost3() {
 function sendPost4() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var codigo_dependencia_presupuestal = document.getElementById("codigo_Dependencia_Presupuestal").value;
-    var tematicas_estrategias_sena = document.getElementById("tematicas_Estrategias_SENA").value;
+    var codigo_dependencia_presupuestal = document.getElementById("select_box7").value;
+    var tematicas_estrategias_sena = document.getElementById("select_box8").value;
     var link_video_proyecto = document.getElementById("link_video_proyecto").value;
     var proyecto_relacionado_industrial40 = document.getElementById("proyecto_Relacionado_Industrial40").value;
     var justificacion_industrial = document.getElementById("justificacion_Industrial").value;

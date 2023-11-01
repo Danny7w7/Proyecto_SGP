@@ -227,11 +227,4 @@ INSERT INTO `app_listas_plegables` (`id`, `codigos_grupo_investigacion`, `nombre
 (226, '', '', '', '', 'Teología', ''),
 (227, '', '', '', '', ' (Artes visuales , escénicas, turismo, gastronomía, restauración, etc)', ''),
 (228, '', '', '', '', ' (Editorial, fonográfica, audiovisual, etc)', ''),
-(229, '', '', '', '', '(medios digitales, software, apps, animación, diseño, publicidad,, joyería , moda y diseño, etc)', '');
-
-
-INSERT INTO `app_roles` (`id`, `rol`) VALUES
-(1, 'L'),
-(2, 'F'),
-(3, 'E'),
-(4, 'Admin');
+(229, '', '', '', '', '(medios digitales, software, apps, animación, diseño, publicidad,, joyería , moda y diseño, etc)', ''),

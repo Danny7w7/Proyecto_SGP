@@ -32,6 +32,21 @@ def get_or_none(model, *args, **kwargs):
         return model.objects.get(*args, **kwargs)
     except model.DoesNotExist:
         return None
+    
+def contex_form():
+    lista = Listas_plegables.objects.all()
+    codigos = lista.order_by('codigos_grupo_investigacion').values_list('codigos_grupo_investigacion', flat=True)
+    nombres = lista.order_by('nombre_grupo_investigacion').values_list('nombre_grupo_investigacion', flat=True)
+    redes = lista.order_by('redes_conocimiento').values_list('redes_conocimiento', flat=True)
+    subareas = lista.order_by('subareas_conocimiento').values_list('subareas_conocimiento', flat=True)
+    diciplinas = lista.order_by('diciplina_subarea').values_list('diciplina_subarea', flat=True)
+    nombresC = lista.order_by('nombre_centro_formacion').values_list('nombre_centro_formacion', flat=True)
+    return {'codigos':codigos,
+            'nombres':nombres,
+            'redes':redes,
+            'subareas':subareas,
+            'diciplinas':diciplinas,
+            'nombresC':nombresC}
 
 #------Formulario------
 @login_required(login_url='/login')
@@ -48,9 +63,9 @@ def crear_proyecto(request):
             return redirect('info_proyecto', id_proyecto=proyecto.id)
     else:
         form = ProyectoForm()
-        context = {'form': form,
-                   'listaPlegable':contex_form(),
-                   'percentaje':0}
+    context = {'form': form,
+                'listaPlegable':contex_form(),
+                'percentaje':0}
     return render(request, 'form/crearp.html', context)
 
 def informacion_proponente(request, id_proyecto):
@@ -58,7 +73,8 @@ def informacion_proponente(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
                'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
                'autores': Autores.objects.filter(proyecto = proyecto),
-               'percentaje':id_proyecto}
+               'percentaje':id_proyecto,
+               'listaPlegable':contex_form()}
     return render(request, 'form/infop.html', context)
     
 
@@ -109,17 +125,6 @@ def Informacion_de_centro(request, id_proyecto):
                 'proyecto':proyecto,
                 'percentaje':percentaje}
     return render(request, 'form/infop.html', context)
-def contex_form():
-    codigos = Codigos_grupo_investigacion.objects.all().order_by('codigo')
-    nombres = Nombre_grupo_investigacion.objects.all().order_by('nombre')
-    redes = Redes_conocimiento.objects.all().order_by('nombre')
-    subareas = Subareas_conocimiento.objects.all().order_by('nombre')
-    diciplinas = Diciplina_subarea.objects.all().order_by('nombre')
-    return {'codigos':codigos,
-            'nombres':nombres,
-            'redes':redes,
-            'subareas':subareas,
-            'diciplinas':diciplinas}
 
 
 #------JSON------
