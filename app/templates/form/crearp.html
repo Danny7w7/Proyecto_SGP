@@ -123,7 +123,10 @@
                                 <select name="codigo_Grupo_Investigacion" class="form-select" id="select_box">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for codigo in listaPlegable.codigos %}
-                                    <option{% if codigo.codigo == proyecto.codigo_Grupo_Investigacion %} selected{% endif %} value="{{codigo.codigo}}">{{codigo.codigo}}</option>
+                                    {% if codigo == '' %}
+                                    {% else %}
+                                    <option{% if codigo == proyecto.codigo_Grupo_Investigacion %} selected{% endif %} value="{{codigo}}">{{codigo}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -132,7 +135,10 @@
                                 <select name="nombre_Grupo_Investigacion" class="form-select" id="select_box1">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for nombre in listaPlegable.nombres %}
-                                    <option{% if nombre.nombre == proyecto.nombre_Grupo_Investigacion %} selected{% endif %} value="{{nombre.nombre}}">{{nombre.nombre}}</option>
+                                    {% if codigo == '' %}
+                                    {% else %}
+                                    <option{% if nombre == proyecto.nombre_Grupo_Investigacion %} selected{% endif %} value="{{nombre}}">{{nombre}}</option>
+                                    {% endif %}
                                     {% endfor %} 
                                 </select>
                             </div>
@@ -159,7 +165,10 @@
                                 <select name="red_Conocimiento_Sectorial" class="form-select" id="select_box3">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for red in listaPlegable.redes %}
-                                    <option{% if red.nombre == proyecto.red_Conocimiento_Sectorial %} selected{% endif %} value="{{red.nombre}}">{{red.nombre}}</option>
+                                    {% if red == '' %}
+                                    {% else %}
+                                    <option{% if red == proyecto.red_Conocimiento_Sectorial %} selected{% endif %} value="{{red}}">{{red}}</option>
+                                    {% endif %}
                                     {% endfor %} 
                                 </select>
                             </div>
@@ -175,7 +184,7 @@
                                     <option{% if proyecto.area_conocimiento == 'Cuarta revolución industrial' %} selected{%endif%} value="Cuarta revolución industrial">Cuarta revolución industrial</option>
                                     <option{% if proyecto.area_conocimiento == 'Humanidades' %} selected{%endif%} value="Humanidades">Humanidades</option>
                                     <option{% if proyecto.area_conocimiento == 'Industrias creativas' %} selected{%endif%} value="Industrias creativas">Industrias creativas</option>
-                                    <option{% if proyecto.area_conocimiento == 'Ingeniería y tecnología' %} selected{%endif%} value="Ingeniería y tecnología">Ingeniería y tecnología</option>    
+                                    <option{% if proyecto.area_conocimiento == 'Ingeniería y tecnología' %} selected{%endif%} value="Ingeniería y tecnología">Ingeniería y tecnología</option>                            
                                 </select>
                             </div>
                             <div class="col-12 col-sm-4 mb-3 p-1">
@@ -183,7 +192,10 @@
                                 <select name="subarea_conocimiento" class="form-select" id="select_box5">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for subarea in listaPlegable.subareas %}
-                                    <option{% if subarea.nombre == proyecto.subarea_conocimiento %} selected{% endif %} value="{{subarea.nombre}}">{{subarea.nombre}}</option>
+                                    {% if subarea == '' %}
+                                    {% else %}
+                                    <option{% if subarea == proyecto.subarea_conocimiento %} selected{% endif %} value="{{subarea}}">{{subarea}}</option>
+                                    {% endif %}
                                     {% endfor %} 
                                 </select>
                             </div>
@@ -195,7 +207,10 @@
                                 <select name="disciplina_subarea" class="form-select" id="select_box6">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for diciplina in listaPlegable.diciplinas %}
-                                    <option{% if diciplina.nombre == proyecto.disciplina_subarea %} selected{% endif %} value="{{diciplina.nombre}}">{{diciplina.nombre}}</option>
+                                    {% if diciplina == '' %}
+                                    {% else %}
+                                    <option{% if diciplina == proyecto.disciplina_subarea %} selected{% endif %} value="{{diciplina}}">{{diciplina}}</option>
+                                    {% endif %}
                                     {% endfor %} 
                                 </select>
                             </div>
@@ -271,6 +286,27 @@
     </script>
      <script>
         var select_box_element = document.querySelector('#select_box6');
+
+        dselect(select_box_element, {
+            search: true
+        });
+    </script>
+     <script>
+        var select_box_element = document.querySelector('#select_box7');
+
+        dselect(select_box_element, {
+            search: true
+        });
+    </script>
+     <script>
+        var select_box_element = document.querySelector('#select_box8');
+
+        dselect(select_box_element, {
+            search: true
+        });
+    </script>
+     <script>
+        var select_box_element = document.querySelector('#select_box9');
 
         dselect(select_box_element, {
             search: true
