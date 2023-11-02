@@ -165,10 +165,6 @@ def info_proponente(request, id_proyecto):
 def info_autores(request, id_proyecto):
     num_autores = Autores.objects.filter(proyecto=id_proyecto).count()
 
-    # Verifica si ya tienes 3 autores para este proyecto
-    if num_autores >= 3:
-        return JsonResponse({"error": "Ya has registrado el máximo de autores permitidos."}, status=400)
-
     proyecto = Proyecto.objects.get(id=id_proyecto)
     autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente
 
@@ -387,7 +383,6 @@ def crear_objetivo(request, objetivo_proyecto_id):
             efecto.causas = causa
             efecto.save()
 
-            # Campos adicionales
             objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
             causa2 = request.POST.get('causa2', '')
             efecto2 = request.POST.get('efecto2', '')
@@ -396,7 +391,6 @@ def crear_objetivo(request, objetivo_proyecto_id):
             causa3 = request.POST.get('causa3', '')
             efecto3 = request.POST.get('efecto3', '')
 
-            # Guardar los campos adicionales en la base de datos
             if objetivo_especificos2 and causa2 and efecto2:
                 objetivo_especifico2 = Objetivos_especificos.objects.create(
                     objetivos=objetivo,
