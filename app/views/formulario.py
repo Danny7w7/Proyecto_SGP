@@ -1,8 +1,8 @@
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.forms import Informacion_proponenteForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades
+from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm
+from app.models import  Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -350,41 +350,90 @@ def edit_proyect(request, id_proyecto):
                'percentaje':id_proyecto}
     return render(request, 'edit_form/edit_proy.html', context)
 
-def guardar_objetivos(request, objetivo_proyecto_id):
-    objetivo = get_object_or_404(Proyecto, id=objetivo_proyecto_id)
+
+def crear_objetivo(request, objetivo_proyecto_id):
     if request.method == 'POST':
-        form = ObjetivoForm(request.POST)
-        if form.is_valid():
-            objetivo_nuevo = form.save(commit=False)
-            objetivo_nuevo.objetivo_proyecto = objetivo
-            objetivo_nuevo.save()
-            print("Los objetivos se guardaron correctamente.")
-        else:
-            print(form.errors)
-            print("El formulario no es válido.")
-    else:
-        form = ObjetivoForm(initial={'objetivo': objetivo})
+        objetivo_proyecto_id = request.POST.get('objetivo_proyecto_id')
+        proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
         
-    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo, 'percentaje': 0})
+        objetivo_form = ObjetivoForm(request.POST)
+        objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
+        causa_form = CausaForm(request.POST)
+        efecto_form = EfectoForm(request.POST)
 
+        if (
+            objetivo_form.is_valid() and
+            objetivo_especifico_form.is_valid() and
+            causa_form.is_valid() and
+            efecto_form.is_valid()
+        ):
+            objetivo = objetivo_form.save(commit=False)
+            objetivo.objetivo_proyecto = proyecto
+            objetivo.save()
 
-def editar_objetivo(request, id_proyecto):
-    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
-    
-    objetivo_general = Objetivos.objects.filter(objetivo_proyecto=proyecto).first()
+            objetivo_especifico = objetivo_especifico_form.save(commit=False)
+            objetivo_especifico.objetivos = objetivo
+            objetivo_especifico.save()
 
-    if request.method == 'POST':
-        form = ObjetivoForm(request.POST, instance=objetivo_general)
-        if form.is_valid():
-            objetivo_general = form.save(commit=False)
-            objetivo_general.objetivo_proyecto = proyecto
-            objetivo_general.save()
-            print("El objetivo se actualizó correctamente.")
-            return redirect('index')
+            causa = causa_form.save(commit=False)
+            causa.obejetivo_especifico = objetivo_especifico
+            causa.save()
+            
+            efecto = efecto_form.save(commit=False)
+            efecto.causas = causa
+            efecto.save()
+
+            objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
+            causa2 = request.POST.get('causa2', '')
+            efecto2 = request.POST.get('efecto2', '')
+
+            objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
+            causa3 = request.POST.get('causa3', '')
+            efecto3 = request.POST.get('efecto3', '')
+
+            if objetivo_especificos2 and causa2 and efecto2:
+                objetivo_especifico2 = Objetivos_especificos.objects.create(
+                    objetivos=objetivo,
+                    objetivo_especificos=objetivo_especificos2,
+                )
+                causa2 = Causa.objects.create(
+                    obejetivo_especifico=objetivo_especifico2,
+                    causa=causa2,
+                )
+                efecto2 = Efecto.objects.create(
+                    causas=causa2,
+                    efecto=efecto2,
+                )
+
+            if objetivo_especificos3 and causa3 and efecto3:
+                objetivo_especifico3 = Objetivos_especificos.objects.create(
+                    objetivos=objetivo,
+                    objetivo_especificos=objetivo_especificos3,
+                )
+                causa3 = Causa.objects.create(
+                    obejetivo_especifico=objetivo_especifico3,
+                    causa=causa3,
+                )
+                efecto3 = Efecto.objects.create(
+                    causas=causa3,
+                    efecto=efecto3,
+                )
+
     else:
-        form = ObjetivoForm(instance=objetivo_general)
-
-    return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general})
+        objetivo_form = ObjetivoForm()
+        objetivo_especifico_form = ObjetivoEspecificoForm()
+        causa_form = CausaForm()
+        efecto_form = EfectoForm()
+        
+    contex = {
+        'objetivo_form': objetivo_form,
+        'objetivo_especifico_form': objetivo_especifico_form,
+        'causa_form': causa_form,
+        'efecto_form': efecto_form,
+        'objetivo_proyecto': objetivo_proyecto_id,
+        'percentaje': 0
+    }
+    return render(request, 'form/objetivos.html', contex)
 
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
@@ -438,4 +487,6 @@ def editar_anexo(request, proyecto_id):
 
     form = DocumentForm()
     return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
+
+    
 
