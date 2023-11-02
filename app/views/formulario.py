@@ -2,7 +2,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos
+from app.models import  Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -358,7 +358,6 @@ def edit_proyect(request, id_proyecto):
 def crear_objetivo(request, objetivo_proyecto_id):
     if request.method == 'POST':
         objetivo_proyecto_id = request.POST.get('objetivo_proyecto_id')
-        print(objetivo_proyecto_id)
         proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
         
         objetivo_form = ObjetivoForm(request.POST)
@@ -388,20 +387,59 @@ def crear_objetivo(request, objetivo_proyecto_id):
             efecto.causas = causa
             efecto.save()
 
+            # Campos adicionales
+            objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
+            causa2 = request.POST.get('causa2', '')
+            efecto2 = request.POST.get('efecto2', '')
+
+            objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
+            causa3 = request.POST.get('causa3', '')
+            efecto3 = request.POST.get('efecto3', '')
+
+            # Guardar los campos adicionales en la base de datos
+            if objetivo_especificos2 and causa2 and efecto2:
+                objetivo_especifico2 = Objetivos_especificos.objects.create(
+                    objetivos=objetivo,
+                    objetivo_especificos=objetivo_especificos2,
+                )
+                causa2 = Causa.objects.create(
+                    obejetivo_especifico=objetivo_especifico2,
+                    causa=causa2,
+                )
+                efecto2 = Efecto.objects.create(
+                    causas=causa2,
+                    efecto=efecto2,
+                )
+
+            if objetivo_especificos3 and causa3 and efecto3:
+                objetivo_especifico3 = Objetivos_especificos.objects.create(
+                    objetivos=objetivo,
+                    objetivo_especificos=objetivo_especificos3,
+                )
+                causa3 = Causa.objects.create(
+                    obejetivo_especifico=objetivo_especifico3,
+                    causa=causa3,
+                )
+                efecto3 = Efecto.objects.create(
+                    causas=causa3,
+                    efecto=efecto3,
+                )
+
     else:
         objetivo_form = ObjetivoForm()
         objetivo_especifico_form = ObjetivoEspecificoForm()
         causa_form = CausaForm()
         efecto_form = EfectoForm()
-
-    return render(request, 'form/objetivos.html', {
+        
+    contex = {
         'objetivo_form': objetivo_form,
         'objetivo_especifico_form': objetivo_especifico_form,
         'causa_form': causa_form,
         'efecto_form': efecto_form,
-        'objetivo_proyecto':objetivo_proyecto_id,
-        'percentaje':0
-    })
+        'objetivo_proyecto': objetivo_proyecto_id,
+        'percentaje': 0
+    }
+    return render(request, 'form/objetivos.html', contex)
 
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
