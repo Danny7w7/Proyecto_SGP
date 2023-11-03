@@ -50,6 +50,7 @@ urlpatterns = [
     path('proyecto/info-proyecto/info-autor/<int:id_proyecto>/', views.info_autores, name='info-autores'),
     path('proyecto/info-proyecto/info-participante/<int:id_proyecto>/', views.info_participantes, name='info-participantes'),
     path('proyecto/info-proyecto/info-generalidades/<int:id_proyecto>/', views.info_generalidades, name='info-generalidades'),
+    path('proyecto/info-proyecto/entidad_aliada/<int:id_proyecto>/', views.entidad_aliada, name='entidad_aliada'),
     path('proyecto/info-proyecto/centro_formacion/<int:id_proyecto>/', views.centro_formacion, name='centro_formacion'),
     
     #Esctructura de proyecto

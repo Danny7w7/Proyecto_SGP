@@ -50,7 +50,7 @@ def crear_proyecto(request):
         form = ProyectoForm()
         context = {'form': form,
                    'listaPlegable':contex_form(),
-                   'percentaje':0}
+                   'percentaje': 0}
     return render(request, 'form/crearp.html', context)
 
 def informacion_proponente(request, id_proyecto):
@@ -330,35 +330,75 @@ def descripcion_problema(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-    
+
+    #Vista de  centro y entidad aliada 
+# def centro(request, id_proyecto):
+#     proyecto = get_or_none(Proyecto, id=id_proyecto)
+#     centro_f = get_or_none(Centro_de_formacion, proyecto=id_proyecto)
+#     entidad_a = get_or_none(Entidades_aliadas, proyecto=id_proyecto)
+#     context = {'proyecto': proyecto,
+#                'centro_f': centro_f,
+#                'entidad_a': entidad_a,
+#                'percentaje': 0}
+#     return render(request, 'form/partp.html', context)
 def centro(request, id_proyecto):
     proyecto = get_or_none(Proyecto, id=id_proyecto)
-    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'centro_de_formacion':Centro_de_formacion.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
-               'proyecto_centro': Centro_de_formacion.objects.filter(proyecto = proyecto),
-               'percentaje':id_proyecto}
+    context = {
+        'proyecto':get_or_none(Proyecto, id=id_proyecto),
+        'entidad_a':Entidades_aliadas.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+        'centro_f':Centro_de_formacion.objects.filter(proyecto = proyecto),
+        'percentaje': id_proyecto
+    }
     return render(request, 'form/partp.html', context)
     
 
-def centro_formacion(request, id_proyecto):
+def entidad_aliada(request, id_proyecto):
     try:
         centro = Entidades_aliadas.objects.get(proyecto_id=id_proyecto)
-    except Entidades_aliadas.DoesNotExist:
+    except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
-        centro = Entidades_aliadas(proyecto=proyecto)
+        centro = Entidades_aliadas.objects.create(proyecto=proyecto)
    
     model = Entidades_aliadas
-    column_names = [field.name for field in model._meta.fields if field.name not in ('id', 'proyecto')]
+    column_names = [field.name for field in model._meta.fields]
 
     for name in column_names:
-        setattr(centro, name, request.POST.get(name, None))
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(centro, name, request.POST.get(name))
 
     try:
         centro.save()
-        print("Guardado exitosamente")
+        # print("Guardado exitosamente")
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+
+def centro_formacion(request, id_proyecto):
+    try:
+        centro_f = Centro_de_formacion.objects.get(proyecto_id=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        centro_f = Centro_de_formacion.objects.create(proyecto=proyecto)
+   
+    model = Centro_de_formacion
+    column_names = [field.name for field in model._meta.fields]
+
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(centro_f, name, request.POST.get(name))
+
+    try:
+        centro_f.save()
+        # print("Guardado exitosamente")
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+    
 
 # ---FIN YEISON ---
   
@@ -398,7 +438,7 @@ def guardar_objetivos(request, objetivo_proyecto_id):
     else:
         form = ObjetivoForm(initial={'objetivo': objetivo})
         
-    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo})
+    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo , 'percentaje': 0})
 
 
 def editar_objetivo(request, id_proyecto):
@@ -417,7 +457,7 @@ def editar_objetivo(request, id_proyecto):
     else:
         form = ObjetivoForm(instance=objetivo_general)
 
-    return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general})
+    return render(request, 'edit_form/edit_objet.html', {'form': form, 'proyecto': proyecto, 'objetivo_general': objetivo_general })
 
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)

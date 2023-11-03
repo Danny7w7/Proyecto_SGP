@@ -120,22 +120,22 @@ class Actividades_de_objetivos_especificos(models.Model):
 
 # Analisis de participantes
 class Centro_de_formacion(models.Model):
-    Nombre_Semillero_Investigacion_Beneficiados = models.CharField(null=True, max_length=100)
-    Numero_Programas_Beneficiarios_Semilleros_Investigacion = models.IntegerField(null=True)
-    Tipo_programas_formación_beneficiados_conforman_semillero = models.CharField(null=True, max_length=100)
-    Nombre_programas_formación_beneficiados_semillero = models.CharField(null=True, max_length=100)
-    Tipo_programas_de_formación_beneficiados_por_ejecución = models.CharField(null=True, max_length=100)
-    Nombre_programas_formación_beneficiados_ejecución_proyecto = models.CharField(null=True, max_length=100)
-    Número_aprendices_participarán_ejecución_proyecto = models.IntegerField(null=True)
-    Número_municipios_beneficiados = models.IntegerField(null=True)
-    Nombre_municipios_beneficiados_descripción_beneficio = models.CharField(null=True, max_length=200)
+    nombre_semillero_investigacion_beneficiados = models.CharField(null=True, max_length=100)
+    numero_programas_beneficiarios_semilleros_investigacion = models.IntegerField(null=True)
+    tipo_programas_formacion_beneficiados_conforman_semillero = models.CharField(null=True, max_length=100)
+    nombre_programas_formacion_beneficiados_semillero = models.CharField(null=True, max_length=100)
+    tipo_programas_de_formacion_beneficiados_por_ejecucion = models.CharField(null=True, max_length=100)
+    nombre_programas_formacion_beneficiados_ejecucion_proyecto = models.CharField(null=True, max_length=100)
+    numero_aprendices_participaran_ejecucion_proyecto = models.IntegerField(null=True)
+    numero_municipios_beneficiados = models.IntegerField(null=True)
+    nombre_municipios_beneficiados_descripcion_beneficio = models.CharField(null=True, max_length=200)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 class Entidades_aliadas(models.Model):
     nombre_entidad = models.CharField(max_length=170, null=True)
     tipo_entidad_aliada = models.CharField(max_length=50, null=True)
     naturaleza_entidad = models.CharField(max_length=50, null=True)
-    clasificiacion_empresa = models.CharField(max_length=50, null=True)
+    clasificacion_empresa = models.CharField(max_length=50, null=True)
     nit = models.BigIntegerField(null=True)
     convenio = models.BooleanField(null=True)
     especifique_tipo_codigo_convenio = models.CharField(max_length=150, null=True)
