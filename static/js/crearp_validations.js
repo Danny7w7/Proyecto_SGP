@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "titulo_Proyecto": {
-            pattern: /^[A-Za-z0-9 ,.]{5,100}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,100}$/u,                  
             errorMsg: 'El título no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "descripcion": {
-            pattern: /^[A-Za-z0-9 ,.]{5,100}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,100}$/u,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         }
 

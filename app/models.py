@@ -104,19 +104,26 @@ class Descripcion_problema(models.Model):
 
 # Objetivos
 class Objetivos(models.Model):
-    objetivo_general = models.CharField(max_length=250, null=False)
+    objetivo_general = models.CharField(max_length=250, null=True)
     objetivo_proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
 
 # Metodologia
 class Objetivos_especificos(models.Model):
-    objetivo_especificos = models.CharField(max_length=250, null=False)
+    objetivo_especificos = models.CharField(max_length=250, null=True)
     objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
 class Actividades_de_objetivos_especificos(models.Model):
     actividades_obj_especificos = models.CharField(max_length=250, null=False)
-    objetivos_especificos = models.ForeignKey(Objetivos_especificos, on_delete=models.CASCADE)
+    objetivos_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
 
+class Causa(models.Model):
+    causa = models.CharField(max_length=200, null=True)
+    obejetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+    
+class Efecto(models.Model):
+    efecto = models.CharField(max_length=200, null=True)
+    causas = models.OneToOneField(Causa, on_delete=models.CASCADE)
 
 # Analisis de participantes
 class Centro_de_formacion(models.Model):
@@ -198,30 +205,6 @@ class RiesgoProductos(BaseRiesgo):
 class RiesgoActividades(BaseRiesgo):
     pass
 
-
-
-# Listas plegable
-class Codigos_grupo_investigacion(models.Model):
-    codigo = models.CharField(max_length=10)
-
-class Nombre_grupo_investigacion(models.Model):
-    nombre = models.CharField(max_length=200)
-
-class Redes_conocimiento(models.Model):
-    nombre = models.CharField(max_length=200)
-
-class Subareas_conocimiento(models.Model):
-    nombre = models.CharField(max_length=200)
-
-class Diciplina_subarea(models.Model):
-    nombre = models.CharField(max_length=200)
-    
-    
-class UltimaVista(models.Model):
-    usuario = models.OneToOneField(Usuarios, on_delete=models.CASCADE)
-    ultima_vista = models.CharField(max_length=255, null=True)
-
-
 class Document(models.Model):
     anexo1 = models.ImageField(upload_to="", null=True)
     anexo2 = models.ImageField(upload_to="", null=True)
@@ -231,3 +214,18 @@ class Document(models.Model):
     anexo6 = models.ImageField(upload_to="", null=True)
     fecha = models.DateTimeField(auto_now=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
+
+
+# Listas plegable
+class Listas_plegables(models.Model):
+    codigos_grupo_investigacion = models.CharField(max_length=10, null=True)
+    nombre_grupo_investigacion = models.CharField(max_length=200, null=True)
+    redes_conocimiento = models.CharField(max_length=200, null=True)
+    subareas_conocimiento = models.CharField(max_length=200, null=True)
+    diciplina_subarea = models.CharField(max_length=200, null=True)
+    nombre_centro_formacion = models.CharField(max_length=200, null=True)
+    
+#Middleware
+class UltimaVista(models.Model):
+    usuario = models.OneToOneField(Usuarios, on_delete=models.CASCADE)
+    ultima_vista = models.CharField(max_length=255, null=True)

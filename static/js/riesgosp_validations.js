@@ -5,45 +5,45 @@ document.addEventListener("DOMContentLoaded", function() {
         //Riesgos nivel objetivo general
        "form1": {
         "descripcion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
        // Riesgos nivel producto
        "form2":{
         "descripcion2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
     //Riesgos nivel actividades
        "form3":{
         "descripcion3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,150}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },

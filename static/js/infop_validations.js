@@ -4,11 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
         //Validacion info proponente
        "form1": {
         "Nombre_Director": {
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "email_director": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_Director": {
@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
         },
         "Nombre_Sub_Director": {
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "email_sub_director": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_Sub_Director": {
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
        // Validacion autor
        "form2":{
         "Nombre_Autor_Proyecto": {
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "Numero_Cedula_Autor": {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El número de documento no es válido. Debe tener digitos númericos',
         },
         "Email_Autor_Proyecto": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_meses_vinculacion_Autor": {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //    //Validacion participantes
        "form3":{
         "Nombre_participantes_de_desarrollo":{
-            pattern: /^[A-Za-z ]{5,50}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
             errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios',
         }, 
         "Numero_cedula_participantes": {
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El número no es válido. Debe tener digitos númericos',
         },
         "Email_participantes_de_desarrollo": {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_horas_Semanales_dedicadas_participantes": {
@@ -88,15 +88,15 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El link no es válido.',
         },
         "justificacion_Economia_Naranja":{
-            pattern: /^[A-Za-z ]{5,500}$/,
+            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
             errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
         }, 
         "justificacion_Politica_Discapacidad":{
-            pattern: /^[A-Za-z ]{5,500}$/,
+            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
             errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
         }, 
         "justificacion_Industrial":{
-            pattern: /^[A-Za-z ]{5,500}$/,
+            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
             errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
         }, 
        }
@@ -146,6 +146,21 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleFormSubmit(event, formKey) {
         let isValid = true;
         
+                        // Verifica cuántas filas hay en la tabla (autores registrados)
+                var numRows = document.querySelectorAll('.table tbody tr').length;
+
+                // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
+                if (formKey === 'form2' && numRows > 3) {
+                    Swal.fire({
+                        title: 'Advertencia',
+                        text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
+                        icon: 'warning',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    event.preventDefault(); // Detener el envío del formulario
+                    return;
+                }
+
         for (let fieldId in allValidations[formKey]) {
             const inputField = document.getElementById(fieldId);
                 
@@ -205,8 +220,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function sendPost1() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var region = document.getElementById("Region").value;
-    var regional = document.getElementById("Regional").value;
+    var region = document.getElementById("select_box").value; 
+    var regional = document.getElementById("select_box2").value;
     var nombre_centro_formacion = document.getElementById("Nombre_centro_formacion").value;
     var nombre_Director = document.getElementById("Nombre_Director").value;
     var email_director = document.getElementById("email_director").value;
@@ -253,11 +268,26 @@ function sendPost1() {
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     console.log(id_proyecto)
+
+        // // Verifica cuántas filas hay en la tabla (autores registrados)
+        // var numRows = document.querySelectorAll('.table tbody tr').length;
+
+        // // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
+        // if (numRows >= 3) {
+        //     Swal.fire({
+        //         title: 'Advertencia',
+        //         text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
+        //         icon: 'warning',
+        //         confirmButtonText: 'Aceptar'
+        //     });
+        //     return;
+        // }
+
     // Obtener los valores de los campos del formulario
     var nombre_autor_proyecto = document.getElementById("Nombre_Autor_Proyecto").value;
-    var tipo_vinculacion_entidad = document.getElementById("Tipo_Vinculacion_entidad").value;
+    var tipo_vinculacion_entidad = document.getElementById("select_box4").value;
     var numero_cedula_autor = document.getElementById("Numero_Cedula_Autor").value;
-    var rol_sennova_participantes_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
+    var rol_sennova_participantes_proyecto = document.getElementById("select_box5").value;
     var email_autor_proyecto = document.getElementById("Email_Autor_Proyecto").value;
     var numero_meses_vinculacion_autor = document.getElementById("Numero_meses_vinculacion_Autor").value;
     var numero_telefono_autor = document.getElementById("Numero_Telefono_Autor").value;
@@ -330,7 +360,7 @@ function sendPost3() {
     console.log(id_proyecto)
     // Obtener los valores de los campos del formulario
     var nombre_participantes_de_desarrollo = document.getElementById("Nombre_participantes_de_desarrollo").value;
-    var rol_sennova_de_participantes_de_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
+    var rol_sennova_de_participantes_de_proyecto = document.getElementById("select_box6").value;
     var numero_Cedula_participantes = document.getElementById("Numero_cedula_participantes").value;
     var numero_meses_vinculacion_participantes = document.getElementById("Numero_meses_vinculacion_participantes").value;
     var email_participantes_de_desarrollo = document.getElementById("Email_participantes_de_desarrollo").value;
@@ -373,8 +403,8 @@ function sendPost3() {
 function sendPost4() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var codigo_dependencia_presupuestal = document.getElementById("codigo_Dependencia_Presupuestal").value;
-    var tematicas_estrategias_sena = document.getElementById("tematicas_Estrategias_SENA").value;
+    var codigo_dependencia_presupuestal = document.getElementById("select_box7").value;
+    var tematicas_estrategias_sena = document.getElementById("select_box8").value;
     var link_video_proyecto = document.getElementById("link_video_proyecto").value;
     var proyecto_relacionado_industrial40 = document.getElementById("proyecto_Relacionado_Industrial40").value;
     var justificacion_industrial = document.getElementById("justificacion_Industrial").value;

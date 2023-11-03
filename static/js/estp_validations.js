@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "resumen_ejecutivo": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,250}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
         },
         "antecedentes": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,250}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
         },
        },
@@ -17,11 +17,11 @@ document.addEventListener("DOMContentLoaded", function() {
     //Descripcion del problema
        "form2":{
         "identificacion_y_descripcion_problema": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,250}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
         },
         "justificacion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—]{5,250}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
         },
        },
