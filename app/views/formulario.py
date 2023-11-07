@@ -86,316 +86,6 @@ def estructura_proyecto(request, id_proyecto):
                'resumen':get_or_none(Resumen_antecedentes),
                'percentaje':id_proyecto}
     return render(request, 'form/estp.html', context)
-  
-  
-def riesgo_general(request, id_proyecto):
-    proyecto = get_or_none(Proyecto, id=id_proyecto)
-    
-    riesgos_g = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
-    riesgos_p = get_or_none(RiesgoProductos, proyecto=id_proyecto)
-    riesgos_a = get_or_none(RiesgoActividades, proyecto=id_proyecto)
-    
-    context = {
-        'proyecto': proyecto,
-        'riesgos_g': riesgos_g,
-        'riesgos_p': riesgos_p,
-        'riesgos_a': riesgos_a
-    }
-    
-    return render(request, 'form/riesgosp.html', context)
-
-
-def Informacion_de_centro(request, id_proyecto):
-    if not own_user(request.user, id_proyecto):
-        return redirect(index)
-    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
-    if request.method == 'POST':
-        form = Informacion_proponenteForm(request.POST)
-        if form.is_valid():
-            informacion_centro = form.save(commit=False)   
-            informacion_centro.proyecto = proyecto
-            informacion_centro.save()
-            proyecto.progress += 9
-            proyecto.save()
-            print("Información del centro guardada correctamente.")
-        else:
-            print(form.errors)
-            print("El formulario no es válido.")
-
-    form = Informacion_proponenteForm(initial={'proyecto': proyecto})
-    percentaje = progress_bar(id_proyecto)
-    context = {'form':form,
-                'proyecto':proyecto,
-                'percentaje':percentaje}
-    return render(request, 'form/infop.html', context)
-
-
-#------JSON------
-def info_proponente(request, id_proyecto):
-    try:
-        informacion_proponente = Informacion_proponente.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        informacion_proponente = Informacion_proponente.objects.create(proyecto=proyecto)
-    model = Informacion_proponente
-    column_names = [field.name for field in model._meta.fields]
-    
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        setattr(informacion_proponente, name, request.POST.get(name))
-    try:
-        informacion_proponente.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-    
-def info_autores(request, id_proyecto):
-    num_autores = Autores.objects.filter(proyecto=id_proyecto).count()
-
-    proyecto = Proyecto.objects.get(id=id_proyecto)
-    autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente
-
-    model = Autores
-    column_names = [field.name for field in model._meta.fields]
-    
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        
-        setattr(autores, name, request.POST.get(name))
-    try:
-        autores.save()
-        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_autor": {
-            "nombre_Autor_Proyecto": autores.nombre_Autor_Proyecto,
-            "tipo_Vinculacion_entidad": autores.tipo_Vinculacion_entidad,
-            "numero_Cedula_Autor": autores.numero_Cedula_Autor,
-            "rol_Sennova_De_Participantes_de_Proyecto": autores.rol_Sennova_De_Participantes_de_Proyecto,
-            "email_Autor_Proyecto": autores.email_Autor_Proyecto,
-            "numero_Telefono_Autor": autores.numero_Telefono_Autor
-        }})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-
-
-def info_participantes(request, id_proyecto):
-    try:
-        participantes = Participantes_Proyecto.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        participantes = Participantes_Proyecto.objects.create(proyecto=proyecto)
-       
-    model = Participantes_Proyecto
-    column_names = [field.name for field in model._meta.fields]
-    
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        
-        setattr(participantes, name, request.POST.get(name))
-    try:
-        participantes.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-
-def info_generalidades(request, id_proyecto):
-    try:
-        generalidades = Generalidades_del_proyecto.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        generalidades = Generalidades_del_proyecto.objects.create(proyecto=proyecto)
-       
-    model = Generalidades_del_proyecto
-    column_names = [field.name for field in model._meta.fields]
-    
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        
-        setattr(generalidades, name, request.POST.get(name))
-    try:
-        generalidades.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-    
-
-
-
-
-
-
-def riesgos_obj_g_json(request, id_proyecto):
-    try:
-        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.create(proyecto=proyecto)
-    model = RiesgoObjetivoGeneral
-    column_names = [field.name for field in model._meta.fields]
-    
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        setattr(riesgos_obj_g_json, name, request.POST.get(name))
-    try:
-        riesgos_obj_g_json.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-def riesgos_p_json(request, id_proyecto):
-    try:
-        riesgos_p_json = RiesgoProductos.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        riesgos_p_json = RiesgoProductos.objects.create(proyecto=proyecto)
-    model = RiesgoProductos
-    column_names = [field.name for field in model._meta.fields]
-    
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        setattr(riesgos_p_json, name, request.POST.get(name))
-    try:
-        riesgos_p_json.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-def riesgo_a_json(request, id_proyecto):
-    try:
-        riesgo_a_json = RiesgoActividades.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        riesgo_a_json = RiesgoActividades.objects.create(proyecto=proyecto)
-    model = RiesgoActividades
-    column_names = [field.name for field in model._meta.fields]
-    
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        setattr(riesgo_a_json, name, request.POST.get(name))
-    try:
-        riesgo_a_json.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-def resumen_antecedentes(request, id_proyecto):
-    try:
-        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
-    resumen.resumen_ejecutivo = request.POST['Resumen_ejecutivo']
-    resumen.antecedentes = request.POST['Antecedentes']
-    try:
-        resumen.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-    
-def descripcion_problema(request, id_proyecto):
-    try:
-        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
-    print('Prueba esta mierda mamaguevo')
-    descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
-    descripcion.justificacion = request.POST['Justificacion']
-    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
-    try:
-        descripcion.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-def centro(request, id_proyecto):
-    proyecto = get_or_none(Proyecto, id=id_proyecto)
-    context = {
-        'proyecto':get_or_none(Proyecto, id=id_proyecto),
-        'entidad_a':Entidades_aliadas.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
-        'centro_f':Centro_de_formacion.objects.filter(proyecto = proyecto),
-        'percentaje': id_proyecto
-    }
-    return render(request, 'form/partp.html', context)
-    
-
-def entidad_aliada(request, id_proyecto):
-    try:
-        centro = Entidades_aliadas.objects.get(proyecto_id=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        centro = Entidades_aliadas.objects.create(proyecto=proyecto)
-   
-    model = Entidades_aliadas
-    column_names = [field.name for field in model._meta.fields]
-
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        
-        setattr(centro, name, request.POST.get(name))
-
-    try:
-        centro.save()
-        # print("Guardado exitosamente")
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-def centro_formacion(request, id_proyecto):
-    try:
-        centro_f = Centro_de_formacion.objects.get(proyecto_id=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        centro_f = Centro_de_formacion.objects.create(proyecto=proyecto)
-   
-    model = Centro_de_formacion
-    column_names = [field.name for field in model._meta.fields]
-
-    for name in column_names:
-        if name == 'id' or name == 'proyecto':
-            continue
-        
-        setattr(centro_f, name, request.POST.get(name))
-
-    try:
-        centro_f.save()
-        # print("Guardado exitosamente")
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-    
-    
-
-# ---FIN YEISON ---
-  
-#------Editar proyecto------
-def edit_proyect(request, id_proyecto):
-    user = request.user
-    proyecto = Proyecto.objects.filter(id=id_proyecto).first()
-    if not own_user(user, proyecto.id):
-        return redirect(index)
-    if request.method == 'POST':
-        model = Proyecto
-        column_names = [field.name for field in model._meta.fields]
-        
-        for name in column_names:
-            if name == 'id' or name == 'usuario':
-                continue
-            setattr(proyecto, name, request.POST.get(name))
-        proyecto.save()
-
-    context = {'proyecto':user.proyecto_set.first(),
-               'listaPlegable':contex_form(),
-               'percentaje':id_proyecto}
-    return render(request, 'edit_form/edit_proy.html', context)
 
 
 def crear_objetivo(request, objetivo_proyecto_id):
@@ -477,24 +167,62 @@ def crear_objetivo(request, objetivo_proyecto_id):
         'causa_form': causa_form,
         'efecto_form': efecto_form,
         'objetivo_proyecto': objetivo_proyecto_id,
-        'percentaje': 0
+        'percentaje': 1
     }
     return render(request, 'form/objetivos.html', contex)
 
-def proyectos_usuario(request):
-    proyectos = Proyecto.objects.filter(usuario=request.user)
-    if request:
-        return render(request, 'proyectos.html', {'proyectos': proyectos})
-    else:
-         return redirect('continuar_sesion')
+
+def participantes(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    context = {
+        'proyecto':get_or_none(Proyecto, id=id_proyecto),
+        'entidad_a':Entidades_aliadas.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+        'centro_f':Centro_de_formacion.objects.filter(proyecto = proyecto),
+        'percentaje': id_proyecto
+    }
+    return render(request, 'form/partp.html', context)
+  
+  
+def riesgo_general(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    
+    riesgos_g = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
+    riesgos_p = get_or_none(RiesgoProductos, proyecto=id_proyecto)
+    riesgos_a = get_or_none(RiesgoActividades, proyecto=id_proyecto)
+    
+    context = {
+        'proyecto': proyecto,
+        'riesgos_g': riesgos_g,
+        'riesgos_p': riesgos_p,
+        'riesgos_a': riesgos_a
+    }
+    
+    return render(request, 'form/riesgosp.html', context)
 
 
-def continuar_sesion(request):
-    if request.user.is_authenticated:
-        ultima_vista = UltimaVista.objects.filter(usuario=request.user).first()
-        if ultima_vista:
-            return redirect(ultima_vista.ultima_vista)
-    return redirect(proyectos_usuario)
+def Informacion_de_centro(request, id_proyecto):
+    if not own_user(request.user, id_proyecto):
+        return redirect(index)
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    if request.method == 'POST':
+        form = Informacion_proponenteForm(request.POST)
+        if form.is_valid():
+            informacion_centro = form.save(commit=False)   
+            informacion_centro.proyecto = proyecto
+            informacion_centro.save()
+            proyecto.progress += 9
+            proyecto.save()
+            print("Información del centro guardada correctamente.")
+        else:
+            print(form.errors)
+            print("El formulario no es válido.")
+
+    form = Informacion_proponenteForm(initial={'proyecto': proyecto})
+    percentaje = progress_bar(id_proyecto)
+    context = {'form':form,
+                'proyecto':proyecto,
+                'percentaje':percentaje}
+    return render(request, 'form/infop.html', context)
 
 
 def subir_anexos(request, proyecto_id):
@@ -511,6 +239,260 @@ def subir_anexos(request, proyecto_id):
               'proyecto':proyecto,
             'percentaje':proyecto_id}
     return render(request, "form/anexos.html", contex)
+
+
+
+#------JSON------
+def info_proponente(request, id_proyecto):
+    try:
+        informacion_proponente = Informacion_proponente.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        informacion_proponente = Informacion_proponente.objects.create(proyecto=proyecto)
+    model = Informacion_proponente
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(informacion_proponente, name, request.POST.get(name))
+    try:
+        informacion_proponente.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def info_autores(request, id_proyecto):
+    num_autores = Autores.objects.filter(proyecto=id_proyecto).count()
+
+    proyecto = Proyecto.objects.get(id=id_proyecto)
+    autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente
+
+    model = Autores
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(autores, name, request.POST.get(name))
+    try:
+        autores.save()
+        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_autor": {
+            "nombre_Autor_Proyecto": autores.nombre_Autor_Proyecto,
+            "tipo_Vinculacion_entidad": autores.tipo_Vinculacion_entidad,
+            "numero_Cedula_Autor": autores.numero_Cedula_Autor,
+            "rol_Sennova_De_Participantes_de_Proyecto": autores.rol_Sennova_De_Participantes_de_Proyecto,
+            "email_Autor_Proyecto": autores.email_Autor_Proyecto,
+            "numero_Telefono_Autor": autores.numero_Telefono_Autor
+        }})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def info_participantes(request, id_proyecto):
+    try:
+        participantes = Participantes_Proyecto.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        participantes = Participantes_Proyecto.objects.create(proyecto=proyecto)
+       
+    model = Participantes_Proyecto
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(participantes, name, request.POST.get(name))
+    try:
+        participantes.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def info_generalidades(request, id_proyecto):
+    try:
+        generalidades = Generalidades_del_proyecto.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        generalidades = Generalidades_del_proyecto.objects.create(proyecto=proyecto)
+       
+    model = Generalidades_del_proyecto
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(generalidades, name, request.POST.get(name))
+    try:
+        generalidades.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def riesgos_obj_g_json(request, id_proyecto):
+    try:
+        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgos_obj_g_json = RiesgoObjetivoGeneral.objects.create(proyecto=proyecto)
+    model = RiesgoObjetivoGeneral
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgos_obj_g_json, name, request.POST.get(name))
+    try:
+        riesgos_obj_g_json.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def riesgos_p_json(request, id_proyecto):
+    try:
+        riesgos_p_json = RiesgoProductos.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgos_p_json = RiesgoProductos.objects.create(proyecto=proyecto)
+    model = RiesgoProductos
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgos_p_json, name, request.POST.get(name))
+    try:
+        riesgos_p_json.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def riesgo_a_json(request, id_proyecto):
+    try:
+        riesgo_a_json = RiesgoActividades.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        riesgo_a_json = RiesgoActividades.objects.create(proyecto=proyecto)
+    model = RiesgoActividades
+    column_names = [field.name for field in model._meta.fields]
+    
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        setattr(riesgo_a_json, name, request.POST.get(name))
+    try:
+        riesgo_a_json.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def resumen_antecedentes(request, id_proyecto):
+    try:
+        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
+    resumen.resumen_ejecutivo = request.POST['Resumen_ejecutivo']
+    resumen.antecedentes = request.POST['Antecedentes']
+    try:
+        resumen.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def descripcion_problema(request, id_proyecto):
+    try:
+        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
+    descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
+    descripcion.justificacion = request.POST['Justificacion']
+    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
+    try:
+        descripcion.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+
+def entidad_aliada(request, id_proyecto):
+    try:
+        centro = Entidades_aliadas.objects.get(proyecto_id=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        centro = Entidades_aliadas.objects.create(proyecto=proyecto)
+   
+    model = Entidades_aliadas
+    column_names = [field.name for field in model._meta.fields]
+
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(centro, name, request.POST.get(name))
+
+    try:
+        centro.save()
+        # print("Guardado exitosamente")
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+def centro_formacion(request, id_proyecto):
+    try:
+        centro_f = Centro_de_formacion.objects.get(proyecto_id=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        centro_f = Centro_de_formacion.objects.create(proyecto=proyecto)
+   
+    model = Centro_de_formacion
+    column_names = [field.name for field in model._meta.fields]
+
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(centro_f, name, request.POST.get(name))
+
+    try:
+        centro_f.save()
+        # print("Guardado exitosamente")
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+# ---FIN YEISON ---
+  
+
+#------Editar proyecto------
+def edit_proyect(request, id_proyecto):
+    user = request.user
+    proyecto = Proyecto.objects.filter(id=id_proyecto).first()
+    if not own_user(user, proyecto.id):
+        return redirect(index)
+    if request.method == 'POST':
+        model = Proyecto
+        column_names = [field.name for field in model._meta.fields]
+        
+        for name in column_names:
+            if name == 'id' or name == 'usuario':
+                continue
+            setattr(proyecto, name, request.POST.get(name))
+        proyecto.save()
+
+    context = {'proyecto':user.proyecto_set.first(),
+               'listaPlegable':contex_form(),
+               'percentaje':id_proyecto}
+    return render(request, 'edit_form/edit_proy.html', context)
 
 
 def editar_anexo(request, proyecto_id):
@@ -534,5 +516,19 @@ def editar_anexo(request, proyecto_id):
     form = DocumentForm()
     return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
 
-    
+
+def proyectos_usuario(request):
+    proyectos = Proyecto.objects.filter(usuario=request.user)
+    if request:
+        return render(request, 'proyectos.html', {'proyectos': proyectos})
+    else:
+         return redirect('continuar_sesion')
+
+
+def continuar_sesion(request):
+    if request.user.is_authenticated:
+        ultima_vista = UltimaVista.objects.filter(usuario=request.user).first()
+        if ultima_vista:
+            return redirect(ultima_vista.ultima_vista)
+    return redirect(proyectos_usuario)
 

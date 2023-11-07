@@ -37,7 +37,7 @@ urlpatterns = [
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
     path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
     path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
-    path('informacion_centro/<int:id_proyecto>/',views.centro, name='centro'),
+    path('participantes/<int:id_proyecto>/',views.participantes, name='participantes'),
 
     #Form
     path('objetivos/<int:objetivo_proyecto_id>/', views.crear_objetivo, name='objetivos'),
