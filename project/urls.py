@@ -37,17 +37,21 @@ urlpatterns = [
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
     path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
     path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
+    path('informacion_centro/<int:id_proyecto>/',views.centro, name='centro'),
 
     #Form
     path('objetivos/<int:objetivo_proyecto_id>/', views.crear_objetivo, name='objetivos'),
     path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
 
     #Json
+    
     #Informacion proyecto
     path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info_proponente'),
     path('proyecto/info-proyecto/info-autor/<int:id_proyecto>/', views.info_autores, name='info-autores'),
     path('proyecto/info-proyecto/info-participante/<int:id_proyecto>/', views.info_participantes, name='info-participantes'),
     path('proyecto/info-proyecto/info-generalidades/<int:id_proyecto>/', views.info_generalidades, name='info-generalidades'),
+    path('proyecto/info-proyecto/entidad_aliada/<int:id_proyecto>/', views.entidad_aliada, name='entidad_aliada'),
+    path('proyecto/info-proyecto/centro_formacion/<int:id_proyecto>/', views.centro_formacion, name='centro_formacion'),
     
     #Esctructura de proyecto
     path('proyecto/est-proyecto/resumen-antecedentes/<int:id_proyecto>/', views.resumen_antecedentes, name='est_proyecto'),

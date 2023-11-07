@@ -1,8 +1,10 @@
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+
 from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import  Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos
+from app.models import Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion
+
 
 from django.contrib.auth.decorators import login_required
 from app.views.index import index
@@ -63,6 +65,7 @@ def crear_proyecto(request):
             return redirect('info_proyecto', id_proyecto=proyecto.id)
     else:
         form = ProyectoForm()
+
     context = {'form': form,
                 'listaPlegable':contex_form(),
                 'percentaje':0}
@@ -332,6 +335,65 @@ def descripcion_problema(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
+def centro(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    context = {
+        'proyecto':get_or_none(Proyecto, id=id_proyecto),
+        'entidad_a':Entidades_aliadas.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+        'centro_f':Centro_de_formacion.objects.filter(proyecto = proyecto),
+        'percentaje': id_proyecto
+    }
+    return render(request, 'form/partp.html', context)
+    
+
+def entidad_aliada(request, id_proyecto):
+    try:
+        centro = Entidades_aliadas.objects.get(proyecto_id=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        centro = Entidades_aliadas.objects.create(proyecto=proyecto)
+   
+    model = Entidades_aliadas
+    column_names = [field.name for field in model._meta.fields]
+
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(centro, name, request.POST.get(name))
+
+    try:
+        centro.save()
+        # print("Guardado exitosamente")
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+def centro_formacion(request, id_proyecto):
+    try:
+        centro_f = Centro_de_formacion.objects.get(proyecto_id=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        centro_f = Centro_de_formacion.objects.create(proyecto=proyecto)
+   
+    model = Centro_de_formacion
+    column_names = [field.name for field in model._meta.fields]
+
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(centro_f, name, request.POST.get(name))
+
+    try:
+        centro_f.save()
+        # print("Guardado exitosamente")
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+    
+
 # ---FIN YEISON ---
   
 #------Editar proyecto------
@@ -361,6 +423,13 @@ def crear_objetivo(request, objetivo_proyecto_id):
         objetivo_proyecto_id = request.POST.get('objetivo_proyecto_id')
         proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
         
+    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo , 'percentaje': 0})
+
+
+def editar_objetivo(request, id_proyecto):
+    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
+    
+    objetivo_general = Objetivos.objects.filter(objetivo_proyecto=proyecto).first()
         objetivo_form = ObjetivoForm(request.POST)
         objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
         causa_form = CausaForm(request.POST)
@@ -422,23 +491,22 @@ def crear_objetivo(request, objetivo_proyecto_id):
                 efecto3 = Efecto.objects.create(
                     causas=causa3,
                     efecto=efecto3,
-                )
+                 )
+      else:
+          objetivo_form = ObjetivoForm()
+          objetivo_especifico_form = ObjetivoEspecificoForm()
+          causa_form = CausaForm()
+          efecto_form = EfectoForm()
 
-    else:
-        objetivo_form = ObjetivoForm()
-        objetivo_especifico_form = ObjetivoEspecificoForm()
-        causa_form = CausaForm()
-        efecto_form = EfectoForm()
-        
-    contex = {
-        'objetivo_form': objetivo_form,
-        'objetivo_especifico_form': objetivo_especifico_form,
-        'causa_form': causa_form,
-        'efecto_form': efecto_form,
-        'objetivo_proyecto': objetivo_proyecto_id,
-        'percentaje': 0
-    }
-    return render(request, 'form/objetivos.html', contex)
+      contex = {
+          'objetivo_form': objetivo_form,
+          'objetivo_especifico_form': objetivo_especifico_form,
+          'causa_form': causa_form,
+          'efecto_form': efecto_form,
+          'objetivo_proyecto': objetivo_proyecto_id,
+          'percentaje': 0
+      }
+      return render(request, 'form/objetivos.html', contex)
 
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
