@@ -150,26 +150,6 @@ def info_proponente(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
     
-# def info_autores(request, id_proyecto):
-#     try:
-#         autores = Autores.objects.get(proyecto=id_proyecto)
-#     except:
-#         proyecto = Proyecto.objects.get(id=id_proyecto)
-#         autores = Autores.objects.create(proyecto=proyecto)
-       
-#     model = Autores
-#     column_names = [field.name for field in model._meta.fields]
-    
-#     for name in column_names:
-#         if name == 'id' or name == 'proyecto':
-#             continue
-        
-#         setattr(autores, name, request.POST.get(name))
-#     try:
-#         autores.save()
-#         return JsonResponse({"mensaje": "Operación exitosa"})
-#     except Exception as e:
-#         return JsonResponse({"error": str(e)}, status=400)
 def info_autores(request, id_proyecto):
     num_autores = Autores.objects.filter(proyecto=id_proyecto).count()
 
@@ -422,14 +402,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
     if request.method == 'POST':
         objetivo_proyecto_id = request.POST.get('objetivo_proyecto_id')
         proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
-        
-    return render(request, 'form/objetivos.html', {'form': form, 'objetivo': objetivo , 'percentaje': 0})
 
-
-def editar_objetivo(request, id_proyecto):
-    proyecto = get_object_or_404(Proyecto, id=id_proyecto)
-    
-    objetivo_general = Objetivos.objects.filter(objetivo_proyecto=proyecto).first()
         objetivo_form = ObjetivoForm(request.POST)
         objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
         causa_form = CausaForm(request.POST)
@@ -491,22 +464,22 @@ def editar_objetivo(request, id_proyecto):
                 efecto3 = Efecto.objects.create(
                     causas=causa3,
                     efecto=efecto3,
-                 )
-      else:
-          objetivo_form = ObjetivoForm()
-          objetivo_especifico_form = ObjetivoEspecificoForm()
-          causa_form = CausaForm()
-          efecto_form = EfectoForm()
+                    )
+    else:
+        objetivo_form = ObjetivoForm()
+        objetivo_especifico_form = ObjetivoEspecificoForm()
+        causa_form = CausaForm()
+        efecto_form = EfectoForm()
 
-      contex = {
-          'objetivo_form': objetivo_form,
-          'objetivo_especifico_form': objetivo_especifico_form,
-          'causa_form': causa_form,
-          'efecto_form': efecto_form,
-          'objetivo_proyecto': objetivo_proyecto_id,
-          'percentaje': 0
-      }
-      return render(request, 'form/objetivos.html', contex)
+    contex = {
+        'objetivo_form': objetivo_form,
+        'objetivo_especifico_form': objetivo_especifico_form,
+        'causa_form': causa_form,
+        'efecto_form': efecto_form,
+        'objetivo_proyecto': objetivo_proyecto_id,
+        'percentaje': 0
+    }
+    return render(request, 'form/objetivos.html', contex)
 
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
