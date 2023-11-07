@@ -1,9 +1,9 @@
 
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 
-from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm
-from app.models import Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion
+from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperados
+from app.models import Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion
 
 
 from django.contrib.auth.decorators import login_required
@@ -105,7 +105,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
             efecto_form.is_valid()
         ):
             objetivo = objetivo_form.save(commit=False)
-            objetivo.objetivo_proyecto = proyecto
+            objetivo.proyecto = proyecto
             objetivo.save()
 
             objetivo_especifico = objetivo_especifico_form.save(commit=False)
@@ -181,6 +181,38 @@ def participantes(request, id_proyecto):
         'percentaje': id_proyecto
     }
     return render(request, 'form/partp.html', context)
+
+
+def selectObj(request, id_proyecto):
+    try:
+        objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
+        objEspecificos = Objetivos_especificos.objects.filter(objetivos_id=objGeneral)
+    except:
+        return HttpResponse("Para acceder a esta vista debes de crear los objetivos especificos")
+    contex = {'percentaje':1,
+              'objetivosEsp':objEspecificos,
+              'id_proyecto':id_proyecto}
+    return render(request, 'form/selectObj.html', contex)
+
+
+def producEsperados(request, id_proyecto, id_objetivoEsp):
+    objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
+    objEspecifico = Objetivos_especificos.objects.get(objetivos_id=objGeneral, id=id_objetivoEsp)
+    if request.method == 'POST':
+        form = ProducEsperados(request.POST)
+        if form.is_valid():
+            produc = form.save(commit=False)
+            produc.objetivo_especifico_id = objEspecifico.id
+            produc.save()
+    form = ProyectoForm()
+    contex = {'percentaje':1,
+              'objEspecifico':objEspecifico}
+    return render(request, 'form/producEsperados.html', contex)
+
+
+def proyeccion(request, id_proyecto):
+    contex = {'percentaje':1}
+    return render(request, 'form/proyeccion.html', contex)
   
   
 def riesgo_general(request, id_proyecto):
@@ -226,7 +258,7 @@ def Informacion_de_centro(request, id_proyecto):
 
 
 def subir_anexos(request, proyecto_id):
-    proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+    proyecto = get_or_none(Proyecto, pk=proyecto_id)
     
     if request.method == "POST":
         form = DocumentForm(request.POST, request.FILES)
@@ -466,6 +498,22 @@ def centro_formacion(request, id_proyecto):
     try:
         centro_f.save()
         # print("Guardado exitosamente")
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+
+def tiempo_ejecucion(request, id_proyecto):
+    try:
+        tiempo = Proyeccion.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        tiempo = Proyeccion.objects.create(proyecto=proyecto)
+    tiempo.duracion = request.POST['duracion']
+    tiempo.fch_inicio = request.POST['duracion']
+    tiempo.fch_cierre = request.POST['fch_cierre']
+    try:
+        tiempo.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)

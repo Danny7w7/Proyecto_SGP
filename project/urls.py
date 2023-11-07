@@ -36,8 +36,11 @@ urlpatterns = [
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
     path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
-    path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
+    path('seleccionar-objetivo/<int:id_proyecto>/', views.selectObj, name='seleccionarObjetivo'),
+    path('resultado/<int:id_proyecto>/objetivo-especifico/<int:id_objetivoEsp>/', views.producEsperados, name='producEsperados'),
+    path('proyeccion/<int:id_proyecto>/', views.proyeccion, name='proyeccion'),
     path('participantes/<int:id_proyecto>/',views.participantes, name='participantes'),
+    path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
 
     #Form
     path('objetivos/<int:objetivo_proyecto_id>/', views.crear_objetivo, name='objetivos'),
@@ -51,7 +54,8 @@ urlpatterns = [
     path('proyecto/info-proyecto/info-participante/<int:id_proyecto>/', views.info_participantes, name='info-participantes'),
     path('proyecto/info-proyecto/info-generalidades/<int:id_proyecto>/', views.info_generalidades, name='info-generalidades'),
     path('proyecto/info-proyecto/entidad_aliada/<int:id_proyecto>/', views.entidad_aliada, name='entidad_aliada'),
-    path('proyecto/info-proyecto/centro_formacion/<int:id_proyecto>/', views.centro_formacion, name='centro_formacion'),
+    path('proyecto/info-proyecto/centro-formacion/<int:id_proyecto>/', views.centro_formacion, name='centro_formacion'),
+    path('proyecto/proyeccion/tiempo-ejecucion/<int:id_proyecto>/', views.tiempo_ejecucion, name='tiempo_ejecucion'),
     
     #Esctructura de proyecto
     path('proyecto/est-proyecto/resumen-antecedentes/<int:id_proyecto>/', views.resumen_antecedentes, name='est_proyecto'),
