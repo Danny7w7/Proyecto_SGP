@@ -56,6 +56,7 @@ urlpatterns = [
     path('proyecto/info-proyecto/entidad_aliada/<int:id_proyecto>/', views.entidad_aliada, name='entidad_aliada'),
     path('proyecto/info-proyecto/centro-formacion/<int:id_proyecto>/', views.centro_formacion, name='centro_formacion'),
     path('proyecto/proyeccion/tiempo-ejecucion/<int:id_proyecto>/', views.tiempo_ejecucion, name='tiempo_ejecucion'),
+    path('proyecto/proyeccion/cadena-de-valor/<int:id_proyecto>/', views.cadena_valor, name='cadena_valor'),
     
     #Esctructura de proyecto
     path('proyecto/est-proyecto/resumen-antecedentes/<int:id_proyecto>/', views.resumen_antecedentes, name='est_proyecto'),

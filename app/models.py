@@ -175,7 +175,7 @@ class Resultados_y_productos_esperados(models.Model):
 
 # Proyeccion
 class Proyeccion(models.Model):
-    duracion = models.DurationField(null=True)
+    duracion = models.CharField(max_length=100,null=True)
     fch_inicio = models.DateField(null=True)
     fch_cierre = models.DateField(null=True)
     cadena_valor = models.ImageField(null=True)

@@ -512,13 +512,28 @@ def tiempo_ejecucion(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         tiempo = Proyeccion.objects.create(proyecto=proyecto)
-    print(request.POST['duracion'])
-    print(datetime.datetime.strptime(request.POST['duracion'], "%Y-%m-%d").date())
-    tiempo.duracion = datetime.datetime.strptime(request.POST['duracion'], "%Y-%m-%d").date()
-    tiempo.fch_inicio = datetime.datetime.strptime(request.POST['fch_inicio'], "%Y-%m-%d").date()
-    tiempo.fch_cierre = datetime.datetime.strptime(request.POST['fch_cierre'], "%Y-%m-%d").date()
+    tiempo.duracion = request.POST['duracion']
+    tiempo.fch_inicio = request.POST['fch_inicio']
+    tiempo.fch_cierre = request.POST['fch_cierre']
     try:
         tiempo.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def cadena_valor(request, id_proyecto):
+    try:
+        cadena = Proyeccion.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        cadena = Proyeccion.objects.create(proyecto=proyecto)
+    cadena.cadena_valor = request.FILES['Cadena_valor']
+    cadena.propuesta_sostenibilidad = request.POST['Propuesta_sostenibilidad']
+    cadena.impacto_social = request.POST['Impacto_social']
+    cadena.impacto_tecnologico = request.POST['Impacto_tecnologico']
+    cadena.impacto_centro_formacion = request.POST['Impacto_centro']
+    try:
+        cadena.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)

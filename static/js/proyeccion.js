@@ -1,3 +1,18 @@
+document.getElementById("fecha_inicio").addEventListener("change", comprobarFechas);
+document.getElementById("fecha_cierre").addEventListener("change", comprobarFechas);
+
+function comprobarFechas() {
+    var inputDuracion = document.getElementById("duracion_proyecto")
+    var fechaInicio = new Date(document.getElementById("fecha_inicio").value);
+    var fechaCierre = new Date(document.getElementById("fecha_cierre").value);
+
+    if (!isNaN(fechaInicio) && !isNaN(fechaCierre) && fechaInicio < fechaCierre) {
+        const duracion = calcularDuracionEnSemanasYDias(fechaInicio, fechaCierre);
+        inputDuracion.value = `La duración es de ${duracion.semanas} semanas y ${duracion.diasRestantes} días`
+    } else {
+        inputDuracion.value = "Por favor, completa ambas fechas."
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function() {
     
@@ -20,11 +35,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //Descripcion del problema
        "form2":{
-        "identificacion_y_descripcion_problema": {
+        "propuesta_sostenibilidad": {
             pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
         },
-        "justificacion": {
+        "impacto_social": {
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
+            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
+        },
+        "impacto_tecnologico": {
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
+            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
+        },
+        "impacto_centro": {
             pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
         },
@@ -116,9 +139,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
+function calcularDuracionEnSemanasYDias(fechaInicio, fechaFin) {
+    // Calcula la diferencia en milisegundos entre las dos fechas
+    const diferenciaEnMilisegundos = fechaFin - fechaInicio;
+  
+    // Convierte la diferencia en días
+    const diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
+  
+    // Calcula el número de semanas
+    const semanas = Math.floor(diferenciaEnDias / 7);
+  
+    // Calcula el número de días restantes
+    const diasRestantes = diferenciaEnDias % 7;
+  
+    return { semanas, diasRestantes };
+}
+
 function sendPost1() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
+    
     var duracion_proyecto = document.getElementById("duracion_proyecto").value;
     var fecha_inicio = document.getElementById("fecha_inicio").value;
     var fecha_cierre = document.getElementById("fecha_cierre").value;
@@ -154,19 +195,23 @@ function sendPost1() {
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var identificacion_y_descripcion_problema = document.getElementById("identificacion_y_descripcion_problema").value;
-    var justificacion = document.getElementById("justificacion").value;
     var formFile = document.getElementById("formFile").files[0];
+    var propuesta_sostenibilidad = document.getElementById("propuesta_sostenibilidad").value;
+    var impacto_social = document.getElementById("impacto_social").value;
+    var impacto_tecnologico = document.getElementById("impacto_tecnologico").value;
+    var impacto_centro = document.getElementById("impacto_centro").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Identificacion_y_descripcion_problema", identificacion_y_descripcion_problema);
-    formData.append("Justificacion", justificacion);
-    formData.append("Marco_conceptual", formFile);
+    formData.append("Cadena_valor", formFile);
+    formData.append("Propuesta_sostenibilidad", propuesta_sostenibilidad);
+    formData.append("Impacto_social", impacto_social);
+    formData.append("Impacto_tecnologico", impacto_tecnologico);
+    formData.append("Impacto_centro", impacto_centro);
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`/proyecto/est-proyecto/descripcion-problema/${id_proyecto}/`, {
+    fetch(`/proyecto/proyeccion/cadena-de-valor/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
