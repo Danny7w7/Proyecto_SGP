@@ -11,6 +11,8 @@ from app.views.index import index
 #Listas desplegables
 from app.models import Listas_plegables
 
+import datetime
+
 #------Decoradores------
 def user_has_role(user, *roles):
     user_roles = set(user.roles.values_list('rol', flat=True))
@@ -211,7 +213,8 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
 
 
 def proyeccion(request, id_proyecto):
-    contex = {'percentaje':1}
+    contex = {'percentaje':1,
+              'proyecto':get_or_none(Proyecto, id=id_proyecto)}
     return render(request, 'form/proyeccion.html', contex)
   
   
@@ -509,9 +512,11 @@ def tiempo_ejecucion(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         tiempo = Proyeccion.objects.create(proyecto=proyecto)
-    tiempo.duracion = request.POST['duracion']
-    tiempo.fch_inicio = request.POST['duracion']
-    tiempo.fch_cierre = request.POST['fch_cierre']
+    print(request.POST['duracion'])
+    print(datetime.datetime.strptime(request.POST['duracion'], "%Y-%m-%d").date())
+    tiempo.duracion = datetime.datetime.strptime(request.POST['duracion'], "%Y-%m-%d").date()
+    tiempo.fch_inicio = datetime.datetime.strptime(request.POST['fch_inicio'], "%Y-%m-%d").date()
+    tiempo.fch_cierre = datetime.datetime.strptime(request.POST['fch_cierre'], "%Y-%m-%d").date()
     try:
         tiempo.save()
         return JsonResponse({"mensaje": "Operación exitosa"})

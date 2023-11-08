@@ -4,14 +4,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const allValidations = {
         //Estructura del proyecto
        "form1": {
-        "desc_resultado_esperado": {
+        "duracion_proyecto": {
             pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
         },
-        "antecedentes": {
+        "fecha_inicio": {
             pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
         },
+        "fecha_cierre": {
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
+            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
+        }
        },
 
     //Descripcion del problema
@@ -53,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     document.getElementById("enviar1").addEventListener("click", function() {
-        handleFormSubmit(event, 'form1');
+        sendPost1()
     });
     document.getElementById("enviar2").addEventListener("click", function() {
         handleFormSubmit(event, 'form2');
@@ -127,7 +131,7 @@ function sendPost1() {
     formData.append("fch_cierre", fecha_cierre);
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`proyecto/proyeccion/tiempo-ejecucion/${id_proyecto}/`, {
+    fetch(`/proyecto/proyeccion/tiempo-ejecucion/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
