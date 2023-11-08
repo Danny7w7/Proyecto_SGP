@@ -31,7 +31,7 @@ class Proyecto(models.Model):
     codigo_Grupo_Investigacion = models.CharField(max_length=30, null=False)
     red_Conocimiento_Sectorial = models.CharField(max_length=100, null=False)
     disciplina_subarea = models.CharField(max_length=200, null=False)
-    nombre_Grupo_Investigacion = models.CharField(max_length=100, null=False)
+    nombre_Grupo_Investigacion = models.CharField(max_length=150, null=False)
     area_conocimiento = models.CharField(max_length=80, null=False)
     linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
     subarea_conocimiento = models.CharField(max_length=100, null=False)
@@ -105,8 +105,7 @@ class Descripcion_problema(models.Model):
 # Objetivos
 class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=250, null=True)
-    objetivo_proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
-    # informacion_proyecto = models.OneToOneField(Informacion_Proyecto, on_delete=models.CASCADE)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 # Metodologia
 class Objetivos_especificos(models.Model):
@@ -163,24 +162,28 @@ class Entidades_aliadas(models.Model):
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
     # informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
-
 # Resultados y productos esperados
 class Resultados_y_productos_esperados(models.Model):
     tipo_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
     descripcion_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
     nombre_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
+    nombre_subtipologia = models.CharField(max_length=200, null=False)
     trl_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
     indicador_producto_resultado_inv_obj_especifico = models.CharField(max_length=50, null=False)
-    fch_entrega_producto_resultado_inv_obj_especifico = models.DateTimeField(null=False)
-    duracion = models.DurationField(null=False)
-    fch_inicio = models.DateTimeField(null=False)
-    fch_cierre = models.DateTimeField(null=False)
-    cadena_valor = models.ImageField(null=False)
-    propuesta_sostenibilidad = models.CharField(max_length=150, null=False)
-    impacto_social= models.CharField(max_length=150, null=False)
-    impacto_tecnologico = models.CharField(max_length= 150, null=False)
-    impacto_centro_formacion = models.CharField(max_length=150, null=False)
-    # informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+    fch_entrega_producto_resultado_inv_obj_especifico = models.DateField(null=False)
+    objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+
+# Proyeccion
+class Proyeccion(models.Model):
+    duracion = models.CharField(max_length=100,null=True)
+    fch_inicio = models.DateField(null=True)
+    fch_cierre = models.DateField(null=True)
+    cadena_valor = models.ImageField(null=True)
+    propuesta_sostenibilidad = models.CharField(max_length=150, null=True)
+    impacto_social= models.CharField(max_length=150, null=True)
+    impacto_tecnologico = models.CharField(max_length= 150, null=True)
+    impacto_centro_formacion = models.CharField(max_length=150, null=True)
+    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
 
 #Riesgos

@@ -1,7 +1,7 @@
 # forms.py
 from django import forms
 from django.forms import modelformset_factory
-from .models import Causa, Efecto, Objetivos, Objetivos_especificos, Proyecto, Informacion_proponente , Document , Usuarios
+from .models import Causa, Efecto, Objetivos, Objetivos_especificos, Proyecto, Informacion_proponente , Document , Usuarios, Resultados_y_productos_esperados
 
 class ProyectoForm(forms.ModelForm):
     class Meta:
@@ -39,6 +39,12 @@ class EfectoForm(forms.ModelForm):
         model = Efecto
         fields = '__all__'
         exclude = ['causas']
+
+class ProducEsperados(forms.ModelForm):
+    class Meta:
+        model = Resultados_y_productos_esperados
+        fields = '__all__'
+        exclude = ['objetivo_especifico']
         
 class DocumentForm(forms.ModelForm):
     class Meta:
