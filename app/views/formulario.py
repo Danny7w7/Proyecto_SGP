@@ -105,7 +105,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
             efecto_form.is_valid()
         ):
             objetivo = objetivo_form.save(commit=False)
-            objetivo.objetivo_proyecto = proyecto
+            objetivo.proyecto = proyecto
             objetivo.save()
 
             objetivo_especifico = objetivo_especifico_form.save(commit=False)
@@ -166,7 +166,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
         'objetivo_especifico_form': objetivo_especifico_form,
         'causa_form': causa_form,
         'efecto_form': efecto_form,
-        'objetivo_proyecto': objetivo_proyecto_id,
+        'proyecto': objetivo_proyecto_id,
         'percentaje': 1
     }
     return render(request, 'form/objetivos.html', contex)
@@ -194,7 +194,8 @@ def riesgo_general(request, id_proyecto):
         'proyecto': proyecto,
         'riesgos_g': riesgos_g,
         'riesgos_p': riesgos_p,
-        'riesgos_a': riesgos_a
+        'riesgos_a': riesgos_a,
+        'percentaje' : 0
     }
     
     return render(request, 'form/riesgosp.html', context)

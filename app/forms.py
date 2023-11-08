@@ -20,7 +20,7 @@ class ObjetivoForm(forms.ModelForm):
     class Meta:
         model = Objetivos
         fields = '__all__'
-        exclude = ['objetivo_proyecto']
+        exclude = ['proyecto']
 
 class ObjetivoEspecificoForm(forms.ModelForm):
     class Meta:
