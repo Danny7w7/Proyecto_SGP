@@ -222,7 +222,7 @@ function sendPost1() {
     // Obtener los valores de los campos del formulario
     var region = document.getElementById("select_box").value; 
     var regional = document.getElementById("select_box2").value;
-    var nombre_centro_formacion = document.getElementById("Nombre_centro_formacion").value;
+    var nombre_centro_formacion = document.getElementById("select_box3").value;
     var nombre_Director = document.getElementById("Nombre_Director").value;
     var email_director = document.getElementById("email_director").value;
     var numero_Director = document.getElementById("Numero_Director").value;
@@ -408,7 +408,7 @@ function sendPost4() {
     var link_video_proyecto = document.getElementById("link_video_proyecto").value;
     var proyecto_relacionado_industrial40 = document.getElementById("proyecto_Relacionado_Industrial40").value;
     var justificacion_industrial = document.getElementById("justificacion_Industrial").value;
-    var actividades_economicas_del_proyecto_investigacion = document.getElementById("actividades_economicas_del_proyecto_investigacion").value;
+    var actividades_economicas_del_proyecto_investigacion = document.getElementById("select_box9").value;
     var proyecto_relacionado_economia_naranja = document.getElementById("proyecto_Relacionado_Economia_Naranja").value;
     var justificacion_economia_naranja = document.getElementById("justificacion_Economia_Naranja").value;
     var proyecto_relacionado_politica_discapacidad = document.getElementById("proyecto_Relacionado_Politica_Discapacidad").value;
