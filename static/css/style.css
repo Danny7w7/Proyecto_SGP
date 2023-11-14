@@ -171,8 +171,8 @@ img[src="sennova_logo.png"] {
 }
 /* Mientras des click (actual) */
 .step-button[aria-expanded="true"] {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   /* background-color: rgb(7, 195, 48); */
   background-color: #59ab6e;
   color: #fff;
@@ -202,8 +202,8 @@ img[src="sennova_logo.png"] {
 }
 /* Barra de progreso sin completar */
 #progress::-webkit-progress-bar {
-  background: rgb(3,171,90);
-  background: linear-gradient(90deg, rgba(3,171,90,1) 0%, rgba(3,171,90,1) 14%, rgba(255,255,255,0.29) 14%, rgba(255,255,255,0.29) 100%);
+  background: rgb(233,238,245);
+  background: linear-gradient(90deg, rgba(233,238,245,1) 23%, rgba(239,243,248,1) 23%, rgba(239,243,248,1) 77%, rgba(233,238,245,1) 77%);
 }
 .pasop {
   margin-top: 1%;

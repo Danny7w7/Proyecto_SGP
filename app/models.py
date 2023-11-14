@@ -31,7 +31,7 @@ class Proyecto(models.Model):
     codigo_Grupo_Investigacion = models.CharField(max_length=30, null=False)
     red_Conocimiento_Sectorial = models.CharField(max_length=100, null=False)
     disciplina_subarea = models.CharField(max_length=200, null=False)
-    nombre_Grupo_Investigacion = models.CharField(max_length=150, null=False)
+    nombre_Grupo_Investigacion = models.CharField(max_length=200, null=False)
     area_conocimiento = models.CharField(max_length=80, null=False)
     linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
     subarea_conocimiento = models.CharField(max_length=100, null=False)

@@ -59,6 +59,7 @@ def crear_proyecto(request):
         return redirect('index')
     if request.method == 'POST':
         form = ProyectoForm(request.POST)
+        print(form.errors)
         if form.is_valid():
             proyecto = form.save(commit=False)
             proyecto.usuario = request.user

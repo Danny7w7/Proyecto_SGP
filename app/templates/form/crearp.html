@@ -69,7 +69,7 @@
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'objetivos' percentaje %}">Objetivos generales
                 específicos</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'participantes' percentaje %}">Participación</a>
-            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'seleccionarObjetivo' percentaje %}">Objetivos y productos esperados</a>
+            <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'seleccionarObjetivo' percentaje %}">Resultados y productos esperados</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'proyeccion' percentaje %}">Proyección</a>
             <a class="btn-n btn-bg-white mt-2 pt-2 pb-2 izq border_radius" href="{% url 'riesgo_general' percentaje %}">Análisis de
                 riesgo</a>
@@ -321,8 +321,15 @@
 
         Array.from(stepButtons).forEach((button, index) => {
             button.addEventListener('click', () => {
-                progress.setAttribute('value', index * 100 / (stepButtons.length - 1));//there are 3 buttons. 2 spaces.
-
+                if (Math.round(index * 100 / (stepButtons.length - 1)) == 0){
+                    progress.setAttribute('value', 0);
+                }else if (Math.round(index * 100 / (stepButtons.length - 1)) == 33){
+                    progress.setAttribute('value', 42);
+                }else if(Math.round(index * 100 / (stepButtons.length - 1)) == 67){
+                    progress.setAttribute('value', 65);
+                }else if(Math.round(index * 100 / (stepButtons.length - 1)) == 100){
+                    progress.setAttribute('value', 100);
+                }
                 stepButtons.forEach((item, secindex) => {
                     if (index > secindex) {
                         item.classList.add('done');
