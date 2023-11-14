@@ -145,24 +145,27 @@
                                     <!-- Tabla de participantes -->
                                     <div class="container mt-5">
                                         <div class="table-responsive">
-                                            <table class="tabla">
+                                            <table class="tablita table">
                                                 <thead>
                                                     <tr>
                                                         <th>Nombre entidad</th>
-                                                        <th>nit</th>
-                                                        <th>tipo_entidad_aliada</th>
-                                                        <th>naturaleza_entidad</th>
-                                                        <th>clasificacion_empresa</th>
+                                                        <th>NIT</th>
+                                                        <th>Tipo entidad</th>
+                                                        <th>Naturaleza entidad</th>
+                                                        <th>Clasificación empresa</th>
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {% for entidad_a in entidad_a %}
                                                     <tr>
-                                                            <div class="d-flex">
-                                                                <!-- <button class="btn btn-sm btn-outline-primary me-2">Editar</button>
-                                                                <button class="btn btn-sm btn-outline-danger">Eliminar</button> -->
-                                                            </div>
+                                                        <td>{{entidad_a.nombre_entidad}}</td>
+                                                        <td>{{entidad_a.nit}}</td>
+                                                        <td>{{entidad_a.tipo_entidad_aliada}}</td>
+                                                        <td>{{entidad_a.naturaleza_entidad}}</td>
+                                                        <td>{{entidad_a.clasificacion_empresa}}</td>
                                                     </tr>
+                                                    {% endfor %}
                                                 </tbody>
                                                 
                                             </table>
