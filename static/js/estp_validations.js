@@ -171,7 +171,7 @@ function sendPost2() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            // Realizar acciones de éxito, si es necesario
+            window.location.href = `/objetivos/${id_proyecto}/`;
         }
     })
     .catch(error => {

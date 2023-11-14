@@ -12,6 +12,7 @@ from app.views.index import index
 from app.models import Listas_plegables
 
 import datetime
+import os
 
 #------Decoradores------
 def user_has_role(user, *roles):
@@ -158,6 +159,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
                     causas=causa3,
                     efecto=efecto3,
                     )
+        return redirect('participantes', objetivo_proyecto_id)
     else:
         objetivo_form = ObjetivoForm()
         objetivo_especifico_form = ObjetivoEspecificoForm()
@@ -208,6 +210,7 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
             produc = form.save(commit=False)
             produc.objetivo_especifico_id = objEspecifico.id
             produc.save()
+            return redirect('seleccionarObjetivo', id_proyecto)
     form = ProyectoForm()
     contex = {'percentaje':1,
               'objEspecifico':objEspecifico}
@@ -458,7 +461,12 @@ def descripcion_problema(request, id_proyecto):
         descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
     descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
     descripcion.justificacion = request.POST['Justificacion']
-    descripcion.marco_conceptual = request.FILES['Marco_conceptual']
+    try:
+        os.remove('media/' + descripcion.marco_conceptual.name)
+    except:
+        print("No existe la foto o es primera vez")
+    descripcion.marco_conceptual = request.FILES['Marco_conceptual'] 
+    
     try:
         descripcion.save()
         return JsonResponse({"mensaje": "Operación exitosa"})

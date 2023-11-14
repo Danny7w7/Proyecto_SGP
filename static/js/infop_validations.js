@@ -480,7 +480,7 @@ function sendPost4() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            // Realizar acciones de éxito, si es necesario
+            window.location.href = `/estructura-proyecto/${id_proyecto}/`;
         }
     })
     .catch(error => {

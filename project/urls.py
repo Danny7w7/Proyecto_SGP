@@ -36,10 +36,10 @@ urlpatterns = [
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
     path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
+    path('participantes/<int:id_proyecto>/',views.participantes, name='participantes'),
     path('seleccionar-objetivo/<int:id_proyecto>/', views.selectObj, name='seleccionarObjetivo'),
     path('resultado/<int:id_proyecto>/objetivo-especifico/<int:id_objetivoEsp>/', views.producEsperados, name='producEsperados'),
     path('proyeccion/<int:id_proyecto>/', views.proyeccion, name='proyeccion'),
-    path('participantes/<int:id_proyecto>/',views.participantes, name='participantes'),
     path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
 
     #Form
