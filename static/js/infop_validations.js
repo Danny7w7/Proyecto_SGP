@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-    
+    fieldQuestion = ['proyecto_Relacionado_Industrial40', 'proyecto_Relacionado_Economia_Naranja', 'proyecto_Relacionado_Politica_Discapacidad']
+    fieldExclude = ['justificacion_Industrial', 'justificacion_Economia_Naranja', 'justificacion_Politica_Discapacidad']
+    var inputs = fieldQuestion.map(function(id) {
+        return document.getElementById(id);
+    });
     const allValidations = {
         //Validacion info proponente
        "form1": {
@@ -145,21 +149,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
-        
-                        // Verifica cuántas filas hay en la tabla (autores registrados)
-                var numRows = document.querySelectorAll('.table tbody tr').length;
+        // Verifica cuántas filas hay en la tabla (autores registrados)
+        var numRows = document.querySelectorAll('.table tbody tr').length;
 
-                // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
-                if (formKey === 'form2' && numRows > 3) {
-                    Swal.fire({
-                        title: 'Advertencia',
-                        text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
-                        icon: 'warning',
-                        confirmButtonText: 'Aceptar'
-                    });
-                    event.preventDefault(); // Detener el envío del formulario
-                    return;
-                }
+        // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
+        if (formKey === 'form2' && numRows > 3) {
+            Swal.fire({
+                title: 'Advertencia',
+                text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
+                icon: 'warning',
+                confirmButtonText: 'Aceptar'
+            });
+            event.preventDefault(); // Detener el envío del formulario
+            return;
+        }
 
         for (let fieldId in allValidations[formKey]) {
             const inputField = document.getElementById(fieldId);
@@ -203,12 +206,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function validateField(field, feedback, pattern, errorMsg) {
+        if (fieldExclude.includes(field.id)){
+            var index = fieldExclude.indexOf(field.id);
+            if (inputs[index].value == '0'){   
+                field.classList.remove("is-invalid");
+                field.classList.add("is-valid");
+                feedback.textContent = '';
+                return true;
+            }
+        }
         if (pattern.test(field.value)) {
             field.classList.remove("is-invalid");
             field.classList.add("is-valid");
             feedback.textContent = '';
             return true;
-        } else {
+        }else{
             field.classList.remove("is-valid");
             field.classList.add("is-invalid");
             feedback.textContent = errorMsg;
@@ -414,7 +426,6 @@ function sendPost4() {
     var proyecto_relacionado_politica_discapacidad = document.getElementById("proyecto_Relacionado_Politica_Discapacidad").value;
     var justificacion_politica_discapacidad = document.getElementById("justificacion_Politica_Discapacidad").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    console.log(csrfToken)
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();

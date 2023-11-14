@@ -230,7 +230,7 @@ def riesgo_general(request, id_proyecto):
         'riesgos_g': riesgos_g,
         'riesgos_p': riesgos_p,
         'riesgos_a': riesgos_a,
-        'percentaje' : 0
+        'percentaje': 1
     }
     
     return render(request, 'form/riesgosp.html', context)
