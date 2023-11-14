@@ -327,23 +327,27 @@ def info_autores(request, id_proyecto):
 
 
 def info_participantes(request, id_proyecto):
-    try:
-        participantes = Participantes_Proyecto.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        participantes = Participantes_Proyecto.objects.create(proyecto=proyecto)
-       
+    proyecto = Proyecto.objects.get(id=id_proyecto)
+    participante = Participantes_Proyecto(proyecto=proyecto)
+        
     model = Participantes_Proyecto
     column_names = [field.name for field in model._meta.fields]
-    
+        
     for name in column_names:
         if name == 'id' or name == 'proyecto':
             continue
         
-        setattr(participantes, name, request.POST.get(name))
+        setattr(participante, name, request.POST.get(name))
     try:
-        participantes.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
+        participante.save()
+        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_participante": {
+            "Nombre_participantes_de_desarrollo":participante.nombre_participantes_de_desarrollo,
+            "Numero_cedula_participantes": participante.numero_cedula_participantes,
+            "Numero_meses_vinculacion_participantes": participante.numero_meses_vinculacion_participantes,
+            "Email_participantes_de_desarrollo": participante.email_participantes_de_desarrollo,
+            "Numero_horas_Semanales_dedicadas_participantes": participante.numero_horas_Semanales_dedicadas_participantes,
+            "Numero_Telefono_participantes": participante.numero_Telefono_participantes
+        }})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
@@ -583,7 +587,7 @@ def editar_anexo(request, proyecto_id):
         anexo.save()
 
     form = DocumentForm()
-    return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
+    return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto, "percentaje" : 0})
 
 
 def proyectos_usuario(request):
