@@ -78,6 +78,7 @@ def informacion_proponente(request, id_proyecto):
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
                'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
                'autores': Autores.objects.filter(proyecto = proyecto),
+               'participantes': Participantes_Proyecto.objects.filter(proyecto = proyecto),
                'percentaje':id_proyecto,
                'listaPlegable':contex_form()}
     return render(request, 'form/infop.html', context)
@@ -176,9 +177,10 @@ def crear_objetivo(request, objetivo_proyecto_id):
 
 def participantes(request, id_proyecto):
     proyecto = get_or_none(Proyecto, id=id_proyecto)
+    print(Entidades_aliadas.objects.filter(proyecto = proyecto))
     context = {
         'proyecto':get_or_none(Proyecto, id=id_proyecto),
-        'entidad_a':Entidades_aliadas.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+        'entidad_a':Entidades_aliadas.objects.filter(proyecto = proyecto),
         'centro_f':Centro_de_formacion.objects.filter(proyecto = proyecto),
         'percentaje': id_proyecto
     }
@@ -299,7 +301,7 @@ def info_proponente(request, id_proyecto):
         return JsonResponse({"error": str(e)}, status=400)
     
 def info_autores(request, id_proyecto):
-    num_autores = Autores.objects.filter(proyecto=id_proyecto).count()
+
 
     proyecto = Proyecto.objects.get(id=id_proyecto)
     autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente

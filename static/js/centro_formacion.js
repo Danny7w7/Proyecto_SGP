@@ -304,7 +304,7 @@ fetch(`/proyecto/info-proyecto/entidad_aliada/${id_proyecto}/`, {
             console.log('Mensaje de éxito:', data.mensaje);
             
             // Aquí, puedes agregar el nuevo autor a la tabla
-            let tableBody = document.querySelector('.tabla tbody');
+            let tableBody = document.querySelector('.tablita tbody');
             let newRow = tableBody.insertRow();
             
             newRow.insertCell(0).textContent = data.nueva_entidad.nombre_entidad;

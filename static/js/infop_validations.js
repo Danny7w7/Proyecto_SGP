@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var numRows = document.querySelectorAll('.table tbody tr').length;
 
         // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
-        if (formKey === 'form2' && numRows > 3) {
+        if (formKey === 'form2' && numRows > 2) {
             Swal.fire({
                 title: 'Advertencia',
                 text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',

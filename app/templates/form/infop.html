@@ -229,14 +229,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        {% for autor in autores%}
                                         <tr>
-                                            <!-- Contenido a cargar -->
-                                                <div class="d-flex">
-                                                    <!-- <button class="btn btn-sm btn-outline-primary me-2">Editar</button>
-                                                    <button class="btn btn-sm btn-outline-danger">Eliminar</button> -->
+                                            <td>{{autor.nombre_Autor_Proyecto}}</td>
+                                            <td>{{autor.tipo_Vinculacion_entidad}}</td>
+                                            <td>{{autor.numero_Cedula_Autor}}</td>
+                                            <td>{{autor.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                                            <td>{{autor.email_Autor_Proyecto}}</td>
+                                            <td>{{autor.numero_Telefono_Autor}}</td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Acciones">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary">Editar</button>
+                                                    <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
                                                 </div>
+                                            </td>
                                         </tr>
+                                        {% endfor %}
                                     </tbody>
                                     
                                 </table>
@@ -330,28 +338,37 @@
                     <!-- Tabla de participantes -->
                     <div class="container mt-5">
                         <div class="table-responsive">
-                            <table class="mitabla">
+                            <table class="mitabla table">
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>numero_cedula</th>
-                                        <th>numero_meses_vinculacion</th>
-                                        <th>email_participantes</th>
-                                        <th>numero_horas_Semanales</th>
+                                        <th>Nombres</th>
+                                        <th>Número documento</th>
+                                        <th>N° meses vinculación</th>
+                                        <th>Email participantes</th>
+                                        <th>N° horas semanales</th>
                                         <!-- <th>Num. meses vinculación proyecto</th> -->
-                                        <th>numero_Telefono</th>
+                                        <th>Telefono</th>
                                         <!-- <th>Num. horas semanales del proyecto</th> -->
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for participante in participantes %}
                                     <tr>
-                                        <!-- Contenido a cargar -->
-                                            <div class="d-flex">
-                                                <!-- <button class="btn btn-sm btn-outline-primary me-2">Editar</button>
-                                                <button class="btn btn-sm btn-outline-danger">Eliminar</button> -->
+                                        <td>{{participante.nombre_participantes_de_desarrollo}}</td>
+                                        <td>{{participante.numero_cedula_participantes}}</td>
+                                        <td>{{participante.numero_meses_vinculacion_participantes}}</td>
+                                        <td>{{participante.email_participantes_de_desarrollo}}</td>
+                                        <td>{{participante.numero_horas_Semanales_dedicadas_participantes}}</td>
+                                        <td>{{participante.numero_Telefono_participantes}}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Acciones">
+                                                <button type="button" class="btn btn-sm btn-outline-primary">Editar</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
                                             </div>
+                                        </td>
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                                 
                             </table>
