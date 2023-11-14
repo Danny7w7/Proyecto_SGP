@@ -392,7 +392,7 @@ function sendPost3() {
             console.log('Mensaje de éxito:', data.mensaje);
             
             // Aquí, puedes agregar el nuevo autor a la tabla
-            let tableBody = document.querySelector('mitabla tbody');
+            let tableBody = document.querySelector('.mitabla tbody');
             let newRow = tableBody.insertRow();
             
             newRow.insertCell(0).textContent = data.nuevo_participante.nombre_participantes_de_desarrollo;

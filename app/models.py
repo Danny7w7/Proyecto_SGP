@@ -159,7 +159,7 @@ class Entidades_aliadas(models.Model):
     actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=250, null=True)
     objetivo_especificos_relacionados = models.CharField(max_length=250, null=True)
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
-    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
+    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
     # informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
 
 # Resultados y productos esperados
