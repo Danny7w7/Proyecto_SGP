@@ -75,6 +75,8 @@ def crear_proyecto(request):
     return render(request, 'form/crearp.html', context)
 
 def informacion_proponente(request, id_proyecto):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
                'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
@@ -86,6 +88,8 @@ def informacion_proponente(request, id_proyecto):
     
 
 def estructura_proyecto(request, id_proyecto):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
                'resumen':get_or_none(Resumen_antecedentes),
                'percentaje':id_proyecto}
@@ -93,6 +97,8 @@ def estructura_proyecto(request, id_proyecto):
 
 
 def crear_objetivo(request, objetivo_proyecto_id):
+    if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
+        return redirect(index)
     if request.method == 'POST':
         objetivo_proyecto_id = request.POST.get('objetivo_proyecto_id')
         proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
@@ -172,12 +178,14 @@ def crear_objetivo(request, objetivo_proyecto_id):
         'causa_form': causa_form,
         'efecto_form': efecto_form,
         'proyecto': objetivo_proyecto_id,
-        'percentaje': 1
+        'percentaje': objetivo_proyecto_id
     }
     return render(request, 'form/objetivos.html', contex)
 
 
 def participantes(request, id_proyecto):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
     print(Entidades_aliadas.objects.filter(proyecto = proyecto))
     context = {
@@ -190,18 +198,22 @@ def participantes(request, id_proyecto):
 
 
 def selectObj(request, id_proyecto):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
     try:
         objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
         objEspecificos = Objetivos_especificos.objects.filter(objetivos_id=objGeneral)
     except:
         return HttpResponse("Para acceder a esta vista debes de crear los objetivos especificos")
-    contex = {'percentaje':1,
+    contex = {'percentaje':id_proyecto,
               'objetivosEsp':objEspecificos,
               'id_proyecto':id_proyecto}
     return render(request, 'form/selectObj.html', contex)
 
 
 def producEsperados(request, id_proyecto, id_objetivoEsp):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
     objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
     objEspecifico = Objetivos_especificos.objects.get(objetivos_id=objGeneral, id=id_objetivoEsp)
     if request.method == 'POST':
@@ -212,18 +224,22 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
             produc.save()
             return redirect('seleccionarObjetivo', id_proyecto)
     form = ProyectoForm()
-    contex = {'percentaje':1,
+    contex = {'percentaje':id_proyecto,
               'objEspecifico':objEspecifico}
     return render(request, 'form/producEsperados.html', contex)
 
 
 def proyeccion(request, id_proyecto):
-    contex = {'percentaje':1,
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
+    contex = {'percentaje':id_proyecto,
               'proyecto':get_or_none(Proyecto, id=id_proyecto)}
     return render(request, 'form/proyeccion.html', contex)
   
   
 def riesgo_general(request, id_proyecto):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
     
     riesgos_g = get_or_none(RiesgoObjetivoGeneral, proyecto=id_proyecto)
@@ -235,7 +251,7 @@ def riesgo_general(request, id_proyecto):
         'riesgos_g': riesgos_g,
         'riesgos_p': riesgos_p,
         'riesgos_a': riesgos_a,
-        'percentaje': 1
+        'percentaje': id_proyecto
     }
     
     return render(request, 'form/riesgosp.html', context)
@@ -259,14 +275,15 @@ def Informacion_de_centro(request, id_proyecto):
             print("El formulario no es válido.")
 
     form = Informacion_proponenteForm(initial={'proyecto': proyecto})
-    percentaje = progress_bar(id_proyecto)
     context = {'form':form,
                 'proyecto':proyecto,
-                'percentaje':percentaje}
+                'percentaje':id_proyecto}
     return render(request, 'form/infop.html', context)
 
 
 def subir_anexos(request, proyecto_id):
+    if not own_user(request.user, get_or_none(Proyecto, id=proyecto_id).id):
+        return redirect(index)
     proyecto = get_or_none(Proyecto, pk=proyecto_id)
     
     if request.method == "POST":
@@ -304,8 +321,6 @@ def info_proponente(request, id_proyecto):
         return JsonResponse({"error": str(e)}, status=400)
     
 def info_autores(request, id_proyecto):
-
-
     proyecto = Proyecto.objects.get(id=id_proyecto)
     autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente
 
