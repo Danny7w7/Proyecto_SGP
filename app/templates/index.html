@@ -72,36 +72,19 @@ https://templatemo.com/tm-559-zay-shop
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'crear_proyecto' %}">Plataforma</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contacto</a>
-                        </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="dropdown">
                         <a class="nav-icon position-relative text-decoration-none dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                            <i>{{ user.first_name }}</i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             {% if is_admin %}
                             <a class="dropdown-item" href="{% url 'Dashboard' %}">Administrativo</a>
                             {% endif %}
-                            {% if user.is_authenticated %}
-                                <!-- Si el usuario está logueado -->
-                                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
-                            {% else %}
-                                <!-- Si el usuario no está logueado -->
-                                <a class="dropdown-item" href="{% url 'login' %}">Iniciar sesión</a>
-                            {% endif %}
+                            <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
                         </div>
                     </div>
                 
