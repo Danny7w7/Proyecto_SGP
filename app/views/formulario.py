@@ -275,10 +275,11 @@ def subir_anexos(request, proyecto_id):
             anexo = form.save(commit=False)
             anexo.proyecto = proyecto
             anexo.save()
+
     documents = Document.objects.filter(proyecto=proyecto)
-    contex = {'docs':documents,
-              'proyecto':proyecto,
-            'percentaje':proyecto_id}
+    contex = {'docs': documents,
+              'proyecto': proyecto,
+              'percentaje': proyecto_id}
     return render(request, "form/anexos.html", contex)
 
 
