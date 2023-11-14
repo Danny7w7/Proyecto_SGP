@@ -327,23 +327,27 @@ def info_autores(request, id_proyecto):
 
 
 def info_participantes(request, id_proyecto):
-    try:
-        participantes = Participantes_Proyecto.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        participantes = Participantes_Proyecto.objects.create(proyecto=proyecto)
-       
+    proyecto = Proyecto.objects.get(id=id_proyecto)
+    participante = Participantes_Proyecto(proyecto=proyecto)
+        
     model = Participantes_Proyecto
     column_names = [field.name for field in model._meta.fields]
-    
+        
     for name in column_names:
         if name == 'id' or name == 'proyecto':
             continue
         
-        setattr(participantes, name, request.POST.get(name))
+        setattr(participante, name, request.POST.get(name))
     try:
-        participantes.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
+        participante.save()
+        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_participante": {
+            "nombre_participantes_de_desarrollo":participante.nombre_participantes_de_desarrollo,
+            "numero_cedula_participantes": participante.numero_cedula_participantes,
+            "numero_meses_vinculacion_participantes": participante.numero_meses_vinculacion_participantes,
+            "email_participantes_de_desarrollo": participante.email_participantes_de_desarrollo,
+            "numero_horas_Semanales_dedicadas_participantes": participante.numero_horas_Semanales_dedicadas_participantes,
+            "numero_Telefono_participantes": participante.numero_Telefono_participantes
+        }})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
@@ -461,11 +465,8 @@ def descripcion_problema(request, id_proyecto):
     
 
 def entidad_aliada(request, id_proyecto):
-    try:
-        centro = Entidades_aliadas.objects.get(proyecto_id=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        centro = Entidades_aliadas.objects.create(proyecto=proyecto)
+    proyecto = Proyecto.objects.get(id=id_proyecto)
+    centro = Entidades_aliadas(proyecto=proyecto)
    
     model = Entidades_aliadas
     column_names = [field.name for field in model._meta.fields]
@@ -475,13 +476,17 @@ def entidad_aliada(request, id_proyecto):
             continue
         
         setattr(centro, name, request.POST.get(name))
-
     try:
-        centro.save()
-        # print("Guardado exitosamente")
-        return JsonResponse({"mensaje": "Operación exitosa"})
+            centro.save()
+            return JsonResponse({"mensaje": "Operación exitosa", "nueva_entidad": {
+                "nombre_entidad":centro.nombre_entidad,
+                "tipo_entidad_aliada": centro.tipo_entidad_aliada,
+                "naturaleza_entidad": centro.naturaleza_entidad,
+                "clasificacion_empresa": centro.clasificacion_empresa,
+                "nit": centro.nit
+            }})
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
+            return JsonResponse({"error": str(e)}, status=400)
 
 def centro_formacion(request, id_proyecto):
     try:
@@ -583,7 +588,7 @@ def editar_anexo(request, proyecto_id):
         anexo.save()
 
     form = DocumentForm()
-    return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto})
+    return render(request, "edit_form/edit_anexos.html", {"form": form, "proyecto": proyecto, "percentaje" : 0})
 
 
 def proyectos_usuario(request):

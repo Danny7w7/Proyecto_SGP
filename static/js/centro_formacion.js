@@ -296,18 +296,45 @@ fetch(`/proyecto/info-proyecto/entidad_aliada/${id_proyecto}/`, {
     body: formData,
 })
 .then(response => response.json())  // Parsea la respuesta JSON
-.then(data => {
-    if (data.error) {
-        console.error('Error:', data.error);
-        // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
-    } else {
-        console.log('Mensaje de éxito:', data.mensaje);
-        // Realizar acciones de éxito, si es necesario
-    }
-})
-.catch(error => {
-    console.error('Error en la solicitud:', error);
-    // Manejar errores en la solicitud, como problemas de red
-});
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            alert(data.error); // O muestra el error de alguna otra manera
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            
+            // Aquí, puedes agregar el nuevo autor a la tabla
+            let tableBody = document.querySelector('.tabla tbody');
+            let newRow = tableBody.insertRow();
+            
+            newRow.insertCell(0).textContent = data.nueva_entidad.nombre_entidad;
+            newRow.insertCell(1).textContent = data.nueva_entidad.tipo_entidad_aliada;
+            newRow.insertCell(2).textContent = data.nueva_entidad.naturaleza_entidad;
+            newRow.insertCell(3).textContent = data.nueva_entidad.clasificacion_empresa;
+            newRow.insertCell(4).textContent = data.nueva_entidad.nit;
+    
+            let actionsCell = newRow.insertCell(5);
+            let actionDiv = document.createElement('div');
+            actionDiv.className = "d-flex";
+            
+            let editButton = document.createElement('button');
+            editButton.className = "btn btn-sm btn-outline-primary me-2";
+            editButton.textContent = "Editar";
+            // Aquí puedes añadir eventos al botón editar si lo necesitas
+            
+            let deleteButton = document.createElement('button');
+            deleteButton.className = "btn btn-sm btn-outline-danger";
+            deleteButton.textContent = "Eliminar";
+            // Aquí puedes añadir eventos al botón eliminar si lo necesitas
+    
+            actionDiv.appendChild(editButton);
+            actionDiv.appendChild(deleteButton);
+            actionsCell.appendChild(actionDiv);
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
 };
 
