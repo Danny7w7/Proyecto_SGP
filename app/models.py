@@ -209,12 +209,12 @@ class RiesgoActividades(BaseRiesgo):
     pass
 
 class Document(models.Model):
-    anexo1 = models.ImageField(upload_to="", null=True)
-    anexo2 = models.ImageField(upload_to="", null=True)
-    anexo3 = models.ImageField(upload_to="", null=True)
-    anexo4 = models.ImageField(upload_to="", null=True)
-    anexo5 = models.ImageField(upload_to="", null=True)
-    anexo6 = models.ImageField(upload_to="", null=True)
+    anexo1 = models.FileField(upload_to="", null=True)
+    anexo2 = models.FileField(upload_to="", null=True)
+    anexo3 = models.FileField(upload_to="", null=True)
+    anexo4 = models.FileField(upload_to="", null=True)
+    anexo5 = models.FileField(upload_to="", null=True)
+    anexo6 = models.FileField(upload_to="", null=True)
     fecha = models.DateTimeField(auto_now=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
