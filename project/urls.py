@@ -70,6 +70,8 @@ urlpatterns = [
     path('proyecto/riesgos/riesgo-producto/<int:id_proyecto>/', views.riesgos_p_json, name='r_producto'),
     path('proyecto/riesgos/riesgo-actividad/<int:id_proyecto>/', views.riesgo_a_json, name='r_actividad'),
 
+    #Participantes de entidad aliada
+    path('proyecto/participantes-entidad/<int:id_proyecto>/', views.participantes_entidad_aliada, name='participantes_entidad'),
 
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),

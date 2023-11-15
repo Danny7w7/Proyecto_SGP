@@ -211,45 +211,45 @@
                 <div class="d-flex justify-content-center col-12">
                     <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Autor</h5>
                 </div>
-                        <!-- Tabla de autores -->
-                        <div class="container mt-5">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre del autor(a)</th>
-                                            <th>Tipo de vinculación</th>
-                                            <th>Número de documento</th>
-                                            <th>Rol sennova</th>
-                                            <th>Correo electrónico</th>
-                                            <!-- <th>Num. meses vinculación proyecto</th> -->
-                                            <th>Número de teléfono</th>
-                                            <!-- <th>Num. horas semanales del proyecto</th> -->
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for autor in autores%}
-                                        <tr>
-                                            <td>{{autor.nombre_Autor_Proyecto}}</td>
-                                            <td>{{autor.tipo_Vinculacion_entidad}}</td>
-                                            <td>{{autor.numero_Cedula_Autor}}</td>
-                                            <td>{{autor.rol_Sennova_De_Participantes_de_Proyecto}}</td>
-                                            <td>{{autor.email_Autor_Proyecto}}</td>
-                                            <td>{{autor.numero_Telefono_Autor}}</td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Acciones">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary">Editar</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                    
-                                </table>
-                            </div>
-                        </div>
+                <!-- Tabla de autores -->
+                <div class="container mt-5">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del autor(a)</th>
+                                    <th>Tipo de vinculación</th>
+                                    <th>Número de documento</th>
+                                    <th>Rol sennova</th>
+                                    <th>Correo electrónico</th>
+                                    <!-- <th>Num. meses vinculación proyecto</th> -->
+                                    <th>Número de teléfono</th>
+                                    <!-- <th>Num. horas semanales del proyecto</th> -->
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for autor in autores%}
+                                <tr>
+                                    <td>{{autor.nombre_Autor_Proyecto}}</td>
+                                    <td>{{autor.tipo_Vinculacion_entidad}}</td>
+                                    <td>{{autor.numero_Cedula_Autor}}</td>
+                                    <td>{{autor.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                                    <td>{{autor.email_Autor_Proyecto}}</td>
+                                    <td>{{autor.numero_Telefono_Autor}}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Acciones">
+                                            <button type="button" class="btn btn-sm btn-outline-primary">Editar</button>
+                                            <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
                 <div class="row justify-content-center">
                     
                     <div class="col-12 col-md-10">

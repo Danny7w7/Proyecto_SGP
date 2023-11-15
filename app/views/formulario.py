@@ -74,6 +74,7 @@ def crear_proyecto(request):
                 'percentaje':0}
     return render(request, 'form/crearp.html', context)
 
+@login_required(login_url='/login')
 def informacion_proponente(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
@@ -87,6 +88,7 @@ def informacion_proponente(request, id_proyecto):
     return render(request, 'form/infop.html', context)
     
 
+@login_required(login_url='/login')
 def estructura_proyecto(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
@@ -96,6 +98,7 @@ def estructura_proyecto(request, id_proyecto):
     return render(request, 'form/estp.html', context)
 
 
+@login_required(login_url='/login')
 def crear_objetivo(request, objetivo_proyecto_id):
     if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
         return redirect(index)
@@ -165,7 +168,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
                     causas=causa3,
                     efecto=efecto3,
                     )
-        return redirect('participantes', objetivo_proyecto_id)
+        return redirect('seleccionarObjetivo', objetivo_proyecto_id)
     else:
         objetivo_form = ObjetivoForm()
         objetivo_especifico_form = ObjetivoEspecificoForm()
@@ -183,6 +186,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
     return render(request, 'form/objetivos.html', contex)
 
 
+@login_required(login_url='/login')
 def participantes(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
@@ -196,6 +200,7 @@ def participantes(request, id_proyecto):
     return render(request, 'form/partp.html', context)
 
 
+@login_required(login_url='/login')
 def selecEntidad(request, id_proyecto):
     proyecto = get_or_none(Proyecto, id=id_proyecto)
     if not own_user(request.user, proyecto.id):
@@ -207,21 +212,18 @@ def selecEntidad(request, id_proyecto):
     return render(request, 'form/selectEntidad.html', contex)
 
 
+@login_required(login_url='/login')
 def parcipantes_entidad(request, id_proyecto, id_entidad):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     entidad = Entidades_aliadas.objects.get(id=id_entidad)
-    if request.method == 'POST':
-        form = ParticipantesEntidadForm(request.POST)
-        if form.is_valid():
-            partEntidad = form.save(commit=False)
-            partEntidad.entidad_id = entidad.id
-            partEntidad.save()
-            return redirect('seleccionarEntidad', id_proyecto)
-    contex = {'percentaje': id_proyecto}
+    contex = {'percentaje': id_proyecto,
+              'entidad_id': id_entidad,
+              'participantes':Participantes_entidad_alidad.objects.filter(entidad=entidad.id)}
     return render(request, 'form/part_Entidad.html', contex)
 
 
+@login_required(login_url='/login')
 def selectObj(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
@@ -236,6 +238,7 @@ def selectObj(request, id_proyecto):
     return render(request, 'form/selectObj.html', contex)
 
 
+@login_required(login_url='/login')
 def producEsperados(request, id_proyecto, id_objetivoEsp):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
@@ -254,6 +257,7 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
     return render(request, 'form/producEsperados.html', contex)
 
 
+@login_required(login_url='/login')
 def proyeccion(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
@@ -262,6 +266,7 @@ def proyeccion(request, id_proyecto):
     return render(request, 'form/proyeccion.html', contex)
   
   
+@login_required(login_url='/login')
 def riesgo_general(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
@@ -282,6 +287,7 @@ def riesgo_general(request, id_proyecto):
     return render(request, 'form/riesgosp.html', context)
 
 
+@login_required(login_url='/login')
 def Informacion_de_centro(request, id_proyecto):
     if not own_user(request.user, id_proyecto):
         return redirect(index)
@@ -306,6 +312,7 @@ def Informacion_de_centro(request, id_proyecto):
     return render(request, 'form/infop.html', context)
 
 
+@login_required(login_url='/login')
 def subir_anexos(request, proyecto_id):
     if not own_user(request.user, get_or_none(Proyecto, id=proyecto_id).id):
         return redirect(index)
@@ -514,6 +521,29 @@ def descripcion_problema(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
     
+def centro_formacion(request, id_proyecto):
+    try:
+        centro_f = Centro_de_formacion.objects.get(proyecto_id=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        centro_f = Centro_de_formacion.objects.create(proyecto=proyecto)
+   
+    model = Centro_de_formacion
+    column_names = [field.name for field in model._meta.fields]
+
+    for name in column_names:
+        if name == 'id' or name == 'proyecto':
+            continue
+        
+        setattr(centro_f, name, request.POST.get(name))
+
+    try:
+        centro_f.save()
+        # print("Guardado exitosamente")
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
 
 def entidad_aliada(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
@@ -538,29 +568,32 @@ def entidad_aliada(request, id_proyecto):
             }})
     except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
+    
 
-def centro_formacion(request, id_proyecto):
-    try:
-        centro_f = Centro_de_formacion.objects.get(proyecto_id=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        centro_f = Centro_de_formacion.objects.create(proyecto=proyecto)
+def participantes_entidad_aliada(request, id_proyecto):
+    id_entidad = request.POST['id_entidad']
+    proyecto = Proyecto.objects.get(id=id_proyecto)
+    entidad = Entidades_aliadas.objects.get(id=id_entidad)
+    participante = Participantes_entidad_alidad(entidad=entidad)
    
-    model = Centro_de_formacion
+    model = Participantes_entidad_alidad
     column_names = [field.name for field in model._meta.fields]
 
     for name in column_names:
-        if name == 'id' or name == 'proyecto':
+        if name == 'id' or name == 'entidad':
             continue
         
-        setattr(centro_f, name, request.POST.get(name))
-
+        setattr(participante, name, request.POST.get(name))
     try:
-        centro_f.save()
-        # print("Guardado exitosamente")
-        return JsonResponse({"mensaje": "Operación exitosa"})
+        participante.save()
+        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_participante": {
+            "nombre":participante.nombre,
+            "numero_identificacion": participante.numero_identificacion,
+            "email": participante.email,
+            "telefono": participante.telefono
+        }})
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
+            return JsonResponse({"error": str(e)}, status=400)
     
 
 def tiempo_ejecucion(request, id_proyecto):

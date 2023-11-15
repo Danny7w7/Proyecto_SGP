@@ -212,7 +212,6 @@ fetch(`/proyecto/info-proyecto/centro_formacion/${id_proyecto}/`, {
         // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
     } else {
         console.log('Mensaje de éxito:', data.mensaje);
-        // Realizar acciones de éxito, si es necesario
     }
 })
 .catch(error => {
