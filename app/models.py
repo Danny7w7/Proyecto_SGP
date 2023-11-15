@@ -19,7 +19,7 @@ class Usuarios(AbstractUser):
     
     temp_password = models.CharField(max_length=8)
     tipo_documento = models.CharField(max_length=20, choices=DOCUMENTS_CHOICES)
-    num_documento = models.IntegerField()
+    num_documento = models.BigIntegerField()
     roles = models.ManyToManyField(Roles)
 
     def __str__(self):
