@@ -7,15 +7,13 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Nro Objetivo especifico</th>
                     <th scope="col">Contenido</th>
-                    <th scope="col">Opciones</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 {% for objetivo in objetivosEsp %}
                 <tr>
-                    <th scope="row">{{objetivo.id}}</th>
                     <td>{{objetivo.objetivo_especificos}}</td>
                     <td>
                         <a href="{% url 'producEsperados' id_proyecto objetivo.id %}" type="button" class="btn btn-primary">Seleccionar</a>

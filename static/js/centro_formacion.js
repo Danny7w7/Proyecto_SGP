@@ -44,22 +44,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,100}$/u,
                 errorMsg: 'El nómbre no es válido. Debe tener entre 5 y 100 caracteres.'
             },
-            "nombres_integrantes_participantes_entidad_aliada": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,100}$/u,
-                errorMsg: 'El nombre no es válido. Debe tener entre 5 y 200 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
-            },
-            "numero_identificacion_integrantes": {
-                pattern: /^\d{8,12}$/,
-                errorMsg: 'El número no es válido. Debe tener entre 5 y 12 caracteres y solo puede contener números'
-            },
-            "email_integrantes": {
-                pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
-            },
-            "numeros_celular_integrantes": {
-                pattern: /^\d{10}$/,
-                errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
-            },
             "recursos_especie_entidad": {
                 pattern: /^\d{5,10}$/,
                 errorMsg: 'El número no es válido debe llevar minimo 5 caracteres.',
@@ -250,10 +234,6 @@ function sendPost2() {
     var nit = document.getElementById("nit").value;
     var convenio = document.getElementById("convenio").value;
     var especifique_tipo_codigo_convenio = document.getElementById("especifique_tipo_codigo_convenio").value;
-    var nombres_integrantes_participantes_entidad_aliada = document.getElementById("nombres_integrantes_participantes_entidad_aliada").value;
-    var numero_identificacion_integrantes = document.getElementById("numero_identificacion_integrantes").value;
-    var email_integrantes = document.getElementById("email_integrantes").value;
-    var numeros_celular_integrantes = document.getElementById("numeros_celular_integrantes").value;
     var recursos_especie_entidad = document.getElementById("recursos_especie_entidad").value;
     var descripcion_recursos_especie_aportados = document.getElementById("descripcion_recursos_especie_aportados").value;
     var recursos_dinero_entidad_aliada = document.getElementById("recursos_dinero_entidad_aliada").value;
@@ -275,10 +255,6 @@ formData.append("clasificacion_empresa", clasificacion_empresa);
 formData.append("nit", nit);
 formData.append("convenio", convenio);
 formData.append("especifique_tipo_codigo_convenio", especifique_tipo_codigo_convenio);
-formData.append("nombres_integrantes_participantes_entidad_aliada", nombres_integrantes_participantes_entidad_aliada);
-formData.append("numero_identificacion_integrantes", numero_identificacion_integrantes);
-formData.append("email_integrantes", email_integrantes);
-formData.append("numeros_celular_integrantes", numeros_celular_integrantes);
 formData.append("recursos_especie_entidad", recursos_especie_entidad);
 formData.append("descripcion_recursos_especie_aportados", descripcion_recursos_especie_aportados);
 formData.append("recursos_dinero_entidad_aliada", recursos_dinero_entidad_aliada);

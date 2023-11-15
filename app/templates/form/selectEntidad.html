@@ -1,0 +1,35 @@
+{% extends "form/crearp.html" %}
+
+{% load static %}
+{% block forms %}
+    <h3 class="text-center">Selecciona la entidad aliada a la cual le quieres agregar sus participantes</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre entidad</th>
+                    <th>NIT</th>
+                    <th>Tipo entidad</th>
+                    <th>Naturaleza entidad</th>
+                    <th>Clasificación empresa</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entidad in entidades %}
+                <tr>
+                    <td>{{entidad.nombre_entidad}}</td>
+                    <td>{{entidad.nit}}</td>
+                    <td>{{entidad.tipo_entidad_aliada}}</td>
+                    <td>{{entidad.naturaleza_entidad}}</td>
+                    <td>{{entidad.clasificacion_empresa}}</td>
+                    <td>
+                        <a href="{% url 'part_entidad' percentaje entidad.id %}" type="button" class="btn btn-primary">Seleccionar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}

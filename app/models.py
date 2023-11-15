@@ -145,10 +145,6 @@ class Entidades_aliadas(models.Model):
     nit = models.BigIntegerField(null=True)
     convenio = models.BooleanField(null=True)
     especifique_tipo_codigo_convenio = models.CharField(max_length=150, null=True)
-    nombres_integrantes_participantes_entidad_aliada = models.CharField(max_length=150, null=True)
-    numero_identificacion_integrantes = models.BigIntegerField(null=True)
-    email_integrantes = models.EmailField(null=True)
-    numeros_celular_integrantes = models.BigIntegerField(null=True)
     recursos_especie_entidad = models.BigIntegerField(null=True)
     descripcion_recursos_especie_aportados = models.CharField(max_length=150, null=True)
     recursos_dinero_entidad_aliada = models.BigIntegerField(null=True)
@@ -160,7 +156,13 @@ class Entidades_aliadas(models.Model):
     objetivo_especificos_relacionados = models.CharField(max_length=250, null=True)
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
-    # informacion_proyecto = models.ForeignKey(Informacion_Proyecto, on_delete=models.CASCADE)
+
+class Participantes_entidad_alidad(models.Model):
+    nombres_integrantes_participantes_entidad_aliada = models.CharField(max_length=150, null=True)
+    numero_identificacion_integrantes = models.BigIntegerField(null=True)
+    email_integrantes = models.EmailField(null=True)
+    numeros_celular_integrantes = models.BigIntegerField(null=True)
+    entidad = models.ForeignKey(Entidades_aliadas, on_delete=models.CASCADE)
 
 # Resultados y productos esperados
 class Resultados_y_productos_esperados(models.Model):

@@ -2,8 +2,8 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 
-from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperados
-from app.models import Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion
+from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperados, ParticipantesEntidadForm
+from app.models import Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion, Participantes_entidad_alidad
 
 
 from django.contrib.auth.decorators import login_required
@@ -187,7 +187,6 @@ def participantes(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
-    print(Entidades_aliadas.objects.filter(proyecto = proyecto))
     context = {
         'proyecto':get_or_none(Proyecto, id=id_proyecto),
         'entidad_a':Entidades_aliadas.objects.filter(proyecto = proyecto),
@@ -195,6 +194,32 @@ def participantes(request, id_proyecto):
         'percentaje': id_proyecto
     }
     return render(request, 'form/partp.html', context)
+
+
+def selecEntidad(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    if not own_user(request.user, proyecto.id):
+        return redirect(index)
+    if not Entidades_aliadas.objects.filter(proyecto=proyecto).exists():
+        return HttpResponse("Para acceder a esta vista debes de crear por lo menos una entidad aliada")
+    contex = {'entidades': Entidades_aliadas.objects.filter(proyecto=proyecto),
+              'percentaje': proyecto.id}
+    return render(request, 'form/selectEntidad.html', contex)
+
+
+def parcipantes_entidad(request, id_proyecto, id_entidad):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
+    entidad = Entidades_aliadas.objects.get(id=id_entidad)
+    if request.method == 'POST':
+        form = ParticipantesEntidadForm(request.POST)
+        if form.is_valid():
+            partEntidad = form.save(commit=False)
+            partEntidad.entidad_id = entidad.id
+            partEntidad.save()
+            return redirect('seleccionarEntidad', id_proyecto)
+    contex = {'percentaje': id_proyecto}
+    return render(request, 'form/part_Entidad.html', contex)
 
 
 def selectObj(request, id_proyecto):
