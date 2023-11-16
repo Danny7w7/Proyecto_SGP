@@ -1,6 +1,6 @@
 let conjuntosMostrados = 1;
-fieldExclude2 = ['id_objetivo_especificos2', 'id_causa2', 'id_efecto2']
-fieldExclude3 = ['id_objetivo_especificos3', 'id_causa3', 'id_efecto3']
+fieldExclude2 = ['id_objetivo_especificos2', 'id_actividad2' ,'id_causa2', 'id_efecto2']
+fieldExclude3 = ['id_objetivo_especificos3','id_actividad3', 'id_causa3', 'id_efecto3']
 function mostrarDivs() {
   // Mostrar conjuntos adicionales solo si no se han mostrado más de 2
   if (conjuntosMostrados < 2) {
@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", function() {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
+        "id_actividad": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+        },
         "id_causa": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
@@ -35,6 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
+        "id_actividad2": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+        },
         "id_causa2": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
@@ -44,6 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos3": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+        },
+        "id_actividad3": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },

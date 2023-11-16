@@ -1,5 +1,5 @@
 {% extends "form/crearp.html" %}
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 {% load static %}
 {% block forms %}
     <div class="accordion" id="accordionExample">
@@ -50,11 +50,13 @@
                                                     <label class="form-label">Duración del proyecto (debe
                                                         coincidir con el cronograma)</label>
                                                     <input disabled id="duracion_proyecto" type="text" class="form-control form-control-sm">
+                                                    <div class="invalid-feedback">
+                                                    </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Fecha de inicio (Debe coincidir
                                                         con el cronograma)</label>
-                                                        <input id="fecha_inicio" type="date" class="form-control form-control-sm">
+                                                    <input id="fecha_inicio" type="date" class="form-control form-control-sm">
                                                     <div class="invalid-feedback">
                                                     </div>
                                                 </div>
@@ -143,5 +145,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'js/proyeccion.js' %}"></script>
+<script src="{% static 'js/proyeccion.js' %}"></script>
 {% endblock %}
