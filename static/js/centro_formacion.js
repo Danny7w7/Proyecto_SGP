@@ -1,4 +1,10 @@
+var sig;
 document.addEventListener("DOMContentLoaded", function() {
+    fieldQuestion = ['convenio']
+    fieldExclude = ['especifique_tipo_codigo_convenio']
+    var inputs = fieldQuestion.map(function(id) {
+        return document.getElementById(id);
+    });
     
     const allValidations = {
         "form1": {
@@ -72,10 +78,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,250}$/u,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
             },
-            "objetivo_especificos_relacionados": {
-                pattern: /^[A-Za-z ]{5,250}$/,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
-            },
             "metodologia_act_transferencia_centro_formacion": {
                 pattern: /^[A-Za-z ]{5,250}$/,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
@@ -112,7 +114,13 @@ document.addEventListener("DOMContentLoaded", function() {
         handleFormSubmit(event, 'form1');
     });
     
-    document.getElementById("enviar2").addEventListener("click", function(event) {
+    document.getElementById("enviarG").addEventListener("click", function(event) {
+        sig = false
+        handleFormSubmit(event, 'form2');
+    });
+
+    document.getElementById("enviarGYS").addEventListener("click", function(event) {
+        sig = true
         handleFormSubmit(event, 'form2');
     });
 
@@ -156,6 +164,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function validateField(field, feedback, pattern, errorMsg) {
+        if (fieldExclude.includes(field.id)){
+            var index = fieldExclude.indexOf(field.id);
+            if (inputs[index].value == '0'){   
+                field.classList.remove("is-invalid");
+                field.classList.add("is-valid");
+                feedback.textContent = '';
+                return true;
+            }
+        }
         if (pattern.test(field.value)) {
             field.classList.remove("is-invalid");
             field.classList.add("is-valid");
@@ -241,9 +258,23 @@ function sendPost2() {
     var codigo_gruplac_entidad_aliada = document.getElementById("codigo_gruplac_entidad_aliada").value;
     var link_gruplac_entidad_aliada = document.getElementById("link_gruplac_entidad_aliada").value;
     var actividades_desarrollar_entidad_aliada_marco_proyecto = document.getElementById("actividades_desarrollar_entidad_aliada_marco_proyecto").value;
-    var objetivo_especificos_relacionados = document.getElementById("objetivo_especificos_relacionados").value;
     var metodologia_act_transferencia_centro_formacion = document.getElementById("metodologia_act_transferencia_centro_formacion").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    const elementos = [];
+
+    let i = 1;
+    while (true) {
+        const elemento = document.getElementById(`objEspecifico${i}`);
+        if (elemento) {
+            elementos.push(elemento.checked);
+            console.log(`Elemento ${i}:`, elemento.checked);
+        } else {
+            break;
+        }
+        
+        i++;
+    }
 
 // Crear un objeto FormData para los datos del formulario
 var formData = new FormData();
@@ -262,7 +293,7 @@ formData.append("nombre_grupo_inv_entidad_aliada", nombre_grupo_inv_entidad_alia
 formData.append("codigo_gruplac_entidad_aliada", codigo_gruplac_entidad_aliada);
 formData.append("link_gruplac_entidad_aliada", link_gruplac_entidad_aliada);
 formData.append("actividades_desarrollar_entidad_aliada_marco_proyecto", actividades_desarrollar_entidad_aliada_marco_proyecto);
-formData.append("objetivo_especificos_relacionados", objetivo_especificos_relacionados);
+formData.append("objetivo_especificos_relacionados", JSON.stringify(elementos));
 formData.append("metodologia_act_transferencia_centro_formacion", metodologia_act_transferencia_centro_formacion);
 formData.append("csrfmiddlewaretoken", csrfToken);
 // Realizar una solicitud POST utilizando Fetch
@@ -287,24 +318,10 @@ fetch(`/proyecto/info-proyecto/entidad_aliada/${id_proyecto}/`, {
             newRow.insertCell(2).textContent = data.nueva_entidad.naturaleza_entidad;
             newRow.insertCell(3).textContent = data.nueva_entidad.clasificacion_empresa;
             newRow.insertCell(4).textContent = data.nueva_entidad.nit;
-    
-            let actionsCell = newRow.insertCell(5);
-            let actionDiv = document.createElement('div');
-            actionDiv.className = "d-flex";
             
-            let editButton = document.createElement('button');
-            editButton.className = "btn btn-sm btn-outline-primary me-2";
-            editButton.textContent = "Editar";
-            // Aquí puedes añadir eventos al botón editar si lo necesitas
-            
-            let deleteButton = document.createElement('button');
-            deleteButton.className = "btn btn-sm btn-outline-danger";
-            deleteButton.textContent = "Eliminar";
-            // Aquí puedes añadir eventos al botón eliminar si lo necesitas
-    
-            actionDiv.appendChild(editButton);
-            actionDiv.appendChild(deleteButton);
-            actionsCell.appendChild(actionDiv);
+            if (sig){
+                window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
+            }
         }
     })
     .catch(error => {

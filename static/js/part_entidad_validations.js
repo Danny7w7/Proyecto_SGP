@@ -1,3 +1,4 @@
+var sig;
 document.addEventListener("DOMContentLoaded", function() {
     const allValidations = {
        "form1": {
@@ -44,7 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const form1 = document.getElementById("form1");
 
 
-    document.getElementById("enviar1").addEventListener("click", function(event) {
+    document.getElementById("enviarG").addEventListener("click", function(event) {
+        sig = false
+        handleFormSubmit(event, 'form1');
+    });
+
+    document.getElementById("enviarGYS").addEventListener("click", function(event) {
+        sig = true
         handleFormSubmit(event, 'form1');
     });
 
@@ -136,6 +143,10 @@ function sendPost1() {
             newRow.insertCell(1).textContent = data.nuevo_participante.numero_identificacion;
             newRow.insertCell(2).textContent = data.nuevo_participante.email;
             newRow.insertCell(3).textContent = data.nuevo_participante.telefono;
+            
+            if (sig){
+                window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
+            }
         }
     })
     .catch(error => {

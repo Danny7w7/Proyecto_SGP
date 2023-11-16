@@ -153,8 +153,8 @@ class Entidades_aliadas(models.Model):
     codigo_gruplac_entidad_aliada = models.CharField(max_length=50, null=True)
     link_gruplac_entidad_aliada = models.CharField(max_length=500 ,null=True)
     actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=250, null=True)
-    objetivo_especificos_relacionados = models.CharField(max_length=250, null=True)
     metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
+    objetivo_especificos = models.ForeignKey(Objetivos_especificos, on_delete=models.CASCADE)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
 class Participantes_entidad_alidad(models.Model):
