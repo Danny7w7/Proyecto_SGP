@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "duracion_proyecto": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,250}$/,
+            errorMsg: 'La fecha no es válida. Por favor ingresela nuevamente.'
         },
         "fecha_inicio": {
             pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     document.getElementById("enviar1").addEventListener("click", function() {
-        sendPost1()
+        handleFormSubmit(event, 'form1');
     });
     document.getElementById("enviar2").addEventListener("click", function() {
         handleFormSubmit(event, 'form2');

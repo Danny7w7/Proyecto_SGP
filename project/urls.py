@@ -19,6 +19,7 @@ from django.urls import path
 from app import views
 from django.conf.urls.static import static
 from django.conf import settings
+from app.views.dashboard import eliminar_usuario
 
 
 
@@ -70,6 +71,8 @@ urlpatterns = [
     path('proyecto/riesgos/riesgo-producto/<int:id_proyecto>/', views.riesgos_p_json, name='r_producto'),
     path('proyecto/riesgos/riesgo-actividad/<int:id_proyecto>/', views.riesgo_a_json, name='r_actividad'),
 
+    #Participantes de entidad aliada
+    path('proyecto/participantes-entidad/<int:id_proyecto>/', views.participantes_entidad_aliada, name='participantes_entidad'),
 
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
@@ -85,4 +88,5 @@ urlpatterns = [
     path('Dashboard/Proyectos-Inactivos/', views.proyectosINA, name='Proyecto-inactivo'),
     path('Dashboard/Proyectos-Completos/', views.proyectoT, name='Proyecto-Completo'),
     path('Dashboard/Proyectos-Pendientes', views.proyectoP, name='Proyecto-Pendiente'),
+    path('eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

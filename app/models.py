@@ -19,7 +19,7 @@ class Usuarios(AbstractUser):
     
     temp_password = models.CharField(max_length=8)
     tipo_documento = models.CharField(max_length=20, choices=DOCUMENTS_CHOICES)
-    num_documento = models.IntegerField()
+    num_documento = models.BigIntegerField()
     roles = models.ManyToManyField(Roles)
 
     def __str__(self):
@@ -114,11 +114,11 @@ class Objetivos_especificos(models.Model):
 
 class Actividades_de_objetivos_especificos(models.Model):
     actividades_obj_especificos = models.CharField(max_length=300, null=False)
-    objetivos_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+    objetivo_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
 
 class Causa(models.Model):
     causa = models.CharField(max_length=500, null=True)
-    obejetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+    objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
     
 class Efecto(models.Model):
     efecto = models.CharField(max_length=500, null=True)
@@ -158,10 +158,10 @@ class Entidades_aliadas(models.Model):
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
 class Participantes_entidad_alidad(models.Model):
-    nombres_integrantes_participantes_entidad_aliada = models.CharField(max_length=150, null=True)
-    numero_identificacion_integrantes = models.BigIntegerField(null=True)
-    email_integrantes = models.EmailField(null=True)
-    numeros_celular_integrantes = models.BigIntegerField(null=True)
+    nombre = models.CharField(max_length=150, null=True)
+    numero_identificacion = models.BigIntegerField(null=True)
+    email = models.EmailField(null=True)
+    telefono = models.BigIntegerField(null=True)
     entidad = models.ForeignKey(Entidades_aliadas, on_delete=models.CASCADE)
 
 # Resultados y productos esperados

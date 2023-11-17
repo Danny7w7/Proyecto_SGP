@@ -24,37 +24,6 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def register(request):
-    if request.user.is_authenticated:
-        return redirect(index)
-    if request.method == 'POST':
-        if Usuarios.objects.filter(email=request.POST["email"]).exists():
-            msg = "Este email ya existe"
-            return render(request, 'login/register.html', {'msg': msg})
-        else:
-            afterhashed = request.POST["password"]
-            try:
-                user = Usuarios.objects.create_user(email=request.POST["email"],
-                                                password=request.POST["password"],
-                                                username=request.POST["email"],
-                                                first_name=request.POST["first_name"],
-                                                last_name=request.POST["last_name"],
-                                                tipo_documento=request.POST["tipo_documento"],
-                                                num_documento=request.POST["num_documento"])
-                rol_lector = Roles.objects.get(rol='L')
-                user.roles.add(rol_lector)
-                user.save()
-                userl = authenticate(
-                    request, username=user.username, password=afterhashed)
-                login(request, userl)
-                return redirect(index)
-            except:
-                msg = "Por favor selecciona tu tipo de documento correctamente"
-                return render(request, 'login/register.html', {'msg':msg})
-    else:
-        return render(request, 'login/register.html')
-
-
 def login_(request):
     if request.user.is_authenticated:
         return redirect(index)
