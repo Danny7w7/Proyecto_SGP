@@ -90,10 +90,11 @@ def informacion_proponente(request, id_proyecto):
 
 @login_required(login_url='/login')
 def estructura_proyecto(request, id_proyecto):
-    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+    proyecto  = get_or_none(Proyecto, id=id_proyecto)
+    if not own_user(request.user, proyecto.id):
         return redirect(index)
-    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'resumen':get_or_none(Resumen_antecedentes),
+    context = {'proyecto':proyecto,
+               'resumen':get_or_none(Resumen_antecedentes, proyecto=proyecto),
                'percentaje':id_proyecto}
     return render(request, 'form/estp.html', context)
 
@@ -536,11 +537,7 @@ def descripcion_problema(request, id_proyecto):
         descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
     descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
     descripcion.justificacion = request.POST['Justificacion']
-    try:
-        os.remove('media/' + descripcion.marco_conceptual.name)
-    except:
-        print("No existe la foto o es primera vez")
-    descripcion.marco_conceptual = request.FILES['Marco_conceptual'] 
+    descripcion.marco_conceptual = request.POST['Marco_conceptual'] 
     
     try:
         descripcion.save()

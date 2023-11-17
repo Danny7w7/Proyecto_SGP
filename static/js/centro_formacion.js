@@ -3,28 +3,28 @@ document.addEventListener("DOMContentLoaded", function() {
     const allValidations = {
         "form1": {
             "nombre_semillero_investigacion_beneficiados": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,100}$/u,
-                errorMsg: 'El nombre no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,300}$/u,
+                errorMsg: 'El nombre no es válido. Debe tener entre 5 y 300 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
             },
             "nombre_programas_formacion_beneficiados_semillero": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,100}$/u,
-                errorMsg: 'El nombre no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,300}$/u,
+                errorMsg: 'El nombre del programa no es válido. Debe tener entre 5 y 300 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
             },
             "nombre_programas_formacion_beneficiados_ejecucion_proyecto": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,100}$/u,
-                errorMsg: 'El nombre no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,300}$/u,
+                errorMsg: 'El nombre del programa no es válido. Debe tener entre 5 y 300 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
             },
-            "numero_aprendices_participaran_ejecución_proyecto": {
+            "numero_aprendices_participaran_ejecucion_proyecto": {
                 pattern: /^\d{1}$/,
-                errorMsg: 'El numero no es válido.'
+                errorMsg: 'El número de aprendices no es válido.'
             },
             "numero_municipios_beneficiados": {
                 pattern: /^\d{1,5}$/,
-                errorMsg: 'El número no es válido.'
+                errorMsg: 'El número de municipios no es válido.'
             },
             "nombre_municipios_beneficiados_descripcion_beneficio": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,200}$/u,
-                errorMsg: 'El nombre no es válido.',
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{4,200}$/u,
+                errorMsg: 'El nombre de los municipios no son válidos.',
             },
             "numero_aprendices_participaran_ejecucion_proyecto": {
                 pattern: /^\d{1,}$/,
@@ -33,31 +33,31 @@ document.addEventListener("DOMContentLoaded", function() {
            },
         "form2": {
             "nombre_entidad": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,200}$/u,
-                errorMsg: 'El nombre no es válido. Debe tener entre 5 y 200 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,200}$/u,
+                errorMsg: 'El nombre de la entidad no es válido. Debe tener entre 5 y 200 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
             },
             "nit": {
-                pattern: /^\d{6,12}$/,
-                errorMsg: 'El numero no es válido. Debe tener entre 6 y 12 caracteres'
+                pattern: /^\d{5,20}-\d{1}$/u,
+                errorMsg: 'El nit no es válido. Debe tener entre 6 y 12 caracteres'
             },
             "especifique_tipo_codigo_convenio": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,100}$/u,
-                errorMsg: 'El nómbre no es válido. Debe tener entre 5 y 100 caracteres.'
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,50}$/u,
+                errorMsg: 'El tipo y código de convenio no es válido. Debe tener entre 5 y 50 caracteres.'
             },
             "recursos_especie_entidad": {
-                pattern: /^\d{5,10}$/,
-                errorMsg: 'El número no es válido debe llevar minimo 5 caracteres.',
+                pattern: /^(0|[1-9]\d{4,8}|1000000000)$/,
+                errorMsg: 'El número de recursos en especie no es válido debe llevar máximo una cifra de 1.000 millones.',
             },
             "descripcion_recursos_especie_aportados": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,150}$/u,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 150 caracteres.',
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
+                errorMsg: 'La descripción del recurso no es válido debe llevar minimo 5 y 150 caracteres.',
             },
             "recursos_dinero_entidad_aliada": {
-                pattern: /^\d{5,10}$/,
-                errorMsg: 'El número no es válido debe llevar minimo 5 caracteres.',
+                pattern: /^(0|[1-9]\d{4,8}|1000000000)$/,
+                errorMsg: 'El número de recursos en dinero no es válido debe contener máximo una cifra de 1.000 millones.',
             },
             "descripcion_destinacion_dinero_aportado": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,150}$/u,
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 150 caracteres.',
             },
             "nombre_grupo_inv_entidad_aliada": {
@@ -65,19 +65,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 170 caracteres.',
             },
             "link_gruplac_entidad_aliada": {
-                pattern: /^[A-Za-z ]{5,50}$/,
+                pattern: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 caracteres.',
             },
             "actividades_desarrollar_entidad_aliada_marco_proyecto": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,250}$/u,
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,250}$/u,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
             },
             "objetivo_especificos_relacionados": {
-                pattern: /^[A-Za-z ]{5,250}$/,
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,250}$/u,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
             },
             "metodologia_act_transferencia_centro_formacion": {
-                pattern: /^[A-Za-z ]{5,250}$/,
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,200}$/u,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
             },
            }
@@ -201,7 +201,7 @@ formData.append("numero_municipios_beneficiados", numero_municipios_beneficiados
 formData.append("nombre_municipios_beneficiados_descripcion_beneficio", nombre_municipios_beneficiados_descripcion_beneficio);
 formData.append("csrfmiddlewaretoken", csrfToken);
 // Realizar una solicitud POST utilizando Fetch
-fetch(`/proyecto/info-proyecto/centro_formacion/${id_proyecto}/`, {
+fetch(`/proyecto/info-proyecto/centro-formacion/${id_proyecto}/`, {
     method: 'POST',
     body: formData,
 })

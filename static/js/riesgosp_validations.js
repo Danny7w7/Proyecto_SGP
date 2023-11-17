@@ -5,45 +5,45 @@ document.addEventListener("DOMContentLoaded", function() {
         //Riesgos nivel objetivo general
        "form1": {
         "descripcion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
        // Riesgos nivel producto
        "form2":{
         "descripcion2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
     //Riesgos nivel actividades
        "form3":{
         "descripcion3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },

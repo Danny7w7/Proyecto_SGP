@@ -5,24 +5,28 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "resumen_ejecutivo": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
-        },
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'El resumen ejecutivo no es válido. Debe tener entre 5 y 8000 caracteres.'
+        },        
         "antecedentes": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'El antecedente no es válido. Debe tener entre 5 y 8000 caracteres.'
         },
        },
 
     //Descripcion del problema
        "form2":{
         "identificacion_y_descripcion_problema": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
-            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'La identificación y descripcion del problema no es válido. Debe tener entre 5 y 8000 caracteres.'
         },
         "justificacion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
-            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 250 caracteres.'
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 8000 caracteres.'
+        },
+        "marco_conceptual": {
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'El marco conceptual no es válido. Debe tener entre 5 y 8000 caracteres.'
         },
        },
     };
@@ -150,14 +154,14 @@ function sendPost2() {
     // Obtener los valores de los campos del formulario
     var identificacion_y_descripcion_problema = document.getElementById("identificacion_y_descripcion_problema").value;
     var justificacion = document.getElementById("justificacion").value;
-    var formFile = document.getElementById("formFile").files[0];
+    var marco_conceptual = document.getElementById("marco_conceptual").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
     formData.append("Identificacion_y_descripcion_problema", identificacion_y_descripcion_problema);
     formData.append("Justificacion", justificacion);
-    formData.append("Marco_conceptual", formFile);
+    formData.append("Marco_conceptual", marco_conceptual);
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
     fetch(`/proyecto/est-proyecto/descripcion-problema/${id_proyecto}/`, {
