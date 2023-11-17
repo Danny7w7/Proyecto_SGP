@@ -36,19 +36,19 @@ document.addEventListener("DOMContentLoaded", function() {
     //Descripcion del problema
        "form2":{
         "propuesta_sostenibilidad": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
         },
         "impacto_social": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
         },
         "impacto_tecnologico": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
         },
         "impacto_centro": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
         },
        },

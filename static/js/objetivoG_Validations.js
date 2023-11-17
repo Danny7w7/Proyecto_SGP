@@ -16,43 +16,43 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "id_objetivo_general": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,300}$/u,
+            pattern: /^[\s\S]{5,300}$/,
             errorMsg: 'El obj general no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,300}$/u,
+            pattern: /^[\s\S]{5,300}$/,
             errorMsg: 'El obj especifico no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "id_causa": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'La  causa no es válida. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_efecto": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'El efecto no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos2": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,300}$/,
             errorMsg: 'El obj especifico 2 no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "id_causa2": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'La causa 2 no es válida. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_efecto2": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'El efecto 2 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos3": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
-            errorMsg: 'El obj especifico 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,300}$/,
+            errorMsg: 'El obj especifico 3 no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "id_causa3": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'La causa 3 no es válida. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_efecto3": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
+            pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'El efecto 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
        },

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,300}$/u,
                 errorMsg: 'El nombre del programa no es válido. Debe tener entre 5 y 300 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
             },
-            "numero_aprendices_participaran_ejecución_proyecto": {
+            "numero_aprendices_participaran_ejecucion_proyecto": {
                 pattern: /^\d{1}$/,
                 errorMsg: 'El número de aprendices no es válido.'
             },
@@ -201,7 +201,7 @@ formData.append("numero_municipios_beneficiados", numero_municipios_beneficiados
 formData.append("nombre_municipios_beneficiados_descripcion_beneficio", nombre_municipios_beneficiados_descripcion_beneficio);
 formData.append("csrfmiddlewaretoken", csrfToken);
 // Realizar una solicitud POST utilizando Fetch
-fetch(`/proyecto/info-proyecto/centro_formacion/${id_proyecto}/`, {
+fetch(`/proyecto/info-proyecto/centro-formacion/${id_proyecto}/`, {
     method: 'POST',
     body: formData,
 })

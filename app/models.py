@@ -88,17 +88,17 @@ class Generalidades_del_proyecto(models.Model):
 
 #Estructura del proyecto
 class Resumen_antecedentes(models.Model):
-    resumen_ejecutivo = models.TextField(max_length=7000, null=True)
-    antecedentes = models.TextField(max_length=7000, null=True)
+    resumen_ejecutivo = models.TextField(max_length=8000, null=True)
+    antecedentes = models.TextField(max_length=8000, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 class Arbol_problemas(models.Model):
     arbol_de_problemas = models.CharField(max_length=150, null=True)
 
 class Descripcion_problema(models.Model):
-    identificacion_y_descripcion_problema = models.CharField(max_length=7000, null=False)
-    justificacion = models.TextField(max_length=7000, null=True)
-    marco_conceptual = models.TextField(max_length=7000, null=True)
+    identificacion_y_descripcion_problema = models.CharField(max_length=8000, null=False)
+    justificacion = models.TextField(max_length=8000, null=True)
+    marco_conceptual = models.TextField(max_length=8000, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 

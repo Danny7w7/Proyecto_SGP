@@ -5,28 +5,28 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "resumen_ejecutivo": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,7000}$/u,
-            errorMsg: 'El resumen ejecutivo no es válido. Debe tener entre 5 y 7000 caracteres.'
-        },
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'El resumen ejecutivo no es válido. Debe tener entre 5 y 8000 caracteres.'
+        },        
         "antecedentes": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,7000}$/u,
-            errorMsg: 'El antecedente no es válido. Debe tener entre 5 y 7000 caracteres.'
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'El antecedente no es válido. Debe tener entre 5 y 8000 caracteres.'
         },
        },
 
     //Descripcion del problema
        "form2":{
         "identificacion_y_descripcion_problema": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,7000}$/u,
-            errorMsg: 'La identificación y descripcion del problema no es válido. Debe tener entre 5 y 7000 caracteres.'
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'La identificación y descripcion del problema no es válido. Debe tener entre 5 y 8000 caracteres.'
         },
         "justificacion": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,7000}$/u,
-            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 7000 caracteres.'
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 8000 caracteres.'
         },
         "marco_conceptual": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,7000}$/u,
-            errorMsg: 'El marco conceptual no es válido. Debe tener entre 5 y 7000 caracteres.'
+            pattern: /^[\s\S]{5,8000}$/,
+            errorMsg: 'El marco conceptual no es válido. Debe tener entre 5 y 8000 caracteres.'
         },
        },
     };

@@ -92,15 +92,15 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El link del vídeo no es válido.',
         },
         "justificacion_Economia_Naranja":{
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,600}$/u,
+            pattern: /^[\s\S]{5,600}$/,
             errorMsg: 'La justificación de economía naranja no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
         }, 
         "justificacion_Politica_Discapacidad":{
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,600}$/u,
+            pattern: /^[\s\S]{5,600}$/,
             errorMsg: 'La justificación de política de discapacidad no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
         }, 
         "justificacion_Industrial":{
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,600}$/u,
+            pattern: /^[\s\S]{5,600}$/,
             errorMsg: 'La justificación industrial 4.0 no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
         }, 
        }
