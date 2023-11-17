@@ -79,11 +79,16 @@ def crear_proyecto(request):
 def informacion_proponente(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
-    proyecto = get_or_none(Proyecto, id=id_proyecto)
-    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
-               'autores': Autores.objects.filter(proyecto = proyecto),
-               'participantes': Participantes_Proyecto.objects.filter(proyecto = proyecto),
+    info_prop = get_or_none(Informacion_proponente, proyecto=id_proyecto)
+    print(info_prop)
+    autor = get_or_none(Autores, proyecto=id_proyecto),
+    partp = get_or_none(Participantes_Proyecto, proyecto=id_proyecto)
+    gen = get_or_none(Generalidades_del_proyecto, proyecto=id_proyecto)
+    context = {'proyecto': id_proyecto,
+               'info_prop': info_prop,
+               'autor': autor,
+               'partp': partp,
+               'gen': gen,
                'percentaje':id_proyecto,
                'listaPlegable':contex_form()}
     return render(request, 'form/infop.html', context)

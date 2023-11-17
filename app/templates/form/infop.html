@@ -56,7 +56,7 @@
     <div class="d-flex justify-content-center col-12">
         <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">INFORMACIÓN PROYECTO</h5>
     </div>
-    <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
+    <input id="id_proyecto" type="hidden" value="{{proyecto}}">
 
     <!-- Card Element -->
     <div class="card">
@@ -80,49 +80,50 @@
                                     <!-- First Column with 5 rows -->
                                     <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
                                         {% csrf_token %}
+
                                         <label for="Region" class="form-label">Región</label>
                                         <select name="Region" class="form-select" id="select_box">
                                             <option value="" disabled selected>Selecciona una opción...</option>
-                                            <option value="amazonica">Amazónica</option>
-                                            <option value="andina_insular">Andina e insular</option>
-                                            <option value="caribe">Caribe</option>
-                                            <option value="pacifico">Pacífica</option>
-                                            <option value="orinoquia">Orinoquía</option>
+                                            <option value="amazonica" {% if info_prop.Region == "amazonica" %}selected{% endif %}>Amazónica</option>
+                                            <option value="andina_insular" {% if info_prop.Region == "andina_insular" %}selected{% endif %}>Andina e insular</option>
+                                            <option value="caribe" {% if info_prop.Region == "caribe" %}selected{% endif %}>Caribe</option>
+                                            <option value="pacifico" {% if info_prop.Region == "pacifico" %}selected{% endif %}>Pacífica</option>
+                                            <option value="orinoquia" {% if info_prop.Region == "orinoquia" %}selected{% endif %}>Orinoquía</option>
                                         </select>
 
                                         <label for="Regional" class="form-label">Regional</label>
                                         <select name="Regional" id="select_box2" class="form-select">
                                             <option value="" disabled selected>Selecciona una opción...</option>
-                                            <option value="amazonas">AMAZONAS</option>
-                                            <option value="antioquia">ANTIOQUIA</option>
-                                            <option value="arauca">ARAUCA</option>
-                                            <option value="atlantico">ATLÁNTICO</option>
-                                            <option value="bolivar">BOLÍVAR</option>
-                                            <option value="boyaca">BOYACÁ</option>
-                                            <option value="caldas">CALDAS</option>
-                                            <option value="caqueta">CAQUETÁ</option>
-                                            <option value="cauca">CAUCA</option>
-                                            <option value="cesar">CESAR</option>
-                                            <option value="choco">CHOCO</option>
-                                            <option value="cordoba">CÓRDOBA</option>
-                                            <option value="cundinamarca">CUNDINAMARCA</option>
-                                            <option value="distrito_capital">DISTRITO CAPITAL</option>
-                                            <option value="guainia">GUAINÍA</option>
-                                            <option value="guajira">GUAJIRA</option>
-                                            <option value="guaviare">GUAVIARE</option>
-                                            <option value="huila">HUILA</option>
-                                            <option value="magdalena">MAGDALENA</option>
-                                            <option value="meta">META</option>
-                                            <option value="narinio">NARIÑO</option>
-                                            <option value="norte_santander">NORTE DE SANTANDER</option>
-                                            <option value="putumayo">PUTUMAYO</option>
-                                            <option value="quindio">QUINDÍO</option>
-                                            <option value="san_andres">SAN ANDRÉS</option>
-                                            <option value="santander">SANTANDER</option>
-                                            <option value="tolima">TOLIMA</option>
-                                            <option value="vaupes">VAUPÉS</option>
-                                            <option value="vichada">VICHADA</option>
-                                            <option value="valle">VALLE</option>
+                                            <option value="amazonas"  {% if info_prop.Region == "amazonas" %}selected{% endif %}>AMAZONAS</option>
+                                            <option value="antioquia"  {% if info_prop.Region == "antioquia" %}selected{% endif %}>ANTIOQUIA</option>
+                                            <option value="arauca" {% if info_prop.Region == "arauca" %}selected{% endif %}>ARAUCA</option> 
+                                            <option value="atlantico" {% if info_prop.Region == "atlantico" %}selected{% endif %}>ATLÁNTICO</option>
+                                            <option value="bolivar" {% if info_prop.Region == "bolivar" %}selected{% endif %}>BOLÍVAR</option>
+                                            <option value="boyaca" {% if info_prop.Region == "boyaca" %}selected{% endif %}>BOYACÁ</option>
+                                            <option value="caldas" {% if info_prop.Region == "caldas" %}selected{% endif %}>CALDAS</option>
+                                            <option value="caqueta" {% if info_prop.Region == "caqueta" %}selected{% endif %}>CAQUETÁ</option>
+                                            <option value="cauca" {% if info_prop.Region == "cauca" %}selected{% endif %}>CAUCA</option>
+                                            <option value="cesar" {% if info_prop.Region == "cesar" %}selected{% endif %}>CESAR</option>
+                                            <option value="choco" {% if info_prop.Region == "choco" %}selected{% endif %}>CHOCO</option>
+                                            <option value="cordoba" {% if info_prop.Region == "cordoba" %}selected{% endif %}>CÓRDOBA</option>
+                                            <option value="cundinamarca" {% if info_prop.Region == "cundinamarca" %}selected{% endif %}>CUNDINAMARCA</option>
+                                            <option value="distrito_capital" {% if info_prop.Region == "distrito_capital" %}selected{% endif %}>DISTRITO CAPITAL</option>
+                                            <option value="guainia" {% if info_prop.Region == "guainia" %}selected{% endif %}>GUAINÍA</option>
+                                            <option value="guajira" {% if info_prop.Region == "guajira" %}selected{% endif %}>GUAJIRA</option>
+                                            <option value="guaviare" {% if info_prop.Region == "guaviare" %}selected{% endif %}>GUAVIARE</option>
+                                            <option value="huila" {% if info_prop.Region == "huila" %}selected{% endif %}>HUILA</option>
+                                            <option value="magdalena" {% if info_prop.Region == "magdalena" %}selected{% endif %}>MAGDALENA</option>
+                                            <option value="meta" {% if info_prop.Region == "meta" %}selected{% endif %}>META</option>
+                                            <option value="narinio" {% if info_prop.Region == "narinio" %}selected{% endif %}>NARIÑO</option>
+                                            <option value="norte_santander" {% if info_prop.Region == "norte_santander" %}selected{% endif %}>NORTE DE SANTANDER</option>
+                                            <option value="putumayo" {% if info_prop.Region == "putumayo" %}selected{% endif %}>PUTUMAYO</option>
+                                            <option value="quindio" {% if info_prop.Region == "quindio" %}selected{% endif %}>QUINDÍO</option>
+                                            <option value="san_andres" {% if info_prop.Region == "san_andres" %}selected{% endif %}>SAN ANDRÉS</option>
+                                            <option value="santander"  {% if info_prop.Region == "santander" %}selected{% endif %}>SANTANDER</option>
+                                            <option value="tolima"  {% if info_prop.Region == "tolima" %}selected{% endif %}>TOLIMA</option>
+                                            <option value="vaupes"  {% if info_prop.Region == "vaupes" %}selected{% endif %}>VAUPÉS</option>
+                                            <option value="vichada"  {% if info_prop.Region == "vichada" %}selected{% endif %}>VICHADA</option>
+                                            <option value="valle"  {% if info_prop.Region == "valle" %}selected{% endif %}>VALLE</option>
                                         </select>
 
                                         <label for="Nombre_centro_formacion" class="form-label">Nombre centro de
@@ -133,7 +134,7 @@
                                             {% for nombre in listaPlegable.nombresC %}
                                             {% if nombre == '' %}
                                             {% else %}
-                                            <option value="{{nombre}}">{{nombre}}</option>
+                                            <option{% if nombre == info_prop.Nombre_centro_formacion %} selected{% endif %} value="{{nombre}}">{{nombre}}</option>
                                             {% endif %}
                                             {% endfor %} 
                                             </select>
@@ -141,14 +142,14 @@
                                         <label for="Nombre_Director" class="form-label">Nombre del director(a)
                                             regional</label>
                                         <input type="text" class="form-control form-control-sm" name="Nombre_Director"
-                                            id="Nombre_Director" aria-describedby="helpId" placeholder="">
+                                            id="Nombre_Director" aria-describedby="helpId" placeholder=""  value="{{ info_prop.Nombre_Director }}">
                                         <div class="invalid-feedback">
                                         </div>
 
                                         <label for="email_director" class="form-label">Email director(a)
                                             regional</label>
                                         <input type="email" class="form-control form-control-sm" name="email_director"
-                                            id="email_director" aria-describedby="helpId" placeholder="">
+                                            id="email_director" aria-describedby="helpId" placeholder=""  value="{{ info_prop.email_director }}">
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
@@ -158,7 +159,7 @@
                                         <label for="Numero_Director" class="form-label">Telefono director(a)
                                             regional</label>
                                         <input type="text" class="form-control form-control-sm" name="Numero_Director"
-                                            id="Numero_Director" aria-describedby="helpId" placeholder="">
+                                            id="Numero_Director" aria-describedby="helpId" placeholder=""  value="{{ info_prop.Numero_Director }}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -166,7 +167,7 @@
                                             regional</label>
                                         <input type="text" class="form-control form-control-sm"
                                             name="Nombre_Sub_Director" id="Nombre_Sub_Director"
-                                            aria-describedby="helpId" placeholder="">
+                                            aria-describedby="helpId" placeholder="" value="{{info_prop.Nombre_Sub_Director}}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -174,7 +175,7 @@
                                             regional</label>
                                         <input type="email" class="form-control form-control-sm"
                                             name="email_sub_director" id="email_sub_director" aria-describedby="helpId"
-                                            placeholder="">
+                                            placeholder="" value="{{info_prop.email_sub_director}}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -182,7 +183,7 @@
                                             regional</label>
                                         <input type="text" class="form-control form-control-sm"
                                             name="Numero_Sub_Director" id="Numero_Sub_Director"
-                                            aria-describedby="helpId" placeholder="">
+                                            aria-describedby="helpId" placeholder=""  value="{{ info_prop.Numero_Sub_Director }}">
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
