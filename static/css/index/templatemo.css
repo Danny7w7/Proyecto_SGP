@@ -154,11 +154,7 @@ body, ul, li, p, a, label, input, div {
   transition: .5s;
 }
 #tempaltemo_footer .border-light { border-color: #2d343f !important;}
-/*
-// Extra small devices (portrait phones, less than 576px)
-// No media query since this is the default in Bootstrap
-*/
-/* Small devices (landscape phones, 576px and up)*/
+
 .product-wap .h3, .product-wap li, .product-wap i, .product-wap p {
   font-size: 12px !important;
 }

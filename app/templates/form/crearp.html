@@ -19,6 +19,10 @@
 
     <!-- Your own CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/templatemo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
     <!-- JS files -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
@@ -95,7 +99,7 @@
             <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Crear proyecto</h5>
             {% endblock %}
         </div>
-        <div class="row justify-content-center cnt_gen">
+        <div class="row justify-content-center cnt_gen pb-5">
             <div class="col-12 col-md-10">
                 <div class="mt-2 spos border_radius row me-0">
                     <form method="post" action="" class="needs-validation" id="form1">
@@ -224,19 +228,67 @@
                     </form>
                 </div>
             </div>
-        </div>  
-    </main>
+        </div>
+</main>
       
     {% endblock %}
-    
-    <footer class="border_radius mt-3 mb-3 border_radius">
-        <img class="pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" style="margin: auto;" width="50">
-    </footer>
+    <footer class="bg-dark tempaltemo_footer" id="tempaltemo_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">SENNOVA</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                            <a class="text-decoration-none">Centro Industrial y de Aviación, Oficina 3er piso biblioteca</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none">3002001001</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none">contacto@sennova.edu.co</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Ayudas</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Inicio</a></li>
+                        <li><a class="text-decoration-none" href="#">Acerca</a></li>
+                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
+                        <li><a class="text-decoration-none" href="#">Contacto</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row text-light mb-4">
+                <div class="col-12 mb-3">
+                    <div class="w-100 my-1 border-top border-light"></div>
+                </div>
+            </div>
+        </div>
+        <div class="w-100 bg-black py-1">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                            Copyright &copy; 2023 SENNOVA
+                            | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer> 
+
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
         </script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
         </script>
