@@ -8,62 +8,62 @@ document.addEventListener("DOMContentLoaded", function() {
         //Validacion info proponente
        "form1": {
         "Nombre_Director": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
-            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
+            errorMsg: 'El nombre del director no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios.'
         },
         "email_director": {
-            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@sena[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            errorMsg: 'El correo no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_Director": {
-            pattern: /^\d{10}$/,
-            errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
+            pattern: /^.{5,30}$/,
+            errorMsg: 'El número del director(a) no es válido. Debe tener una longitud entre 5 y 30 caracteres.',
         },
         "Nombre_Sub_Director": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
-            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
+            errorMsg: 'El nombre del subdirector(a) no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios.'
         },
         "email_sub_director": {
-            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@sena[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            errorMsg: 'El correo del subdirector(a) no es válido. Debe ser institucional sena.'
         },
         "Numero_Sub_Director": {
-            pattern: /^\d{10}$/,
-            errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
+            pattern: /^.{5,30}$/,
+            errorMsg: 'El número del subdirector(a) no es válido. Debe tener una longitud entre 5 y 30 caracteres.',
         },
        },
        // Validacion autor
        "form2":{
         "Nombre_Autor_Proyecto": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
-            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
+            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios.'
         },
         "Numero_Cedula_Autor": {
             pattern: /^\d{5,20}$/,
-            errorMsg: 'El número de documento no es válido. Debe tener digitos númericos',
+            errorMsg: 'El número de documento no es válido. Debe tener digitos númericos.',
         },
         "Email_Autor_Proyecto": {
             pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            errorMsg: 'El correo no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_meses_vinculacion_Autor": {
             pattern: /^\d{1,2}$/,
-            errorMsg: 'El número no es válido. Debe tener digitos númericos',
+            errorMsg: 'El número de meses de vinculación  no es válido. Debe tener digitos númericos.',
         },
         "Numero_Telefono_Autor": {
-            pattern: /^\d{10}$/,
-            errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
+            pattern: /^.{5,30}$/,
+            errorMsg: 'El número no es válido. Debe tener una longitud entre 5 y 30 caracteres.',
         },
         "Numero_horas_Semanales_dedicadas_Autores": {
-            pattern: /^(0|[1-9]\d?|1[0-6]\d|168)$/,
-            errorMsg: 'El número no es válido. Debe tener digitos númericos',
+            pattern: /^(?:[0-9]|[1-3][0-9]|4[0-8])$/,
+            errorMsg: 'El número de horas no es válido. Debe tener digitos númericos y máximo 48 horas.',
         },
        },
     //    //Validacion participantes
        "form3":{
         "Nombre_participantes_de_desarrollo":{
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
-            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios',
+            pattern:  /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
+            errorMsg: 'El nombre de participantes no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios',
         }, 
         "Numero_cedula_participantes": {
             pattern: /^\d{5,20}$/,
@@ -71,37 +71,37 @@ document.addEventListener("DOMContentLoaded", function() {
         },
         "Numero_meses_vinculacion_participantes": {
             pattern: /^\d{1,2}$/,
-            errorMsg: 'El número no es válido. Debe tener digitos númericos',
+            errorMsg: 'El número de meses no es válido. Debe tener digitos númericos',
         },
         "Email_participantes_de_desarrollo": {
             pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            errorMsg: 'El correo no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            errorMsg: 'El correo de participantes no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_horas_Semanales_dedicadas_participantes": {
-            pattern: /^(0|[1-9]\d?|1[0-6]\d|168)$/,
-            errorMsg: 'El número no es válido. Debe tener digitos númericos',
+            pattern: /^(?:[0-9]|[1-3][0-9]|4[0-8])$/,
+            errorMsg: 'El número de horas no es válido. Debe tener digitos númericos y máximo 48 horas.',
         },
         "Numero_Telefono_participantes": {
             pattern: /^\d{10}$/,
-            errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
+            errorMsg: 'El número de teléfono no es válido. Debe tener 10 digitos númericos.',
         },
        },
        "form4":{
         "link_video_proyecto": {
-            pattern: /^(http|https):\/\/[^ "]+$/,
-            errorMsg: 'El link no es válido.',
+            pattern: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
+            errorMsg: 'El link del vídeo no es válido.',
         },
         "justificacion_Economia_Naranja":{
-            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
-            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
+            pattern: /^[\s\S]{5,600}$/,
+            errorMsg: 'La justificación de economía naranja no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
         }, 
         "justificacion_Politica_Discapacidad":{
-            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
-            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
+            pattern: /^[\s\S]{5,600}$/,
+            errorMsg: 'La justificación de política de discapacidad no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
         }, 
         "justificacion_Industrial":{
-            pattern: /^[A-Za-záéíóúÁÉÍÓÚñÑ, .]{5,500}$/,
-            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras y espacios',
+            pattern: /^[\s\S]{5,600}$/,
+            errorMsg: 'La justificación industrial 4.0 no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
         }, 
        }
     };

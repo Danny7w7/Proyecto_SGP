@@ -5,14 +5,13 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "titulo_Proyecto": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,100}$/u,                  
-            errorMsg: 'El título no es válido. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,200}$/,
+            errorMsg: 'El titulo del proyecto no es válido. Debe tener entre 5 y 200 caracteres y no puede contener caracteres especiales'
         },
         "descripcion": {
-            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,100}$/u,
-            errorMsg: 'La descripción no es válida. Debe tener entre 5 y 100 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
-        }
-
+            pattern:  /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,500}$/,
+            errorMsg: 'La descripción no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+        },
     }
 }
 

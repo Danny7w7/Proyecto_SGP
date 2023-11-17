@@ -2,8 +2,8 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 
-from app.forms import CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperados, ParticipantesEntidadForm
-from app.models import Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion, Participantes_entidad_alidad
+from app.forms import ActividadEspeForm, CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperados, ParticipantesEntidadForm
+from app.models import Actividades_de_objetivos_especificos, Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion, Participantes_entidad_alidad
 
 
 from django.contrib.auth.decorators import login_required
@@ -91,10 +91,11 @@ def informacion_proponente(request, id_proyecto):
 
 @login_required(login_url='/login')
 def estructura_proyecto(request, id_proyecto):
-    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+    proyecto  = get_or_none(Proyecto, id=id_proyecto)
+    if not own_user(request.user, proyecto.id):
         return redirect(index)
-    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
-               'resumen':get_or_none(Resumen_antecedentes),
+    context = {'proyecto':proyecto,
+               'resumen':get_or_none(Resumen_antecedentes, proyecto=proyecto),
                'percentaje':id_proyecto}
     return render(request, 'form/estp.html', context)
 
@@ -109,10 +110,13 @@ def crear_objetivo(request, objetivo_proyecto_id):
 
         objetivo_form = ObjetivoForm(request.POST)
         objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
+        actividad_form = ActividadEspeForm(request.POST)
         causa_form = CausaForm(request.POST)
         efecto_form = EfectoForm(request.POST)
 
+        print(actividad_form.errors)
         if (
+            actividad_form.is_valid() and
             objetivo_form.is_valid() and
             objetivo_especifico_form.is_valid() and
             causa_form.is_valid() and
@@ -125,60 +129,84 @@ def crear_objetivo(request, objetivo_proyecto_id):
             objetivo_especifico = objetivo_especifico_form.save(commit=False)
             objetivo_especifico.objetivos = objetivo
             objetivo_especifico.save()
+            
+            actividad = actividad_form.save(commit=False)
+            actividad.objetivo_especificos = objetivo_especifico
+            actividad.save()
 
             causa = causa_form.save(commit=False)
-            causa.obejetivo_especifico = objetivo_especifico
+            causa.objetivo_especifico = objetivo_especifico
             causa.save()
-            
+
             efecto = efecto_form.save(commit=False)
             efecto.causas = causa
             efecto.save()
 
-            objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
-            causa2 = request.POST.get('causa2', '')
-            efecto2 = request.POST.get('efecto2', '')
+        objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
+        actividad2 = request.POST.get('actividad2', '')
+        causa2 = request.POST.get('causa2', '')
+        efecto2 = request.POST.get('efecto2', '')
 
-            objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
-            causa3 = request.POST.get('causa3', '')
-            efecto3 = request.POST.get('efecto3', '')
+        if objetivo_especificos2 and actividad2 and causa2 and efecto2:
+            objetivo_especifico2 = Objetivos_especificos.objects.create(
+                objetivos=objetivo,
+                objetivo_especificos=objetivo_especificos2,
+            )
+            
+            actividad2 = Actividades_de_objetivos_especificos.objects.create(
+                objetivo_especificos=objetivo_especifico2,
+                actividades_obj_especificos=actividad2
+            )
+            
+            causa2 = Causa.objects.create(
+                objetivo_especifico=objetivo_especifico2,
+                causa=causa2,
+            )
+            
+            efecto2 = Efecto.objects.create(
+                causas=causa2,
+                efecto=efecto2,
+            )
 
-            if objetivo_especificos2 and causa2 and efecto2:
-                objetivo_especifico2 = Objetivos_especificos.objects.create(
-                    objetivos=objetivo,
-                    objetivo_especificos=objetivo_especificos2,
-                )
-                causa2 = Causa.objects.create(
-                    obejetivo_especifico=objetivo_especifico2,
-                    causa=causa2,
-                )
-                efecto2 = Efecto.objects.create(
-                    causas=causa2,
-                    efecto=efecto2,
-                )
 
-            if objetivo_especificos3 and causa3 and efecto3:
-                objetivo_especifico3 = Objetivos_especificos.objects.create(
-                    objetivos=objetivo,
-                    objetivo_especificos=objetivo_especificos3,
-                )
-                causa3 = Causa.objects.create(
-                    obejetivo_especifico=objetivo_especifico3,
-                    causa=causa3,
-                )
-                efecto3 = Efecto.objects.create(
-                    causas=causa3,
-                    efecto=efecto3,
-                    )
+        objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
+        actividad3 = request.POST.get('actividad3', '')
+        causa3 = request.POST.get('causa3', '')
+        efecto3 = request.POST.get('efecto3', '')
+
+        if objetivo_especificos3 and actividad3 and causa3 and efecto3:
+            objetivo_especifico3 = Objetivos_especificos.objects.create(
+                objetivos=objetivo,
+                objetivo_especificos=objetivo_especificos3,
+            )
+            
+            actividad3 = Actividades_de_objetivos_especificos.objects.create(
+                objetivo_especificos=objetivo_especifico3,
+                actividades_obj_especificos=actividad3
+            )
+            
+            causa3 = Causa.objects.create(
+                objetivo_especifico=objetivo_especifico3,
+                causa=causa3,
+            )
+            
+            efecto3 = Efecto.objects.create(
+                causas=causa3,
+                efecto=efecto3,
+            )
+
         return redirect('seleccionarObjetivo', objetivo_proyecto_id)
     else:
+        actividad_form = ActividadEspeForm()
         objetivo_form = ObjetivoForm()
         objetivo_especifico_form = ObjetivoEspecificoForm()
         causa_form = CausaForm()
         efecto_form = EfectoForm()
-
+        
     contex = {
         'objetivo_form': objetivo_form,
         'objetivo_especifico_form': objetivo_especifico_form,
+        'actividad_form' : actividad_form,
         'causa_form': causa_form,
         'efecto_form': efecto_form,
         'proyecto': objetivo_proyecto_id,
@@ -512,11 +540,7 @@ def descripcion_problema(request, id_proyecto):
         descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
     descripcion.identificacion_y_descripcion_problema = request.POST['Identificacion_y_descripcion_problema']
     descripcion.justificacion = request.POST['Justificacion']
-    try:
-        os.remove('media/' + descripcion.marco_conceptual.name)
-    except:
-        print("No existe la foto o es primera vez")
-    descripcion.marco_conceptual = request.FILES['Marco_conceptual'] 
+    descripcion.marco_conceptual = request.POST['Marco_conceptual'] 
     
     try:
         descripcion.save()

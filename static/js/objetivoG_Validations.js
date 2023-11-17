@@ -1,6 +1,6 @@
 let conjuntosMostrados = 1;
-fieldExclude2 = ['id_objetivo_especificos2', 'id_causa2', 'id_efecto2']
-fieldExclude3 = ['id_objetivo_especificos3', 'id_causa3', 'id_efecto3']
+fieldExclude2 = ['id_objetivo_especificos2', 'id_actividad2' ,'id_causa2', 'id_efecto2']
+fieldExclude3 = ['id_objetivo_especificos3','id_actividad3', 'id_causa3', 'id_efecto3']
 function mostrarDivs() {
   // Mostrar conjuntos adicionales solo si no se han mostrado más de 2
   if (conjuntosMostrados < 2) {
@@ -16,44 +16,56 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "id_objetivo_general": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,300}$/,
+            errorMsg: 'El obj general no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos": {
+            pattern: /^[\s\S]{5,300}$/,
+            errorMsg: 'El obj especifico no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+        },
+        "id_actividad": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
         "id_causa": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'La  causa no es válida. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_efecto": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El efecto no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos2": {
+            pattern: /^[\s\S]{5,300}$/,
+            errorMsg: 'El obj especifico 2 no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+        },
+        "id_actividad2": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
         "id_causa2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'La causa 2 no es válida. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_efecto2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El efecto 2 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos3": {
+            pattern: /^[\s\S]{5,300}$/,
+            errorMsg: 'El obj especifico 3 no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+        },
+        "id_actividad3": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
             errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
         "id_causa3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'La causa 3 no es válida. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_efecto3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El efecto 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
        },
     };
