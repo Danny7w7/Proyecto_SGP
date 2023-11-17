@@ -546,29 +546,35 @@ def centro_formacion(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
+    
 
 def entidad_aliada(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
+    objGen = Objetivos.objects.filter(proyecto=proyecto.id).first()
+    objsEsp = Objetivos_especificos.objects.filter(objetivos=objGen.id)
     array_booleanos = json.loads(request.POST['objetivo_especificos_relacionados'])
-    print(array_booleanos)
-    centro = Entidades_aliadas(proyecto=proyecto)
-   
+
+    entidad = Entidades_aliadas(proyecto=proyecto)
+    entidad.save()
+    for indice, objetivoUwU in enumerate(objsEsp, start=1):
+        if array_booleanos[indice-1]:
+            entidad.objetivo_especificos.add(objetivoUwU.id)
+            
     model = Entidades_aliadas
     column_names = [field.name for field in model._meta.fields]
 
     for name in column_names:
         if name == 'id' or name == 'proyecto' or name == 'objetivo_especificos':
             continue
-        setattr(centro, name, request.POST.get(name))
+        setattr(entidad, name, request.POST.get(name))
     try:
-        centro.save()
+        entidad.save()
         return JsonResponse({"mensaje": "Operación exitosa", "nueva_entidad": {
-            "nombre_entidad":centro.nombre_entidad,
-            "tipo_entidad_aliada": centro.tipo_entidad_aliada,
-            "naturaleza_entidad": centro.naturaleza_entidad,
-            "clasificacion_empresa": centro.clasificacion_empresa,
-            "nit": centro.nit
+            "nombre_entidad":entidad.nombre_entidad,
+            "tipo_entidad_aliada": entidad.tipo_entidad_aliada,
+            "naturaleza_entidad": entidad.naturaleza_entidad,
+            "clasificacion_empresa": entidad.clasificacion_empresa,
+            "nit": entidad.nit
         }})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)

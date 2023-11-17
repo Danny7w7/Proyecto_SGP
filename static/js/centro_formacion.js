@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 errorMsg: 'El número no es válido debe llevar minimo 5 caracteres.',
             },
             "descripcion_recursos_especie_aportados": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,150}$/u,
+                pattern: /^.{5,10}$/,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 150 caracteres.',
             },
             "recursos_dinero_entidad_aliada": {
