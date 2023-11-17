@@ -13,6 +13,7 @@ from app.models import Listas_plegables
 
 import datetime
 import os
+import json
 
 #------Decoradores------
 def user_has_role(user, *roles):
@@ -219,10 +220,12 @@ def participantes(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
+    objGeneral = Objetivos.objects.get(proyecto=proyecto.id)
     context = {
-        'proyecto':get_or_none(Proyecto, id=id_proyecto),
+        'proyecto':proyecto,
         'entidad_a':Entidades_aliadas.objects.filter(proyecto = proyecto),
         'centro_f':Centro_de_formacion.objects.filter(proyecto = proyecto),
+        'objEspecificos': Objetivos_especificos.objects.filter(objetivos=objGeneral),
         'percentaje': id_proyecto
     }
     return render(request, 'form/partp.html', context)
@@ -567,31 +570,38 @@ def centro_formacion(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
+    
 
 def entidad_aliada(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
-    centro = Entidades_aliadas(proyecto=proyecto)
-   
+    objGen = Objetivos.objects.filter(proyecto=proyecto.id).first()
+    objsEsp = Objetivos_especificos.objects.filter(objetivos=objGen.id)
+    array_booleanos = json.loads(request.POST['objetivo_especificos_relacionados'])
+
+    entidad = Entidades_aliadas(proyecto=proyecto)
+    entidad.save()
+    for indice, objetivoUwU in enumerate(objsEsp, start=1):
+        if array_booleanos[indice-1]:
+            entidad.objetivo_especificos.add(objetivoUwU.id)
+            
     model = Entidades_aliadas
     column_names = [field.name for field in model._meta.fields]
 
     for name in column_names:
-        if name == 'id' or name == 'proyecto':
+        if name == 'id' or name == 'proyecto' or name == 'objetivo_especificos':
             continue
-        
-        setattr(centro, name, request.POST.get(name))
+        setattr(entidad, name, request.POST.get(name))
     try:
-            centro.save()
-            return JsonResponse({"mensaje": "Operación exitosa", "nueva_entidad": {
-                "nombre_entidad":centro.nombre_entidad,
-                "tipo_entidad_aliada": centro.tipo_entidad_aliada,
-                "naturaleza_entidad": centro.naturaleza_entidad,
-                "clasificacion_empresa": centro.clasificacion_empresa,
-                "nit": centro.nit
-            }})
+        entidad.save()
+        return JsonResponse({"mensaje": "Operación exitosa", "nueva_entidad": {
+            "nombre_entidad":entidad.nombre_entidad,
+            "tipo_entidad_aliada": entidad.tipo_entidad_aliada,
+            "naturaleza_entidad": entidad.naturaleza_entidad,
+            "clasificacion_empresa": entidad.clasificacion_empresa,
+            "nit": entidad.nit
+        }})
     except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
+        return JsonResponse({"error": str(e)}, status=400)
     
 
 def participantes_entidad_aliada(request, id_proyecto):

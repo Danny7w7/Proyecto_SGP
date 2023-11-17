@@ -226,8 +226,8 @@
                                     <label for="" class="form-label">Convenio (entidad aliada)</label>
                                     <select name="convenio" id="convenio" class="form-control selectmod">
                                         <option value="" disabled selected>Seleccione una opción...</option>
-                                        <option value="True">Sí</option>
-                                        <option value="False">No</option>
+                                        <option value="1">Sí</option>
+                                        <option value="0">No</option>
                                     </select>
 
                                     <label for="" class="form-label">Si contestó la pregunta anterior tipo y código de convenio</label>
@@ -240,10 +240,11 @@
                                     <div class="invalid-feedback">
                                     </div>
 
-                                    <label for="" class="form-label">Objetivo(s) especificos relacionados</label>
-                                    <input type="text" name="objetivo_especificos_relacionados" id="objetivo_especificos_relacionados" class="form-control form-control-sm" placeholder="">
-                                    <div class="invalid-feedback">
-                                    </div>
+                                    <label for="" class="form-label">Objetivo(s) especificos relacionados</label> <br>
+                                    {% for objEspecifico in objEspecificos %}
+                                    <input type="checkbox" id="objEspecifico{{ forloop.counter }}">
+                                    <small>{{objEspecifico.objetivo_especificos}}</small> <br>
+                                    {% endfor %}
                                 </div>
                             </div>
     
@@ -427,9 +428,11 @@
                             
     
                             <!-- Botón Siguiente centrado -->
-                            <div class="d-flex justify-content-center col-12">
-                                <button class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviar2">Siguiente</button>
-                                
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarG">Guardar Entidad Aliada</button>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarGYS">Guardar e Ir a la Siguiente Vista</button>
                             </div>
                         </form>
                     </div>

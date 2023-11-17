@@ -2,6 +2,7 @@
 
 {% load static %}
 {% block forms %}
+<div class="container">
     <h3 class="text-center">Selecciona la entidad aliada a la cual le quieres agregar sus participantes</h3>
     <div class="table-responsive">
         <table class="table">
@@ -31,5 +32,9 @@
             </tbody>
         </table>
     </div>
-    
+    <form class="d-flex justify-content-center row" action="{% url 'proyeccion' percentaje %}" method="get">
+        <small class="col-12 centradow">¿Completaste la información de los participantes para cada entidad?</small>
+        <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius col-12" id="enviarG">Siguiente vista</button>
+    </form>
+</div>
 {% endblock %}

@@ -326,24 +326,6 @@ function sendPost2() {
             newRow.insertCell(3).textContent = data.nuevo_autor.rol_Sennova_De_Participantes_de_Proyecto;
             newRow.insertCell(4).textContent = data.nuevo_autor.email_Autor_Proyecto;
             newRow.insertCell(5).textContent = data.nuevo_autor.numero_Telefono_Autor;
-    
-            let actionsCell = newRow.insertCell(6);
-            let actionDiv = document.createElement('div');
-            actionDiv.className = "d-flex";
-            
-            let editButton = document.createElement('button');
-            editButton.className = "btn btn-sm btn-outline-primary me-2";
-            editButton.textContent = "Editar";
-            // Aquí puedes añadir eventos al botón editar si lo necesitas
-            
-            let deleteButton = document.createElement('button');
-            deleteButton.className = "btn btn-sm btn-outline-danger";
-            deleteButton.textContent = "Eliminar";
-            // Aquí puedes añadir eventos al botón eliminar si lo necesitas
-    
-            actionDiv.appendChild(editButton);
-            actionDiv.appendChild(deleteButton);
-            actionsCell.appendChild(actionDiv);
         }
     })
     .catch(error => {
@@ -399,24 +381,6 @@ function sendPost3() {
             newRow.insertCell(3).textContent = data.nuevo_participante.email_participantes_de_desarrollo;
             newRow.insertCell(4).textContent = data.nuevo_participante.numero_horas_Semanales_dedicadas_participantes;
             newRow.insertCell(5).textContent = data.nuevo_participante.numero_Telefono_participantes;
-    
-            let actionsCell = newRow.insertCell(6);
-            let actionDiv = document.createElement('div');
-            actionDiv.className = "d-flex";
-            
-            let editButton = document.createElement('button');
-            editButton.className = "btn btn-sm btn-outline-primary me-2";
-            editButton.textContent = "Editar";
-            // Aquí puedes añadir eventos al botón editar si lo necesitas
-            
-            let deleteButton = document.createElement('button');
-            deleteButton.className = "btn btn-sm btn-outline-danger";
-            deleteButton.textContent = "Eliminar";
-            // Aquí puedes añadir eventos al botón eliminar si lo necesitas
-    
-            actionDiv.appendChild(editButton);
-            actionDiv.appendChild(deleteButton);
-            actionsCell.appendChild(actionDiv);
         }
     })
     .catch(error => {
