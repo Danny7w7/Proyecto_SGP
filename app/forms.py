@@ -38,7 +38,7 @@ class CausaForm(forms.ModelForm):
     class Meta:
         model = Causa
         fields = '__all__'
-        exclude = ['obejetivo_especifico']
+        exclude = ['objetivo_especifico']
 
 class EfectoForm(forms.ModelForm):
     class Meta:

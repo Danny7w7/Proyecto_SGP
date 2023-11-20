@@ -115,6 +115,10 @@ def crear_objetivo(request, objetivo_proyecto_id):
         efecto_form = EfectoForm(request.POST)
 
         print(actividad_form.errors)
+        print(objetivo_especifico_form.errors)
+        print(objetivo_form.errors)
+        print(causa_form.errors)
+        print(efecto_form.errors)
         if (
             actividad_form.is_valid() and
             objetivo_form.is_valid() and
@@ -214,6 +218,55 @@ def crear_objetivo(request, objetivo_proyecto_id):
     }
     return render(request, 'form/objetivos.html', contex)
 
+def editar_objetivo(request, objetivo_proyecto_id):
+    if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
+        return redirect('index')
+
+    proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
+    objetivo = get_object_or_404(Objetivos, proyecto=proyecto)
+    objetivo_especifico = get_object_or_404(Objetivos_especificos, objetivos=objetivo)
+    actividad = get_object_or_404(Actividades_de_objetivos_especificos, objetivo_especificos=objetivo_especifico)
+    causa = get_object_or_404(Causa, objetivo_especifico=objetivo_especifico)
+    efecto = get_object_or_404(Efecto, causas=causa)
+
+    if request.method == 'POST':
+        objetivo_form = ObjetivoForm(request.POST, instance=objetivo)
+        objetivo_especifico_form = ObjetivoEspecificoForm(request.POST, instance=objetivo_especifico)
+        actividad_form = ActividadEspeForm(request.POST, instance=actividad)
+        causa_form = CausaForm(request.POST, instance=causa)
+        efecto_form = EfectoForm(request.POST, instance=efecto)
+
+        if (
+            objetivo_form.is_valid() and
+            objetivo_especifico_form.is_valid() and
+            actividad_form.is_valid() and
+            causa_form.is_valid() and
+            efecto_form.is_valid()
+        ):
+            objetivo_form.save()
+            objetivo_especifico_form.save()
+            actividad_form.save()
+            causa_form.save()
+            efecto_form.save()
+
+            return redirect('seleccionarObjetivo', objetivo_proyecto_id)
+    else:
+        objetivo_form = ObjetivoForm(instance=objetivo)
+        objetivo_especifico_form = ObjetivoEspecificoForm(instance=objetivo_especifico)
+        actividad_form = ActividadEspeForm(instance=actividad)
+        causa_form = CausaForm(instance=causa)
+        efecto_form = EfectoForm(instance=efecto)
+
+    contex = {
+        'objetivo_form': objetivo_form,
+        'objetivo_especifico_form': objetivo_especifico_form,
+        'actividad_form': actividad_form,
+        'causa_form': causa_form,
+        'efecto_form': efecto_form,
+        'proyecto': objetivo_proyecto_id,
+        'percentaje': objetivo_proyecto_id
+    }
+    return render(request, 'edit_form/edit_objet.html', contex)
 
 @login_required(login_url='/login')
 def participantes(request, id_proyecto):
