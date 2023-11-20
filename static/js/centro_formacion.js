@@ -1,3 +1,8 @@
+const button1 = document.getElementById('step2');
+
+const collapse1 = document.getElementById('collapseOne');
+const collapse2 = document.getElementById('collapseTwo');
+
 var sig;
 document.addEventListener("DOMContentLoaded", function() {
     fieldQuestion = ['convenio']
@@ -149,6 +154,10 @@ document.addEventListener("DOMContentLoaded", function() {
             }).then(() => {
                 if (formKey == 'form1'){
                     sendPost1()
+                    button1.setAttribute('aria-expanded', (button1.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                    progress.setAttribute('value', 1 * 100 / (stepButtons.length - 1));
+                    collapse1.classList.remove('show')
+                    collapse2.classList.add('show')
                 }else if(formKey == 'form2'){
                     sendPost2()
                 }

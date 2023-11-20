@@ -1,3 +1,10 @@
+const button1 = document.getElementById('step2');
+const button2 = document.getElementById('step3');
+const button3 = document.getElementById('step4');
+
+const collapse1 = document.getElementById('collapseOne');
+const collapse2 = document.getElementById('collapseTwo');
+const collapse3 = document.getElementById('collapseThree');
 
 document.addEventListener("DOMContentLoaded", function() {
     
@@ -109,8 +116,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }).then(() => {
                 if (formKey == 'form1'){
                     sendPost()
+                    button1.setAttribute('aria-expanded', (button1.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                    progress.setAttribute('value', 1 * 100 / (stepButtons.length - 1));
+                    collapse1.classList.remove('show')
+                    collapse2.classList.add('show')
                 }else if (formKey == 'form2'){
                     sendPost2()
+                    button2.setAttribute('aria-expanded', (button2.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                    progress.setAttribute('value', 2 * 100 / (stepButtons.length - 1));
+                    collapse2.classList.remove('show')
+                    collapse3.classList.add('show')
                 }else if(formKey == 'form3'){
                     sendPost3()
                 }
