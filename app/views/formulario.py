@@ -80,18 +80,28 @@ def informacion_proponente(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     info_prop = get_or_none(Informacion_proponente, proyecto=id_proyecto)
-    print(info_prop)
-    autor = get_or_none(Autores, proyecto=id_proyecto),
-    partp = get_or_none(Participantes_Proyecto, proyecto=id_proyecto)
+    autores = Autores.objects.filter(proyecto=id_proyecto)
+    partp = Participantes_Proyecto.objects.filter(proyecto=id_proyecto)
     gen = get_or_none(Generalidades_del_proyecto, proyecto=id_proyecto)
     context = {'proyecto': id_proyecto,
                'info_prop': info_prop,
-               'autor': autor,
+               'autores': autores,
                'partp': partp,
                'gen': gen,
                'percentaje':id_proyecto,
                'listaPlegable':contex_form()}
     return render(request, 'form/infop.html', context)
+
+@login_required(login_url='/login')
+def selecAut(request, id_proyecto):
+    proyecto = get_or_none(Proyecto, id=id_proyecto)
+    if not own_user(request.user, proyecto.id):
+        return redirect(index)
+    if not Autores.objects.filter(proyecto=proyecto).exists():
+        return HttpResponse("Para acceder a esta vista debes de crear por lo menos un autor.")
+    contex = {'autores': Autores.objects.filter(proyecto=proyecto),
+              'percentaje': proyecto.id}
+    return render(request, 'form/selectAut.html', contex)
     
 
 @login_required(login_url='/login')

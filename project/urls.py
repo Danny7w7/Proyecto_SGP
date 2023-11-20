@@ -41,6 +41,7 @@ urlpatterns = [
     path('seleccionar-entidad-aliada/<int:id_proyecto>/', views.selecEntidad, name='seleccionarEntidad'),
     path('proyecto/<int:id_proyecto>/entidad/<int:id_entidad>', views.parcipantes_entidad, name='part_entidad'),
     path('seleccionar-objetivo/<int:id_proyecto>/', views.selectObj, name='seleccionarObjetivo'),
+    path('seleccionar-autor/<int:id_proyecto>/', views.selecAut, name='seleccionarAutor'),
     path('resultado/<int:id_proyecto>/objetivo-especifico/<int:id_objetivoEsp>/', views.producEsperados, name='producEsperados'),
     path('proyeccion/<int:id_proyecto>/', views.proyeccion, name='proyeccion'),
     path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),

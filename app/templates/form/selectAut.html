@@ -1,0 +1,42 @@
+{% extends "form/crearp.html" %}
+
+{% load static %}
+{% block forms %}
+    <h3 class="text-center">Seleccione el autor que desee editar</h3>
+                <!-- Tabla de autores -->
+                <div class="container mt-5">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del autor(a)</th>
+                                    <th>Tipo de vinculación</th>
+                                    <th>Número de documento</th>
+                                    <th>Rol sennova</th>
+                                    <th>Correo electrónico</th>
+                                    <!-- <th>Num. meses vinculación proyecto</th> -->
+                                    <th>Número de teléfono</th>
+                                    <!-- <th>Num. horas semanales del proyecto</th> -->
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for autor in autores %}
+                                <tr>
+                                    <td>{{autor.nombre_Autor_Proyecto}}</td>
+                                    <td>{{autor.tipo_Vinculacion_entidad}}</td>
+                                    <td>{{autor.numero_Cedula_Autor}}</td>
+                                    <td>{{autor.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                                    <td>{{autor.email_Autor_Proyecto}}</td>
+                                    <td>{{autor.numero_Telefono_Autor}}</td>
+                                    <!-- <td> <a href="{% 'info_proyecto' autor.id %}" type="button" class="btn btn-primary">Seleccionar</a></td> -->
+                                    <td> <a href="{% 'info_proyecto' autor.id %}" type="button" class="btn btn-primary">Seleccionar</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+    
+{% endblock %}
