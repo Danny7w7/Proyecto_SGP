@@ -114,7 +114,6 @@ def crear_objetivo(request, objetivo_proyecto_id):
         causa_form = CausaForm(request.POST)
         efecto_form = EfectoForm(request.POST)
 
-        print(actividad_form.errors)
         if (
             actividad_form.is_valid() and
             objetivo_form.is_valid() and
@@ -143,7 +142,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
             efecto.save()
 
         objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
-        actividad2 = request.POST.get('actividad2', '')
+        actividad2 = request.POST.get('actividades_obj_especificos2', '')
         causa2 = request.POST.get('causa2', '')
         efecto2 = request.POST.get('efecto2', '')
 
@@ -168,9 +167,8 @@ def crear_objetivo(request, objetivo_proyecto_id):
                 efecto=efecto2,
             )
 
-
         objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
-        actividad3 = request.POST.get('actividad3', '')
+        actividad3 = request.POST.get('actividades_obj_especificos3', '')
         causa3 = request.POST.get('causa3', '')
         efecto3 = request.POST.get('efecto3', '')
 
@@ -182,7 +180,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
             
             actividad3 = Actividades_de_objetivos_especificos.objects.create(
                 objetivo_especificos=objetivo_especifico3,
-                actividades_obj_especificos=actividad3
+                actividades_obj_especificos=actividad3,
             )
             
             causa3 = Causa.objects.create(
@@ -194,7 +192,7 @@ def crear_objetivo(request, objetivo_proyecto_id):
                 causas=causa3,
                 efecto=efecto3,
             )
-
+        print(actividad3)
         return redirect('seleccionarObjetivo', objetivo_proyecto_id)
     else:
         actividad_form = ActividadEspeForm()
