@@ -100,173 +100,104 @@ def estructura_proyecto(request, id_proyecto):
     return render(request, 'form/estp.html', context)
 
 
+
 @login_required(login_url='/login')
 def crear_objetivo(request, objetivo_proyecto_id):
     if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
-        return redirect(index)
-    if request.method == 'POST':
-        objetivo_proyecto_id = request.POST.get('objetivo_proyecto_id')
-        proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
+        return redirect('index')
 
-        objetivo_form = ObjetivoForm(request.POST)
+    proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
+    objetivo = get_object_or_404(Objetivos, proyecto=proyecto)
+
+    if request.method == 'POST':
+        objetivo_form = ObjetivoForm(request.POST, instance=objetivo)
         objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
         actividad_form = ActividadEspeForm(request.POST)
         causa_form = CausaForm(request.POST)
         efecto_form = EfectoForm(request.POST)
 
-        print(actividad_form.errors)
-        print(objetivo_especifico_form.errors)
-        print(objetivo_form.errors)
-        print(causa_form.errors)
-        print(efecto_form.errors)
-        if (
-            actividad_form.is_valid() and
-            objetivo_form.is_valid() and
-            objetivo_especifico_form.is_valid() and
-            causa_form.is_valid() and
-            efecto_form.is_valid()
-        ):
+        if objetivo_form.is_valid():
             objetivo = objetivo_form.save(commit=False)
             objetivo.proyecto = proyecto
             objetivo.save()
 
-            objetivo_especifico = objetivo_especifico_form.save(commit=False)
-            objetivo_especifico.objetivos = objetivo
-            objetivo_especifico.save()
-            
-            actividad = actividad_form.save(commit=False)
-            actividad.objetivo_especificos = objetivo_especifico
-            actividad.save()
+            try:
+                objetivo_especifico = get_object_or_404(Objetivos_especificos, objetivos=objetivo)
+            except Objetivos_especificos.MultipleObjectsReturned:
+                objetivo_especifico = Objetivos_especificos.objects.filter(objetivos=objetivo).first()
 
-            causa = causa_form.save(commit=False)
-            causa.objetivo_especifico = objetivo_especifico
-            causa.save()
-
-            efecto = efecto_form.save(commit=False)
-            efecto.causas = causa
-            efecto.save()
-
-        objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
-        actividad2 = request.POST.get('actividad2', '')
-        causa2 = request.POST.get('causa2', '')
-        efecto2 = request.POST.get('efecto2', '')
-
-        if objetivo_especificos2 and actividad2 and causa2 and efecto2:
-            objetivo_especifico2 = Objetivos_especificos.objects.create(
-                objetivos=objetivo,
-                objetivo_especificos=objetivo_especificos2,
-            )
             
-            actividad2 = Actividades_de_objetivos_especificos.objects.create(
-                objetivo_especificos=objetivo_especifico2,
-                actividades_obj_especificos=actividad2
-            )
-            
-            causa2 = Causa.objects.create(
-                objetivo_especifico=objetivo_especifico2,
-                causa=causa2,
-            )
-            
-            efecto2 = Efecto.objects.create(
-                causas=causa2,
-                efecto=efecto2,
-            )
+            objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
+            actividad2 = request.POST.get('actividades_obj_especificos2', '')
+            causa2 = request.POST.get('causa2', '')
+            efecto2 = request.POST.get('efecto2', '')
 
+            if objetivo_especificos2 and actividad2 and causa2 and efecto2:
+                objetivo_especifico2 = get_object_or_404(Objetivos_especificos, objetivos=objetivo, objetivo_especificos=objetivo_especificos2)
+                
+                actividad2 = get_object_or_404(Actividades_de_objetivos_especificos, objetivo_especificos=objetivo_especifico2, actividades_obj_especificos=actividad2)
+                causa2 = get_object_or_404(Causa, objetivo_especifico=objetivo_especifico2, causa=causa2)
+                efecto2 = get_object_or_404(Efecto, causas=causa2, efecto=efecto2)
+                
+                objetivo_especifico2_form = ObjetivoEspecificoForm(request.POST, instance=objetivo_especifico2)
+                actividad2_form = ActividadEspeForm(request.POST, instance=actividad2)
+                causa2_form = CausaForm(request.POST, instance=causa2)
+                efecto2_form = EfectoForm(request.POST, instance=efecto2)
 
-        objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
-        actividad3 = request.POST.get('actividad3', '')
-        causa3 = request.POST.get('causa3', '')
-        efecto3 = request.POST.get('efecto3', '')
+                if objetivo_especifico2_form.is_valid():
+                    objetivo_especifico2_form.save()
+                if actividad2_form.is_valid():
+                    actividad2_form.save()
+                if causa2_form.is_valid():
+                    causa2_form.save()
+                if efecto2_form.is_valid():
+                    efecto2_form.save()
 
-        if objetivo_especificos3 and actividad3 and causa3 and efecto3:
-            objetivo_especifico3 = Objetivos_especificos.objects.create(
-                objetivos=objetivo,
-                objetivo_especificos=objetivo_especificos3,
-            )
-            
-            actividad3 = Actividades_de_objetivos_especificos.objects.create(
-                objetivo_especificos=objetivo_especifico3,
-                actividades_obj_especificos=actividad3
-            )
-            
-            causa3 = Causa.objects.create(
-                objetivo_especifico=objetivo_especifico3,
-                causa=causa3,
-            )
-            
-            efecto3 = Efecto.objects.create(
-                causas=causa3,
-                efecto=efecto3,
-            )
+            objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
+            actividad3 = request.POST.get('actividades_obj_especificos3', '')
+            causa3 = request.POST.get('causa3', '')
+            efecto3 = request.POST.get('efecto3', '')
+
+            if objetivo_especificos3 and actividad3 and causa3 and efecto3:
+                objetivo_especifico3 = get_object_or_404(Objetivos_especificos, objetivos=objetivo, objetivo_especificos=objetivo_especificos3)
+                
+                actividad3 = get_object_or_404(Actividades_de_objetivos_especificos, objetivo_especificos=objetivo_especifico3, actividades_obj_especificos=actividad3)
+                causa3 = get_object_or_404(Causa, objetivo_especifico=objetivo_especifico3, causa=causa3)
+                efecto3 = get_object_or_404(Efecto, causas=causa3, efecto=efecto3)
+
+                objetivo_especifico3_form = ObjetivoEspecificoForm(request.POST, instance=objetivo_especifico3)
+                actividad3_form = ActividadEspeForm(request.POST, instance=actividad3)
+                causa3_form = CausaForm(request.POST, instance=causa3)
+                efecto3_form = EfectoForm(request.POST, instance=efecto3)
+
+                if objetivo_especifico3_form.is_valid():
+                    objetivo_especifico3_form.save()
+                if actividad3_form.is_valid():
+                    actividad3_form.save()
+                if causa3_form.is_valid():
+                    causa3_form.save()
+                if efecto3_form.is_valid():
+                    efecto3_form.save()
 
         return redirect('seleccionarObjetivo', objetivo_proyecto_id)
     else:
-        actividad_form = ActividadEspeForm()
-        objetivo_form = ObjetivoForm()
+        objetivo_form = ObjetivoForm(instance=objetivo)
         objetivo_especifico_form = ObjetivoEspecificoForm()
+        actividad_form = ActividadEspeForm()
         causa_form = CausaForm()
         efecto_form = EfectoForm()
-        
+
     contex = {
         'objetivo_form': objetivo_form,
         'objetivo_especifico_form': objetivo_especifico_form,
         'actividad_form' : actividad_form,
         'causa_form': causa_form,
         'efecto_form': efecto_form,
-        'proyecto': objetivo_proyecto_id,
-        'percentaje': objetivo_proyecto_id
+        'proyecto': objetivo,
+        'percentaje': 0
     }
     return render(request, 'form/objetivos.html', contex)
 
-def editar_objetivo(request, objetivo_proyecto_id):
-    if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
-        return redirect('index')
-
-    proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
-    objetivo = get_object_or_404(Objetivos, proyecto=proyecto)
-    objetivo_especifico = get_object_or_404(Objetivos_especificos, objetivos=objetivo)
-    actividad = get_object_or_404(Actividades_de_objetivos_especificos, objetivo_especificos=objetivo_especifico)
-    causa = get_object_or_404(Causa, objetivo_especifico=objetivo_especifico)
-    efecto = get_object_or_404(Efecto, causas=causa)
-
-    if request.method == 'POST':
-        objetivo_form = ObjetivoForm(request.POST, instance=objetivo)
-        objetivo_especifico_form = ObjetivoEspecificoForm(request.POST, instance=objetivo_especifico)
-        actividad_form = ActividadEspeForm(request.POST, instance=actividad)
-        causa_form = CausaForm(request.POST, instance=causa)
-        efecto_form = EfectoForm(request.POST, instance=efecto)
-
-        if (
-            objetivo_form.is_valid() and
-            objetivo_especifico_form.is_valid() and
-            actividad_form.is_valid() and
-            causa_form.is_valid() and
-            efecto_form.is_valid()
-        ):
-            objetivo_form.save()
-            objetivo_especifico_form.save()
-            actividad_form.save()
-            causa_form.save()
-            efecto_form.save()
-
-            return redirect('seleccionarObjetivo', objetivo_proyecto_id)
-    else:
-        objetivo_form = ObjetivoForm(instance=objetivo)
-        objetivo_especifico_form = ObjetivoEspecificoForm(instance=objetivo_especifico)
-        actividad_form = ActividadEspeForm(instance=actividad)
-        causa_form = CausaForm(instance=causa)
-        efecto_form = EfectoForm(instance=efecto)
-
-    contex = {
-        'objetivo_form': objetivo_form,
-        'objetivo_especifico_form': objetivo_especifico_form,
-        'actividad_form': actividad_form,
-        'causa_form': causa_form,
-        'efecto_form': efecto_form,
-        'proyecto': objetivo_proyecto_id,
-        'percentaje': objetivo_proyecto_id
-    }
-    return render(request, 'edit_form/edit_objet.html', contex)
 
 @login_required(login_url='/login')
 def participantes(request, id_proyecto):

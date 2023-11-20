@@ -77,7 +77,6 @@ urlpatterns = [
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
     path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
-    path('editar_objetivo/<int:objetivo_proyecto_id>/', views.editar_objetivo, name='editar_objetivo'),
     
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
