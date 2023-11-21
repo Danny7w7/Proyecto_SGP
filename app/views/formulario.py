@@ -15,6 +15,10 @@ import datetime
 import os
 import json
 
+# PDF
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
+
 #------Decoradores------
 def user_has_role(user, *roles):
     user_roles = set(user.roles.values_list('rol', flat=True))
@@ -54,6 +58,38 @@ def contex_form():
             'diciplinas':diciplinas,
             'nombresC':nombresC}
 
+
+def generar_pdf(request, proyecto_id):
+   
+    proyecto = Proyecto.objects.get(id=proyecto_id)
+    informacion_proponente = Informacion_proponente.objects.get(proyecto=proyecto)
+    autores = Autores.objects.filter(proyecto=proyecto)
+    part_p = Participantes_Proyecto.objects.filter(proyecto=proyecto)
+    gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto.id).first()
+    print(gen)
+
+    # Renderizar el template con los datos
+    context = {
+        'proyecto': proyecto,
+        'informacion_proponente': informacion_proponente,
+        'autores': autores,
+        'part_p': part_p,
+        'gen': gen,
+    }
+
+    template_path = 'form/informe.html' 
+    html = render_to_string(template_path, context)
+
+    # Lógica para generar el informe PDF a partir del HTML con xhtml2pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=informe_general.pdf'
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+
+    return response
 #------Formulario------
 @login_required(login_url='/login')
 def crear_proyecto(request):

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reporte</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            /* Aumenta el ancho del contenedor principal */
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0 0 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        h5 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            background-color: #2a2b2a94;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .info {
+            width: 48%;
+            margin-right: 2%;
+            margin-bottom: 20px;
+        }
+
+        .info table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .info td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .info td:first-child {
+            font-weight: bold;
+            min-width: 200px;
+            /* Aumenta el ancho mínimo de la primera columna */
+            width: 50%;
+            /* Aumenta el ancho de la primera columna al máximo */
+        }
+
+        .info td:nth-child(2) {
+            width: 50%;
+
+        }
+
+        .bg {
+            font-size: 18px;
+            margin-bottom: 10px;
+            background-color: #33a86594;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Sistema de reporte</h1>
+
+        <h5 class="bg">Informe general</h5>
+        <div class="info">
+            <h3>Proyecto </h3>
+            <table>
+                <tr>
+                    <td><strong>Título:</strong></td>
+                    <td>{{ proyecto.titulo_Proyecto }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Descripción:</strong></td>
+                    <td>{{ proyecto.descripcion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Código de grupo de investigación:</strong></td>
+                    <td>{{ proyecto.codigo_Grupo_Investigacion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Red de conocimiento sectorial:</strong></td>
+                    <td>{{ proyecto.red_Conocimiento_Sectorial }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Disciplina subárea:</strong></td>
+                    <td>{{ proyecto.disciplina_subarea }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Nombre del grupo de investigación:</strong></td>
+                    <td>{{ proyecto.nombre_Grupo_Investigacion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Área de conocimiento:</strong></td>
+                    <td>{{ proyecto.area_conocimiento }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Línea de grupo de investigación:</strong></td>
+                    <td>{{ proyecto.linea_Grupo_Investigacion }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Subárea de conocimiento:</strong></td>
+                    <td>{{ proyecto.subarea_conocimiento }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info">
+            <h3>Información proponente</h3>
+            <table>
+                <tr>
+                    <td><strong>Información proponente</strong></td>
+                    <td>{{informacion_proponente.Region}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Regional:</strong></td>
+                    <td>{{informacion_proponente.Regional}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre centro de formación:</strong></td>
+                    <td>{{informacion_proponente.Nombre_centro_formacion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre director:</strong></td>
+                    <td>{{informacion_proponente.Nombre_Director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número director:</strong></td>
+                    <td>{{informacion_proponente.Numero_Director}}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Email director:</strong></td>
+                    <td>{{informacion_proponente.email_director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre subdirector:</strong></td>
+                    <td>{{informacion_proponente.Nombre_Sub_Director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número subdirector:</strong></td>
+                    <td>{{informacion_proponente.Numero_Sub_Director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email subdirector:</strong></td>
+                    <td>{{informacion_proponente.email_sub_director}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info">
+            <h3>Autores</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombre del autor:</strong></td>
+                    <td>{{autores.nombre_Autor_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo de vinculación:</strong></td>
+                    <td>{{autores.tipo_Vinculacion_entidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de documento:</strong></td>
+                    <td>{{autores.numero_Cedula_Autor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Rol sennova:</strong></td>
+                    <td>{{autores.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email autor del proyecto:</strong></td>
+                    <td>{{autores.email_Autor_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de meses de vinculación:</strong></td>
+                    <td>{{autores.numero_meses_vinculacion_Autor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de teléfono autor:</strong></td>
+                    <td>{{autores.numero_Telefono_Autor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de horas semanales dedicadas:</strong></td>
+                    <td>{{autores.numero_horas_Semanales_dedicadas_Autores}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="info">
+            <h3>Participantes del proyecto</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombres del participante:</strong></td>
+                    <td>{{part_p.nombre_participantes_de_desarrollo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Rol sennova del participante:</strong></td>
+                    <td>{{part_p.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de cedula del participante:</strong></td>
+                    <td>{{part_p.numero_cedula_participantes}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de meses de vinculación:</strong></td>
+                    <td>{{part_p.numero_meses_vinculacion_participantes}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email participante de desarrollo:</strong></td>
+                    <td>{{part_p.email_participantes_de_desarrollo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de horas semanales dedicadas:</strong></td>
+                    <td>{{part_p.numero_horas_Semanales_dedicadas_participantes}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número teléfono participantes:</strong></td>
+                    <td>{{part_p.numero_Telefono_participantes}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info">
+            <h3>Generalidades del proyecto</h3>
+            <table>
+                <tr>
+                    <td><strong>Código de dependencia presupuestal:</strong></td>
+                    <td>{{gen.codigo_Dependencia_Presupuestal}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Temática estrategica SENA:</strong></td>
+                    <td>{{gen.tematicas_Estrategias_SENA}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Link video proyecto:</strong></td>
+                    <td>{{gen.link_video_proyecto}}</td>   
+                </tr>
+                <tr>
+                    <td><strong>¿Proyecto relacionado con Industrial 4.0?</strong></td>
+                    <td>{{gen.proyecto_Relacionado_Industrial40}}</td>    
+                </tr>
+                <tr>
+                    <td><strong>Justificación industrial 4.0:</strong></td>
+                    <td>{{gen.justificacion_Industrial}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Actividades económicas del proyecto de investigación:</strong></td>
+                    <td>{{gen.actividades_economicas_del_proyecto_investigacion}}</td>
+                </tr>
+                <tr>
+                    <td>¿Proyecto relacionado con economía naranja?</td>
+                    <td>{{gen.proyecto_Relacionado_Economia_Naranja}}</td>
+                </tr>
+                <tr>
+                    <td>Justificación economía naranja</td>
+                    <td>{{gen.justificacion_Economia_Naranja}}</td>
+                </tr>
+                <tr>
+                    <td>¿Proyecto relacionado con politica de discapacidad?</td>
+                    <td>{{gen.proyecto_Relacionado_Politica_Discapacidad}}</td>
+                </tr>
+                <tr>
+                    <td>Justificación politica discapacidad</td>
+                    <td>{{gen.justificacion_Politica_Discapacidad}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info">
+            <h3>Anamesis aumentaria</h3>
+            <table>
+                <tr>
+                    <td><strong>Desayuno:</strong></td>
+                    <td></td>
+                    <td><strong>Mediodia:</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Almuerzo:</strong></td>
+                    <td></td>
+                    <td><strong>Media tarde:</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Cena:</strong></td>
+                    <td colspan="3"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info">
+            <h3>Otros</h3>
+            <table>
+                <tr>
+                    <td><strong>Habitoa saludables:</strong></td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><strong>suplementos:</strong></td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><strong>Pendientes:</strong></td>
+                    <td colspan="3"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="container">
+        <div class="info">
+            <h3>Historia clinica</h3>
+            <table>
+                <tr>
+                    <td><strong>Medicametos:</strong></td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><strong></strong></td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><strong>Antecedentes personales:</strong></td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><strong>Antecedentes familiares:</strong></td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><strong>Paraclinicos:</strong></td </body>
+
+</html>
