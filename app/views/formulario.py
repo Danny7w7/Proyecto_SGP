@@ -1,9 +1,10 @@
 
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 
-from app.forms import ActividadEspeForm, CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperados, ParticipantesEntidadForm
-from app.models import Actividades_de_objetivos_especificos, Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion, Participantes_entidad_alidad
+from app.forms import ActividadEspeForm, CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperadosForm, ParticipantesEntidadForm
+from app.models import Actividades_de_objetivos_especificos, Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion, Participantes_entidad_alidad, Resultados_y_productos_esperados
 
 
 from django.contrib.auth.decorators import login_required
@@ -96,6 +97,7 @@ def estructura_proyecto(request, id_proyecto):
         return redirect(index)
     context = {'proyecto':proyecto,
                'resumen':get_or_none(Resumen_antecedentes, proyecto=proyecto),
+               'problema':get_or_none(Descripcion_problema, proyecto=id_proyecto),
                'percentaje':id_proyecto}
     return render(request, 'form/estp.html', context)
 
@@ -228,6 +230,21 @@ def participantes(request, id_proyecto):
     }
     return render(request, 'form/partp.html', context)
 
+#Fech para obtener los objetivos especificos 
+@csrf_exempt
+def getObjEspecificos(request, id_entidad):
+    entidad_aliada = Entidades_aliadas.objects.get(id=id_entidad)
+    objetivos_especificos_asociados = entidad_aliada.objetivo_especificos.all()
+    # Convertir los datos del queryset a una estructura serializable
+    objetivos_serializados = list(objetivos_especificos_asociados.values())
+    
+    return JsonResponse({
+        "mensaje": "Operación exitosa", 
+        "id_objetivos_asociados": {
+            "id": objetivos_serializados
+        }
+    })
+
 
 @login_required(login_url='/login')
 def selecEntidad(request, id_proyecto):
@@ -273,8 +290,9 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
         return redirect(index)
     objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
     objEspecifico = Objetivos_especificos.objects.get(objetivos_id=objGeneral, id=id_objetivoEsp)
+    productoEsp = get_or_none(Resultados_y_productos_esperados, objetivo_especifico=objEspecifico.id)
     if request.method == 'POST':
-        form = ProducEsperados(request.POST)
+        form = ProducEsperadosForm(request.POST, instance=productoEsp)
         if form.is_valid():
             produc = form.save(commit=False)
             produc.objetivo_especifico_id = objEspecifico.id
@@ -282,7 +300,8 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
             return redirect('seleccionarObjetivo', id_proyecto)
     form = ProyectoForm()
     contex = {'percentaje':id_proyecto,
-              'objEspecifico':objEspecifico}
+              'objEspecifico':objEspecifico,
+              'productosEsp':productoEsp}
     return render(request, 'form/producEsperados.html', contex)
 
 
@@ -575,8 +594,12 @@ def entidad_aliada(request, id_proyecto):
     objGen = Objetivos.objects.filter(proyecto=proyecto.id).first()
     objsEsp = Objetivos_especificos.objects.filter(objetivos=objGen.id)
     array_booleanos = json.loads(request.POST['objetivo_especificos_relacionados'])
+    id_entidad = request.POST.get('id_entidad', None)
+    if id_entidad:
+        entidad = Entidades_aliadas.objects.get(id=id_entidad)
+    else:
+        entidad = Entidades_aliadas(proyecto=proyecto)
 
-    entidad = Entidades_aliadas(proyecto=proyecto)
     entidad.save()
     for indice, objetivoUwU in enumerate(objsEsp, start=1):
         if array_booleanos[indice-1]:
@@ -592,6 +615,7 @@ def entidad_aliada(request, id_proyecto):
     try:
         entidad.save()
         return JsonResponse({"mensaje": "Operación exitosa", "nueva_entidad": {
+            "id":entidad.id,
             "nombre_entidad":entidad.nombre_entidad,
             "tipo_entidad_aliada": entidad.tipo_entidad_aliada,
             "naturaleza_entidad": entidad.naturaleza_entidad,

@@ -17,21 +17,21 @@
                         <label class="form-label">Tipo de resultado esperado objetivo específico</label>
                         <select name="tipo_resultado_esperado_obj_especifico" id="tipo_resultado_esperado_obj_especifico" class="form-control selectmod">
                             <option value="" disabled selected>Selecciona una opción...</option>
-                            <option value="gen_conocimiento_gnc">Generación del Conocimiento GNC</option>
-                            <option value="desarrollo_tecno_dt">Desarrollo tecnológico DT</option>
-                            <option value="apropiacion_social_asc">Apropiación social delconocimiento ASC</option>
-                            <option value="formacion_recurso_frh">Formación de recurso humanoFRH</option>
+                            <option{% if productosEsp.tipo_resultado_esperado_obj_especifico == 'gen_conocimiento_gnc' %} selected{%endif%} value="gen_conocimiento_gnc">Generación del Conocimiento GNC</option>
+                            <option{% if productosEsp.tipo_resultado_esperado_obj_especifico == 'desarrollo_tecno_dt' %} selected{%endif%} value="desarrollo_tecno_dt">Desarrollo tecnológico DT</option>
+                            <option{% if productosEsp.tipo_resultado_esperado_obj_especifico == 'apropiacion_social_asc' %} selected{%endif%} value="apropiacion_social_asc">Apropiación social del conocimiento ASC</option>
+                            <option{% if productosEsp.tipo_resultado_esperado_obj_especifico == 'formacion_recurso_frh' %} selected{%endif%} value="formacion_recurso_frh">Formación de recurso humanoFRH</option>
                         </select>
                         <div class="invalid-feedback">
                         </div>
 
                         <label class="form-label">Descripción resultado esperado objetivo específico</label>
-                        <input name="descripcion_resultado_esperado_obj_especifico" type="text" class="form-control form-control-sm" id="desc_resultado_esperado" aria-describedby="helpId">
+                        <input name="descripcion_resultado_esperado_obj_especifico" type="text" class="form-control form-control-sm" id="desc_resultado_esperado" aria-describedby="helpId" value="{{productosEsp.descripcion_resultado_esperado_obj_especifico}}">
                         <div class="invalid-feedback">
                         </div>
 
                         <label class="form-label">Nombre del producto resultado de la investigación objetivo específico</label>
-                        <input name="nombre_producto_resultado_inv_obj_especifico" type="text" class="form-control form-control-sm" id="nombre_resul_investigacion" aria-describedby="helpId">
+                        <input name="nombre_producto_resultado_inv_obj_especifico" type="text" class="form-control form-control-sm" id="nombre_resul_investigacion" aria-describedby="helpId" value="{{productosEsp.nombre_producto_resultado_inv_obj_especifico}}">
                         <div class="invalid-feedback">
                         </div>
 
@@ -41,36 +41,32 @@
                         </label>
                         <select name="nombre_subtipologia" id="nombre_subtipologia" class="form-control selectmod">
                             <option value="" disabled selected>Selecciona una opción...</option>
-                            <option value="gnc_articulos_a1_a2_b_c">GNC-Artículos deinvestigación A1, A2, B y C</option>
-                            <option value="gnc_articulos_d">GNC-Artículos de investigación D </option>
-                            <option value="gnc_notas_cientificas">GNC-Notas científicas</option>
-                            <option value="gnc_libros_investigacion">GNC-Libros resultado de investigación</option>
-                            <option value="gnc_capitulos_libro_investigacion">GNC-Capítulos en libro resultado de investigación</option>
-                            <option value="gnc_productos_tecnologicos_patentados">GNC-Productos tecnológicos patentados o en proceso de concesión de la patente
-                            </option>
-                            <option value="gnc_variedades_vegetales_razas">GNC-Variedades vegetales, nuevas razas animales y poblaciones mejoradas de razas pecuarias</option>
-                            <option value="gnc_obras_creacion_arte">GNC-Obras o productos de investigación-Creación en artes, arquitectura y diseño</option>
-                            <option value="dt_productos_tecnologicos">DT-Productos tecnológicos certificados o validados</option>
-                            <option value="dt_productos_empresariales">DT-Productos empresariales</option>
-                            <option value="dt_regulaciones_normas">DT-Regulaciones, normas, reglamentos o legislaciones</option>
-                            <option value="dt_informes_tecnicos">DT- Conceptos técnicos e informes técnicos</option>
-                            <option value="dt_acuerdos_licencias">DT-Registros de acuerdos de licencias para la explotación de obras protegidas por derecho de autor</option>
-                            <option value="asc_participacion_ctei">ASC-Participación ciudadana en CTeI y creación</option>
-                            <option value="asc_estrategias_pedagogicas_ctei">ASC-Estrategias pedagçogicas para el fomento de la CTeI</option>
-                            <option value="asc_comunicacion_social">ASC-Comunicación social del conocimiento</option>
-                            <option value="asc_talleres_creacion">ASC-Circulación de conocimiento especializado-Talleres de creación</option>
-                            <option value="asc_eventos_culturales">ASC-Circulación de conocimiento especializado-Eventos culturales y artísticos
-                            </option>
-                            <option value="asc_working_paper">ASC-Circulación de conocimiento especializado-Working paper</option>
-                            <option value="asc_secuencia_genetica">ASC-Circulación de conocimiento especializado-Nueva secuencia genética</option>
-                            <option value="asc_boletines_divulgativos">ASC-Circulación de conocimiento especializado-Boletines divulgativos de resultados de investigación</option>
-                            <option value="asc_ediciones_revista">ASC-Circulación de conocimiento especializado-Ediciones de revista científica
-                            </option>
-                            <option value="asc_libro_investigacion">ASC-Circulación de conocimiento especializado-Libro resultado de investigación
-                            </option>
-                            <option value="asc_informe_final">ASC-Circulación de conocimiento especializado-Informe final de trabajo</option>
-                            <option value="asc_consultorias">ASC-Circulación de conocimiento especializado-Consultorías</option>
-                            <option value="frh_apoyo_formacion">FRH-Apoyo a creación de programas o cursos de formación de investigación</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_articulos_a1_a2_b_c' %} selected{%endif%} value="gnc_articulos_a1_a2_b_c">GNC-Artículos deinvestigación A1, A2, B y C</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_articulos_d' %} selected{%endif%} value="gnc_articulos_d">GNC-Artículos de investigación D </option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_notas_cientificas' %} selected{%endif%} value="gnc_notas_cientificas">GNC-Notas científicas</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_libros_investigacion' %} selected{%endif%} value="gnc_libros_investigacion">GNC-Libros resultado de investigación</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_capitulos_libro_investigacion' %} selected{%endif%} value="gnc_capitulos_libro_investigacion">GNC-Capítulos en libro resultado de investigación</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_productos_tecnologicos_patentados' %} selected{%endif%} value="gnc_productos_tecnologicos_patentados">GNC-Productos tecnológicos patentados o en proceso de concesión de la patente</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_variedades_vegetales_razas' %} selected{%endif%} value="gnc_variedades_vegetales_razas">GNC-Variedades vegetales, nuevas razas animales y poblaciones mejoradas de razas pecuarias</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'gnc_obras_creacion_arte' %} selected{%endif%} value="gnc_obras_creacion_arte">GNC-Obras o productos de investigación-Creación en artes, arquitectura y diseño</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'dt_productos_tecnologicos' %} selected{%endif%} value="dt_productos_tecnologicos">DT-Productos tecnológicos certificados o validados</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'dt_productos_empresariales' %} selected{%endif%} value="dt_productos_empresariales">DT-Productos empresariales</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'dt_regulaciones_normas' %} selected{%endif%} value="dt_regulaciones_normas">DT-Regulaciones, normas, reglamentos o legislaciones</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'dt_informes_tecnicos' %} selected{%endif%} value="dt_informes_tecnicos">DT- Conceptos técnicos e informes técnicos</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'dt_acuerdos_licencias' %} selected{%endif%} value="dt_acuerdos_licencias">DT-Registros de acuerdos de licencias para la explotación de obras protegidas por derecho de autor</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_participacion_ctei' %} selected{%endif%} value="asc_participacion_ctei">ASC-Participación ciudadana en CTeI y creación</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_estrategias_pedagogicas_ctei' %} selected{%endif%} value="asc_estrategias_pedagogicas_ctei">ASC-Estrategias pedagçogicas para el fomento de la CTeI</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_comunicacion_social' %} selected{%endif%} value="asc_comunicacion_social">ASC-Comunicación social del conocimiento</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_talleres_creacion' %} selected{%endif%} value="asc_talleres_creacion">ASC-Circulación de conocimiento especializado-Talleres de creación</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_eventos_culturales' %} selected{%endif%} value="asc_eventos_culturales">ASC-Circulación de conocimiento especializado-Eventos culturales y artísticos</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_working_paper' %} selected{%endif%} value="asc_working_paper">ASC-Circulación de conocimiento especializado-Working paper</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_secuencia_genetica' %} selected{%endif%} value="asc_secuencia_genetica">ASC-Circulación de conocimiento especializado-Nueva secuencia genética</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_boletines_divulgativos' %} selected{%endif%} value="asc_boletines_divulgativos">ASC-Circulación de conocimiento especializado-Boletines divulgativos de resultados de investigación</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_ediciones_revista' %} selected{%endif%} value="asc_ediciones_revista">ASC-Circulación de conocimiento especializado-Ediciones de revista científica</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_libro_investigacion' %} selected{%endif%} value="asc_libro_investigacion">ASC-Circulación de conocimiento especializado-Libro resultado de investigación</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_informe_final' %} selected{%endif%} value="asc_informe_final">ASC-Circulación de conocimiento especializado-Informe final de trabajo</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'asc_consultorias' %} selected{%endif%} value="asc_consultorias">ASC-Circulación de conocimiento especializado-Consultorías</option>
+                            <option{% if productosEsp.nombre_subtipologia == 'frh_apoyo_formacion' %} selected{%endif%} value="frh_apoyo_formacion">FRH-Apoyo a creación de programas o cursos de formación de investigación</option>
                         </select>
                         <div class="invalid-feedback">
                         </div>
@@ -81,27 +77,26 @@
                         <label class="form-label">TRL al cual llegará el producto resultado de la investigación objetivo específico</label>
                         <select id="trl_producto_resultado_inv_obj_especifico" name="trl_producto_resultado_inv_obj_especifico" class="form-control selectmod">
                             <option value="" disabled selected>Selecciona una opción...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 1 %} selected{%endif%} value="1">1</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 2 %} selected{%endif%} value="2">2</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 3 %} selected{%endif%} value="3">3</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 4 %} selected{%endif%} value="4">4</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 5 %} selected{%endif%} value="5">5</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 6 %} selected{%endif%} value="6">6</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 7 %} selected{%endif%} value="7">7</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 8 %} selected{%endif%} value="8">8</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 9 %} selected{%endif%} value="9">9</option>
                         </select>
                         <div class="invalid-feedback">
                         </div>
 
                         <label class="form-label">Indicador del producto resultado de la
                             investigación objetivo específico</label>
-                        <input name="indicador_producto_resultado_inv_obj_especifico" id="indicador_producto_resultado_inv_obj_especifico" type="text" class="form-control form-control-sm">
+                        <input name="indicador_producto_resultado_inv_obj_especifico" id="indicador_producto_resultado_inv_obj_especifico" type="text" class="form-control form-control-sm" value="{{productosEsp.indicador_producto_resultado_inv_obj_especifico}}">
                         <div class="invalid-feedback">
                         </div>
 
-                        <label class="form-label">Fecha de entrega del producto resultado de
-                            la investigación Objetivo específico</label>
+                        <label class="form-label">Fecha de entrega del producto resultado de la investigación Objetivo específico</label>
                         <input name="fch_entrega_producto_resultado_inv_obj_especifico" id="fch_entrega_producto_resultado_inv_obj_especifico" type="date" class="form-control form-control-sm">
                         
                         <div class="invalid-feedback">

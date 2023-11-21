@@ -46,7 +46,7 @@ class EfectoForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['causas']
 
-class ProducEsperados(forms.ModelForm):
+class ProducEsperadosForm(forms.ModelForm):
     class Meta:
         model = Resultados_y_productos_esperados
         fields = '__all__'

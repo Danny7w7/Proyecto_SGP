@@ -91,7 +91,7 @@ def register(request):
             rol_lector = Roles.objects.get(rol='L')
             user.roles.add(rol_lector)
             user.save()
-            return render(request, 'Dashboard/Eliminar.html')
+            return redirect('Usuarios')
     else:
         return render(request, 'Dashboard/register.html')
       

@@ -50,6 +50,9 @@ urlpatterns = [
     path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
 
     #Json
+
+    # 
+    path('getEntidad/<int:id_entidad>/', views.getObjEspecificos, name='getObjEspecificos'),
     
     #Informacion proyecto
     path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info_proponente'),

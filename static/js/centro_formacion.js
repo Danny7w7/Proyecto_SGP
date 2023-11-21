@@ -3,6 +3,58 @@ const button1 = document.getElementById('step2');
 const collapse1 = document.getElementById('collapseOne');
 const collapse2 = document.getElementById('collapseTwo');
 
+function edit_entidad(id){
+    const divUwU = document.getElementById('UwU');
+    const inputHidden = document.createElement('input');
+    inputHidden.type = 'hidden';
+    
+    inputHidden.value = id;
+    
+    divUwU.appendChild(inputHidden);
+
+    const selectDiv = document.getElementById(`entidad${id}`);
+    const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
+
+    for (let i = 0; i < inputs.length; i++) {
+        let texto = inputs[i].id;
+        texto = texto.substring(0, texto.length - 7);
+        const changeDiv = document.getElementById(texto);
+        changeDiv.value = inputs[i].value
+    }
+
+
+    var id_entidad = document.getElementById('id_entidad').value;
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/getEntidad/${id_entidad}/`, {
+        method: 'POST',
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+
+            const idsObjetivos = data.id_objetivos_asociados.id.map(obj => obj.id);
+
+            objEspecificos = document.getElementsByClassName(`objEspecifico`)
+            for (let i = 0; i < objEspecificos.length; i++){
+                let textoSinPrimerasLetras = objEspecificos[i].id.substring(13);
+                if (idsObjetivos.includes(parseInt(textoSinPrimerasLetras))) {
+                    objEspecificos[i].checked = true
+                } else {
+                    objEspecificos[i].checked = false
+                }
+                
+            }
+            if (data.id == document.getElementById('id_entidad').length - 7){
+                console.log("UWU")
+            }
+        }
+    })
+}
+
+
 var sig;
 document.addEventListener("DOMContentLoaded", function() {
     fieldQuestion = ['convenio']
@@ -175,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function validateField(field, feedback, pattern, errorMsg) {
         if (fieldExclude.includes(field.id)){
             var index = fieldExclude.indexOf(field.id);
-            if (inputs[index].value == '0'){   
+            if (inputs[index].value == 'False'){   
                 field.classList.remove("is-invalid");
                 field.classList.add("is-valid");
                 feedback.textContent = '';
@@ -238,6 +290,7 @@ fetch(`/proyecto/info-proyecto/centro-formacion/${id_proyecto}/`, {
         // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
     } else {
         console.log('Mensaje de éxito:', data.mensaje);
+        limpiarInputs()
     }
 })
 .catch(error => {
@@ -285,54 +338,79 @@ function sendPost2() {
         i++;
     }
 
-// Crear un objeto FormData para los datos del formulario
-var formData = new FormData();
-formData.append("nombre_entidad",nombre_entidad);
-formData.append("tipo_entidad_aliada", tipo_entidad);
-formData.append("naturaleza_entidad", naturaleza_entidad);
-formData.append("clasificacion_empresa", clasificacion_empresa);
-formData.append("nit", nit);
-formData.append("convenio", convenio);
-formData.append("especifique_tipo_codigo_convenio", especifique_tipo_codigo_convenio);
-formData.append("recursos_especie_entidad", recursos_especie_entidad);
-formData.append("descripcion_recursos_especie_aportados", descripcion_recursos_especie_aportados);
-formData.append("recursos_dinero_entidad_aliada", recursos_dinero_entidad_aliada);
-formData.append("descripcion_destinacion_dinero_aportado", descripcion_destinacion_dinero_aportado);
-formData.append("nombre_grupo_inv_entidad_aliada", nombre_grupo_inv_entidad_aliada);
-formData.append("codigo_gruplac_entidad_aliada", codigo_gruplac_entidad_aliada);
-formData.append("link_gruplac_entidad_aliada", link_gruplac_entidad_aliada);
-formData.append("actividades_desarrollar_entidad_aliada_marco_proyecto", actividades_desarrollar_entidad_aliada_marco_proyecto);
-formData.append("objetivo_especificos_relacionados", JSON.stringify(elementos));
-formData.append("metodologia_act_transferencia_centro_formacion", metodologia_act_transferencia_centro_formacion);
-formData.append("csrfmiddlewaretoken", csrfToken);
-// Realizar una solicitud POST utilizando Fetch
-fetch(`/proyecto/info-proyecto/entidad_aliada/${id_proyecto}/`, {
-    method: 'POST',
-    body: formData,
-})
-.then(response => response.json())  // Parsea la respuesta JSON
-    .then(data => {
-        if (data.error) {
-            console.error('Error:', data.error);
-            alert(data.error); // O muestra el error de alguna otra manera
-        } else {
-            console.log('Mensaje de éxito:', data.mensaje);
-            
-            // Aquí, puedes agregar el nuevo autor a la tabla
-            let tableBody = document.querySelector('.tablita tbody');
-            let newRow = tableBody.insertRow();
-            
-            newRow.insertCell(0).textContent = data.nueva_entidad.nombre_entidad;
-            newRow.insertCell(1).textContent = data.nueva_entidad.tipo_entidad_aliada;
-            newRow.insertCell(2).textContent = data.nueva_entidad.naturaleza_entidad;
-            newRow.insertCell(3).textContent = data.nueva_entidad.clasificacion_empresa;
-            newRow.insertCell(4).textContent = data.nueva_entidad.nit;
-            
-            if (sig){
-                window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
-            }
-        }
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    if (document.getElementById('id_entidad').value == ''){
+        console.log("Ta vacio mamaguevo")
+    }else{
+        formData.append("id_entidad", document.getElementById('id_entidad').value);
+    }
+    formData.append("nombre_entidad",nombre_entidad);
+    formData.append("tipo_entidad_aliada", tipo_entidad);
+    formData.append("naturaleza_entidad", naturaleza_entidad);
+    formData.append("clasificacion_empresa", clasificacion_empresa);
+    formData.append("nit", nit);
+    formData.append("convenio", convenio);
+    formData.append("especifique_tipo_codigo_convenio", especifique_tipo_codigo_convenio);
+    formData.append("recursos_especie_entidad", recursos_especie_entidad);
+    formData.append("descripcion_recursos_especie_aportados", descripcion_recursos_especie_aportados);
+    formData.append("recursos_dinero_entidad_aliada", recursos_dinero_entidad_aliada);
+    formData.append("descripcion_destinacion_dinero_aportado", descripcion_destinacion_dinero_aportado);
+    formData.append("nombre_grupo_inv_entidad_aliada", nombre_grupo_inv_entidad_aliada);
+    formData.append("codigo_gruplac_entidad_aliada", codigo_gruplac_entidad_aliada);
+    formData.append("link_gruplac_entidad_aliada", link_gruplac_entidad_aliada);
+    formData.append("actividades_desarrollar_entidad_aliada_marco_proyecto", actividades_desarrollar_entidad_aliada_marco_proyecto);
+    formData.append("objetivo_especificos_relacionados", JSON.stringify(elementos));
+    formData.append("metodologia_act_transferencia_centro_formacion", metodologia_act_transferencia_centro_formacion);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/info-proyecto/entidad_aliada/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
     })
+    .then(response => response.json())  // Parsea la respuesta JSON
+        .then(data => {
+            if (data.error) {
+                console.error('Error:', data.error);
+                alert(data.error); // O muestra el error de alguna otra manera
+            } else {
+                console.log('Mensaje de éxito:', data.mensaje);
+                
+                // Aquí, puedes agregar el nuevo autor a la tabla
+                let tableBody = document.querySelector('.tablita tbody');
+                let newRow = tableBody.insertRow();
+                
+                newRow.insertCell(0).textContent = data.nueva_entidad.nombre_entidad;
+                newRow.insertCell(1).textContent = data.nueva_entidad.tipo_entidad_aliada;
+                newRow.insertCell(2).textContent = data.nueva_entidad.naturaleza_entidad;
+                newRow.insertCell(3).textContent = data.nueva_entidad.clasificacion_empresa;
+                newRow.insertCell(4).textContent = data.nueva_entidad.nit;
+                
+                // Columna para los botones
+                let buttonCell = newRow.insertCell(5);
+                let editButton = document.createElement('button');
+                editButton.textContent = 'Editar';
+                editButton.classList.add('btn', 'btn-success');
+                editButton.setAttribute('onclick', `edit_entidad(${data.nueva_entidad.id})`);
+
+                let deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.classList.add('btn', 'btn-danger');
+                deleteButton.onclick = function() {
+                    // Lógica para eliminar la entidad
+                    // Puedes llamar a una función delete_entidad() o incluir la lógica directamente aquí
+                };
+
+                buttonCell.appendChild(editButton);
+                buttonCell.appendChild(deleteButton);
+                
+                if (sig){
+                    window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
+                }
+                const input = document.getElementById('id_entidad');
+                input.value = '';
+            }
+        })
     .catch(error => {
         console.error('Error en la solicitud:', error);
         // Manejar errores en la solicitud, como problemas de red

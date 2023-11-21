@@ -170,7 +170,7 @@ class Resultados_y_productos_esperados(models.Model):
     descripcion_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
     nombre_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
     nombre_subtipologia = models.CharField(max_length=200, null=False)
-    trl_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
+    trl_producto_resultado_inv_obj_especifico = models.IntegerField(null=False)
     indicador_producto_resultado_inv_obj_especifico = models.CharField(max_length=50, null=False)
     fch_entrega_producto_resultado_inv_obj_especifico = models.DateField(null=False)
     objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
