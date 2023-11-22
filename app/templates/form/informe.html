@@ -328,40 +328,37 @@
             </table>
         </div>
 
-        <!-- <div class="info">
+        <div class="info">
 
             <h3>Objetivos del proyecto</h3>
             <table>
                 <tr>
                     <td><strong>Objetivo general:</strong></td>
-                    <td>{{objg.objetivo_general}}</td>
+                    <td>{{ objg.objetivo_general }}</td>
                 </tr>
-                {% for obj_e in obje %}
+                {% for obj_e in objetivos_especificos %}
                 <tr>
-                    <td><strong>Objetivo específico: {{ forloop.counter }}</strong></td>
-                    <td>{{obj_e.objetivo_especificos}}</td>
+                    <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
+                    <td>{{ obj_e.objetivo_especificos }}</td>
                 </tr>
-                {% endfor %}
-                {% for act_e in acte %}
                 <tr>
-                    <td><strong>Actividad: {{ forloop.counter }}</strong></td>
-                    <td>{{act_e.actividades_obj_especificos}}</td>
+                    <td colspan="2">
+                        <strong>Actividades:</strong> {{ obj_e.actividades_obj_especificos.actividades_obj_especificos }}
+                    </td>
                 </tr>
-                {% endfor %}
-                {% for causas in causa %}
                 <tr>
-                    <td><strong>Causa: {{ forloop.counter }}</strong></td>
-                    <td>{{causas.causa}}</td>
+                    <td colspan="2">
+                        <strong>Causa:</strong> {{ obj_e.causa.causa }}
+                    </td>
                 </tr>
-                {% endfor %}
-                {% for efectos in efecto %}
                 <tr>
-                    <td><strong>Efecto:</strong></td>
-                    <td>{{efectos.efecto}}</td>
+                    <td colspan="2">
+                        <strong>Efecto:</strong> {{ obj_e.causa.efecto.efecto }}
+                    </td>
                 </tr>
-                {% endfor }
+            {% endfor %}
             </table>
-        </div> -->
+        </div>
     </div>
     <br>
     <br>
@@ -474,6 +471,52 @@
                     <td>{{ent_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}</td>
                 </tr>
             </table>
+            {% endfor %}
         </div>
+    </div>
+    <div class="container">
+        <div class="info">
+            <h5>Participantes entidad aliada</h5>
+            <h3>Centro de formación</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombres de integrantes que participan:</strong></td>
+                    <td>Solo pruebas</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de identificación de los integrantes</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Tipos de programas de formación beneficiados que conforman los semilleros:</strong></td>
+                    <td>{{centro_f.tipo_programas_formacion_beneficiados_conforman_semillero}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre de programas formación beneficiados que conforman los semilleros:</strong></td>
+                    <td>{{centro_f.nombre_programas_formacion_beneficiados_semillero}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipos de programas beneficiados con la ejecución del proyecto:</strong></td>
+                    <td>{{centro_f.tipo_programas_de_formacion_beneficiados_por_ejecucion}}</td>
+                </tr>
+                <tr>
+                    <td>Nombre de los programas de formación  beneficiados con la ejecución del proyecto</td>
+                    <td>{{centro_f.nombre_programas_formacion_beneficiados_ejecucion_proyecto}}</td>
+                </tr>
+                <tr>
+                    <td>Número de aprendices que participaran en la ejecución del proyecto</td>
+                    <td>{{centro_f.numero_aprendices_participaran_ejecucion_proyecto}}</td>
+                </tr>
+                <tr>
+                    <td>Número de municipios beneficiados con la ejecución del proyecto</td>
+                    <td>{{centro_f.numero_municipios_beneficiados}}</td>
+                </tr>
+                <tr>
+                    <td>Número de municipios beneficiados y descripción del beneficio</td>
+                    <td>{{centro_f.nombre_municipios_beneficiados_descripcion_beneficio}}</td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 </html>

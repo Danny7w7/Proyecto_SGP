@@ -59,23 +59,91 @@ def contex_form():
             'nombresC':nombresC}
 
 
-def generar_pdf(request, proyecto_id):
+# def generar_pdf(request, proyecto_id):
    
-    proyecto = Proyecto.objects.get(id=proyecto_id)
+#     proyecto = Proyecto.objects.get(id=proyecto_id)
+#     informacion_proponente = Informacion_proponente.objects.get(proyecto=proyecto)
+#     autores = Autores.objects.filter(proyecto=proyecto)
+#     part_p = Participantes_Proyecto.objects.filter(proyecto=proyecto)
+#     gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto.id).first()
+#     res = Resumen_antecedentes.objects.filter(proyecto=proyecto.id).first()
+#     des_p = Descripcion_problema.objects.filter(proyecto=proyecto.id).first()
+#     objg = Objetivos.objects.filter(proyecto=proyecto.id).first()
+#     obje = Objetivos_especificos.objects.filter(objetivos=objg.id).first()
+#     print(obje)
+#     acte = Actividades_de_objetivos_especificos.objects.filter(objetivo_especificos=obje.id).first()
+#     causa = Causa.objects.filter(objetivo_e=obje.id).first()
+#     efecto = Efecto.objects.filter(causa=causa.id).first()
+#     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto.id).first()
+#     entidad_a= Entidades_aliadas.objects.filter(proyecto=proyecto)
+
+
+#     # Renderizar el template con los datos
+#     context = {
+#         'proyecto': proyecto,
+#         'informacion_proponente': informacion_proponente,
+#         'autores': autores,
+#         'part_p': part_p,
+#         'gen': gen,
+#         'res': res,
+#         'des_p': des_p,
+#         'objg': objg,
+#         'obje': obje,
+#         'acte': acte,
+#         'causa': causa,
+#         'efecto': efecto,
+#         'centro_f': centro_f,
+#         'entidad_a': entidad_a,
+#     }
+
+#     template_path = 'form/informe.html' 
+#     html = render_to_string(template_path, context)
+
+#     # Lógica para generar el informe PDF a partir del HTML con xhtml2pdf
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename=informe_general.pdf'
+
+#     pisa_status = pisa.CreatePDF(html, dest=response)
+
+#     if pisa_status.err:
+#         return HttpResponse('Error al generar el PDF', status=500)
+
+#     return response
+
+def generar_pdf(request, proyecto_id):
+    # Obtener el proyecto y otros datos relacionados
+    proyecto = get_object_or_404(Proyecto, id=proyecto_id)
     informacion_proponente = Informacion_proponente.objects.get(proyecto=proyecto)
     autores = Autores.objects.filter(proyecto=proyecto)
     part_p = Participantes_Proyecto.objects.filter(proyecto=proyecto)
-    gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto.id).first()
-    res = Resumen_antecedentes.objects.filter(proyecto=proyecto.id).first()
-    des_p = Descripcion_problema.objects.filter(proyecto=proyecto.id).first()
-    objg = Objetivos.objects.filter(proyecto=proyecto.id).first()
-    obje = Objetivos_especificos.objects.filter(objetivo=objg.id).first()
-    acte = Actividades_de_objetivos_especificos.objects.filter(proyecto=proyecto.id).first()
-    causa = Causa.objects.filter(objetivo_e=obje.id).first()
-    efecto = Efecto.objects.filter(causa=causa.id).first()
-    centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto.id).first()
-    entidad_a= Entidades_aliadas.objects.filter(proyecto=proyecto)
+    gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto).first()
+    res = Resumen_antecedentes.objects.filter(proyecto=proyecto).first()
+    des_p = Descripcion_problema.objects.filter(proyecto=proyecto).first()
+    objg = Objetivos.objects.filter(proyecto=proyecto).first()
+    objetivos_especificos = Objetivos_especificos.objects.filter(objetivos=objg)
+    # Inicializar causas y efectos como listas vacías
+    causas = []
+    efectos = []
+    # Iterar sobre todos los objetivos específicos
+    for obje in objetivos_especificos:
+        try:
+            # Intentar obtener la causa asociada al objetivo específico
+            causa = Causa.objects.get(objetivo_especifico=obje)
+            causas.append(causa)
 
+            # Si hay una causa, intentar obtener el efecto asociado
+            try:
+                efecto = causa.efecto
+                efectos.append(efecto)
+            except Efecto.DoesNotExist:
+                efectos.append(None)
+
+        except Causa.DoesNotExist:
+            causas.append(None)
+            efectos.append(None)
+
+    centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
+    entidad_a = Entidades_aliadas.objects.filter(proyecto=proyecto)
 
     # Renderizar el template con los datos
     context = {
@@ -88,9 +156,8 @@ def generar_pdf(request, proyecto_id):
         'des_p': des_p,
         'objg': objg,
         'obje': obje,
-        'acte': acte,
-        'causa': causa,
-        'efecto': efecto,
+        'causa': causas,
+        'efecto': efectos,
         'centro_f': centro_f,
         'entidad_a': entidad_a,
     }
