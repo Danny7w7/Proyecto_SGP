@@ -88,7 +88,7 @@ def informacion_proponente(request, id_proyecto):
                'percentaje':id_proyecto,
                'listaPlegable':contex_form()}
     return render(request, 'form/infop.html', context)
-    
+
 
 @login_required(login_url='/login')
 def estructura_proyecto(request, id_proyecto):
@@ -403,7 +403,12 @@ def info_proponente(request, id_proyecto):
     
 def info_autores(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
-    autores = Autores(proyecto=proyecto)  # Crea una nueva instancia en lugar de obtener una existente
+
+    id_autor = request.POST.get('id_autor', None)
+    if id_autor:
+        autores = Autores.objects.get(id=id_autor)
+    else:
+        autores = Autores(proyecto=proyecto)
 
     model = Autores
     column_names = [field.name for field in model._meta.fields]
@@ -415,21 +420,33 @@ def info_autores(request, id_proyecto):
         setattr(autores, name, request.POST.get(name))
     try:
         autores.save()
-        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_autor": {
-            "nombre_Autor_Proyecto": autores.nombre_Autor_Proyecto,
-            "tipo_Vinculacion_entidad": autores.tipo_Vinculacion_entidad,
-            "numero_Cedula_Autor": autores.numero_Cedula_Autor,
-            "rol_Sennova_De_Participantes_de_Proyecto": autores.rol_Sennova_De_Participantes_de_Proyecto,
-            "email_Autor_Proyecto": autores.email_Autor_Proyecto,
-            "numero_Telefono_Autor": autores.numero_Telefono_Autor
-        }})
+        autoresG = Autores.objects.filter(proyecto = id_proyecto)
+        # Obtener todas las entidades actualizadas
+        nueva_lista_autores = []
+        for autor in autoresG:
+            nuevo_autor = {
+                "id": autor.id,
+                "nombre_Autor_Proyecto": autor.nombre_Autor_Proyecto,
+                "tipo_Vinculacion_entidad": autor.tipo_Vinculacion_entidad,
+                "numero_Cedula_Autor": autor.numero_Cedula_Autor,
+                "rol_Sennova_De_Participantes_de_Proyecto": autor.rol_Sennova_De_Participantes_de_Proyecto,
+                "email_Autor_Proyecto": autor.email_Autor_Proyecto,
+                "numero_Telefono_Autor": autor.numero_Telefono_Autor
+            }
+            nueva_lista_autores.append(nuevo_autor)
+        return JsonResponse({"mensaje": "Operación exitosa", "autores": nueva_lista_autores})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
 
 def info_participantes(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
-    participante = Participantes_Proyecto(proyecto=proyecto)
+
+    id_participante = request.POST.get('id_participante', None)
+    if id_participante:
+        participante = Participantes_Proyecto.objects.get(id=id_participante)
+    else:
+        participante = Participantes_Proyecto(proyecto=proyecto)
         
     model = Participantes_Proyecto
     column_names = [field.name for field in model._meta.fields]
@@ -441,14 +458,21 @@ def info_participantes(request, id_proyecto):
         setattr(participante, name, request.POST.get(name))
     try:
         participante.save()
-        return JsonResponse({"mensaje": "Operación exitosa", "nuevo_participante": {
-            "nombre_participantes_de_desarrollo":participante.nombre_participantes_de_desarrollo,
-            "numero_cedula_participantes": participante.numero_cedula_participantes,
-            "numero_meses_vinculacion_participantes": participante.numero_meses_vinculacion_participantes,
-            "email_participantes_de_desarrollo": participante.email_participantes_de_desarrollo,
-            "numero_horas_Semanales_dedicadas_participantes": participante.numero_horas_Semanales_dedicadas_participantes,
-            "numero_Telefono_participantes": participante.numero_Telefono_participantes
-        }})
+        participantes = Participantes_Proyecto.objects.filter(proyecto = id_proyecto)
+        # Obtener todas las entidades actualizadas
+        nueva_lista_participantes = []
+        for participante in participantes:
+            nuevo_participante = {
+                "id": participante.id,
+                "nombre_participantes_de_desarrollo":participante.nombre_participantes_de_desarrollo,
+                "numero_cedula_participantes": participante.numero_cedula_participantes,
+                "numero_meses_vinculacion_participantes": participante.numero_meses_vinculacion_participantes,
+                "email_participantes_de_desarrollo": participante.email_participantes_de_desarrollo,
+                "numero_horas_Semanales_dedicadas_participantes": participante.numero_horas_Semanales_dedicadas_participantes,
+                "numero_Telefono_participantes": participante.numero_Telefono_participantes
+                }
+            nueva_lista_participantes.append(nuevo_participante)
+        return JsonResponse({"mensaje": "Operación exitosa", "participantes": nueva_lista_participantes})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
@@ -614,14 +638,20 @@ def entidad_aliada(request, id_proyecto):
         setattr(entidad, name, request.POST.get(name))
     try:
         entidad.save()
-        return JsonResponse({"mensaje": "Operación exitosa", "nueva_entidad": {
-            "id":entidad.id,
-            "nombre_entidad":entidad.nombre_entidad,
-            "tipo_entidad_aliada": entidad.tipo_entidad_aliada,
-            "naturaleza_entidad": entidad.naturaleza_entidad,
-            "clasificacion_empresa": entidad.clasificacion_empresa,
-            "nit": entidad.nit
-        }})
+        entidades = Entidades_aliadas.objects.filter(proyecto = proyecto)
+        # Obtener todas las entidades actualizadas
+        nueva_lista_entidades = []
+        for entidadC in entidades:
+            nueva_entidad = {
+                "id": entidadC.id,
+                "nombre_entidad": entidadC.nombre_entidad,
+                "tipo_entidad_aliada": entidadC.tipo_entidad_aliada,
+                "naturaleza_entidad": entidadC.naturaleza_entidad,
+                "clasificacion_empresa": entidadC.clasificacion_empresa,
+                "nit": entidadC.nit
+            }
+            nueva_lista_entidades.append(nueva_entidad)
+        return JsonResponse({"mensaje": "Operación exitosa", "entidades": nueva_lista_entidades})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
     

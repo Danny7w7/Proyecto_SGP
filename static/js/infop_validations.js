@@ -1,3 +1,27 @@
+var id_proyecto = document.getElementById("id_proyecto").value; 
+function edit_autor(id){
+    const selectDiv = document.getElementById(`autor${id}`);
+    const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
+
+    for (let i = 0; i < inputs.length; i++) {
+        let texto = inputs[i].id;
+        texto = texto.substring(0, texto.length - 7);
+        const changeDiv = document.getElementById(texto);
+        changeDiv.value = inputs[i].value
+    }
+}
+function edit_participantes(id){
+    const selectDiv = document.getElementById(`participante${id}`);
+    const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
+    
+    for (let i = 0; i < inputs.length; i++) {
+        let texto = inputs[i].id;
+        texto = texto.substring(0, texto.length - 7);
+        const changeDiv = document.getElementById(texto);
+        changeDiv.value = inputs[i].value
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     fieldQuestion = ['proyecto_Relacionado_Industrial40', 'proyecto_Relacionado_Economia_Naranja', 'proyecto_Relacionado_Politica_Discapacidad']
     fieldExclude = ['justificacion_Industrial', 'justificacion_Economia_Naranja', 'justificacion_Politica_Discapacidad']
@@ -160,7 +184,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleFormSubmit(event, formKey) {
         let isValid = true;
         // Verifica cuántas filas hay en la tabla (autores registrados)
-        var numRows = document.querySelectorAll('.table tbody tr').length;
+        var numRows = document.querySelectorAll('#table_autores tbody tr').length;
+        console.log(numRows)
 
         // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
         if (formKey === 'form2' && numRows > 2) {
@@ -252,7 +277,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function sendPost1() {
-    var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
     var region = document.getElementById("select_box").value; 
     var regional = document.getElementById("select_box2").value;
@@ -301,13 +325,12 @@ function sendPost1() {
 // Autores
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
-    console.log(id_proyecto)
 
     // Obtener los valores de los campos del formulario
     var nombre_autor_proyecto = document.getElementById("Nombre_Autor_Proyecto").value;
-    var tipo_vinculacion_entidad = document.getElementById("select_box4").value;
+    var tipo_vinculacion_entidad = document.getElementById("tipo_Vinculacion_entidad").value;
     var numero_cedula_autor = document.getElementById("Numero_Cedula_Autor").value;
-    var rol_sennova_participantes_proyecto = document.getElementById("select_box5").value;
+    var rol_sennova_participantes_proyecto = document.getElementById("rol_Sennova_De_Participantes_de_Proyecto").value;
     var email_autor_proyecto = document.getElementById("Email_Autor_Proyecto").value;
     var numero_meses_vinculacion_autor = document.getElementById("Numero_meses_vinculacion_Autor").value;
     var numero_telefono_autor = document.getElementById("Numero_Telefono_Autor").value;
@@ -316,6 +339,11 @@ function sendPost2() {
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
+    if (document.getElementById('id_autor').value == ''){
+        console.log("Ta vacio mamaguevo")
+    }else{
+        formData.append("id_autor", document.getElementById('id_autor').value);
+    }
     formData.append("nombre_Autor_Proyecto", nombre_autor_proyecto);
     formData.append("tipo_Vinculacion_entidad", tipo_vinculacion_entidad);
     formData.append("numero_Cedula_Autor", numero_cedula_autor);
@@ -338,16 +366,7 @@ function sendPost2() {
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
             
-            // Aquí, puedes agregar el nuevo autor a la tabla
-            let tableBody = document.querySelector('.table tbody');
-            let newRow = tableBody.insertRow();
-            
-            newRow.insertCell(0).textContent = data.nuevo_autor.nombre_Autor_Proyecto;
-            newRow.insertCell(1).textContent = data.nuevo_autor.tipo_Vinculacion_entidad;
-            newRow.insertCell(2).textContent = data.nuevo_autor.numero_Cedula_Autor;
-            newRow.insertCell(3).textContent = data.nuevo_autor.rol_Sennova_De_Participantes_de_Proyecto;
-            newRow.insertCell(4).textContent = data.nuevo_autor.email_Autor_Proyecto;
-            newRow.insertCell(5).textContent = data.nuevo_autor.numero_Telefono_Autor;
+            actualizarTablaAutores(data.autores);
         }
     })
     .catch(error => {
@@ -362,7 +381,7 @@ function sendPost3() {
     console.log(id_proyecto)
     // Obtener los valores de los campos del formulario
     var nombre_participantes_de_desarrollo = document.getElementById("Nombre_participantes_de_desarrollo").value;
-    var rol_sennova_de_participantes_de_proyecto = document.getElementById("select_box6").value;
+    var rol_sennova_de_participantes_de_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
     var numero_Cedula_participantes = document.getElementById("Numero_cedula_participantes").value;
     var numero_meses_vinculacion_participantes = document.getElementById("Numero_meses_vinculacion_participantes").value;
     var email_participantes_de_desarrollo = document.getElementById("Email_participantes_de_desarrollo").value;
@@ -372,6 +391,11 @@ function sendPost3() {
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
+    if (document.getElementById('id_participante').value == ''){
+        console.log("Ta vacio mamaguevo")
+    }else{
+        formData.append("id_participante", document.getElementById('id_participante').value);
+    }
     formData.append("nombre_participantes_de_desarrollo", nombre_participantes_de_desarrollo);
     formData.append("rol_Sennova_De_Participantes_de_Proyecto", rol_sennova_de_participantes_de_proyecto);
     formData.append("numero_cedula_participantes", numero_Cedula_participantes);
@@ -393,22 +417,13 @@ function sendPost3() {
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
             
-            // Aquí, puedes agregar el nuevo autor a la tabla
-            let tableBody = document.querySelector('.mitabla tbody');
-            let newRow = tableBody.insertRow();
-            
-            newRow.insertCell(0).textContent = data.nuevo_participante.nombre_participantes_de_desarrollo;
-            newRow.insertCell(1).textContent = data.nuevo_participante.numero_cedula_participantes;
-            newRow.insertCell(2).textContent = data.nuevo_participante.numero_meses_vinculacion_participantes;
-            newRow.insertCell(3).textContent = data.nuevo_participante.email_participantes_de_desarrollo;
-            newRow.insertCell(4).textContent = data.nuevo_participante.numero_horas_Semanales_dedicadas_participantes;
-            newRow.insertCell(5).textContent = data.nuevo_participante.numero_Telefono_participantes;
+            actualizarTablaParticipantes(data.participantes);
         }
     })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
-    });
+    // .catch(error => {
+    //     console.error('Error en la solicitud:', error);
+    //     // Manejar errores en la solicitud, como problemas de red
+    // });
 };
 
 // Generalidades
@@ -460,3 +475,118 @@ function sendPost4() {
         // Manejar errores en la solicitud, como problemas de red
     });
 };
+
+function actualizarTablaAutores(autores) {
+    // Obtener el elemento de la tabla por su clase
+    const tabla = document.querySelector('.tabla_autores');
+  
+    // Si la tabla existe, eliminarla
+    if (tabla) {
+      tabla.remove();
+    }
+  
+    // Crear una nueva tabla
+    const nuevaTabla = document.createElement('table');
+    nuevaTabla.classList.add('tablita', 'table', 'tabla_autores');
+  
+    // Crear el encabezado de la tabla
+    const thead = document.createElement('thead');
+    const encabezado = `
+    <tr>
+        <th>Nombre del autor(a)</th>
+        <th>Tipo de vinculación</th>
+        <th>Número de documento</th>
+        <th>Rol sennova</th>
+        <th>Correo electrónico</th>
+        <th>Número de teléfono</th>
+        <th>Acciones</th>
+    </tr>
+    `;
+    thead.innerHTML = encabezado;
+    nuevaTabla.appendChild(thead);
+  
+    // Crear el cuerpo de la tabla
+    const tbody = document.createElement('tbody');
+    autores.forEach(autor => {
+      const fila = `
+        <tr>
+            <td>${autor.nombre_Autor_Proyecto}</td>
+            <td>${autor.tipo_Vinculacion_entidad}</td>
+            <td>${autor.numero_Cedula_Autor}</td>
+            <td>${autor.rol_Sennova_De_Participantes_de_Proyecto}</td>
+            <td>${autor.email_Autor_Proyecto}</td>
+            <td>${autor.numero_Telefono_Autor}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Acciones">
+                    <button onclick="edit_participantes(${autor.id})" type="button" class="btn btn-success">Editar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </td>
+        </tr>
+      `;
+      tbody.innerHTML += fila;
+    });
+    nuevaTabla.appendChild(tbody);
+  
+    // Agregar la nueva tabla al documento
+    const contenedorTabla = document.getElementById('tabla-container');
+    contenedorTabla.appendChild(nuevaTabla);
+  }
+
+  function actualizarTablaParticipantes(participantes) {
+    console.log(participantes)
+    // Obtener el elemento de la tabla por su clase
+    const tabla = document.querySelector('.tabla_participantes');
+  
+    // Si la tabla existe, eliminarla
+    if (tabla) {
+      tabla.remove();
+    }
+  
+    // Crear una nueva tabla
+    const nuevaTabla = document.createElement('table');
+    nuevaTabla.classList.add('tablita', 'table', 'tabla_participantes');
+  
+    // Crear el encabezado de la tabla
+    const thead = document.createElement('thead');
+    const encabezado = `
+    <tr>
+        <th>Nombres</th>
+        <th>Número documento</th>
+        <th>N° meses vinculación</th>
+        <th>Email participantes</th>
+        <th>N° horas semanales</th>
+        <th>Telefono</th>
+        <th>Acciones</th>
+    </tr>
+    `;
+    thead.innerHTML = encabezado;
+    nuevaTabla.appendChild(thead);
+  
+    // Crear el cuerpo de la tabla
+    const tbody = document.createElement('tbody');
+    participantes.forEach(participante => {
+      const fila = `
+        <tr>
+            <td>${participante.nombre_participantes_de_desarrollo}</td>
+            <td>${participante.numero_cedula_participantes}</td>
+            <td>${participante.numero_meses_vinculacion_participantes}</td>
+            <td>${participante.email_participantes_de_desarrollo}</td>
+            <td>${participante.numero_horas_Semanales_dedicadas_participantes}</td>
+            <td>${participante.numero_Telefono_participantes}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Acciones">
+                    <button onclick="edit_participantes(${participante.id})" type="button" class="btn btn-success">Editar</button>
+                    <button type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </td>
+        </tr>
+      `;
+      tbody.innerHTML += fila;
+    });
+    nuevaTabla.appendChild(tbody);
+  
+    // Agregar la nueva tabla al documento
+    const contenedorTabla = document.getElementById('tabla-container-2');
+    contenedorTabla.appendChild(nuevaTabla);
+  }

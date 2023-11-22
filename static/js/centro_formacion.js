@@ -4,14 +4,6 @@ const collapse1 = document.getElementById('collapseOne');
 const collapse2 = document.getElementById('collapseTwo');
 
 function edit_entidad(id){
-    const divUwU = document.getElementById('UwU');
-    const inputHidden = document.createElement('input');
-    inputHidden.type = 'hidden';
-    
-    inputHidden.value = id;
-    
-    divUwU.appendChild(inputHidden);
-
     const selectDiv = document.getElementById(`entidad${id}`);
     const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
 
@@ -376,34 +368,8 @@ function sendPost2() {
             } else {
                 console.log('Mensaje de éxito:', data.mensaje);
                 
-                // Aquí, puedes agregar el nuevo autor a la tabla
-                let tableBody = document.querySelector('.tablita tbody');
-                let newRow = tableBody.insertRow();
-                
-                newRow.insertCell(0).textContent = data.nueva_entidad.nombre_entidad;
-                newRow.insertCell(1).textContent = data.nueva_entidad.tipo_entidad_aliada;
-                newRow.insertCell(2).textContent = data.nueva_entidad.naturaleza_entidad;
-                newRow.insertCell(3).textContent = data.nueva_entidad.clasificacion_empresa;
-                newRow.insertCell(4).textContent = data.nueva_entidad.nit;
-                
-                // Columna para los botones
-                let buttonCell = newRow.insertCell(5);
-                let editButton = document.createElement('button');
-                editButton.textContent = 'Editar';
-                editButton.classList.add('btn', 'btn-success');
-                editButton.setAttribute('onclick', `edit_entidad(${data.nueva_entidad.id})`);
-
-                let deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Eliminar';
-                deleteButton.classList.add('btn', 'btn-danger');
-                deleteButton.onclick = function() {
-                    // Lógica para eliminar la entidad
-                    // Puedes llamar a una función delete_entidad() o incluir la lógica directamente aquí
-                };
-
-                buttonCell.appendChild(editButton);
-                buttonCell.appendChild(deleteButton);
-                
+                actualizarTabla(data.entidades);
+                  
                 if (sig){
                     window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
                 }
@@ -413,7 +379,59 @@ function sendPost2() {
         })
     .catch(error => {
         console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
     });
 };
 
+
+function actualizarTabla(entidades) {
+    // Obtener el elemento de la tabla por su clase
+    const tabla = document.querySelector('.tablita');
+  
+    // Si la tabla existe, eliminarla
+    if (tabla) {
+      tabla.remove();
+    }
+  
+    // Crear una nueva tabla
+    const nuevaTabla = document.createElement('table');
+    nuevaTabla.classList.add('tablita', 'table');
+  
+    // Crear el encabezado de la tabla
+    const thead = document.createElement('thead');
+    const encabezado = `
+      <tr>
+          <th>Nombre entidad</th>
+          <th>NIT</th>
+          <th>Tipo entidad</th>
+          <th>Naturaleza entidad</th>
+          <th>Clasificación empresa</th>
+          <th>Opciones</th>
+      </tr>
+    `;
+    thead.innerHTML = encabezado;
+    nuevaTabla.appendChild(thead);
+  
+    // Crear el cuerpo de la tabla
+    const tbody = document.createElement('tbody');
+    entidades.forEach(entidad => {
+      const fila = `
+        <tr>
+            <td>${entidad.nombre_entidad}</td>
+            <td>${entidad.nit}</td>
+            <td>${entidad.tipo_entidad_aliada}</td>
+            <td>${entidad.naturaleza_entidad}</td>
+            <td>${entidad.clasificacion_empresa}</td>
+            <td>
+                <button onclick="edit_entidad(${entidad.id})" type="button" class="btn btn-success">Editar</button>
+                <button onclick="eliminarEntidad(${entidad.id})" type="button" class="btn btn-danger">Eliminar</button>
+            </td>
+        </tr>
+      `;
+      tbody.innerHTML += fila;
+    });
+    nuevaTabla.appendChild(tbody);
+  
+    // Agregar la nueva tabla al documento
+    const contenedorTabla = document.getElementById('tabla-container');
+    contenedorTabla.appendChild(nuevaTabla);
+  }

@@ -51,7 +51,7 @@ urlpatterns = [
 
     #Json
 
-    # 
+    # GetEditFormJson
     path('getEntidad/<int:id_entidad>/', views.getObjEspecificos, name='getObjEspecificos'),
     
     #Informacion proyecto

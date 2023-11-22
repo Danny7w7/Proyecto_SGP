@@ -213,8 +213,8 @@
                 </div>
                 <!-- Tabla de autores -->
                 <div class="container mt-5">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div class="table-responsive" id="tabla-container">
+                        <table class="table tablita tabla_autores">
                             <thead>
                                 <tr>
                                     <th>Nombre del autor(a)</th>
@@ -222,9 +222,7 @@
                                     <th>Número de documento</th>
                                     <th>Rol sennova</th>
                                     <th>Correo electrónico</th>
-                                    <!-- <th>Num. meses vinculación proyecto</th> -->
                                     <th>Número de teléfono</th>
-                                    <!-- <th>Num. horas semanales del proyecto</th> -->
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -239,8 +237,8 @@
                                     <td>{{autor.numero_Telefono_Autor}}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Acciones">
-                                            <button type="button" class="btn btn-sm btn-outline-primary">Editar</button>
-                                            <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                            <button onclick="edit_autor({{autor.id}})" type="button" class="btn btn-success">Editar</button>
+                                            <button type="button" class="btn btn-danger">Eliminar</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -251,10 +249,24 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    
+                    {% for autor in autores%}
+                    <div id="autor{{ autor.id }}">
+                        <input id="id_autor_hidden" type="hidden" value="{{autor.id}}">
+                        <input id="Nombre_Autor_Proyecto_hidden" type="hidden" value="{{autor.nombre_Autor_Proyecto}}">
+                        <input id="tipo_Vinculacion_entidad_hidden" type="hidden" value="{{autor.tipo_Vinculacion_entidad}}">
+                        <input id="Numero_Cedula_Autor_hidden" type="hidden" value="{{autor.numero_Cedula_Autor}}">
+                        <input id="rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{autor.rol_Sennova_De_Participantes_de_Proyecto}}">
+                        <input id="Email_Autor_Proyecto_hidden" type="hidden" value="{{autor.email_Autor_Proyecto}}">
+                        <input id="Numero_meses_vinculacion_Autor_hidden" type="hidden" value="{{autor.numero_meses_vinculacion_Autor}}">
+                        <input id="Numero_Telefono_Autor_hidden" type="hidden" value="{{autor.numero_Telefono_Autor}}">
+                        <input id="Numero_horas_Semanales_dedicadas_Autores_hidden" type="hidden" value="{{autor.numero_horas_Semanales_dedicadas_Autores}}">
+                    </div>
+                    {% endfor %}
+
                     <div class="col-12 col-md-10">
-                    <form method="post" class="needs-validation" action="" id="form2">
+                        <form method="post" class="needs-validation" action="" id="form2">
                         {% csrf_token %}
+                        <input id="id_autor" type="hidden">
                         <div class="bg-light mt-2 spos border_radius row me-0">
                             <!-- Primera columna con 4 filas -->
                             <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
@@ -264,7 +276,7 @@
                                 </div>
                                 
                                 <label for="Tipo_Vinculacion_entidad" class="form-label">Tipo de vinculación a la entidad</label>
-                                <select name="tipo_Vinculacion_entidad" id="select_box4" class="form-select">
+                                <select name="tipo_Vinculacion_entidad" id="tipo_Vinculacion_entidad" class="form-select">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="contratista">Contratista</option>
                                     <option value="planta">Planta</option>
@@ -277,7 +289,7 @@
                                 </div>
                                 
                                 <label for="Rol_Sennova_De_Participantes_de_Proyecto" class="form-label">Rol sennova del autor 1 del proyecto</label>
-                                <select name="rol_Sennova_De_Participantes_de_Proyecto"  id="select_box5" class="form-select">
+                                <select name="rol_Sennova_De_Participantes_de_Proyecto"  id="rol_Sennova_De_Participantes_de_Proyecto" class="form-select">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="formulador">Formulador</option>
                                     <option value="investigador">Investigador</option>
@@ -337,8 +349,8 @@
                 </div>
                     <!-- Tabla de participantes -->
                     <div class="container mt-5">
-                        <div class="table-responsive">
-                            <table class="mitabla table">
+                        <div class="table-responsive" id="tabla-container-2">
+                            <table class="mitabla table tabla_participantes">
                                 <thead>
                                     <tr>
                                         <th>Nombres</th>
@@ -346,9 +358,7 @@
                                         <th>N° meses vinculación</th>
                                         <th>Email participantes</th>
                                         <th>N° horas semanales</th>
-                                        <!-- <th>Num. meses vinculación proyecto</th> -->
                                         <th>Telefono</th>
-                                        <!-- <th>Num. horas semanales del proyecto</th> -->
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -363,8 +373,8 @@
                                         <td>{{participante.numero_Telefono_participantes}}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Acciones">
-                                                <button type="button" class="btn btn-sm btn-outline-primary">Editar</button>
-                                                <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                                                <button onclick="edit_participantes({{participante.id}})" type="button" class="btn btn-success">Editar</button>
+                                                <button type="button" class="btn btn-danger">Eliminar</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -376,11 +386,24 @@
                     </div>
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-10">
+                    {% for participante in participantes %}
+                    <div id="participante{{ participante.id }}">
+                        <input id="id_participante_hidden" type="hidden" value="{{participante.id}}">
+                        <input id="Nombre_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.nombre_participantes_de_desarrollo}}">
+                        <input id="Rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{participante.rol_Sennova_De_Participantes_de_Proyecto}}">
+                        <input id="Numero_cedula_participantes_hidden" type="hidden" value="{{participante.numero_cedula_participantes}}">
+                        <input id="Numero_meses_vinculacion_participantes_hidden" type="hidden" value="{{participante.numero_meses_vinculacion_participantes}}">
+                        <input id="Email_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.email_participantes_de_desarrollo}}">
+                        <input id="Numero_horas_Semanales_dedicadas_participantes_hidden" type="hidden" value="{{participante.numero_horas_Semanales_dedicadas_participantes}}">
+                        <input id="Numero_Telefono_participantes_hidden" type="hidden" value="{{participante.numero_Telefono_participantes}}">
+                    </div>
+                    {% endfor %}
                     <form method="post" class="needs-validation" action="" id="form3">
                         <div class="bg-light mt-2 spos border_radius row me-0">
+                            <input id="id_participante" type="hidden">
                             <!-- Primera columna con 4 campos -->
                             <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                    {% csrf_token %}
+                                {% csrf_token %}
                              
                                 <label for="Nombre_participantes_de_desarrollo" class="form-label">Nombres y apellidos del participante
                                     desarrollo del proyecto</label>
@@ -389,7 +412,7 @@
                                 </div>
 
                                 <label for="Rol_Sennova_De_Participantes_de_Proyecto" class="form-label">Rol Sennova del participante en el desarrollo del proyecto</label>
-                                <select name="Rol_Sennova_De_Participantes_de_Proyecto" id="select_box6" class="form-select">
+                                <select name="Rol_Sennova_De_Participantes_de_Proyecto" id="Rol_Sennova_De_Participantes_de_Proyecto" class="form-select">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="formulador">Formulador</option>
                                     <option value="investigador">Investigador</option>
