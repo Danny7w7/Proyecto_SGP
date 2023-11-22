@@ -177,78 +177,82 @@
         </div>
 
         <div class="info">
-            <h3>Autores</h3>
+            {% for autor in autores%}
+            <h3>Autor {{ forloop.counter }}</h3>
             <table>
                 <tr>
                     <td><strong>Nombre del autor:</strong></td>
-                    <td>{{autores.nombre_Autor_Proyecto}}</td>
+                    <td>{{autor.nombre_Autor_Proyecto}}</td>
                 </tr>
                 <tr>
                     <td><strong>Tipo de vinculación:</strong></td>
-                    <td>{{autores.tipo_Vinculacion_entidad}}</td>
+                    <td>{{autor.tipo_Vinculacion_entidad}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número de documento:</strong></td>
-                    <td>{{autores.numero_Cedula_Autor}}</td>
+                    <td>{{autor.numero_Cedula_Autor}}</td>
                 </tr>
                 <tr>
                     <td><strong>Rol sennova:</strong></td>
-                    <td>{{autores.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                    <td>{{autor.rol_Sennova_De_Participantes_de_Proyecto}}</td>
                 </tr>
                 <tr>
                     <td><strong>Email autor del proyecto:</strong></td>
-                    <td>{{autores.email_Autor_Proyecto}}</td>
+                    <td>{{autor.email_Autor_Proyecto}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número de meses de vinculación:</strong></td>
-                    <td>{{autores.numero_meses_vinculacion_Autor}}</td>
+                    <td>{{autor.numero_meses_vinculacion_Autor}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número de teléfono autor:</strong></td>
-                    <td>{{autores.numero_Telefono_Autor}}</td>
+                    <td>{{autor.numero_Telefono_Autor}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número de horas semanales dedicadas:</strong></td>
-                    <td>{{autores.numero_horas_Semanales_dedicadas_Autores}}</td>
+                    <td>{{autor.numero_horas_Semanales_dedicadas_Autores}}</td>
                 </tr>
             </table>
+            {% endfor %}
         </div>
     </div>
 
     <div class="container">
 
         <div class="info">
-            <h3>Participantes del proyecto</h3>
+            {% for partp in part_p %}
+            <h3>Participantes del proyecto {{ forloop.counter }}</h3>
             <table>
                 <tr>
                     <td><strong>Nombres del participante:</strong></td>
-                    <td>{{part_p.nombre_participantes_de_desarrollo}}</td>
+                    <td>{{partp.nombre_participantes_de_desarrollo}}</td>
                 </tr>
                 <tr>
                     <td><strong>Rol sennova del participante:</strong></td>
-                    <td>{{part_p.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                    <td>{{partp.rol_Sennova_De_Participantes_de_Proyecto}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número de cedula del participante:</strong></td>
-                    <td>{{part_p.numero_cedula_participantes}}</td>
+                    <td>{{partp.numero_cedula_participantes}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número de meses de vinculación:</strong></td>
-                    <td>{{part_p.numero_meses_vinculacion_participantes}}</td>
+                    <td>{{partp.numero_meses_vinculacion_participantes}}</td>
                 </tr>
                 <tr>
                     <td><strong>Email participante de desarrollo:</strong></td>
-                    <td>{{part_p.email_participantes_de_desarrollo}}</td>
+                    <td>{{partp.email_participantes_de_desarrollo}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número de horas semanales dedicadas:</strong></td>
-                    <td>{{part_p.numero_horas_Semanales_dedicadas_participantes}}</td>
+                    <td>{{partp.numero_horas_Semanales_dedicadas_participantes}}</td>
                 </tr>
                 <tr>
                     <td><strong>Número teléfono participantes:</strong></td>
-                    <td>{{part_p.numero_Telefono_participantes}}</td>
+                    <td>{{partp.numero_Telefono_participantes}}</td>
                 </tr>
             </table>
+            {% endfor %}
         </div>
 
         <div class="info">
@@ -297,70 +301,179 @@
             </table>
         </div>
 
+        <h5 class="bg">Estructura del proyecto</h5>
         <div class="info">
-            <h3>Anamesis aumentaria</h3>
+            <h3>Resumen y antecedentes</h3>
             <table>
                 <tr>
-                    <td><strong>Desayuno:</strong></td>
-                    <td></td>
-                    <td><strong>Mediodia:</strong></td>
-                    <td></td>
+                    <td><strong>Resumen ejecutivo:</strong></td>
+                    <td>{{res.resumen_ejecutivo}}</td>
                 </tr>
                 <tr>
-                    <td><strong>Almuerzo:</strong></td>
-                    <td></td>
-                    <td><strong>Media tarde:</strong></td>
-                    <td></td>
+                    <td><strong>Antecedentes:</strong></td>
+                    <td>{{gen.antecedentes}}</td>
                 </tr>
                 <tr>
-                    <td><strong>Cena:</strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Identificación y descripción:</strong></td>
+                    <td>{{des_p.identificacion_y_descripcion_problema}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Justificación:</strong></td>
+                    <td>{{des_p.justificacion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Marco conceptual:</strong></td>
+                    <td>{{des_p.marco_conceptual}}</td>
                 </tr>
             </table>
         </div>
 
-        <div class="info">
-            <h3>Otros</h3>
+        <!-- <div class="info">
+
+            <h3>Objetivos del proyecto</h3>
             <table>
                 <tr>
-                    <td><strong>Habitoa saludables:</strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Objetivo general:</strong></td>
+                    <td>{{objg.objetivo_general}}</td>
                 </tr>
+                {% for obj_e in obje %}
                 <tr>
-                    <td><strong>suplementos:</strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Objetivo específico: {{ forloop.counter }}</strong></td>
+                    <td>{{obj_e.objetivo_especificos}}</td>
                 </tr>
+                {% endfor %}
+                {% for act_e in acte %}
                 <tr>
-                    <td><strong>Pendientes:</strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Actividad: {{ forloop.counter }}</strong></td>
+                    <td>{{act_e.actividades_obj_especificos}}</td>
                 </tr>
+                {% endfor %}
+                {% for causas in causa %}
+                <tr>
+                    <td><strong>Causa: {{ forloop.counter }}</strong></td>
+                    <td>{{causas.causa}}</td>
+                </tr>
+                {% endfor %}
+                {% for efectos in efecto %}
+                <tr>
+                    <td><strong>Efecto:</strong></td>
+                    <td>{{efectos.efecto}}</td>
+                </tr>
+                {% endfor }
             </table>
-        </div>
+        </div> -->
     </div>
     <br>
     <br>
 
     <div class="container">
         <div class="info">
-            <h3>Historia clinica</h3>
+            <h5>Análisis de participantes</h5>
+            <h3>Centro de formación</h3>
             <table>
                 <tr>
-                    <td><strong>Medicametos:</strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Nombres de los semilleros de investigación beneficiados:</strong></td>
+                    <td>{{centro_f.nombre_semillero_investigacion_beneficiados}}</td>
                 </tr>
                 <tr>
-                    <td><strong></strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Número de programas beneficiados que conforman los semilleros</strong></td>
+                    <td>{{centro_f.numero_programas_beneficiarios_semilleros_investigacion}}</td>
                 </tr>
                 <tr>
-                    <td><strong>Antecedentes personales:</strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Tipos de programas de formación beneficiados que conforman los semilleros:</strong></td>
+                    <td>{{centro_f.tipo_programas_formacion_beneficiados_conforman_semillero}}</td>
                 </tr>
                 <tr>
-                    <td><strong>Antecedentes familiares:</strong></td>
-                    <td colspan="3"></td>
+                    <td><strong>Nombre de programas formación beneficiados que conforman los semilleros:</strong></td>
+                    <td>{{centro_f.nombre_programas_formacion_beneficiados_semillero}}</td>
                 </tr>
                 <tr>
-                    <td><strong>Paraclinicos:</strong></td </body>
-
+                    <td><strong>Tipos de programas beneficiados con la ejecución del proyecto:</strong></td>
+                    <td>{{centro_f.tipo_programas_de_formacion_beneficiados_por_ejecucion}}</td>
+                </tr>
+                <tr>
+                    <td>Nombre de los programas de formación  beneficiados con la ejecución del proyecto</td>
+                    <td>{{centro_f.nombre_programas_formacion_beneficiados_ejecucion_proyecto}}</td>
+                </tr>
+                <tr>
+                    <td>Número de aprendices que participaran en la ejecución del proyecto</td>
+                    <td>{{centro_f.numero_aprendices_participaran_ejecucion_proyecto}}</td>
+                </tr>
+                <tr>
+                    <td>Número de municipios beneficiados con la ejecución del proyecto</td>
+                    <td>{{centro_f.numero_municipios_beneficiados}}</td>
+                </tr>
+                <tr>
+                    <td>Número de municipios beneficiados y descripción del beneficio</td>
+                    <td>{{centro_f.nombre_municipios_beneficiados_descripcion_beneficio}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            {% for ent_a in entidad_a %}
+            <h3>Entidades aliadas  {{ forloop.counter }}</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombre entidad:</strong></td>
+                    <td>{{ent_a.nombre_entidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo de entidad aliada:</strong></td>
+                    <td>{{ent_a.tipo_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Naturaleza de la entidad:</strong></td>
+                    <td>{{ent_a.naturaleza_entidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Clasificación empresa:</strong></td>
+                    <td>{{ent_a.clasificacion_empresa}}</td>
+                </tr>
+                <tr>
+                    <td><strong>NIT:</strong></td>
+                    <td>{{ent_a.nit}}</td>
+                </tr>
+                <tr>
+                    <td>Convenio</td>
+                    <td>{{ent_a.convenio}}</td>
+                </tr>
+                <tr>
+                    <td>Especifique tipo y código de convenio</td>
+                    <td>{{ent_a.especifique_tipo_codigo_convenio}}</td>
+                </tr>
+                <tr>
+                    <td>Recursos en especie entidad aliada($COP)</td>
+                    <td>{{ent_a.recursos_especie_entidad}}</td>
+                </tr>
+                <tr>
+                    <td>Descripción de los recursos en especie aportados</td>
+                    <td>{{ent_a.descripcion_recursos_especie_aportados}}</td>
+                </tr>
+                <tr>
+                    <td>Recursos en dinero entidad aliada($COP)</td>
+                    <td>{{ent_a.recursos_dinero_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Descripcion de la destinación del dinero aportado</td>
+                    <td>{{ent_a.descripcion_destinacion_dinero_aportado}}</td>
+                </tr>
+                <tr>
+                    <td>Nombre del grupo de investigación de la entidad aliada</td>
+                    <td>{{ent_a.nombre_grupo_inv_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Código de GrupLac de la entidad aliada</td>
+                    <td>{{ent_a.codigo_gruplac_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Link de GrupLac de la entidad aliada</td>
+                    <td>{{ent_a.link_gruplac_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Actividades a desarrollar por la entidad aliada</td>
+                    <td>{{ent_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </html>
