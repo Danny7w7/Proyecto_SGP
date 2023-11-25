@@ -37,7 +37,7 @@
         h5 {
             font-size: 18px;
             margin-bottom: 10px;
-            background-color: #2a2b2a94;
+            background-color: #61da6194;
             padding: 10px;
             width: 100%;
         }
@@ -311,7 +311,7 @@
                 </tr>
                 <tr>
                     <td><strong>Antecedentes:</strong></td>
-                    <td>{{gen.antecedentes}}</td>
+                    <td>{{res.antecedentes}}</td>
                 </tr>
                 <tr>
                     <td><strong>Identificación y descripción:</strong></td>
@@ -479,13 +479,14 @@
             <h5>Participantes entidad aliada</h5>
             <h3>Centro de formación</h3>
             <table>
+
                 <tr>
-                    <td><strong>Nombres de integrantes que participan:</strong></td>
-                    <td>Solo pruebas</td>
+                    <td><strong>Nombres de integrantes que participan: </strong></td>
+                    <td>xxx</td>
                 </tr>
                 <tr>
                     <td><strong>Número de identificación de los integrantes</strong></td>
-                    <td></td>
+                    <td>xxx</td>
                 </tr>
                 <tr>
                     <td><strong>Tipos de programas de formación beneficiados que conforman los semilleros:</strong></td>
@@ -518,5 +519,183 @@
             </table>
         </div>
 
+    </div>
+    <div class="container">
+        <div class="info">
+            <h5>Proyección</h5>
+            <h3>Tiempo de ejecución del proyecto</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Duración: </strong></td>
+                    <td>{{proy.duracion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de inicio:</strong></td>
+                    <td>{{proy.fch_inicio}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de cierre:</strong></td>
+                    <td>{{proy.fch_cierre}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            <h3>Cadena de valor del proyecto</h3>
+            <table>
+                <tr>
+                    <td><strong>Cadena de valor del proyecto: </strong></td>
+                    <td>{{proy.cadena_valor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Propuesta de sostenibilidad:</strong></td>
+                    <td>{{proy.propuesta_sostenibilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto social:</strong></td>
+                    <td>{{proy.impacto_social}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto tecnológico:</strong></td>
+                    <td>{{proy.impacto_tecnologico}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto centro de formación:</strong></td>
+                    <td>{{proy.impacto_centro_formacion}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="info">
+            <h5>Análisis de riesgo</h5>
+            <h3>Riesgo nivel objetivo general</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Tipo de riesgo: </strong></td>
+                    <td>{{riesgo_g.tipo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto:</strong></td>
+                    <td>{{riesgo_g.impacto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descripción de riesgo:</strong></td>
+                    <td>{{riesgo_g.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efectos:</strong></td>
+                    <td>{{riesgo_g.efectos}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Probabilidad:</strong></td>
+                    <td>{{riesgo_g.probabilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Medidas de mitigación:</strong></td>
+                    <td>{{riesgo_g.medidas_Mitigacion}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            <h3>Riesgo nivel  productos</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Tipo de riesgo: </strong></td>
+                    <td>{{riesgo_p.tipo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto:</strong></td>
+                    <td>{{riesgo_p.impacto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descripción de riesgo:</strong></td>
+                    <td>{{riesgo_p.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efectos:</strong></td>
+                    <td>{{riesgo_p.efectos}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Probabilidad:</strong></td>
+                    <td>{{riesgo_p.probabilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Medidas de mitigación:</strong></td>
+                    <td>{{riesgo_p.medidas_Mitigacion}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            <h3>Riesgo nivel actividades</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Tipo de riesgo: </strong></td>
+                    <td>{{riesgo_a.tipo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto:</strong></td>
+                    <td>{{riesgo_a.impacto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descripción de riesgo:</strong></td>
+                    <td>{{riesgo_a.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efectos:</strong></td>
+                    <td>{{riesgo_a.efectos}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Probabilidad:</strong></td>
+                    <td>{{riesgo_a.probabilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Medidas de mitigación:</strong></td>
+                    <td>{{riesgo_a.medidas_Mitigacion}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="info">
+            <h5>Anexos</h5>
+            <h3>Anexos vinculados al proyecto</h3>
+            <table>
+
+                <tr>
+                    <td><strong>ANEXO 1A. Acta Reunión Regional: </strong></td>
+                    <td>{{doc.anexo1}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 1C. Carta C.I Director Regional:</strong></td>
+                    <td>{{doc.anexo2}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 2. Ficha técnica para maquinaria y equipos.</strong></td>
+                    <td>{{doc.anexo3}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 4. Modernización. (Obligatorio para los proyectos cuyo objeto sea la actualización y modernización de ambientes de formación (SIIF 23)):</strong></td>
+                    <td>{{doc.anexo4}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 7. Carta de intención o acta que soporta el trabajo articulado con entidades aliadas (diferentes al SENA) (Obligatorio si se articula con entidad aliada o con otro Centro de Formación):</strong></td>
+                    <td>{{doc.anexo5}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 8. Propiedad intelectual (Obligatorio si se articula con entidad aliada o con otro Centro de Formación):</strong></td>
+                    <td>{{doc.anexo6}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha:</strong></td>
+                    <td>{{doc.fecha}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </html>

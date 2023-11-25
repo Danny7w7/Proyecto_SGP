@@ -121,6 +121,11 @@ def generar_pdf(request, proyecto_id):
     des_p = Descripcion_problema.objects.filter(proyecto=proyecto).first()
     objg = Objetivos.objects.filter(proyecto=proyecto).first()
     objetivos_especificos = Objetivos_especificos.objects.filter(objetivos=objg)
+    proy = Proyeccion.objects.filter(proyecto=proyecto).first()
+    riesgo_g =  RiesgoObjetivoGeneral.objects.filter(proyecto=proyecto).first()
+    riesgo_p = RiesgoProductos.objects.filter(proyecto=proyecto).first()
+    riesgo_a = RiesgoActividades.objects.filter(proyecto=proyecto).first()
+    doc = Document.objects.filter(proyecto=proyecto).first()
     # Inicializar causas y efectos como listas vacías
     causas = []
     efectos = []
@@ -145,6 +150,8 @@ def generar_pdf(request, proyecto_id):
     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
     entidad_a = Entidades_aliadas.objects.filter(proyecto=proyecto)
 
+
+
     # Renderizar el template con los datos
     context = {
         'proyecto': proyecto,
@@ -160,6 +167,11 @@ def generar_pdf(request, proyecto_id):
         'efecto': efectos,
         'centro_f': centro_f,
         'entidad_a': entidad_a,
+        'proy': proy,
+        'riesgo_g': riesgo_g,
+        'riesgo_p': riesgo_p,
+        'riesgo_a': riesgo_a,
+        'doc': doc,
     }
 
     template_path = 'form/informe.html' 
