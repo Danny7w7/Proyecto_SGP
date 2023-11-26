@@ -328,40 +328,58 @@
             </table>
         </div>
 
-        <div class="info">
 
-            <h3>Objetivos del proyecto</h3>
-            <table>
-                <tr>
-                    <td><strong>Objetivo general:</strong></td>
-                    <td>{{ objg.objetivo_general }}</td>
-                </tr>
-                {% for obj_e in objetivos_especificos %}
-                <tr>
-                    <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
-                    <td>{{ obj_e.objetivo_especificos }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <strong>Actividades:</strong> {{ obj_e.actividades_obj_especificos.actividades_obj_especificos }}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <strong>Causa:</strong> {{ obj_e.causa.causa }}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <strong>Efecto:</strong> {{ obj_e.causa.efecto.efecto }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </table>
-        </div>
     </div>
     <br>
     <br>
+    <div class="info">
+        <h3>Objetivos del proyecto</h3>
+        <table>
+            <tr>
+                <td><strong>Objetivo general:</strong></td>
+                <td>{{ objetivo_general.objetivo_general }}</td>
+            </tr>
+            {% for obj_especifico in objetivos_especificos %}
+                <tr>
+                    <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
+                    <td>{{ obj_especifico.objetivo_especificos }}</td>
+                </tr>
+                {% if obj_especifico.actividades_de_objetivos_especificos.all %}
+                    {% for actividad in obj_especifico.actividades_de_objetivos_especificos.all %}
+                        <tr>
+                            <td colspan="2">
+                                <strong>Actividades:</strong> {{ actividad.actividades_obj_especificos }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="2"><strong>Actividades:</strong> No hay actividades asociadas.</td>
+                    </tr>
+                {% endif %}
+                {% if obj_especifico.causa_set.all %}
+                    {% for causa in obj_especifico.causa_set.all %}
+                        <tr>
+                            <td colspan="2">
+                                <strong>Causa:</strong> {{ causa.causa }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <strong>Efecto:</strong> {{ causa.efecto.efecto }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="2"><strong>Causa y Efecto:</strong> No hay causa y efecto asociados.</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+    
+    
 
     <div class="container">
         <div class="info">
@@ -475,51 +493,73 @@
         </div>
     </div>
     <div class="container">
-        <div class="info">
-            <h5>Participantes entidad aliada</h5>
-            <h3>Centro de formación</h3>
-            <table>
-
-                <tr>
-                    <td><strong>Nombres de integrantes que participan: </strong></td>
-                    <td>xxx</td>
-                </tr>
-                <tr>
-                    <td><strong>Número de identificación de los integrantes</strong></td>
-                    <td>xxx</td>
-                </tr>
-                <tr>
-                    <td><strong>Tipos de programas de formación beneficiados que conforman los semilleros:</strong></td>
-                    <td>{{centro_f.tipo_programas_formacion_beneficiados_conforman_semillero}}</td>
-                </tr>
-                <tr>
-                    <td><strong>Nombre de programas formación beneficiados que conforman los semilleros:</strong></td>
-                    <td>{{centro_f.nombre_programas_formacion_beneficiados_semillero}}</td>
-                </tr>
-                <tr>
-                    <td><strong>Tipos de programas beneficiados con la ejecución del proyecto:</strong></td>
-                    <td>{{centro_f.tipo_programas_de_formacion_beneficiados_por_ejecucion}}</td>
-                </tr>
-                <tr>
-                    <td>Nombre de los programas de formación  beneficiados con la ejecución del proyecto</td>
-                    <td>{{centro_f.nombre_programas_formacion_beneficiados_ejecucion_proyecto}}</td>
-                </tr>
-                <tr>
-                    <td>Número de aprendices que participaran en la ejecución del proyecto</td>
-                    <td>{{centro_f.numero_aprendices_participaran_ejecucion_proyecto}}</td>
-                </tr>
-                <tr>
-                    <td>Número de municipios beneficiados con la ejecución del proyecto</td>
-                    <td>{{centro_f.numero_municipios_beneficiados}}</td>
-                </tr>
-                <tr>
-                    <td>Número de municipios beneficiados y descripción del beneficio</td>
-                    <td>{{centro_f.nombre_municipios_beneficiados_descripcion_beneficio}}</td>
-                </tr>
-            </table>
-        </div>
-
+        {% for entidad_aliada, participantes_entidad_aliada in partp_e.items %}
+            <div class="info">
+                <h3>{{ entidad_aliada.nombre_entidad }}</h3>
+                <table>
+                    {% for participante in participantes_entidad_aliada %}
+                        <tr>
+                            <td><strong>Nombres: </strong></td>
+                            <td>{{ participante.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Número de documento:</strong></td>
+                            <td>{{ participante.numero_identificacion }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email:</strong></td>
+                            <td>{{ participante.email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Teléfono:</strong></td>
+                            <td>{{ participante.telefono }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
     </div>
+    
+    <div class="info">
+        <h5>Resultados y productos esperados</h5>
+        {% for resultado_producto in resultados_productos_esperados %}
+        <h3>Resultados y productos esperados del proyecto {{ forloop.counter }}</h3>
+        <table>
+            
+                <tr>
+                    <td><strong>Tipo de resultado esperado:</strong></td>
+                    <td>{{ resultado_producto.tipo_resultado_esperado_obj_especifico }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descripción del resultado esperado:</strong></td>
+                    <td>{{ resultado_producto.descripcion_resultado_esperado_obj_especifico }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre del producto:</strong></td>
+                    <td>{{ resultado_producto.nombre_producto_resultado_inv_obj_especifico }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre de la subtipología:</strong></td>
+                    <td>{{ resultado_producto.nombre_subtipologia }}</td>
+                </tr>
+                <tr>
+                    <td><strong>TRL del producto:</strong></td>
+                    <td>{{ resultado_producto.trl_producto_resultado_inv_obj_especifico }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Indicador del producto:</strong></td>
+                    <td>{{ resultado_producto.indicador_producto_resultado_inv_obj_especifico }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de entrega del producto:</strong></td>
+                    <td>{{ resultado_producto.fch_entrega_producto_resultado_inv_obj_especifico }}</td>
+                </tr>
+           
+        </table>
+        {% endfor %}
+    </div>
+    
+
     <div class="container">
         <div class="info">
             <h5>Proyección</h5>
