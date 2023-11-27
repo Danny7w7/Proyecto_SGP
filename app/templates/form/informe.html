@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,10 +38,11 @@
         h5 {
             font-size: 18px;
             margin-bottom: 10px;
-            background-color: #61da6194;
+            background-color: #59AB6E;
             padding: 10px;
             width: 100%;
         }
+
 
         .info {
             width: 48%;
@@ -74,7 +76,7 @@
         .bg {
             font-size: 18px;
             margin-bottom: 10px;
-            background-color: #33a86594;
+            background-color: #59AB6E;
             padding: 10px;
             width: 100%;
         }
@@ -84,7 +86,7 @@
 <body>
 
     <div class="container">
-        <h1>Sistema de reporte</h1>
+        <h1>Sistema de reportes</h1>
 
         <h5 class="bg">Informe general</h5>
         <div class="info">
@@ -268,11 +270,11 @@
                 </tr>
                 <tr>
                     <td><strong>Link video proyecto:</strong></td>
-                    <td>{{gen.link_video_proyecto}}</td>   
+                    <td>{{gen.link_video_proyecto}}</td>
                 </tr>
                 <tr>
                     <td><strong>¿Proyecto relacionado con Industrial 4.0?</strong></td>
-                    <td>{{gen.proyecto_Relacionado_Industrial40}}</td>    
+                    <td>{{gen.proyecto_Relacionado_Industrial40}}</td>
                 </tr>
                 <tr>
                     <td><strong>Justificación industrial 4.0:</strong></td>
@@ -340,46 +342,46 @@
                 <td>{{ objetivo_general.objetivo_general }}</td>
             </tr>
             {% for obj_especifico in objetivos_especificos %}
-                <tr>
-                    <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
-                    <td>{{ obj_especifico.objetivo_especificos }}</td>
-                </tr>
-                {% if obj_especifico.actividades_de_objetivos_especificos.all %}
-                    {% for actividad in obj_especifico.actividades_de_objetivos_especificos.all %}
-                        <tr>
-                            <td colspan="2">
-                                <strong>Actividades:</strong> {{ actividad.actividades_obj_especificos }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="2"><strong>Actividades:</strong> No hay actividades asociadas.</td>
-                    </tr>
-                {% endif %}
-                {% if obj_especifico.causa_set.all %}
-                    {% for causa in obj_especifico.causa_set.all %}
-                        <tr>
-                            <td colspan="2">
-                                <strong>Causa:</strong> {{ causa.causa }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <strong>Efecto:</strong> {{ causa.efecto.efecto }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="2"><strong>Causa y Efecto:</strong> No hay causa y efecto asociados.</td>
-                    </tr>
-                {% endif %}
+            <tr>
+                <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
+                <td>{{ obj_especifico.objetivo_especificos }}</td>
+            </tr>
+            {% if obj_especifico.actividades_de_objetivos_especificos.all %}
+            {% for actividad in obj_especifico.actividades_de_objetivos_especificos.all %}
+            <tr>
+                <td colspan="2">
+                    <strong>Actividades:</strong> {{ actividad.actividades_obj_especificos }}
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="2"><strong>Actividades:</strong> No hay actividades asociadas.</td>
+            </tr>
+            {% endif %}
+            {% if obj_especifico.causa_set.all %}
+            {% for causa in obj_especifico.causa_set.all %}
+            <tr>
+                <td colspan="2">
+                    <strong>Causa:</strong> {{ causa.causa }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <strong>Efecto:</strong> {{ causa.efecto.efecto }}
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="2"><strong>Causa y Efecto:</strong> No hay causa y efecto asociados.</td>
+            </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </div>
-    
-    
+
+
 
     <div class="container">
         <div class="info">
@@ -407,7 +409,7 @@
                     <td>{{centro_f.tipo_programas_de_formacion_beneficiados_por_ejecucion}}</td>
                 </tr>
                 <tr>
-                    <td>Nombre de los programas de formación  beneficiados con la ejecución del proyecto</td>
+                    <td>Nombre de los programas de formación beneficiados con la ejecución del proyecto</td>
                     <td>{{centro_f.nombre_programas_formacion_beneficiados_ejecucion_proyecto}}</td>
                 </tr>
                 <tr>
@@ -426,7 +428,7 @@
         </div>
         <div class="info">
             {% for ent_a in entidad_a %}
-            <h3>Entidades aliadas  {{ forloop.counter }}</h3>
+            <h3>Entidades aliadas {{ forloop.counter }}</h3>
             <table>
                 <tr>
                     <td><strong>Nombre entidad:</strong></td>
@@ -494,71 +496,71 @@
     </div>
     <div class="container">
         {% for entidad_aliada, participantes_entidad_aliada in partp_e.items %}
-            <div class="info">
-                <h3>{{ entidad_aliada.nombre_entidad }}</h3>
-                <table>
-                    {% for participante in participantes_entidad_aliada %}
-                        <tr>
-                            <td><strong>Nombres: </strong></td>
-                            <td>{{ participante.nombre }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Número de documento:</strong></td>
-                            <td>{{ participante.numero_identificacion }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Email:</strong></td>
-                            <td>{{ participante.email }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Teléfono:</strong></td>
-                            <td>{{ participante.telefono }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
+        <div class="info">
+            <h3>{{ entidad_aliada.nombre_entidad }}</h3>
+            <table>
+                {% for participante in participantes_entidad_aliada %}
+                <tr>
+                    <td><strong>Nombres: </strong></td>
+                    <td>{{ participante.nombre }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de documento:</strong></td>
+                    <td>{{ participante.numero_identificacion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email:</strong></td>
+                    <td>{{ participante.email }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Teléfono:</strong></td>
+                    <td>{{ participante.telefono }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
         {% endfor %}
     </div>
-    
+
     <div class="info">
         <h5>Resultados y productos esperados</h5>
         {% for resultado_producto in resultados_productos_esperados %}
         <h3>Resultados y productos esperados del proyecto {{ forloop.counter }}</h3>
         <table>
-            
-                <tr>
-                    <td><strong>Tipo de resultado esperado:</strong></td>
-                    <td>{{ resultado_producto.tipo_resultado_esperado_obj_especifico }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Descripción del resultado esperado:</strong></td>
-                    <td>{{ resultado_producto.descripcion_resultado_esperado_obj_especifico }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Nombre del producto:</strong></td>
-                    <td>{{ resultado_producto.nombre_producto_resultado_inv_obj_especifico }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Nombre de la subtipología:</strong></td>
-                    <td>{{ resultado_producto.nombre_subtipologia }}</td>
-                </tr>
-                <tr>
-                    <td><strong>TRL del producto:</strong></td>
-                    <td>{{ resultado_producto.trl_producto_resultado_inv_obj_especifico }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Indicador del producto:</strong></td>
-                    <td>{{ resultado_producto.indicador_producto_resultado_inv_obj_especifico }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Fecha de entrega del producto:</strong></td>
-                    <td>{{ resultado_producto.fch_entrega_producto_resultado_inv_obj_especifico }}</td>
-                </tr>
-           
+
+            <tr>
+                <td><strong>Tipo de resultado esperado:</strong></td>
+                <td>{{ resultado_producto.tipo_resultado_esperado_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Descripción del resultado esperado:</strong></td>
+                <td>{{ resultado_producto.descripcion_resultado_esperado_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Nombre del producto:</strong></td>
+                <td>{{ resultado_producto.nombre_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Nombre de la subtipología:</strong></td>
+                <td>{{ resultado_producto.nombre_subtipologia }}</td>
+            </tr>
+            <tr>
+                <td><strong>TRL del producto:</strong></td>
+                <td>{{ resultado_producto.trl_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Indicador del producto:</strong></td>
+                <td>{{ resultado_producto.indicador_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Fecha de entrega del producto:</strong></td>
+                <td>{{ resultado_producto.fch_entrega_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+
         </table>
         {% endfor %}
     </div>
-    
+
 
     <div class="container">
         <div class="info">
@@ -640,7 +642,7 @@
             </table>
         </div>
         <div class="info">
-            <h3>Riesgo nivel  productos</h3>
+            <h3>Riesgo nivel productos</h3>
             <table>
 
                 <tr>
@@ -720,15 +722,19 @@
                     <td>{{doc.anexo3}}</td>
                 </tr>
                 <tr>
-                    <td><strong>ANEXO 4. Modernización. (Obligatorio para los proyectos cuyo objeto sea la actualización y modernización de ambientes de formación (SIIF 23)):</strong></td>
+                    <td><strong>ANEXO 4. Modernización. (Obligatorio para los proyectos cuyo objeto sea la actualización
+                            y modernización de ambientes de formación (SIIF 23)):</strong></td>
                     <td>{{doc.anexo4}}</td>
                 </tr>
                 <tr>
-                    <td><strong>ANEXO 7. Carta de intención o acta que soporta el trabajo articulado con entidades aliadas (diferentes al SENA) (Obligatorio si se articula con entidad aliada o con otro Centro de Formación):</strong></td>
+                    <td><strong>ANEXO 7. Carta de intención o acta que soporta el trabajo articulado con entidades
+                            aliadas (diferentes al SENA) (Obligatorio si se articula con entidad aliada o con otro
+                            Centro de Formación):</strong></td>
                     <td>{{doc.anexo5}}</td>
                 </tr>
                 <tr>
-                    <td><strong>ANEXO 8. Propiedad intelectual (Obligatorio si se articula con entidad aliada o con otro Centro de Formación):</strong></td>
+                    <td><strong>ANEXO 8. Propiedad intelectual (Obligatorio si se articula con entidad aliada o con otro
+                            Centro de Formación):</strong></td>
                     <td>{{doc.anexo6}}</td>
                 </tr>
                 <tr>
@@ -738,4 +744,5 @@
             </table>
         </div>
     </div>
+
 </html>
