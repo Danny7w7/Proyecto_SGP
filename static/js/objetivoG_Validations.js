@@ -1,14 +1,14 @@
 let conjuntosMostrados = 1;
-fieldExclude2 = ['id_objetivo_especificos2', 'id_actividad2' ,'id_causa2', 'id_efecto2']
-fieldExclude3 = ['id_objetivo_especificos3','id_actividad3', 'id_causa3', 'id_efecto3']
 function mostrarDivs() {
   // Mostrar conjuntos adicionales solo si no se han mostrado más de 2
   if (conjuntosMostrados < 2) {
     document.querySelector('.la_prueba2').style.display = 'block';
     conjuntosMostrados++;
-  } else {
+  } else if(conjuntosMostrados == 2) {
     document.querySelector('.la_prueba3').style.display = 'block';
     conjuntosMostrados++;
+  } else{
+    alert('Solo puedes crear 3 objetivos especificos por proyecto.')
   }
 }
 document.addEventListener("DOMContentLoaded", function() {
@@ -168,3 +168,36 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+function sendPost1() {
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("objetivo_general", document.getElementById("objetivo_general").value);
+    if (!(document.getElementById('objetivo_especifico1').value == '')){
+        formData.append("objetivo_especifico1", document.getElementById('objetivo_especifico1').value);
+    }if (!(document.getElementById('objetivo_especifico2').value == '')){
+        formData.append("objetivo_especifico2", document.getElementById('objetivo_especifico2').value);
+    }if (!(document.getElementById('objetivo_especifico3').value == '')){
+        formData.append("objetivo_especifico3", document.getElementById('objetivo_especifico3').value);
+    }
+    formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/info-proyecto/info-proponente/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            // Realizar acciones de éxito, si es necesario
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
+};

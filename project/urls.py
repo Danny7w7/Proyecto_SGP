@@ -37,6 +37,7 @@ urlpatterns = [
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),
     path('estructura-proyecto/<int:id_proyecto>/', views.estructura_proyecto, name='estructura_proyecto'),
+    path('objetivos/<int:id_proyecto>/', views.objetivo, name='objetivos'),
     path('participantes/<int:id_proyecto>/',views.participantes, name='participantes'),
     path('seleccionar-entidad-aliada/<int:id_proyecto>/', views.selecEntidad, name='seleccionarEntidad'),
     path('proyecto/<int:id_proyecto>/entidad/<int:id_entidad>', views.parcipantes_entidad, name='part_entidad'),
@@ -46,7 +47,6 @@ urlpatterns = [
     path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
 
     #Form
-    path('objetivos/<int:objetivo_proyecto_id>/', views.crear_objetivo, name='objetivos'),
     path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
 
     #Json
@@ -61,13 +61,13 @@ urlpatterns = [
     path('proyecto/info-proyecto/info-generalidades/<int:id_proyecto>/', views.info_generalidades, name='info-generalidades'),
     path('proyecto/info-proyecto/entidad_aliada/<int:id_proyecto>/', views.entidad_aliada, name='entidad_aliada'),
     path('proyecto/info-proyecto/centro-formacion/<int:id_proyecto>/', views.centro_formacion, name='centro_formacion'),
-    path('proyecto/proyeccion/tiempo-ejecucion/<int:id_proyecto>/', views.tiempo_ejecucion, name='tiempo_ejecucion'),
-    path('proyecto/proyeccion/cadena-de-valor/<int:id_proyecto>/', views.cadena_valor, name='cadena_valor'),
     
     #Esctructura de proyecto
     path('proyecto/est-proyecto/resumen-antecedentes/<int:id_proyecto>/', views.resumen_antecedentes, name='est_proyecto'),
     path('proyecto/est-proyecto/descripcion-problema/<int:id_proyecto>/', views.descripcion_problema, name='desc_problema'),
 
+    #Arbol de problemas
+    path('proyecto/arbol-problemas/objetivos/<int:id_proyecto>/', views.objetivos_json, name='objetivo'),
 
     #Analisis de riesgo
     path('proyecto/riesgos/riesgo-general/<int:id_proyecto>/', views.riesgos_obj_g_json, name='r_general'),
@@ -76,6 +76,10 @@ urlpatterns = [
 
     #Participantes de entidad aliada
     path('proyecto/participantes-entidad/<int:id_proyecto>/', views.participantes_entidad_aliada, name='participantes_entidad'),
+
+    #Proyeccion
+    path('proyecto/proyeccion/tiempo-ejecucion/<int:id_proyecto>/', views.tiempo_ejecucion, name='tiempo_ejecucion'),
+    path('proyecto/proyeccion/cadena-de-valor/<int:id_proyecto>/', views.cadena_valor, name='cadena_valor'),
 
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
