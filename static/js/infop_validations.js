@@ -367,6 +367,7 @@ function sendPost2() {
             console.log('Mensaje de éxito:', data.mensaje);
             
             actualizarTablaAutores(data.autores);
+            actualizarInputAutores(data.autores);
         }
     })
     .catch(error => {
@@ -418,12 +419,13 @@ function sendPost3() {
             console.log('Mensaje de éxito:', data.mensaje);
             
             actualizarTablaParticipantes(data.participantes);
+            actualizarInputParticipantes(data.participantes);
         }
     })
-    // .catch(error => {
-    //     console.error('Error en la solicitud:', error);
-    //     // Manejar errores en la solicitud, como problemas de red
-    // });
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
 };
 
 // Generalidades
@@ -518,7 +520,7 @@ function actualizarTablaAutores(autores) {
             <td>${autor.numero_Telefono_Autor}</td>
             <td>
                 <div class="btn-group" role="group" aria-label="Acciones">
-                    <button onclick="edit_participantes(${autor.id})" type="button" class="btn btn-success">Editar</button>
+                    <button onclick="edit_autor(${autor.id})" type="button" class="btn btn-success">Editar</button>
                     <button type="button" class="btn btn-danger">Eliminar</button>
                 </div>
             </td>
@@ -531,62 +533,127 @@ function actualizarTablaAutores(autores) {
     // Agregar la nueva tabla al documento
     const contenedorTabla = document.getElementById('tabla-container');
     contenedorTabla.appendChild(nuevaTabla);
-  }
+}
 
-  function actualizarTablaParticipantes(participantes) {
-    console.log(participantes)
-    // Obtener el elemento de la tabla por su clase
-    const tabla = document.querySelector('.tabla_participantes');
-  
-    // Si la tabla existe, eliminarla
-    if (tabla) {
-      tabla.remove();
+function actualizarInputAutores(autores) {
+    const selectDiv = document.getElementById('inputs_autores');
+
+    if (selectDiv) {
+        selectDiv.remove();
     }
-  
-    // Crear una nueva tabla
-    const nuevaTabla = document.createElement('table');
-    nuevaTabla.classList.add('tablita', 'table', 'tabla_participantes');
-  
-    // Crear el encabezado de la tabla
-    const thead = document.createElement('thead');
-    const encabezado = `
+
+    const contenedorInput = document.createElement('div');
+    contenedorInput.id = 'inputs_autores';
+
+    autores.forEach(autor => {
+        const divAutor = document.createElement('div');
+        divAutor.id = `autor${autor.id}`;
+
+        divAutor.innerHTML = `
+            <input id="id_autor_hidden" type="hidden" value="${autor.id}">
+            <input id="Nombre_Autor_Proyecto_hidden" type="hidden" value="${autor.nombre_Autor_Proyecto}">
+            <input id="tipo_Vinculacion_entidad_hidden" type="hidden" value="${autor.tipo_Vinculacion_entidad}">
+            <input id="Numero_Cedula_Autor_hidden" type="hidden" value="${autor.numero_Cedula_Autor}">
+            <input id="rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="${autor.rol_Sennova_De_Participantes_de_Proyecto}">
+            <input id="Email_Autor_Proyecto_hidden" type="hidden" value="${autor.email_Autor_Proyecto}">
+            <input id="Numero_meses_vinculacion_Autor_hidden" type="hidden" value="${autor.numero_meses_vinculacion_Autor}">
+            <input id="Numero_Telefono_Autor_hidden" type="hidden" value="${autor.numero_Telefono_Autor}">
+            <input id="Numero_horas_Semanales_dedicadas_Autores_hidden" type="hidden" value="${autor.numero_horas_Semanales_dedicadas_Autores}">
+        `;
+
+        contenedorInput.appendChild(divAutor);
+    });
+
+    const containerInputs = document.getElementById('container-inputs-autores');
+    containerInputs.appendChild(contenedorInput);
+}
+
+function actualizarTablaParticipantes(participantes) {
+console.log(participantes)
+// Obtener el elemento de la tabla por su clase
+const tabla = document.querySelector('.tabla_participantes');
+
+// Si la tabla existe, eliminarla
+if (tabla) {
+    tabla.remove();
+}
+
+// Crear una nueva tabla
+const nuevaTabla = document.createElement('table');
+nuevaTabla.classList.add('tablita', 'table', 'tabla_participantes');
+
+// Crear el encabezado de la tabla
+const thead = document.createElement('thead');
+const encabezado = `
+<tr>
+    <th>Nombres</th>
+    <th>Número documento</th>
+    <th>N° meses vinculación</th>
+    <th>Email participantes</th>
+    <th>N° horas semanales</th>
+    <th>Telefono</th>
+    <th>Acciones</th>
+</tr>
+`;
+thead.innerHTML = encabezado;
+nuevaTabla.appendChild(thead);
+
+// Crear el cuerpo de la tabla
+const tbody = document.createElement('tbody');
+participantes.forEach(participante => {
+    const fila = `
     <tr>
-        <th>Nombres</th>
-        <th>Número documento</th>
-        <th>N° meses vinculación</th>
-        <th>Email participantes</th>
-        <th>N° horas semanales</th>
-        <th>Telefono</th>
-        <th>Acciones</th>
+        <td>${participante.nombre_participantes_de_desarrollo}</td>
+        <td>${participante.numero_cedula_participantes}</td>
+        <td>${participante.numero_meses_vinculacion_participantes}</td>
+        <td>${participante.email_participantes_de_desarrollo}</td>
+        <td>${participante.numero_horas_Semanales_dedicadas_participantes}</td>
+        <td>${participante.numero_Telefono_participantes}</td>
+        <td>
+            <div class="btn-group" role="group" aria-label="Acciones">
+                <button onclick="edit_participantes(${participante.id})" type="button" class="btn btn-success">Editar</button>
+                <button type="button" class="btn btn-danger">Eliminar</button>
+            </div>
+        </td>
     </tr>
     `;
-    thead.innerHTML = encabezado;
-    nuevaTabla.appendChild(thead);
-  
-    // Crear el cuerpo de la tabla
-    const tbody = document.createElement('tbody');
+    tbody.innerHTML += fila;
+});
+nuevaTabla.appendChild(tbody);
+
+// Agregar la nueva tabla al documento
+const contenedorTabla = document.getElementById('tabla-container-2');
+contenedorTabla.appendChild(nuevaTabla);
+}
+
+function actualizarInputParticipantes(participantes) {
+    const selectDiv = document.getElementById('inputs_participantes');
+
+    if (selectDiv) {
+        selectDiv.remove();
+    }
+
+    const contenedorInput = document.createElement('div');
+    contenedorInput.id = 'inputs_participantes';
+
     participantes.forEach(participante => {
-      const fila = `
-        <tr>
-            <td>${participante.nombre_participantes_de_desarrollo}</td>
-            <td>${participante.numero_cedula_participantes}</td>
-            <td>${participante.numero_meses_vinculacion_participantes}</td>
-            <td>${participante.email_participantes_de_desarrollo}</td>
-            <td>${participante.numero_horas_Semanales_dedicadas_participantes}</td>
-            <td>${participante.numero_Telefono_participantes}</td>
-            <td>
-                <div class="btn-group" role="group" aria-label="Acciones">
-                    <button onclick="edit_participantes(${participante.id})" type="button" class="btn btn-success">Editar</button>
-                    <button type="button" class="btn btn-danger">Eliminar</button>
-                </div>
-            </td>
-        </tr>
-      `;
-      tbody.innerHTML += fila;
+        const divParticipante = document.createElement('div');
+        divParticipante.id = `participante${participante.id}`;
+
+        divParticipante.innerHTML = `
+            <input id="id_participante_hidden" type="hidden" value="${participante.id}">
+            <input id="Nombre_participantes_de_desarrollo_hidden" type="hidden" value="${participante.nombre_participantes_de_desarrollo}">
+            <input id="Rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="${participante.rol_Sennova_De_Participantes_de_Proyecto}">
+            <input id="Numero_cedula_participantes_hidden" type="hidden" value="${participante.numero_cedula_participantes}">
+            <input id="Numero_meses_vinculacion_participantes_hidden" type="hidden" value="${participante.numero_meses_vinculacion_participantes}">
+            <input id="Email_participantes_de_desarrollo_hidden" type="hidden" value="${participante.email_participantes_de_desarrollo}">
+            <input id="Numero_horas_Semanales_dedicadas_participantes_hidden" type="hidden" value="${participante.numero_horas_Semanales_dedicadas_participantes}">
+            <input id="Numero_Telefono_participantes_hidden" type="hidden" value="${participante.numero_Telefono_participantes}">
+        `;
+
+        contenedorInput.appendChild(divParticipante);
     });
-    nuevaTabla.appendChild(tbody);
-  
-    // Agregar la nueva tabla al documento
-    const contenedorTabla = document.getElementById('tabla-container-2');
-    contenedorTabla.appendChild(nuevaTabla);
-  }
+
+    const containerInputs = document.getElementById('container-inputs-participantes');
+    containerInputs.appendChild(contenedorInput);
+}

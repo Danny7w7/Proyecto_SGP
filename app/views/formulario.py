@@ -431,7 +431,9 @@ def info_autores(request, id_proyecto):
                 "numero_Cedula_Autor": autor.numero_Cedula_Autor,
                 "rol_Sennova_De_Participantes_de_Proyecto": autor.rol_Sennova_De_Participantes_de_Proyecto,
                 "email_Autor_Proyecto": autor.email_Autor_Proyecto,
-                "numero_Telefono_Autor": autor.numero_Telefono_Autor
+                "numero_meses_vinculacion_Autor": autor.numero_meses_vinculacion_Autor,
+                "numero_Telefono_Autor": autor.numero_Telefono_Autor,
+                "numero_horas_Semanales_dedicadas_Autores": autor.numero_horas_Semanales_dedicadas_Autores
             }
             nueva_lista_autores.append(nuevo_autor)
         return JsonResponse({"mensaje": "Operación exitosa", "autores": nueva_lista_autores})

@@ -248,20 +248,24 @@
                         </table>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    {% for autor in autores%}
-                    <div id="autor{{ autor.id }}">
-                        <input id="id_autor_hidden" type="hidden" value="{{autor.id}}">
-                        <input id="Nombre_Autor_Proyecto_hidden" type="hidden" value="{{autor.nombre_Autor_Proyecto}}">
-                        <input id="tipo_Vinculacion_entidad_hidden" type="hidden" value="{{autor.tipo_Vinculacion_entidad}}">
-                        <input id="Numero_Cedula_Autor_hidden" type="hidden" value="{{autor.numero_Cedula_Autor}}">
-                        <input id="rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{autor.rol_Sennova_De_Participantes_de_Proyecto}}">
-                        <input id="Email_Autor_Proyecto_hidden" type="hidden" value="{{autor.email_Autor_Proyecto}}">
-                        <input id="Numero_meses_vinculacion_Autor_hidden" type="hidden" value="{{autor.numero_meses_vinculacion_Autor}}">
-                        <input id="Numero_Telefono_Autor_hidden" type="hidden" value="{{autor.numero_Telefono_Autor}}">
-                        <input id="Numero_horas_Semanales_dedicadas_Autores_hidden" type="hidden" value="{{autor.numero_horas_Semanales_dedicadas_Autores}}">
+                <div class="row justify-content-center" >
+                    <div id="container-inputs-autores">
+                        <div id="inputs_autores">
+                            {% for autor in autores%}
+                            <div id="autor{{ autor.id }}">
+                                <input id="id_autor_hidden" type="hidden" value="{{autor.id}}">
+                                <input id="Nombre_Autor_Proyecto_hidden" type="hidden" value="{{autor.nombre_Autor_Proyecto}}">
+                                <input id="tipo_Vinculacion_entidad_hidden" type="hidden" value="{{autor.tipo_Vinculacion_entidad}}">
+                                <input id="Numero_Cedula_Autor_hidden" type="hidden" value="{{autor.numero_Cedula_Autor}}">
+                                <input id="rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{autor.rol_Sennova_De_Participantes_de_Proyecto}}">
+                                <input id="Email_Autor_Proyecto_hidden" type="hidden" value="{{autor.email_Autor_Proyecto}}">
+                                <input id="Numero_meses_vinculacion_Autor_hidden" type="hidden" value="{{autor.numero_meses_vinculacion_Autor}}">
+                                <input id="Numero_Telefono_Autor_hidden" type="hidden" value="{{autor.numero_Telefono_Autor}}">
+                                <input id="Numero_horas_Semanales_dedicadas_Autores_hidden" type="hidden" value="{{autor.numero_horas_Semanales_dedicadas_Autores}}">
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% endfor %}
 
                     <div class="col-12 col-md-10">
                         <form method="post" class="needs-validation" action="" id="form2">
@@ -386,18 +390,23 @@
                     </div>
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-10">
-                    {% for participante in participantes %}
-                    <div id="participante{{ participante.id }}">
-                        <input id="id_participante_hidden" type="hidden" value="{{participante.id}}">
-                        <input id="Nombre_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.nombre_participantes_de_desarrollo}}">
-                        <input id="Rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{participante.rol_Sennova_De_Participantes_de_Proyecto}}">
-                        <input id="Numero_cedula_participantes_hidden" type="hidden" value="{{participante.numero_cedula_participantes}}">
-                        <input id="Numero_meses_vinculacion_participantes_hidden" type="hidden" value="{{participante.numero_meses_vinculacion_participantes}}">
-                        <input id="Email_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.email_participantes_de_desarrollo}}">
-                        <input id="Numero_horas_Semanales_dedicadas_participantes_hidden" type="hidden" value="{{participante.numero_horas_Semanales_dedicadas_participantes}}">
-                        <input id="Numero_Telefono_participantes_hidden" type="hidden" value="{{participante.numero_Telefono_participantes}}">
+                        
+                    <div id="container-inputs-participantes">
+                        <div id="inputs_participantes">
+                            {% for participante in participantes %}
+                            <div id="participante{{ participante.id }}">
+                                <input id="id_participante_hidden" type="hidden" value="{{participante.id}}">
+                                <input id="Nombre_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.nombre_participantes_de_desarrollo}}">
+                                <input id="Rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{participante.rol_Sennova_De_Participantes_de_Proyecto}}">
+                                <input id="Numero_cedula_participantes_hidden" type="hidden" value="{{participante.numero_cedula_participantes}}">
+                                <input id="Numero_meses_vinculacion_participantes_hidden" type="hidden" value="{{participante.numero_meses_vinculacion_participantes}}">
+                                <input id="Email_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.email_participantes_de_desarrollo}}">
+                                <input id="Numero_horas_Semanales_dedicadas_participantes_hidden" type="hidden" value="{{participante.numero_horas_Semanales_dedicadas_participantes}}">
+                                <input id="Numero_Telefono_participantes_hidden" type="hidden" value="{{participante.numero_Telefono_participantes}}">
+                            </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                    {% endfor %}
                     <form method="post" class="needs-validation" action="" id="form3">
                         <div class="bg-light mt-2 spos border_radius row me-0">
                             <input id="id_participante" type="hidden">
