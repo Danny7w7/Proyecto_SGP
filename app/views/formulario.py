@@ -765,10 +765,23 @@ def editar_anexo(request, proyecto_id):
 
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
+    contex = {
+        'percentaje': 0,
+        'proyectos': proyectos
+    }
     if request:
-        return render(request, 'proyectos.html', {'proyectos': proyectos})
+        return render(request, 'proyectos.html', contex)
     else:
-         return redirect('continuar_sesion')
+        return redirect('continuar_sesion', contex)
+    
+def seleccionar(request):
+    proyectos = Proyecto.objects.filter(usuario = request.user)
+    contex = {
+        'percentaje' : 0,
+        'proyectos' : proyectos,
+        
+    }
+    return render(request, 'select_edit.html', contex)
 
 
 def continuar_sesion(request):

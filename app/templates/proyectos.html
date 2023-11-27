@@ -1,39 +1,10 @@
+{% extends "form/crearp.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Proyecto</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/proyectos.css' %}">
-</head>
-<body>
+{% block forms %}
 
-<header>
-    <h1>Proyectos</h1>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Proyectos</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<main class="container">
-    <h2 style="padding: 10px;">Mis proyectos</h2>
-    <div class="col-10">
+<main class="container" style="padding-bottom: 10%;">
+    <h2 style="padding-top:  3%;">Mis proyectos</h2>
+    <div class="col-10" style="padding-top:5%; padding-bottom: 5%;">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -60,5 +31,5 @@
 
 <!-- Scripts de Bootstrap y JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+{% endblock %}
