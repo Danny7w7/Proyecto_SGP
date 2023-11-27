@@ -169,7 +169,7 @@ def contex_form():
 def generar_pdf(request, proyecto_id):
     # Obtener el proyecto y otros datos relacionados
     proyecto = get_object_or_404(Proyecto, id=proyecto_id)
-    informacion_proponente = Informacion_proponente.objects.get(proyecto=proyecto)
+    informacion_proponente = get_or_none(Informacion_proponente, proyecto=proyecto.id)
     autores = Autores.objects.filter(proyecto=proyecto)
     part_p = Participantes_Proyecto.objects.filter(proyecto=proyecto)
     gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto).first()
@@ -228,7 +228,7 @@ def generar_pdf(request, proyecto_id):
             entidad=entidad_aliada
         )
         partp_e[entidad_aliada] = participantes_entidad_aliada
-
+    
     # Renderizar el template con los datos
     context = {
         "proyecto": proyecto,

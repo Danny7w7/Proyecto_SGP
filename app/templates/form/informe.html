@@ -428,7 +428,7 @@
         </div>
         <div class="info">
             {% for ent_a in entidad_a %}
-            <h3>Entidades aliadas {{ forloop.counter }}</h3>
+            <h3>Entidad aliada {{ forloop.counter }}</h3>
             <table>
                 <tr>
                     <td><strong>Nombre entidad:</strong></td>
@@ -496,10 +496,11 @@
     </div>
     <div class="container">
         {% for entidad_aliada, participantes_entidad_aliada in partp_e.items %}
+        <h5>Participantes de la entidad {{ entidad_aliada.nombre_entidad }}</h5>
         <div class="info">
-            <h3>{{ entidad_aliada.nombre_entidad }}</h3>
+            {% for participante in participantes_entidad_aliada %}
+            <h3>Participante numero {{ forloop.counter }}</h3>
             <table>
-                {% for participante in participantes_entidad_aliada %}
                 <tr>
                     <td><strong>Nombres: </strong></td>
                     <td>{{ participante.nombre }}</td>
@@ -516,8 +517,8 @@
                     <td><strong>Teléfono:</strong></td>
                     <td>{{ participante.telefono }}</td>
                 </tr>
-                {% endfor %}
-            </table>
+                </table>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
