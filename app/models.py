@@ -112,17 +112,12 @@ class Objetivos_especificos(models.Model):
     objetivo_especificos = models.CharField(max_length=300, null=True)
     objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
-class Actividades_de_objetivos_especificos(models.Model):
+class Arbol_de_Objetivos(models.Model):
     actividades_obj_especificos = models.CharField(max_length=300, null=False)
-    objetivo_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
-
-class Causa(models.Model):
     causa = models.CharField(max_length=500, null=True)
-    objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
-    
-class Efecto(models.Model):
     efecto = models.CharField(max_length=500, null=True)
-    causas = models.OneToOneField(Causa, on_delete=models.CASCADE)
+    objetivo_especificos = models.ForeignKey(Objetivos_especificos, on_delete=models.CASCADE)
+
 
 # Analisis de participantes
 class Centro_de_formacion(models.Model):
