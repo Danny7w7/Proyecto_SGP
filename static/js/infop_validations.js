@@ -21,7 +21,7 @@ function edit_participantes(id){
         changeDiv.value = inputs[i].value
     }
 }
-
+var sig;
 document.addEventListener("DOMContentLoaded", function() {
     fieldQuestion = ['proyecto_Relacionado_Industrial40', 'proyecto_Relacionado_Economia_Naranja', 'proyecto_Relacionado_Politica_Discapacidad']
     fieldExclude = ['justificacion_Industrial', 'justificacion_Economia_Naranja', 'justificacion_Politica_Discapacidad']
@@ -169,11 +169,23 @@ document.addEventListener("DOMContentLoaded", function() {
         handleFormSubmit(event, 'form1');
     });
 
-    document.getElementById("enviar2").addEventListener("click", function(event) {
+    document.getElementById("enviarGAutores").addEventListener("click", function(event) {
+        sig = false
         handleFormSubmit(event, 'form2');
     });
 
-    document.getElementById("enviar3").addEventListener("click", function(event) {
+    document.getElementById("enviarGYSAutores").addEventListener("click", function(event) {
+        sig = true
+        handleFormSubmit(event, 'form2');
+    });
+
+    document.getElementById("enviarGParticipantes").addEventListener("click", function(event) {
+        sig = false
+        handleFormSubmit(event, 'form3');
+    });
+
+    document.getElementById("enviarGYSParticipantes").addEventListener("click", function(event) {
+        sig = true
         handleFormSubmit(event, 'form3');
     });
 
@@ -226,17 +238,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     collapse2.classList.add('show')
                 }else if (formKey == 'form2'){
                     sendPost2()
-                    button2.setAttribute('aria-expanded', (button2.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
-                    progress.setAttribute('value', 2 * 100 / (stepButtons.length - 1));
-                    collapse2.classList.remove('show')
-                    collapse3.classList.add('show')
+                    if (sig){
+                        button2.setAttribute('aria-expanded', (button2.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                        progress.setAttribute('value', 2 * 100 / (stepButtons.length - 1));
+                        collapse2.classList.remove('show')
+                        collapse3.classList.add('show')
+                    }
                 }
                 else if (formKey == 'form3'){
                     sendPost3()
-                    button3.setAttribute('aria-expanded', (button3.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
-                    progress.setAttribute('value', 3 * 100 / (stepButtons.length - 1));
-                    collapse3.classList.remove('show')
-                    collapse4.classList.add('show')
+                    if (sig){
+                        button3.setAttribute('aria-expanded', (button3.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                        progress.setAttribute('value', 3 * 100 / (stepButtons.length - 1));
+                        collapse3.classList.remove('show')
+                        collapse4.classList.add('show')
+                    }
                 }
                 else if (formKey == 'form4'){
                     sendPost4()
@@ -368,6 +384,9 @@ function sendPost2() {
             
             actualizarTablaAutores(data.autores);
             actualizarInputAutores(data.autores);
+            
+            const input = document.getElementById('id_autor');
+            input.value = '';
         }
     })
     .catch(error => {
@@ -420,6 +439,9 @@ function sendPost3() {
             
             actualizarTablaParticipantes(data.participantes);
             actualizarInputParticipantes(data.participantes);
+
+            const input = document.getElementById('id_participante');
+            input.value = '';
         }
     })
     .catch(error => {
@@ -569,7 +591,6 @@ function actualizarInputAutores(autores) {
 }
 
 function actualizarTablaParticipantes(participantes) {
-console.log(participantes)
 // Obtener el elemento de la tabla por su clase
 const tabla = document.querySelector('.tabla_participantes');
 

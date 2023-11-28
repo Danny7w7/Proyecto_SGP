@@ -39,7 +39,7 @@
                 <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
                     <form method="post" class="needs-validation" id="form1">
                         <input id="id_proyecto" type="hidden" value="{{percentaje}}">
-                        <input id="id_entidad" type="hidden" value="{{percentaje}}">
+                        <input id="id_entidad" type="hidden" value="{{entidad_id}}">
                         {% csrf_token %}
                         <label for="" class="form-label">Nombres de integrantes que participan</label>
                         <input type="text" name="nombre" id="nombre" class="form-control form-control-sm" placeholder="">

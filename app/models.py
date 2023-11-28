@@ -65,7 +65,7 @@ class Autores(models.Model):
 class Participantes_Proyecto(models.Model):
     nombre_participantes_de_desarrollo = models.CharField(max_length=40, null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
-    numero_cedula_participantes = models.IntegerField(null=True)
+    numero_cedula_participantes = models.BigIntegerField(null=True)
     numero_meses_vinculacion_participantes = models.IntegerField(null=True)
     email_participantes_de_desarrollo = models.EmailField(null=True)
     numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=True)
@@ -92,8 +92,6 @@ class Resumen_antecedentes(models.Model):
     antecedentes = models.TextField(max_length=8000, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
-class Arbol_problemas(models.Model):
-    arbol_de_problemas = models.CharField(max_length=150, null=True)
 
 class Descripcion_problema(models.Model):
     identificacion_y_descripcion_problema = models.CharField(max_length=8000, null=False)
@@ -104,25 +102,17 @@ class Descripcion_problema(models.Model):
 
 # Objetivos
 class Objetivos(models.Model):
-    objetivo_general = models.CharField(max_length=300, null=True)
+    objetivo_general = models.CharField(max_length=500, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 # Metodologia
 class Objetivos_especificos(models.Model):
-    objetivo_especificos = models.CharField(max_length=300, null=True)
-    objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
-
-class Actividades_de_objetivos_especificos(models.Model):
-    actividades_obj_especificos = models.CharField(max_length=300, null=False)
-    objetivo_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
-
-class Causa(models.Model):
+    objetivo_especifico = models.CharField(max_length=300, null=True)
+    actividades_obj_especificos = models.CharField(max_length=300, null=True)
     causa = models.CharField(max_length=500, null=True)
-    objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
-    
-class Efecto(models.Model):
     efecto = models.CharField(max_length=500, null=True)
-    causas = models.OneToOneField(Causa, on_delete=models.CASCADE)
+    objetivoGeneral = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
+
 
 # Analisis de participantes
 class Centro_de_formacion(models.Model):
@@ -170,7 +160,7 @@ class Resultados_y_productos_esperados(models.Model):
     descripcion_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
     nombre_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
     nombre_subtipologia = models.CharField(max_length=200, null=False)
-    trl_producto_resultado_inv_obj_especifico = models.IntegerField(null=False)
+    trl_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
     indicador_producto_resultado_inv_obj_especifico = models.CharField(max_length=50, null=False)
     fch_entrega_producto_resultado_inv_obj_especifico = models.DateField(null=False)
     objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
