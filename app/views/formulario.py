@@ -3,8 +3,34 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 
-from app.forms import ActividadEspeForm, CausaForm, EfectoForm, Informacion_proponenteForm, ObjetivoEspecificoForm, ProyectoForm, ObjetivoForm, DocumentForm, ProducEsperadosForm, ParticipantesEntidadForm
-from app.models import Actividades_de_objetivos_especificos, Entidades_aliadas, Causa, Efecto, Proyecto, Informacion_proponente, Generalidades_del_proyecto,Participantes_Proyecto, Autores, Resumen_antecedentes, Objetivos, Descripcion_problema, UltimaVista, Document, RiesgoObjetivoGeneral, RiesgoProductos, RiesgoActividades, Objetivos_especificos, Centro_de_formacion, Proyeccion, Participantes_entidad_alidad, Resultados_y_productos_esperados
+from app.forms import (
+    Informacion_proponenteForm,
+    ProyectoForm,
+    DocumentForm,
+    ProducEsperadosForm,
+)
+
+from app.models import (
+    Entidades_aliadas,
+    Proyecto,
+    Informacion_proponente,
+    Generalidades_del_proyecto,
+    Participantes_Proyecto,
+    Autores,
+    Resultados_y_productos_esperados,
+    Resumen_antecedentes,
+    Objetivos,
+    Descripcion_problema,
+    UltimaVista,
+    Document,
+    RiesgoObjetivoGeneral,
+    RiesgoProductos,
+    RiesgoActividades,
+    Objetivos_especificos,
+    Centro_de_formacion,
+    Proyeccion,
+    Participantes_entidad_alidad,
+)
 
 
 from django.contrib.auth.decorators import login_required
@@ -103,115 +129,16 @@ def estructura_proyecto(request, id_proyecto):
 
 
 @login_required(login_url='/login')
-def crear_objetivo(request, objetivo_proyecto_id):
-    if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
-        return redirect(index)
-    if request.method == 'POST':
-        objetivo_proyecto_id = request.POST.get('objetivo_proyecto_id')
-        proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
-
-        objetivo_form = ObjetivoForm(request.POST)
-        objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
-        actividad_form = ActividadEspeForm(request.POST)
-        causa_form = CausaForm(request.POST)
-        efecto_form = EfectoForm(request.POST)
-
-        if (
-            actividad_form.is_valid() and
-            objetivo_form.is_valid() and
-            objetivo_especifico_form.is_valid() and
-            causa_form.is_valid() and
-            efecto_form.is_valid()
-        ):
-            objetivo = objetivo_form.save(commit=False)
-            objetivo.proyecto = proyecto
-            objetivo.save()
-
-            objetivo_especifico = objetivo_especifico_form.save(commit=False)
-            objetivo_especifico.objetivos = objetivo
-            objetivo_especifico.save()
-            
-            actividad = actividad_form.save(commit=False)
-            actividad.objetivo_especificos = objetivo_especifico
-            actividad.save()
-
-            causa = causa_form.save(commit=False)
-            causa.objetivo_especifico = objetivo_especifico
-            causa.save()
-
-            efecto = efecto_form.save(commit=False)
-            efecto.causas = causa
-            efecto.save()
-
-        objetivo_especificos2 = request.POST.get('objetivo_especificos2', '')
-        actividad2 = request.POST.get('actividades_obj_especificos2', '')
-        causa2 = request.POST.get('causa2', '')
-        efecto2 = request.POST.get('efecto2', '')
-
-        if objetivo_especificos2 and actividad2 and causa2 and efecto2:
-            objetivo_especifico2 = Objetivos_especificos.objects.create(
-                objetivos=objetivo,
-                objetivo_especificos=objetivo_especificos2,
-            )
-            
-            actividad2 = Actividades_de_objetivos_especificos.objects.create(
-                objetivo_especificos=objetivo_especifico2,
-                actividades_obj_especificos=actividad2
-            )
-            
-            causa2 = Causa.objects.create(
-                objetivo_especifico=objetivo_especifico2,
-                causa=causa2,
-            )
-            
-            efecto2 = Efecto.objects.create(
-                causas=causa2,
-                efecto=efecto2,
-            )
-
-        objetivo_especificos3 = request.POST.get('objetivo_especificos3', '')
-        actividad3 = request.POST.get('actividades_obj_especificos3', '')
-        causa3 = request.POST.get('causa3', '')
-        efecto3 = request.POST.get('efecto3', '')
-
-        if objetivo_especificos3 and actividad3 and causa3 and efecto3:
-            objetivo_especifico3 = Objetivos_especificos.objects.create(
-                objetivos=objetivo,
-                objetivo_especificos=objetivo_especificos3,
-            )
-            
-            actividad3 = Actividades_de_objetivos_especificos.objects.create(
-                objetivo_especificos=objetivo_especifico3,
-                actividades_obj_especificos=actividad3,
-            )
-            
-            causa3 = Causa.objects.create(
-                objetivo_especifico=objetivo_especifico3,
-                causa=causa3,
-            )
-            
-            efecto3 = Efecto.objects.create(
-                causas=causa3,
-                efecto=efecto3,
-            )
-        print(actividad3)
-        return redirect('seleccionarObjetivo', objetivo_proyecto_id)
-    else:
-        actividad_form = ActividadEspeForm()
-        objetivo_form = ObjetivoForm()
-        objetivo_especifico_form = ObjetivoEspecificoForm()
-        causa_form = CausaForm()
-        efecto_form = EfectoForm()
-        
-    contex = {
-        'objetivo_form': objetivo_form,
-        'objetivo_especifico_form': objetivo_especifico_form,
-        'actividad_form' : actividad_form,
-        'causa_form': causa_form,
-        'efecto_form': efecto_form,
-        'proyecto': objetivo_proyecto_id,
-        'percentaje': objetivo_proyecto_id
-    }
+def objetivo(request, id_proyecto):
+    objetivo = get_or_none(Objetivos, proyecto=id_proyecto)
+    try:
+        objEspe = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    except:
+        objEspe = None
+    contex = {'percentaje':id_proyecto,
+              'id_proyecto':id_proyecto,
+              'objetivo':objetivo,
+              'objEsp':objEspe}
     return render(request, 'form/objetivos.html', contex)
 
 
@@ -275,7 +202,7 @@ def selectObj(request, id_proyecto):
         return redirect(index)
     try:
         objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
-        objEspecificos = Objetivos_especificos.objects.filter(objetivos_id=objGeneral)
+        objEspecificos = Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral)
     except:
         return HttpResponse("Para acceder a esta vista debes de crear los objetivos especificos")
     contex = {'percentaje':id_proyecto,
@@ -289,7 +216,7 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
-    objEspecifico = Objetivos_especificos.objects.get(objetivos_id=objGeneral, id=id_objetivoEsp)
+    objEspecifico = Objetivos_especificos.objects.get(objetivoGeneral=objGeneral, id=id_objetivoEsp)
     productoEsp = get_or_none(Resultados_y_productos_esperados, objetivo_especifico=objEspecifico.id)
     if request.method == 'POST':
         form = ProducEsperadosForm(request.POST, instance=productoEsp)
@@ -520,7 +447,6 @@ def riesgos_obj_g_json(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
-
 def riesgos_p_json(request, id_proyecto):
     try:
         riesgos_p_json = RiesgoProductos.objects.get(proyecto=id_proyecto)
@@ -590,6 +516,41 @@ def descripcion_problema(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+    
+
+def objetivos_json(request, id_proyecto):
+    try:
+        objetivo = Objetivos.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        objetivo = Objetivos.objects.create(proyecto=proyecto)
+    objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    objetivo.objetivo_general = request.POST['objetivo_general']
+    objetivo.save()
+    for i in range(0, 3):
+        if request.POST.get(f'objetivo_especifico{i+1}'):
+            try:
+                objEsp = objetivoEsp[i]
+                objEsp.objetivo_especifico = request.POST[f'objetivo_especifico{i+1}']
+                objEsp.save()
+            except:
+                objEsp = Objetivos_especificos.objects.create(objetivoGeneral=objetivo)
+                objEsp.objetivo_especifico = request.POST[f'objetivo_especifico{i+1}']
+                objEsp.save()
+    
+    return JsonResponse({"mensaje": "Operación exitosa"})
+
+def actividades_json(request, id_proyecto):
+    objetivo = Objetivos.objects.get(proyecto=id_proyecto)
+    objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    for i in range(0, len(objetivoEsp)):
+        objEsp = objetivoEsp[i]
+        objEsp.actividades_obj_especificos = request.POST[f'actividad{i+1}']
+        objEsp.causa = request.POST[f'causa{i+1}']
+        objEsp.efecto = request.POST[f'efecto{i+1}']
+        objEsp.save()
+        
+    return JsonResponse({"mensaje": "Operación exitosa"})
     
 def centro_formacion(request, id_proyecto):
     try:
