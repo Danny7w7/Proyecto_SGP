@@ -2,9 +2,6 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 
 from app.forms import (
-    ActividadEspeForm,
-    CausaForm,
-    EfectoForm,
     Informacion_proponenteForm,
     ObjetivoEspecificoForm,
     ProyectoForm,
@@ -14,10 +11,8 @@ from app.forms import (
     ParticipantesEntidadForm,
 )
 from app.models import (
-    Actividades_de_objetivos_especificos,
+    Arbol_de_Objetivos,
     Entidades_aliadas,
-    Causa,
-    Efecto,
     Proyecto,
     Informacion_proponente,
     Generalidades_del_proyecto,
@@ -175,50 +170,20 @@ def generar_pdf(request, proyecto_id):
     gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto).first()
     res = Resumen_antecedentes.objects.filter(proyecto=proyecto).first()
     des_p = Descripcion_problema.objects.filter(proyecto=proyecto).first()
-    objetivo_general = Objetivos.objects.filter(proyecto=proyecto).first()
-    objetivos_especificos = Objetivos_especificos.objects.filter(
-        objetivos=objetivo_general
-    )
     proy = Proyeccion.objects.filter(proyecto=proyecto).first()
     riesgo_g = RiesgoObjetivoGeneral.objects.filter(proyecto=proyecto).first()
     riesgo_p = RiesgoProductos.objects.filter(proyecto=proyecto).first()
     riesgo_a = RiesgoActividades.objects.filter(proyecto=proyecto).first()
+    objetivos = Objetivos.objects.filter(proyecto=proyecto).first()
+    objetivos_especificos = Objetivos_especificos.objects.filter(objetivos=objetivos).all()
+    arboles_objetivos = Arbol_de_Objetivos.objects.filter(
+        objetivo_especificos__in=objetivos_especificos
+    ).all()
     doc = Document.objects.filter(proyecto=proyecto).first()
     resultados_productos_esperados = Resultados_y_productos_esperados.objects.filter(
         objetivo_especifico__objetivos__proyecto=proyecto
     )
 
-    # Inicializar causas y efectos como listas vacías
-    causas = []
-    efectos = []
-    actividades_obj_especificos = []
-# Iterar sobre todos los objetivos específicos
-    # Iterar sobre los objetivos específicos y obtener actividades, causas y efectos asociados
-    for obj_especifico in objetivos_especificos:
-        actividades = Actividades_de_objetivos_especificos.objects.filter(
-            objetivo_especificos=obj_especifico
-        )
-        causas_obj_especifico = Causa.objects.filter(objetivo_especifico=obj_especifico)
-
-        # Inicializar listas para almacenar causas y efectos
-        causas_obj = []
-        efectos_obj = []
-
-        for causa in causas_obj_especifico:
-            # Obtener efecto de cada causa
-            efecto = Efecto.objects.filter(causas=causa).first()
-            causas_obj.append(causa)
-            efectos_obj.append(efecto)
-
-        # Agregar la información al contexto
-        actividades_obj_especificos.append(
-            {
-                "objetivo_especifico": obj_especifico,
-                "actividades": actividades,
-                "causas": causas_obj,
-                "efectos": efectos_obj,
-            }
-        )
 
     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
     entidad_a = Entidades_aliadas.objects.filter(proyecto=proyecto)
@@ -238,11 +203,6 @@ def generar_pdf(request, proyecto_id):
         "gen": gen,
         "res": res,
         "des_p": des_p,
-        "objetivo_general": objetivo_general,
-        "objetivos_especificos": objetivos_especificos,
-        "actividades_obj_especificos": actividades_obj_especificos,
-        "causa": causas,
-        "efecto": efectos,
         "centro_f": centro_f,
         "entidad_a": entidad_a,
         "proy": proy,
@@ -251,6 +211,9 @@ def generar_pdf(request, proyecto_id):
         "riesgo_a": riesgo_a,
         "doc": doc,
         "partp_e": partp_e,
+        'objetivos': objetivos,
+        'objetivos_especificos': objetivos_especificos,
+        'arboles_objetivos': arboles_objetivos,
         "resultados_productos_esperados": resultados_productos_esperados,
     }
 
@@ -324,110 +287,7 @@ def estructura_proyecto(request, id_proyecto):
 def crear_objetivo(request, objetivo_proyecto_id):
     if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
         return redirect(index)
-    if request.method == "POST":
-        objetivo_proyecto_id = request.POST.get("objetivo_proyecto_id")
-        proyecto = Proyecto.objects.get(id=objetivo_proyecto_id)
-
-        objetivo_form = ObjetivoForm(request.POST)
-        objetivo_especifico_form = ObjetivoEspecificoForm(request.POST)
-        actividad_form = ActividadEspeForm(request.POST)
-        causa_form = CausaForm(request.POST)
-        efecto_form = EfectoForm(request.POST)
-
-        if (
-            actividad_form.is_valid()
-            and objetivo_form.is_valid()
-            and objetivo_especifico_form.is_valid()
-            and causa_form.is_valid()
-            and efecto_form.is_valid()
-        ):
-            objetivo = objetivo_form.save(commit=False)
-            objetivo.proyecto = proyecto
-            objetivo.save()
-
-            objetivo_especifico = objetivo_especifico_form.save(commit=False)
-            objetivo_especifico.objetivos = objetivo
-            objetivo_especifico.save()
-
-            actividad = actividad_form.save(commit=False)
-            actividad.objetivo_especificos = objetivo_especifico
-            actividad.save()
-
-            causa = causa_form.save(commit=False)
-            causa.objetivo_especifico = objetivo_especifico
-            causa.save()
-
-            efecto = efecto_form.save(commit=False)
-            efecto.causas = causa
-            efecto.save()
-
-        objetivo_especificos2 = request.POST.get("objetivo_especificos2", "")
-        actividad2 = request.POST.get("actividades_obj_especificos2", "")
-        causa2 = request.POST.get("causa2", "")
-        efecto2 = request.POST.get("efecto2", "")
-
-        if objetivo_especificos2 and actividad2 and causa2 and efecto2:
-            objetivo_especifico2 = Objetivos_especificos.objects.create(
-                objetivos=objetivo,
-                objetivo_especificos=objetivo_especificos2,
-            )
-
-            actividad2 = Actividades_de_objetivos_especificos.objects.create(
-                objetivo_especificos=objetivo_especifico2,
-                actividades_obj_especificos=actividad2,
-            )
-
-            causa2 = Causa.objects.create(
-                objetivo_especifico=objetivo_especifico2,
-                causa=causa2,
-            )
-
-            efecto2 = Efecto.objects.create(
-                causas=causa2,
-                efecto=efecto2,
-            )
-
-        objetivo_especificos3 = request.POST.get("objetivo_especificos3", "")
-        actividad3 = request.POST.get("actividades_obj_especificos3", "")
-        causa3 = request.POST.get("causa3", "")
-        efecto3 = request.POST.get("efecto3", "")
-
-        if objetivo_especificos3 and actividad3 and causa3 and efecto3:
-            objetivo_especifico3 = Objetivos_especificos.objects.create(
-                objetivos=objetivo,
-                objetivo_especificos=objetivo_especificos3,
-            )
-
-            actividad3 = Actividades_de_objetivos_especificos.objects.create(
-                objetivo_especificos=objetivo_especifico3,
-                actividades_obj_especificos=actividad3,
-            )
-
-            causa3 = Causa.objects.create(
-                objetivo_especifico=objetivo_especifico3,
-                causa=causa3,
-            )
-
-            efecto3 = Efecto.objects.create(
-                causas=causa3,
-                efecto=efecto3,
-            )
-        print(actividad3)
-        return redirect("seleccionarObjetivo", objetivo_proyecto_id)
-    else:
-        actividad_form = ActividadEspeForm()
-        objetivo_form = ObjetivoForm()
-        objetivo_especifico_form = ObjetivoEspecificoForm()
-        causa_form = CausaForm()
-        efecto_form = EfectoForm()
-
     contex = {
-        "objetivo_form": objetivo_form,
-        "objetivo_especifico_form": objetivo_especifico_form,
-        "actividad_form": actividad_form,
-        "causa_form": causa_form,
-        "efecto_form": efecto_form,
-        "proyecto": objetivo_proyecto_id,
         "percentaje": objetivo_proyecto_id,
     }
     return render(request, "form/objetivos.html", contex)

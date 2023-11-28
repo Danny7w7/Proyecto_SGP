@@ -339,47 +339,38 @@
         <table>
             <tr>
                 <td><strong>Objetivo general:</strong></td>
-                <td>{{ objetivo_general.objetivo_general }}</td>
+                <td>{{ objetivos.objetivo_general }}</td>
             </tr>
             {% for obj_especifico in objetivos_especificos %}
             <tr>
                 <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
                 <td>{{ obj_especifico.objetivo_especificos }}</td>
             </tr>
-            {% if obj_especifico.actividades_de_objetivos_especificos.all %}
-            {% for actividad in obj_especifico.actividades_de_objetivos_especificos.all %}
+            {% if obj_especifico.arbol_de_objetivos %}
+            {% for arbol_objetivo in arboles_objetivos %}
             <tr>
-                <td colspan="2">
-                    <strong>Actividades:</strong> {{ actividad.actividades_obj_especificos }}
-                </td>
+                <td><strong>Actividades:</strong></td>
+                <td>{{ arbol_objetivo.actividades_obj_especificos }}</td>
+            </tr>
+            <tr>
+                <td><strong>Causa:</strong></td>
+                <td>{{ arbol_objetivo.causa }}</td>
+            </tr>
+            <tr>
+                <td><strong>Efecto:</strong></td>
+                <td>{{ arbol_objetivo.efecto }}</td>
             </tr>
             {% endfor %}
+            
             {% else %}
             <tr>
-                <td colspan="2"><strong>Actividades:</strong> No hay actividades asociadas.</td>
-            </tr>
-            {% endif %}
-            {% if obj_especifico.causa_set.all %}
-            {% for causa in obj_especifico.causa_set.all %}
-            <tr>
-                <td colspan="2">
-                    <strong>Causa:</strong> {{ causa.causa }}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <strong>Efecto:</strong> {{ causa.efecto.efecto }}
-                </td>
-            </tr>
-            {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="2"><strong>Causa y Efecto:</strong> No hay causa y efecto asociados.</td>
+                <td colspan="2"><strong>Actividades, Causa y Efecto:</strong> No hay información asociada.</td>
             </tr>
             {% endif %}
             {% endfor %}
         </table>
     </div>
+    
 
 
 
