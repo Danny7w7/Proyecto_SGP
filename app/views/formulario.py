@@ -131,6 +131,7 @@ def estructura_proyecto(request, id_proyecto):
 @login_required(login_url='/login')
 def objetivo(request, id_proyecto):
     contex = {'percentaje':id_proyecto,
+              'id_proyecto':id_proyecto}
     return render(request, 'form/objetivos.html', contex)
 
 
