@@ -401,7 +401,7 @@ def Informacion_de_centro(request, id_proyecto):
 @login_required(login_url="/login")
 def subir_anexos(request, proyecto_id):
     if not own_user(request.user, get_or_none(Proyecto, id=proyecto_id).id):
-        return redirect(index)
+        return redirect('index')  # Asegúrate de que 'index' sea la ruta correcta
     proyecto = get_or_none(Proyecto, pk=proyecto_id)
 
     if request.method == "POST":
@@ -410,6 +410,21 @@ def subir_anexos(request, proyecto_id):
             anexo = form.save(commit=False)
             anexo.proyecto = proyecto
             anexo.save()
+
+            # Mostrar alerta de éxito
+            return render(request, "form/anexos.html", {
+                "proyecto": proyecto,
+                "percentaje": proyecto_id,
+                "success_alert": True
+            })
+        else:
+            # Mostrar alerta de error si el formulario no es válido
+            return render(request, "form/anexos.html", {
+                "proyecto": proyecto,
+                "percentaje": proyecto_id,
+                "error_alert": True,
+                "form": form 
+            })
 
     documents = Document.objects.filter(proyecto=proyecto)
     contex = {"docs": documents, "proyecto": proyecto, "percentaje": proyecto_id}
