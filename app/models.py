@@ -65,7 +65,7 @@ class Autores(models.Model):
 class Participantes_Proyecto(models.Model):
     nombre_participantes_de_desarrollo = models.CharField(max_length=40, null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
-    numero_cedula_participantes = models.IntegerField(null=True)
+    numero_cedula_participantes = models.BigIntegerField(null=True)
     numero_meses_vinculacion_participantes = models.IntegerField(null=True)
     email_participantes_de_desarrollo = models.EmailField(null=True)
     numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=True)
@@ -102,7 +102,7 @@ class Descripcion_problema(models.Model):
 
 # Objetivos
 class Objetivos(models.Model):
-    objetivo_general = models.CharField(max_length=300, null=True)
+    objetivo_general = models.CharField(max_length=500, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 # Metodologia

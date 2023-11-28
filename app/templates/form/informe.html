@@ -1,0 +1,740 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reporte</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            /* Aumenta el ancho del contenedor principal */
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0 0 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        h5 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            background-color: #59AB6E;
+            padding: 10px;
+            width: 100%;
+        }
+
+
+        .info {
+            width: 48%;
+            margin-right: 2%;
+            margin-bottom: 20px;
+        }
+
+        .info table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .info td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .info td:first-child {
+            font-weight: bold;
+            min-width: 200px;
+            /* Aumenta el ancho mínimo de la primera columna */
+            width: 50%;
+            /* Aumenta el ancho de la primera columna al máximo */
+        }
+
+        .info td:nth-child(2) {
+            width: 50%;
+
+        }
+
+        .bg {
+            font-size: 18px;
+            margin-bottom: 10px;
+            background-color: #59AB6E;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Sistema de reportes</h1>
+
+        <h5 class="bg">Informe general</h5>
+        <div class="info">
+            <h3>Proyecto </h3>
+            <table>
+                <tr>
+                    <td><strong>Título:</strong></td>
+                    <td>{{ proyecto.titulo_Proyecto }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Descripción:</strong></td>
+                    <td>{{ proyecto.descripcion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Código de grupo de investigación:</strong></td>
+                    <td>{{ proyecto.codigo_Grupo_Investigacion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Red de conocimiento sectorial:</strong></td>
+                    <td>{{ proyecto.red_Conocimiento_Sectorial }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Disciplina subárea:</strong></td>
+                    <td>{{ proyecto.disciplina_subarea }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Nombre del grupo de investigación:</strong></td>
+                    <td>{{ proyecto.nombre_Grupo_Investigacion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Área de conocimiento:</strong></td>
+                    <td>{{ proyecto.area_conocimiento }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Línea de grupo de investigación:</strong></td>
+                    <td>{{ proyecto.linea_Grupo_Investigacion }}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Subárea de conocimiento:</strong></td>
+                    <td>{{ proyecto.subarea_conocimiento }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info">
+            <h3>Información proponente</h3>
+            <table>
+                <tr>
+                    <td><strong>Información proponente</strong></td>
+                    <td>{{informacion_proponente.Region}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Regional:</strong></td>
+                    <td>{{informacion_proponente.Regional}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre centro de formación:</strong></td>
+                    <td>{{informacion_proponente.Nombre_centro_formacion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre director:</strong></td>
+                    <td>{{informacion_proponente.Nombre_Director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número director:</strong></td>
+                    <td>{{informacion_proponente.Numero_Director}}</td>
+
+                </tr>
+                <tr>
+                    <td><strong>Email director:</strong></td>
+                    <td>{{informacion_proponente.email_director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre subdirector:</strong></td>
+                    <td>{{informacion_proponente.Nombre_Sub_Director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número subdirector:</strong></td>
+                    <td>{{informacion_proponente.Numero_Sub_Director}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email subdirector:</strong></td>
+                    <td>{{informacion_proponente.email_sub_director}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="info">
+            {% for autor in autores%}
+            <h3>Autor {{ forloop.counter }}</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombre del autor:</strong></td>
+                    <td>{{autor.nombre_Autor_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo de vinculación:</strong></td>
+                    <td>{{autor.tipo_Vinculacion_entidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de documento:</strong></td>
+                    <td>{{autor.numero_Cedula_Autor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Rol sennova:</strong></td>
+                    <td>{{autor.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email autor del proyecto:</strong></td>
+                    <td>{{autor.email_Autor_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de meses de vinculación:</strong></td>
+                    <td>{{autor.numero_meses_vinculacion_Autor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de teléfono autor:</strong></td>
+                    <td>{{autor.numero_Telefono_Autor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de horas semanales dedicadas:</strong></td>
+                    <td>{{autor.numero_horas_Semanales_dedicadas_Autores}}</td>
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="info">
+            {% for partp in part_p %}
+            <h3>Participantes del proyecto {{ forloop.counter }}</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombres del participante:</strong></td>
+                    <td>{{partp.nombre_participantes_de_desarrollo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Rol sennova del participante:</strong></td>
+                    <td>{{partp.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de cedula del participante:</strong></td>
+                    <td>{{partp.numero_cedula_participantes}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de meses de vinculación:</strong></td>
+                    <td>{{partp.numero_meses_vinculacion_participantes}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email participante de desarrollo:</strong></td>
+                    <td>{{partp.email_participantes_de_desarrollo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de horas semanales dedicadas:</strong></td>
+                    <td>{{partp.numero_horas_Semanales_dedicadas_participantes}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número teléfono participantes:</strong></td>
+                    <td>{{partp.numero_Telefono_participantes}}</td>
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+
+        <div class="info">
+            <h3>Generalidades del proyecto</h3>
+            <table>
+                <tr>
+                    <td><strong>Código de dependencia presupuestal:</strong></td>
+                    <td>{{gen.codigo_Dependencia_Presupuestal}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Temática estrategica SENA:</strong></td>
+                    <td>{{gen.tematicas_Estrategias_SENA}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Link video proyecto:</strong></td>
+                    <td>{{gen.link_video_proyecto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>¿Proyecto relacionado con Industrial 4.0?</strong></td>
+                    <td>{{gen.proyecto_Relacionado_Industrial40}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Justificación industrial 4.0:</strong></td>
+                    <td>{{gen.justificacion_Industrial}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Actividades económicas del proyecto de investigación:</strong></td>
+                    <td>{{gen.actividades_economicas_del_proyecto_investigacion}}</td>
+                </tr>
+                <tr>
+                    <td>¿Proyecto relacionado con economía naranja?</td>
+                    <td>{{gen.proyecto_Relacionado_Economia_Naranja}}</td>
+                </tr>
+                <tr>
+                    <td>Justificación economía naranja</td>
+                    <td>{{gen.justificacion_Economia_Naranja}}</td>
+                </tr>
+                <tr>
+                    <td>¿Proyecto relacionado con politica de discapacidad?</td>
+                    <td>{{gen.proyecto_Relacionado_Politica_Discapacidad}}</td>
+                </tr>
+                <tr>
+                    <td>Justificación politica discapacidad</td>
+                    <td>{{gen.justificacion_Politica_Discapacidad}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <h5 class="bg">Estructura del proyecto</h5>
+        <div class="info">
+            <h3>Resumen y antecedentes</h3>
+            <table>
+                <tr>
+                    <td><strong>Resumen ejecutivo:</strong></td>
+                    <td>{{res.resumen_ejecutivo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Antecedentes:</strong></td>
+                    <td>{{res.antecedentes}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Identificación y descripción:</strong></td>
+                    <td>{{des_p.identificacion_y_descripcion_problema}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Justificación:</strong></td>
+                    <td>{{des_p.justificacion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Marco conceptual:</strong></td>
+                    <td>{{des_p.marco_conceptual}}</td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+    <br>
+    <br>
+    <div class="info">
+        <h3>Objetivos del proyecto</h3>
+        <table>
+            <tr>
+                <td><strong>Objetivo general:</strong></td>
+                <td>{{ objetivos.objetivo_general }}</td>
+            </tr>
+            {% for obj_especifico in objetivos_especificos %}
+            <tr>
+                <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
+                <td>{{ obj_especifico.objetivo_especificos }}</td>
+            </tr>
+            {% if obj_especifico.arbol_de_objetivos %}
+            {% for arbol_objetivo in arboles_objetivos %}
+            <tr>
+                <td><strong>Actividades:</strong></td>
+                <td>{{ arbol_objetivo.actividades_obj_especificos }}</td>
+            </tr>
+            <tr>
+                <td><strong>Causa:</strong></td>
+                <td>{{ arbol_objetivo.causa }}</td>
+            </tr>
+            <tr>
+                <td><strong>Efecto:</strong></td>
+                <td>{{ arbol_objetivo.efecto }}</td>
+            </tr>
+            {% endfor %}
+            
+            {% else %}
+            <tr>
+                <td colspan="2"><strong>Actividades, Causa y Efecto:</strong> No hay información asociada.</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+    
+
+
+
+    <div class="container">
+        <div class="info">
+            <h5>Análisis de participantes</h5>
+            <h3>Centro de formación</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombres de los semilleros de investigación beneficiados:</strong></td>
+                    <td>{{centro_f.nombre_semillero_investigacion_beneficiados}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de programas beneficiados que conforman los semilleros</strong></td>
+                    <td>{{centro_f.numero_programas_beneficiarios_semilleros_investigacion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipos de programas de formación beneficiados que conforman los semilleros:</strong></td>
+                    <td>{{centro_f.tipo_programas_formacion_beneficiados_conforman_semillero}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre de programas formación beneficiados que conforman los semilleros:</strong></td>
+                    <td>{{centro_f.nombre_programas_formacion_beneficiados_semillero}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipos de programas beneficiados con la ejecución del proyecto:</strong></td>
+                    <td>{{centro_f.tipo_programas_de_formacion_beneficiados_por_ejecucion}}</td>
+                </tr>
+                <tr>
+                    <td>Nombre de los programas de formación beneficiados con la ejecución del proyecto</td>
+                    <td>{{centro_f.nombre_programas_formacion_beneficiados_ejecucion_proyecto}}</td>
+                </tr>
+                <tr>
+                    <td>Número de aprendices que participaran en la ejecución del proyecto</td>
+                    <td>{{centro_f.numero_aprendices_participaran_ejecucion_proyecto}}</td>
+                </tr>
+                <tr>
+                    <td>Número de municipios beneficiados con la ejecución del proyecto</td>
+                    <td>{{centro_f.numero_municipios_beneficiados}}</td>
+                </tr>
+                <tr>
+                    <td>Número de municipios beneficiados y descripción del beneficio</td>
+                    <td>{{centro_f.nombre_municipios_beneficiados_descripcion_beneficio}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            {% for ent_a in entidad_a %}
+            <h3>Entidad aliada {{ forloop.counter }}</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombre entidad:</strong></td>
+                    <td>{{ent_a.nombre_entidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tipo de entidad aliada:</strong></td>
+                    <td>{{ent_a.tipo_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Naturaleza de la entidad:</strong></td>
+                    <td>{{ent_a.naturaleza_entidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Clasificación empresa:</strong></td>
+                    <td>{{ent_a.clasificacion_empresa}}</td>
+                </tr>
+                <tr>
+                    <td><strong>NIT:</strong></td>
+                    <td>{{ent_a.nit}}</td>
+                </tr>
+                <tr>
+                    <td>Convenio</td>
+                    <td>{{ent_a.convenio}}</td>
+                </tr>
+                <tr>
+                    <td>Especifique tipo y código de convenio</td>
+                    <td>{{ent_a.especifique_tipo_codigo_convenio}}</td>
+                </tr>
+                <tr>
+                    <td>Recursos en especie entidad aliada($COP)</td>
+                    <td>{{ent_a.recursos_especie_entidad}}</td>
+                </tr>
+                <tr>
+                    <td>Descripción de los recursos en especie aportados</td>
+                    <td>{{ent_a.descripcion_recursos_especie_aportados}}</td>
+                </tr>
+                <tr>
+                    <td>Recursos en dinero entidad aliada($COP)</td>
+                    <td>{{ent_a.recursos_dinero_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Descripcion de la destinación del dinero aportado</td>
+                    <td>{{ent_a.descripcion_destinacion_dinero_aportado}}</td>
+                </tr>
+                <tr>
+                    <td>Nombre del grupo de investigación de la entidad aliada</td>
+                    <td>{{ent_a.nombre_grupo_inv_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Código de GrupLac de la entidad aliada</td>
+                    <td>{{ent_a.codigo_gruplac_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Link de GrupLac de la entidad aliada</td>
+                    <td>{{ent_a.link_gruplac_entidad_aliada}}</td>
+                </tr>
+                <tr>
+                    <td>Actividades a desarrollar por la entidad aliada</td>
+                    <td>{{ent_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}</td>
+                </tr>
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
+        {% for entidad_aliada, participantes_entidad_aliada in partp_e.items %}
+        <h5>Participantes de la entidad {{ entidad_aliada.nombre_entidad }}</h5>
+        <div class="info">
+            {% for participante in participantes_entidad_aliada %}
+            <h3>Participante numero {{ forloop.counter }}</h3>
+            <table>
+                <tr>
+                    <td><strong>Nombres: </strong></td>
+                    <td>{{ participante.nombre }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Número de documento:</strong></td>
+                    <td>{{ participante.numero_identificacion }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email:</strong></td>
+                    <td>{{ participante.email }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Teléfono:</strong></td>
+                    <td>{{ participante.telefono }}</td>
+                </tr>
+                </table>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="info">
+        <h5>Resultados y productos esperados</h5>
+        {% for resultado_producto in resultados_productos_esperados %}
+        <h3>Resultados y productos esperados del proyecto {{ forloop.counter }}</h3>
+        <table>
+
+            <tr>
+                <td><strong>Tipo de resultado esperado:</strong></td>
+                <td>{{ resultado_producto.tipo_resultado_esperado_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Descripción del resultado esperado:</strong></td>
+                <td>{{ resultado_producto.descripcion_resultado_esperado_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Nombre del producto:</strong></td>
+                <td>{{ resultado_producto.nombre_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Nombre de la subtipología:</strong></td>
+                <td>{{ resultado_producto.nombre_subtipologia }}</td>
+            </tr>
+            <tr>
+                <td><strong>TRL del producto:</strong></td>
+                <td>{{ resultado_producto.trl_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Indicador del producto:</strong></td>
+                <td>{{ resultado_producto.indicador_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+            <tr>
+                <td><strong>Fecha de entrega del producto:</strong></td>
+                <td>{{ resultado_producto.fch_entrega_producto_resultado_inv_obj_especifico }}</td>
+            </tr>
+
+        </table>
+        {% endfor %}
+    </div>
+
+
+    <div class="container">
+        <div class="info">
+            <h5>Proyección</h5>
+            <h3>Tiempo de ejecución del proyecto</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Duración: </strong></td>
+                    <td>{{proy.duracion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de inicio:</strong></td>
+                    <td>{{proy.fch_inicio}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha de cierre:</strong></td>
+                    <td>{{proy.fch_cierre}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            <h3>Cadena de valor del proyecto</h3>
+            <table>
+                <tr>
+                    <td><strong>Cadena de valor del proyecto: </strong></td>
+                    <td>{{proy.cadena_valor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Propuesta de sostenibilidad:</strong></td>
+                    <td>{{proy.propuesta_sostenibilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto social:</strong></td>
+                    <td>{{proy.impacto_social}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto tecnológico:</strong></td>
+                    <td>{{proy.impacto_tecnologico}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto centro de formación:</strong></td>
+                    <td>{{proy.impacto_centro_formacion}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="info">
+            <h5>Análisis de riesgo</h5>
+            <h3>Riesgo nivel objetivo general</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Tipo de riesgo: </strong></td>
+                    <td>{{riesgo_g.tipo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto:</strong></td>
+                    <td>{{riesgo_g.impacto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descripción de riesgo:</strong></td>
+                    <td>{{riesgo_g.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efectos:</strong></td>
+                    <td>{{riesgo_g.efectos}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Probabilidad:</strong></td>
+                    <td>{{riesgo_g.probabilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Medidas de mitigación:</strong></td>
+                    <td>{{riesgo_g.medidas_Mitigacion}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            <h3>Riesgo nivel productos</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Tipo de riesgo: </strong></td>
+                    <td>{{riesgo_p.tipo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto:</strong></td>
+                    <td>{{riesgo_p.impacto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descripción de riesgo:</strong></td>
+                    <td>{{riesgo_p.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efectos:</strong></td>
+                    <td>{{riesgo_p.efectos}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Probabilidad:</strong></td>
+                    <td>{{riesgo_p.probabilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Medidas de mitigación:</strong></td>
+                    <td>{{riesgo_p.medidas_Mitigacion}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="info">
+            <h3>Riesgo nivel actividades</h3>
+            <table>
+
+                <tr>
+                    <td><strong>Tipo de riesgo: </strong></td>
+                    <td>{{riesgo_a.tipo}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Impacto:</strong></td>
+                    <td>{{riesgo_a.impacto}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descripción de riesgo:</strong></td>
+                    <td>{{riesgo_a.descripcion}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efectos:</strong></td>
+                    <td>{{riesgo_a.efectos}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Probabilidad:</strong></td>
+                    <td>{{riesgo_a.probabilidad}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Medidas de mitigación:</strong></td>
+                    <td>{{riesgo_a.medidas_Mitigacion}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="info">
+            <h5>Anexos</h5>
+            <h3>Anexos vinculados al proyecto</h3>
+            <table>
+
+                <tr>
+                    <td><strong>ANEXO 1A. Acta Reunión Regional: </strong></td>
+                    <td>{{doc.anexo1}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 1C. Carta C.I Director Regional:</strong></td>
+                    <td>{{doc.anexo2}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 2. Ficha técnica para maquinaria y equipos.</strong></td>
+                    <td>{{doc.anexo3}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 4. Modernización. (Obligatorio para los proyectos cuyo objeto sea la actualización
+                            y modernización de ambientes de formación (SIIF 23)):</strong></td>
+                    <td>{{doc.anexo4}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 7. Carta de intención o acta que soporta el trabajo articulado con entidades
+                            aliadas (diferentes al SENA) (Obligatorio si se articula con entidad aliada o con otro
+                            Centro de Formación):</strong></td>
+                    <td>{{doc.anexo5}}</td>
+                </tr>
+                <tr>
+                    <td><strong>ANEXO 8. Propiedad intelectual (Obligatorio si se articula con entidad aliada o con otro
+                            Centro de Formación):</strong></td>
+                    <td>{{doc.anexo6}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Fecha:</strong></td>
+                    <td>{{doc.fecha}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</html>

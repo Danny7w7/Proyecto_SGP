@@ -28,6 +28,7 @@ class ObjetivoEspecificoForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['objetivos']
 
+
 class ProducEsperadosForm(forms.ModelForm):
     class Meta:
         model = Resultados_y_productos_esperados
