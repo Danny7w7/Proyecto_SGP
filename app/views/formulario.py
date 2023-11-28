@@ -1,17 +1,15 @@
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 
 from app.forms import (
     Informacion_proponenteForm,
-    ObjetivoEspecificoForm,
     ProyectoForm,
-    ObjetivoForm,
     DocumentForm,
-    ProducEsperados,
-    ParticipantesEntidadForm,
+    ProducEsperadosForm,
 )
+
 from app.models import (
-    Arbol_de_Objetivos,
     Entidades_aliadas,
     Proyecto,
     Informacion_proponente,
@@ -107,58 +105,6 @@ def contex_form():
         "diciplinas": diciplinas,
         "nombresC": nombresC,
     }
-
-
-# def generar_pdf(request, proyecto_id):
-
-#     proyecto = Proyecto.objects.get(id=proyecto_id)
-#     informacion_proponente = Informacion_proponente.objects.get(proyecto=proyecto)
-#     autores = Autores.objects.filter(proyecto=proyecto)
-#     part_p = Participantes_Proyecto.objects.filter(proyecto=proyecto)
-#     gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto.id).first()
-#     res = Resumen_antecedentes.objects.filter(proyecto=proyecto.id).first()
-#     des_p = Descripcion_problema.objects.filter(proyecto=proyecto.id).first()
-#     objg = Objetivos.objects.filter(proyecto=proyecto.id).first()
-#     obje = Objetivos_especificos.objects.filter(objetivos=objg.id).first()
-#     print(obje)
-#     acte = Actividades_de_objetivos_especificos.objects.filter(objetivo_especificos=obje.id).first()
-#     causa = Causa.objects.filter(objetivo_e=obje.id).first()
-#     efecto = Efecto.objects.filter(causa=causa.id).first()
-#     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto.id).first()
-#     entidad_a= Entidades_aliadas.objects.filter(proyecto=proyecto)
-
-
-#     # Renderizar el template con los datos
-#     context = {
-#         'proyecto': proyecto,
-#         'informacion_proponente': informacion_proponente,
-#         'autores': autores,
-#         'part_p': part_p,
-#         'gen': gen,
-#         'res': res,
-#         'des_p': des_p,
-#         'objg': objg,
-#         'obje': obje,
-#         'acte': acte,
-#         'causa': causa,
-#         'efecto': efecto,
-#         'centro_f': centro_f,
-#         'entidad_a': entidad_a,
-#     }
-
-#     template_path = 'form/informe.html'
-#     html = render_to_string(template_path, context)
-
-#     # Lógica para generar el informe PDF a partir del HTML con xhtml2pdf
-#     response = HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename=informe_general.pdf'
-
-#     pisa_status = pisa.CreatePDF(html, dest=response)
-
-#     if pisa_status.err:
-#         return HttpResponse('Error al generar el PDF', status=500)
-
-#     return response
 
 
 def generar_pdf(request, proyecto_id):
@@ -257,17 +203,13 @@ def informacion_proponente(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
-    context = {
-        "proyecto": get_or_none(Proyecto, id=id_proyecto),
-        "infoProyecto": Informacion_proponente.objects.filter(
-            proyecto_id=get_or_none(Proyecto, id=id_proyecto)
-        ).first(),
-        "autores": Autores.objects.filter(proyecto=proyecto),
-        "participantes": Participantes_Proyecto.objects.filter(proyecto=proyecto),
-        "percentaje": id_proyecto,
-        "listaPlegable": contex_form(),
-    }
-    return render(request, "form/infop.html", context)
+    context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
+               'autores': Autores.objects.filter(proyecto = proyecto),
+               'participantes': Participantes_Proyecto.objects.filter(proyecto = proyecto),
+               'percentaje':id_proyecto,
+               'listaPlegable':contex_form()}
+    return render(request, 'form/infop.html', context)
 
 
 @login_required(login_url="/login")
@@ -275,22 +217,25 @@ def estructura_proyecto(request, id_proyecto):
     proyecto = get_or_none(Proyecto, id=id_proyecto)
     if not own_user(request.user, proyecto.id):
         return redirect(index)
-    context = {
-        "proyecto": proyecto,
-        "resumen": get_or_none(Resumen_antecedentes, proyecto=proyecto),
-        "percentaje": id_proyecto,
-    }
-    return render(request, "form/estp.html", context)
+    context = {'proyecto':proyecto,
+               'resumen':get_or_none(Resumen_antecedentes, proyecto=proyecto),
+               'problema':get_or_none(Descripcion_problema, proyecto=id_proyecto),
+               'percentaje':id_proyecto}
+    return render(request, 'form/estp.html', context)
 
 
-@login_required(login_url="/login")
-def crear_objetivo(request, objetivo_proyecto_id):
-    if not own_user(request.user, get_or_none(Proyecto, id=objetivo_proyecto_id).id):
-        return redirect(index)
-    contex = {
-        "percentaje": objetivo_proyecto_id,
-    }
-    return render(request, "form/objetivos.html", contex)
+@login_required(login_url='/login')
+def objetivo(request, id_proyecto):
+    objetivo = get_or_none(Objetivos, proyecto=id_proyecto)
+    try:
+        objEspe = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    except:
+        objEspe = None
+    contex = {'percentaje':id_proyecto,
+              'id_proyecto':id_proyecto,
+              'objetivo':objetivo,
+              'objEsp':objEspe}
+    return render(request, 'form/objetivos.html', contex)
 
 
 @login_required(login_url="/login")
@@ -307,6 +252,21 @@ def participantes(request, id_proyecto):
         "percentaje": id_proyecto,
     }
     return render(request, "form/partp.html", context)
+
+#Fech para obtener los objetivos especificos 
+@csrf_exempt
+def getObjEspecificos(request, id_entidad):
+    entidad_aliada = Entidades_aliadas.objects.get(id=id_entidad)
+    objetivos_especificos_asociados = entidad_aliada.objetivo_especificos.all()
+    # Convertir los datos del queryset a una estructura serializable
+    objetivos_serializados = list(objetivos_especificos_asociados.values())
+    
+    return JsonResponse({
+        "mensaje": "Operación exitosa", 
+        "id_objetivos_asociados": {
+            "id": objetivos_serializados
+        }
+    })
 
 
 @login_required(login_url="/login")
@@ -346,7 +306,7 @@ def selectObj(request, id_proyecto):
         return redirect(index)
     try:
         objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
-        objEspecificos = Objetivos_especificos.objects.filter(objetivos_id=objGeneral)
+        objEspecificos = Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral)
     except:
         return HttpResponse(
             "Para acceder a esta vista debes de crear los objetivos especificos"
@@ -364,19 +324,20 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
-    objEspecifico = Objetivos_especificos.objects.get(
-        objetivos_id=objGeneral, id=id_objetivoEsp
-    )
-    if request.method == "POST":
-        form = ProducEsperados(request.POST)
+    objEspecifico = Objetivos_especificos.objects.get(objetivoGeneral=objGeneral, id=id_objetivoEsp)
+    productoEsp = get_or_none(Resultados_y_productos_esperados, objetivo_especifico=objEspecifico.id)
+    if request.method == 'POST':
+        form = ProducEsperadosForm(request.POST, instance=productoEsp)
         if form.is_valid():
             produc = form.save(commit=False)
             produc.objetivo_especifico_id = objEspecifico.id
             produc.save()
             return redirect("seleccionarObjetivo", id_proyecto)
     form = ProyectoForm()
-    contex = {"percentaje": id_proyecto, "objEspecifico": objEspecifico}
-    return render(request, "form/producEsperados.html", contex)
+    contex = {'percentaje':id_proyecto,
+              'objEspecifico':objEspecifico,
+              'productosEsp':productoEsp}
+    return render(request, 'form/producEsperados.html', contex)
 
 
 @login_required(login_url="/login")
@@ -479,9 +440,11 @@ def info_proponente(request, id_proyecto):
 
 def info_autores(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
-    autores = Autores(
-        proyecto=proyecto
-    )  # Crea una nueva instancia en lugar de obtener una existente
+    id_autor = request.POST.get('id_autor', None)
+    if id_autor:
+        autores = Autores.objects.get(id=id_autor)
+    else:
+        autores = Autores(proyecto=proyecto)
 
     model = Autores
     column_names = [field.name for field in model._meta.fields]
@@ -493,27 +456,34 @@ def info_autores(request, id_proyecto):
         setattr(autores, name, request.POST.get(name))
     try:
         autores.save()
-        return JsonResponse(
-            {
-                "mensaje": "Operación exitosa",
-                "nuevo_autor": {
-                    "nombre_Autor_Proyecto": autores.nombre_Autor_Proyecto,
-                    "tipo_Vinculacion_entidad": autores.tipo_Vinculacion_entidad,
-                    "numero_Cedula_Autor": autores.numero_Cedula_Autor,
-                    "rol_Sennova_De_Participantes_de_Proyecto": autores.rol_Sennova_De_Participantes_de_Proyecto,
-                    "email_Autor_Proyecto": autores.email_Autor_Proyecto,
-                    "numero_Telefono_Autor": autores.numero_Telefono_Autor,
-                },
+        autoresG = Autores.objects.filter(proyecto = id_proyecto)
+        # Obtener todas las entidades actualizadas
+        nueva_lista_autores = []
+        for autor in autoresG:
+            nuevo_autor = {
+                "id": autor.id,
+                "nombre_Autor_Proyecto": autor.nombre_Autor_Proyecto,
+                "tipo_Vinculacion_entidad": autor.tipo_Vinculacion_entidad,
+                "numero_Cedula_Autor": autor.numero_Cedula_Autor,
+                "rol_Sennova_De_Participantes_de_Proyecto": autor.rol_Sennova_De_Participantes_de_Proyecto,
+                "email_Autor_Proyecto": autor.email_Autor_Proyecto,
+                "numero_meses_vinculacion_Autor": autor.numero_meses_vinculacion_Autor,
+                "numero_Telefono_Autor": autor.numero_Telefono_Autor,
+                "numero_horas_Semanales_dedicadas_Autores": autor.numero_horas_Semanales_dedicadas_Autores
             }
-        )
+            nueva_lista_autores.append(nuevo_autor)
+        return JsonResponse({"mensaje": "Operación exitosa", "autores": nueva_lista_autores})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
 
 def info_participantes(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
-    participante = Participantes_Proyecto(proyecto=proyecto)
-
+    id_participante = request.POST.get('id_participante', None)
+    if id_participante:
+        participante = Participantes_Proyecto.objects.get(id=id_participante)
+    else:
+        participante = Participantes_Proyecto(proyecto=proyecto)
     model = Participantes_Proyecto
     column_names = [field.name for field in model._meta.fields]
 
@@ -524,19 +494,21 @@ def info_participantes(request, id_proyecto):
         setattr(participante, name, request.POST.get(name))
     try:
         participante.save()
-        return JsonResponse(
-            {
-                "mensaje": "Operación exitosa",
-                "nuevo_participante": {
-                    "nombre_participantes_de_desarrollo": participante.nombre_participantes_de_desarrollo,
-                    "numero_cedula_participantes": participante.numero_cedula_participantes,
-                    "numero_meses_vinculacion_participantes": participante.numero_meses_vinculacion_participantes,
-                    "email_participantes_de_desarrollo": participante.email_participantes_de_desarrollo,
-                    "numero_horas_Semanales_dedicadas_participantes": participante.numero_horas_Semanales_dedicadas_participantes,
-                    "numero_Telefono_participantes": participante.numero_Telefono_participantes,
-                },
-            }
-        )
+        participantes = Participantes_Proyecto.objects.filter(proyecto = id_proyecto)
+        # Obtener todas las entidades actualizadas
+        nueva_lista_participantes = []
+        for participante in participantes:
+            nuevo_participante = {
+                "id": participante.id,
+                "nombre_participantes_de_desarrollo":participante.nombre_participantes_de_desarrollo,
+                "numero_cedula_participantes": participante.numero_cedula_participantes,
+                "numero_meses_vinculacion_participantes": participante.numero_meses_vinculacion_participantes,
+                "email_participantes_de_desarrollo": participante.email_participantes_de_desarrollo,
+                "numero_horas_Semanales_dedicadas_participantes": participante.numero_horas_Semanales_dedicadas_participantes,
+                "numero_Telefono_participantes": participante.numero_Telefono_participantes
+                }
+            nueva_lista_participantes.append(nuevo_participante)
+        return JsonResponse({"mensaje": "Operación exitosa", "participantes": nueva_lista_participantes})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
@@ -581,7 +553,6 @@ def riesgos_obj_g_json(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
 
 def riesgos_p_json(request, id_proyecto):
     try:
@@ -655,8 +626,43 @@ def descripcion_problema(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+    
 
+def objetivos_json(request, id_proyecto):
+    try:
+        objetivo = Objetivos.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        objetivo = Objetivos.objects.create(proyecto=proyecto)
+    objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    objetivo.objetivo_general = request.POST['objetivo_general']
+    objetivo.save()
+    for i in range(0, 3):
+        if request.POST.get(f'objetivo_especifico{i+1}'):
+            try:
+                objEsp = objetivoEsp[i]
+                objEsp.objetivo_especifico = request.POST[f'objetivo_especifico{i+1}']
+                objEsp.save()
+            except:
+                objEsp = Objetivos_especificos.objects.create(objetivoGeneral=objetivo)
+                objEsp.objetivo_especifico = request.POST[f'objetivo_especifico{i+1}']
+                objEsp.save()
+    
+    return JsonResponse({"mensaje": "Operación exitosa"})
 
+def actividades_json(request, id_proyecto):
+    objetivo = Objetivos.objects.get(proyecto=id_proyecto)
+    objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    for i in range(0, len(objetivoEsp)):
+        objEsp = objetivoEsp[i]
+        objEsp.actividades_obj_especificos = request.POST[f'actividad{i+1}']
+        objEsp.causa = request.POST[f'causa{i+1}']
+        objEsp.efecto = request.POST[f'efecto{i+1}']
+        objEsp.save()
+        
+    return JsonResponse({"mensaje": "Operación exitosa"})
+    
+    
 def centro_formacion(request, id_proyecto):
     try:
         centro_f = Centro_de_formacion.objects.get(proyecto_id=id_proyecto)
@@ -685,9 +691,13 @@ def entidad_aliada(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
     objGen = Objetivos.objects.filter(proyecto=proyecto.id).first()
     objsEsp = Objetivos_especificos.objects.filter(objetivos=objGen.id)
-    array_booleanos = json.loads(request.POST["objetivo_especificos_relacionados"])
+    array_booleanos = json.loads(request.POST['objetivo_especificos_relacionados'])
+    id_entidad = request.POST.get('id_entidad', None)
+    if id_entidad:
+        entidad = Entidades_aliadas.objects.get(id=id_entidad)
+    else:
+        entidad = Entidades_aliadas(proyecto=proyecto)
 
-    entidad = Entidades_aliadas(proyecto=proyecto)
     entidad.save()
     for indice, objetivoUwU in enumerate(objsEsp, start=1):
         if array_booleanos[indice - 1]:
@@ -702,18 +712,20 @@ def entidad_aliada(request, id_proyecto):
         setattr(entidad, name, request.POST.get(name))
     try:
         entidad.save()
-        return JsonResponse(
-            {
-                "mensaje": "Operación exitosa",
-                "nueva_entidad": {
-                    "nombre_entidad": entidad.nombre_entidad,
-                    "tipo_entidad_aliada": entidad.tipo_entidad_aliada,
-                    "naturaleza_entidad": entidad.naturaleza_entidad,
-                    "clasificacion_empresa": entidad.clasificacion_empresa,
-                    "nit": entidad.nit,
-                },
+        entidades = Entidades_aliadas.objects.filter(proyecto = proyecto)
+        # Obtener todas las entidades actualizadas
+        nueva_lista_entidades = []
+        for entidadC in entidades:
+            nueva_entidad = {
+                "id": entidadC.id,
+                "nombre_entidad": entidadC.nombre_entidad,
+                "tipo_entidad_aliada": entidadC.tipo_entidad_aliada,
+                "naturaleza_entidad": entidadC.naturaleza_entidad,
+                "clasificacion_empresa": entidadC.clasificacion_empresa,
+                "nit": entidadC.nit
             }
-        )
+            nueva_lista_entidades.append(nueva_entidad)
+        return JsonResponse({"mensaje": "Operación exitosa", "entidades": nueva_lista_entidades})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 

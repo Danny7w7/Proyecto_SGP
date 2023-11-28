@@ -144,7 +144,7 @@
                 </div>
                 <!-- Tabla de participantes -->
                 <div class="container mt-5">
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="tabla-container">
                         <table class="tablita table">
                             <thead>
                                 <tr>
@@ -153,6 +153,7 @@
                                     <th>Tipo entidad</th>
                                     <th>Naturaleza entidad</th>
                                     <th>Clasificación empresa</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,14 +164,38 @@
                                     <td>{{entidad_a.tipo_entidad_aliada}}</td>
                                     <td>{{entidad_a.naturaleza_entidad}}</td>
                                     <td>{{entidad_a.clasificacion_empresa}}</td>
+                                    <td>
+                                        <button onclick="edit_entidad({{entidad_a.id}})" type="button" class="btn btn-success">Editar</button>
+                                        <button type="button" class="btn btn-danger">Eliminar</button>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
+                {% for entidad_a in entidad_a %}
+                <div id="entidad{{ entidad_a.id }}">
+                    <input id="id_entidad_hidden" type="hidden" value="{{entidad_a.id}}">
+                    <input id="nombre_entidad_hidden" type="hidden" value="{{entidad_a.nombre_entidad}}">
+                    <input id="tipo_entidad_aliada_hidden" type="hidden" value="{{entidad_a.tipo_entidad_aliada}}">
+                    <input id="naturaleza_entidad_hidden" type="hidden" value="{{entidad_a.naturaleza_entidad}}">
+                    <input id="clasificacion_empresa_hidden" type="hidden" value="{{entidad_a.clasificacion_empresa}}">
+                    <input id="nit_hidden" type="hidden" value="{{entidad_a.nit}}">
+                    <input id="convenio_hidden" type="hidden" value="{{entidad_a.convenio}}">
+                    <input id="especifique_tipo_codigo_convenio_hidden" type="hidden" value="{{entidad_a.especifique_tipo_codigo_convenio}}">
+                    <input id="recursos_especie_entidad_hidden" type="hidden" value="{{entidad_a.recursos_especie_entidad}}">
+                    <input id="descripcion_recursos_especie_aportados_hidden" type="hidden" value="{{entidad_a.descripcion_recursos_especie_aportados}}">
+                    <input id="recursos_dinero_entidad_aliada_hidden" type="hidden" value="{{entidad_a.recursos_dinero_entidad_aliada}}">
+                    <input id="descripcion_destinacion_dinero_aportado_hidden" type="hidden" value="{{entidad_a.descripcion_destinacion_dinero_aportado}}">
+                    <input id="nombre_grupo_inv_entidad_aliada_hidden" type="hidden" value="{{entidad_a.nombre_grupo_inv_entidad_aliada}}">
+                    <input id="codigo_gruplac_entidad_aliada_hidden" type="hidden" value="{{entidad_a.codigo_gruplac_entidad_aliada}}">
+                    <input id="link_gruplac_entidad_aliada_hidden" type="hidden" value="{{entidad_a.link_gruplac_entidad_aliada}}">
+                    <input id="actividades_desarrollar_entidad_aliada_marco_proyecto_hidden" type="hidden" value="{{entidad_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}">
+                    <input id="metodologia_act_transferencia_centro_formacion_hidden" type="hidden" value="{{entidad_a.metodologia_act_transferencia_centro_formacion}}">
+                </div>
+                {% endfor %}
                 <div class="row justify-content-center">
-                    
                     <div class="col-12 col-md-10">
                     <form  class="needs-validation" method="post" id="form2">
                         {% csrf_token %}
@@ -178,7 +203,8 @@
                             <!-- Primera columna con 11 campos-->
                             <div class="col-12 col-md-6">
                                 <div class="mb-3 border-end pe-4 border-color-custom">
-
+                                    
+                                    <input id="id_entidad" type="hidden">
                                     <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
                                     
                                     <label for="" class="form-label">Nombre de la entidad aliada/Centro de Formación</label>
@@ -226,8 +252,8 @@
                                     <label for="" class="form-label">Convenio (entidad aliada)</label>
                                     <select name="convenio" id="convenio" class="form-control selectmod">
                                         <option value="" disabled selected>Seleccione una opción...</option>
-                                        <option value="1">Sí</option>
-                                        <option value="0">No</option>
+                                        <option value=True>Sí</option>
+                                        <option value=False>No</option>
                                     </select>
 
                                     <label for="" class="form-label">Si contestó la pregunta anterior tipo y código de convenio</label>
@@ -242,7 +268,7 @@
 
                                     <label for="" class="form-label">Objetivo(s) especificos relacionados</label> <br>
                                     {% for objEspecifico in objEspecificos %}
-                                    <input type="checkbox" id="objEspecifico{{ forloop.counter }}">
+                                    <input type="checkbox" id="objEspecifico{{ forloop.counter }}" class="objEspecifico">
                                     <small>{{objEspecifico.objetivo_especificos}}</small> <br>
                                     {% endfor %}
                                 </div>

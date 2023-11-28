@@ -92,8 +92,6 @@ class Resumen_antecedentes(models.Model):
     antecedentes = models.TextField(max_length=8000, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
-class Arbol_problemas(models.Model):
-    arbol_de_problemas = models.CharField(max_length=150, null=True)
 
 class Descripcion_problema(models.Model):
     identificacion_y_descripcion_problema = models.CharField(max_length=8000, null=False)
@@ -109,14 +107,11 @@ class Objetivos(models.Model):
 
 # Metodologia
 class Objetivos_especificos(models.Model):
-    objetivo_especificos = models.CharField(max_length=500, null=True)
-    objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
-
-class Arbol_de_Objetivos(models.Model):
-     actividades_obj_especificos = models.TextField(max_length=3000, null=False)
-     efecto = models.CharField(max_length=500, null=True)
-     causa = models.CharField(max_length=500, null=True)
-     objetivo_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+    objetivo_especifico = models.CharField(max_length=300, null=True)
+    actividades_obj_especificos = models.CharField(max_length=300, null=True)
+    causa = models.CharField(max_length=500, null=True)
+    efecto = models.CharField(max_length=500, null=True)
+    objetivoGeneral = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
 
 # Analisis de participantes
