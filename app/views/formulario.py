@@ -108,6 +108,7 @@ def contex_form():
 
 
 def generar_pdf(request, proyecto_id):
+    resultados_productos_esperados = []
     # Obtener el proyecto y otros datos relacionados
     proyecto = get_object_or_404(Proyecto, id=proyecto_id)
     informacion_proponente = get_or_none(Informacion_proponente, proyecto=proyecto.id)
@@ -121,16 +122,14 @@ def generar_pdf(request, proyecto_id):
     riesgo_p = RiesgoProductos.objects.filter(proyecto=proyecto).first()
     riesgo_a = RiesgoActividades.objects.filter(proyecto=proyecto).first()
     objetivos = Objetivos.objects.filter(proyecto=proyecto).first()
-    objetivos_especificos = Objetivos_especificos.objects.filter(objetivos=objetivos).all()
-    arboles_objetivos = Arbol_de_Objetivos.objects.filter(
-        objetivo_especificos__in=objetivos_especificos
-    ).all()
+    objetivos_especificos = Objetivos_especificos.objects.filter(objetivoGeneral=objetivos)
     doc = Document.objects.filter(proyecto=proyecto).first()
-    resultados_productos_esperados = Resultados_y_productos_esperados.objects.filter(
-        objetivo_especifico__objetivos__proyecto=proyecto
-    )
-
-
+    try:
+        for objEsp in objetivos_especificos:
+            ResyProd = Resultados_y_productos_esperados.objects.filter(objetivo_especifico=objEsp.id)
+            resultados_productos_esperados.append(ResyProd)
+    except:
+        resultados_productos_esperados = ''
     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
     entidad_a = Entidades_aliadas.objects.filter(proyecto=proyecto)
     partp_e = {}
@@ -158,10 +157,18 @@ def generar_pdf(request, proyecto_id):
         "doc": doc,
         "partp_e": partp_e,
         'objetivos': objetivos,
-        'objetivos_especificos': objetivos_especificos,
-        'arboles_objetivos': arboles_objetivos,
         "resultados_productos_esperados": resultados_productos_esperados,
     }
+    try:
+        print(objetivos_especificos)
+        nuevos_campos = {
+            "objetivos_especificos": objetivos_especificos,
+        }
+    except:
+        nuevos_campos = {
+            "objetivos_especificos": None,
+        }
+    context.update(nuevos_campos)
 
     template_path = "form/informe.html"
     html = render_to_string(template_path, context)
