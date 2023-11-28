@@ -16,12 +16,12 @@ document.addEventListener("DOMContentLoaded", function() {
         //Estructura del proyecto
        "form1": {
         "id_objetivo_general": {
-            pattern: /^[\s\S]{5,300}$/,
-            errorMsg: 'El obj general no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj general no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos": {
-            pattern: /^[\s\S]{5,300}$/,
-            errorMsg: 'El obj especifico no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj especifico no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_actividad": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El efecto no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos2": {
-            pattern: /^[\s\S]{5,300}$/,
-            errorMsg: 'El obj especifico 2 no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj especifico 2 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_actividad2": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El efecto 2 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_objetivo_especificos3": {
-            pattern: /^[\s\S]{5,300}$/,
-            errorMsg: 'El obj especifico 3 no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj especifico 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
         "id_actividad3": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,

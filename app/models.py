@@ -65,7 +65,7 @@ class Autores(models.Model):
 class Participantes_Proyecto(models.Model):
     nombre_participantes_de_desarrollo = models.CharField(max_length=40, null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
-    numero_cedula_participantes = models.IntegerField(null=True)
+    numero_cedula_participantes = models.BigIntegerField(null=True)
     numero_meses_vinculacion_participantes = models.IntegerField(null=True)
     email_participantes_de_desarrollo = models.EmailField(null=True)
     numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=True)
@@ -104,31 +104,20 @@ class Descripcion_problema(models.Model):
 
 # Objetivos
 class Objetivos(models.Model):
-    objetivo_general = models.CharField(max_length=300, null=True)
+    objetivo_general = models.CharField(max_length=500, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 # Metodologia
 class Objetivos_especificos(models.Model):
-    objetivo_especificos = models.CharField(max_length=300, null=True)
+    objetivo_especificos = models.CharField(max_length=500, null=True)
     objetivos = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
 class Arbol_de_Objetivos(models.Model):
-     actividades_obj_especificos = models.CharField(max_length=300, null=False)
+     actividades_obj_especificos = models.TextField(max_length=3000, null=False)
      efecto = models.CharField(max_length=500, null=True)
      causa = models.CharField(max_length=500, null=True)
      objetivo_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
 
-# class Actividades_de_objetivos_especificos(models.Model):
-#     actividades_obj_especificos = models.CharField(max_length=300, null=False)
-#     objetivo_especificos = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
-
-# class Causa(models.Model):
-#     causa = models.CharField(max_length=500, null=True)
-#     objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
-    
-# class Efecto(models.Model):
-#     efecto = models.CharField(max_length=500, null=True)
-#     causas = models.OneToOneField(Causa, on_delete=models.CASCADE)
 
 # Analisis de participantes
 class Centro_de_formacion(models.Model):
