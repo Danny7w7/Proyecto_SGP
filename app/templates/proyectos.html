@@ -4,6 +4,7 @@
 
 <main class="container" style="padding-bottom: 10%;">
     <h2 style="padding-top:  3%;">Mis proyectos</h2>
+        <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
     <div class="col-10" style="padding-top:5%; padding-bottom: 5%;">
         <table class="table table-striped">
             <thead>
@@ -20,7 +21,7 @@
                         <td>{{ proyecto.titulo_Proyecto }}</td>
                         <td>
                             <a href="{% url 'continuar_sesion' %}" class="btn bg-success">Continuar</a>
-                            <a href="{% url 'edit_proyec' id_proyecto=proyecto.id %}" class="btn bg-primary" >Editar</a>
+                            <a href="{% url 'seleccionar' id_proyecto=proyecto.id %}" class="btn bg-primary" >Editar</a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -3,13 +3,16 @@
 {% block forms %}
 
 <main class="container" style="padding-bottom: 10%;">
-    <h2 style="padding-top:  3%;">Panel de edicion</h2>
-    <div class="col-10" style="padding-top:5%; padding-bottom: 5%;">
+    <div class="col" style="padding-left:37%;">
+        <h1 style="padding-top:  3%;">Panel de edicion</h2>
     </div>
-    <h3>Seleccione una opcion del panel</h3>
+    <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
+    <div class="col-10" style="padding-top:5%; padding-bottom: 5%;">
+        <h5>Seleccione una opcion de la tabla para editar esa seccion</h2>
+    </div>
     <div class="row">
-        <div class="col-2">
-            <table>
+        <div class="col-6">
+            <table class="table table-bordered">
                 <thead>
                     <tr> 
                         <th scope="col">Seccion</th>
@@ -17,9 +20,49 @@
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr>
+                        <td>Proyecto</td>
+                        <td><a class="btn btn-primary" href="{% url 'edit_proyec' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Información del Proyecto</td>
+                        <td><a class="btn btn-primary" href="{% url 'info_proyecto' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Estructura del proyecto</td>
+                        <td><a class="btn btn-primary" href="{% url 'estructura_proyecto' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Arbol de Objetivos</td>
+                        <td><a class="btn btn-primary" href="{% url 'objetivos' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Resultados y productos esperados</td>
+                        <td><a class="btn btn-primary" href="{% url 'seleccionarObjetivo' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Participación</td>
+                        <td><a class="btn btn-primary" href="{% url 'participantes' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Participantes de entidad aliada</td>
+                        <td><a class="btn btn-primary" href="{% url 'participantes_entidad' id_proyecto  %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Proyección</td>
+                        <td><a class="btn btn-primary" href="{% url 'proyeccion' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Analisis de riesgo</td>
+                        <td><a class="btn btn-primary" href="{% url 'riesgo_general' id_proyecto %}">Editar</a></td>
+                    </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="col-6">
+            <div class="green-card offset-md-4">
+                <p>En esta tabla podras presenciar las diferentes secciones que hay disponible para la edicion del proyecto presione el boton de la seccion en la que desea editar la Información</p>
+            </div>
         </div>
     </div>
 </main>

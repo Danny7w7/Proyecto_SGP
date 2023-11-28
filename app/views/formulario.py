@@ -220,7 +220,10 @@ def participantes(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
-    objGeneral = Objetivos.objects.get(proyecto=proyecto.id)
+    try:
+        objGeneral = Objetivos.objects.get(proyecto=proyecto.id)
+    except Objetivos.DoesNotExist:
+        return HttpResponse('Para acceder a esta vista por favor cree un OBJETIVO GENERAL DEL PROYECTO') 
     context = {
         'proyecto':proyecto,
         'entidad_a':Entidades_aliadas.objects.filter(proyecto = proyecto),
@@ -379,7 +382,15 @@ def subir_anexos(request, proyecto_id):
               'percentaje': proyecto_id}
     return render(request, "form/anexos.html", contex)
 
-
+@login_required()   
+def seleccionar(request,  id_proyecto):
+    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+        return redirect(index)
+    contex = {
+        'percentaje' : 0,
+        'id_proyecto' : id_proyecto,
+    }
+    return render(request, 'select_edit.html', contex)
 
 #------JSON------
 def info_proponente(request, id_proyecto):
@@ -773,16 +784,6 @@ def proyectos_usuario(request):
         return render(request, 'proyectos.html', contex)
     else:
         return redirect('continuar_sesion', contex)
-    
-def seleccionar(request):
-    proyectos = Proyecto.objects.filter(usuario = request.user)
-    contex = {
-        'percentaje' : 0,
-        'proyectos' : proyectos,
-        
-    }
-    return render(request, 'select_edit.html', contex)
-
 
 def continuar_sesion(request):
     if request.user.is_authenticated:
