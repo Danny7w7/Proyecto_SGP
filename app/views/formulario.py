@@ -127,7 +127,7 @@ def generar_pdf(request, proyecto_id):
     try:
         for objEsp in objetivos_especificos:
             ResyProd = Resultados_y_productos_esperados.objects.filter(objetivo_especifico=objEsp.id)
-            resultados_productos_esperados.append(ResyProd)
+            resultados_productos_esperados.extend(list(ResyProd))
     except:
         resultados_productos_esperados = ''
     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
@@ -160,7 +160,6 @@ def generar_pdf(request, proyecto_id):
         "resultados_productos_esperados": resultados_productos_esperados,
     }
     try:
-        print(objetivos_especificos)
         nuevos_campos = {
             "objetivos_especificos": objetivos_especificos,
         }
@@ -258,7 +257,7 @@ def participantes(request, id_proyecto):
         "proyecto": proyecto,
         "entidad_a": Entidades_aliadas.objects.filter(proyecto=proyecto),
         "centro_f": Centro_de_formacion.objects.filter(proyecto=proyecto),
-        "objEspecificos": Objetivos_especificos.objects.filter(objetivos=objGeneral),
+        "objEspecificos": Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral),
         "percentaje": id_proyecto,
     }
     return render(request, "form/partp.html", context)
@@ -725,7 +724,7 @@ def centro_formacion(request, id_proyecto):
 def entidad_aliada(request, id_proyecto):
     proyecto = Proyecto.objects.get(id=id_proyecto)
     objGen = Objetivos.objects.filter(proyecto=proyecto.id).first()
-    objsEsp = Objetivos_especificos.objects.filter(objetivos=objGen.id)
+    objsEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objGen.id)
     array_booleanos = json.loads(request.POST['objetivo_especificos_relacionados'])
     id_entidad = request.POST.get('id_entidad', None)
     if id_entidad:

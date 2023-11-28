@@ -543,7 +543,6 @@ function actualizarTablaAutores(autores) {
             <td>
                 <div class="btn-group" role="group" aria-label="Acciones">
                     <button onclick="edit_autor(${autor.id})" type="button" class="btn btn-success">Editar</button>
-                    <button type="button" class="btn btn-danger">Eliminar</button>
                 </div>
             </td>
         </tr>
@@ -633,7 +632,6 @@ participantes.forEach(participante => {
         <td>
             <div class="btn-group" role="group" aria-label="Acciones">
                 <button onclick="edit_participantes(${participante.id})" type="button" class="btn btn-success">Editar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
             </div>
         </td>
     </tr>

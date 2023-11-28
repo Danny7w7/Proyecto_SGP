@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
     //Descripcion del problema
        "form2":{
         "identificacion_y_descripcion_problema": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'La identificación y descripcion del problema no es válido. Debe tener entre 5 y 8000 caracteres.'
+            pattern: /^[\s\S]{5,10000}$/,
+            errorMsg: 'La identificación y descripcion del problema no es válido. Debe tener entre 5 y 10000 caracteres.'
         },
         "justificacion": {
             pattern: /^[\s\S]{5,8000}$/,

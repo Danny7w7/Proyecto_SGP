@@ -94,7 +94,7 @@ class Resumen_antecedentes(models.Model):
 
 
 class Descripcion_problema(models.Model):
-    identificacion_y_descripcion_problema = models.CharField(max_length=8000, null=False)
+    identificacion_y_descripcion_problema = models.CharField(max_length=10000, null=False)
     justificacion = models.TextField(max_length=8000, null=True)
     marco_conceptual = models.TextField(max_length=8000, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
@@ -107,10 +107,10 @@ class Objetivos(models.Model):
 
 # Metodologia
 class Objetivos_especificos(models.Model):
-    objetivo_especifico = models.CharField(max_length=300, null=True)
-    actividades_obj_especificos = models.CharField(max_length=300, null=True)
-    causa = models.CharField(max_length=500, null=True)
-    efecto = models.CharField(max_length=500, null=True)
+    objetivo_especifico = models.CharField(max_length=500, null=True)
+    actividades_obj_especificos = models.CharField(max_length=1000, null=True)
+    causa = models.CharField(max_length=1000, null=True)
+    efecto = models.CharField(max_length=1000, null=True)
     objetivoGeneral = models.ForeignKey(Objetivos, on_delete=models.CASCADE)
 
 
@@ -142,8 +142,8 @@ class Entidades_aliadas(models.Model):
     nombre_grupo_inv_entidad_aliada = models.CharField(max_length=170, null=True)
     codigo_gruplac_entidad_aliada = models.CharField(max_length=50, null=True)
     link_gruplac_entidad_aliada = models.CharField(max_length=500 ,null=True)
-    actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=250, null=True)
-    metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 250, null=True)
+    actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=1500, null=True)
+    metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 500, null=True)
     objetivo_especificos = models.ManyToManyField(Objetivos_especificos)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
@@ -156,12 +156,12 @@ class Participantes_entidad_alidad(models.Model):
 
 # Resultados y productos esperados
 class Resultados_y_productos_esperados(models.Model):
-    tipo_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
-    descripcion_resultado_esperado_obj_especifico = models.CharField(max_length=250, null=False)
-    nombre_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
-    nombre_subtipologia = models.CharField(max_length=200, null=False)
-    trl_producto_resultado_inv_obj_especifico = models.CharField(max_length=100, null=False)
-    indicador_producto_resultado_inv_obj_especifico = models.CharField(max_length=50, null=False)
+    tipo_resultado_esperado_obj_especifico = models.CharField(max_length=300, null=False)
+    descripcion_resultado_esperado_obj_especifico = models.CharField(max_length=3000, null=False)
+    nombre_producto_resultado_inv_obj_especifico = models.CharField(max_length=300, null=False)
+    nombre_subtipologia = models.CharField(max_length=300, null=False)
+    trl_producto_resultado_inv_obj_especifico = models.CharField(max_length=300, null=False)
+    indicador_producto_resultado_inv_obj_especifico = models.CharField(max_length=300, null=False)
     fch_entrega_producto_resultado_inv_obj_especifico = models.DateField(null=False)
     objetivo_especifico = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
 

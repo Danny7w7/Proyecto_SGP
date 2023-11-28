@@ -344,24 +344,21 @@
             {% for obj_especifico in objetivos_especificos %}
                 <tr>
                     <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
-                    <td>{{ obj_especifico.objetivo_especificos }}</td>
+                    <td>{{ obj_especifico.objetivo_especifico }}</td>
                 </tr>
-                {% if obj_especifico.arbol_de_objetivos %}
-                    {% for arbol_objetivo in arboles_objetivos %}
-                    <tr>
-                        <td><strong>Actividades:</strong></td>
-                        <td>{{ arbol_objetivo.actividades_obj_especificos }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Causa:</strong></td>
-                        <td>{{ arbol_objetivo.causa }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Efecto:</strong></td>
-                        <td>{{ arbol_objetivo.efecto }}</td>
-                    </tr>
-                    {% endfor %}
-                
+                {% if obj_especifico.actividades_obj_especificos %}
+                <tr>
+                    <td><strong>Actividades:</strong></td>
+                    <td>{{ obj_especifico.actividades_obj_especificos }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Causa:</strong></td>
+                    <td>{{ obj_especifico.causa }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efecto:</strong></td>
+                    <td>{{ obj_especifico.efecto }}</td>
+                </tr>                
                 {% else %}
                 <tr>
                     <td colspan="2"><strong>Actividades, Causa y Efecto:</strong> No hay información asociada.</td>
@@ -519,7 +516,6 @@
         {% for resultado_producto in resultados_productos_esperados %}
         <h3>Resultados y productos esperados del proyecto {{ forloop.counter }}</h3>
         <table>
-
             <tr>
                 <td><strong>Tipo de resultado esperado:</strong></td>
                 <td>{{ resultado_producto.tipo_resultado_esperado_obj_especifico }}</td>

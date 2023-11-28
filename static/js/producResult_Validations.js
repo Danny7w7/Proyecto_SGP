@@ -15,19 +15,19 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El indicador no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "fch_entrega_producto_resultado_inv_obj_especifico": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
             errorMsg: 'Por favor seleccione una fecha.'
         },
         "tipo_resultado_esperado_obj_especifico": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
             errorMsg: 'Por favor seleccione una opcion.'
         },
         "trl_producto_resultado_inv_obj_especifico": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
             errorMsg: 'Por favor seleccione una opcion.'
         },
         "nombre_subtipologia": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
             errorMsg: 'Por favor seleccione una opcion.'
         },
        },
