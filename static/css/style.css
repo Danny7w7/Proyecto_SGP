@@ -6,7 +6,7 @@ header{
   background-color: #212934;
 }
 main{
-  background-color: #e9eef5;
+  background-color: transparent;
 }
 .img-header {
   margin-left: 5%;
@@ -306,4 +306,31 @@ select option:hover {
   padding: 15px;
   margin: 10px;
   border-radius: 10px;
+}
+
+
+.login-aparte{
+  backdrop-filter: none;
+  background-color: rgb(134, 134, 134);
+  background-color: rgb(218, 215, 215);
+  opacity: 0.9;
+}
+
+.conta{
+  width: 100%;
+  position: absolute;
+  top: 10%;
+}
+
+.divmain {
+  height: 100vh;
+  background-color: red;
+  position: relative;
+  background-color: #9aa5a231;
+  background-color: #f5f5f531;
+  background-image: url(/static/img/b3.jpeg);
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover;
+  backdrop-filter: url(commonfilters.svg#filter);
 }
