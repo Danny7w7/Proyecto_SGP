@@ -887,7 +887,6 @@ def editar_anexo(request, proyecto_id):
         {"form": form, "proyecto": proyecto, "percentaje": 0},
     )
 
-
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
     contex = {
@@ -895,7 +894,7 @@ def proyectos_usuario(request):
         'proyectos': proyectos
     }
     if request:
-        return render(request, "proyectos.html", {"proyectos": proyectos})
+        return render(request, "proyectos.html", contex)
     else:
         return redirect("continuar_sesion")
 
