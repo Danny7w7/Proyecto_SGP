@@ -107,7 +107,7 @@ class Objetivos(models.Model):
 
 # Metodologia
 class Objetivos_especificos(models.Model):
-    objetivo_especificos = models.CharField(max_length=300, null=True)
+    objetivo_especifico = models.CharField(max_length=300, null=True)
     actividades_obj_especificos = models.CharField(max_length=300, null=True)
     causa = models.CharField(max_length=500, null=True)
     efecto = models.CharField(max_length=500, null=True)

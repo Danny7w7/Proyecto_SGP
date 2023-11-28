@@ -7,8 +7,9 @@ from app.forms import (
     Informacion_proponenteForm,
     ProyectoForm,
     DocumentForm,
-
+    ProducEsperadosForm,
 )
+
 from app.models import (
     Entidades_aliadas,
     Proyecto,
@@ -129,7 +130,7 @@ def estructura_proyecto(request, id_proyecto):
 
 @login_required(login_url='/login')
 def objetivo(request, id_proyecto):
-    contex = {'percentaje':id_proyecto}
+    contex = {'percentaje':id_proyecto,
     return render(request, 'form/objetivos.html', contex)
 
 
@@ -436,7 +437,6 @@ def riesgos_obj_g_json(request, id_proyecto):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
-
 def riesgos_p_json(request, id_proyecto):
     try:
         riesgos_p_json = RiesgoProductos.objects.get(proyecto=id_proyecto)
@@ -515,7 +515,21 @@ def objetivos_json(request, id_proyecto):
         proyecto = Proyecto.objects.get(id=id_proyecto)
         objetivo = Objetivos.objects.create(proyecto=proyecto)
     objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
-    print(objetivoEsp)
+    objetivo.objetivo_general = request.POST['objetivo_general']
+    objetivo.save() 
+    print(objetivoEsp[1].objetivo_especifico)
+    for i in range(0, 3):
+        if request.POST.get(f'objetivo_especifico{i+1}'):
+            try:
+                objetivoEsp[i].objetivo_especifico = 'request.POST[fobjetivo_especifico{i+1}]'
+                objetivoEsp[i].save()
+                print(type(objetivoEsp[i]) , request.POST[f'objetivo_especifico{i+1}'])
+            except:
+                objEsp = Objetivos_especificos.objects.create(objetivoGeneral=objetivo)
+                objEsp.objetivo_especifico = request.POST[f'objetivo_especifico{i+1}']
+                objEsp.save()
+    
+    return JsonResponse({"mensaje": "Operación exitosa"})
     
 def centro_formacion(request, id_proyecto):
     try:

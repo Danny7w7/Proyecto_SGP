@@ -29,7 +29,7 @@
                                     <div class="col-12 md-10">
                                     <form method="post" id="form1" class="needs-validation">
                                             {% csrf_token %}
-                                            <input type="hidden" name="objetivo_proyecto_id" value="{{ proyecto }}">
+                                            <input type="hidden" id="id_proyecto" value="{{ id_proyecto }}">
                                             
                                             <!-- Primer textarea con label para Objetivo General -->
                                             <div class="mb-3">
