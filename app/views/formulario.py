@@ -130,8 +130,15 @@ def estructura_proyecto(request, id_proyecto):
 
 @login_required(login_url='/login')
 def objetivo(request, id_proyecto):
+    objetivo = get_or_none(Objetivos, proyecto=id_proyecto)
+    try:
+        objEspe = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    except:
+        objEspe = None
     contex = {'percentaje':id_proyecto,
-              'id_proyecto':id_proyecto}
+              'id_proyecto':id_proyecto,
+              'objetivo':objetivo,
+              'objEsp':objEspe}
     return render(request, 'form/objetivos.html', contex)
 
 
@@ -195,7 +202,7 @@ def selectObj(request, id_proyecto):
         return redirect(index)
     try:
         objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
-        objEspecificos = Objetivos_especificos.objects.filter(objetivos_id=objGeneral)
+        objEspecificos = Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral)
     except:
         return HttpResponse("Para acceder a esta vista debes de crear los objetivos especificos")
     contex = {'percentaje':id_proyecto,
@@ -209,7 +216,7 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
-    objEspecifico = Objetivos_especificos.objects.get(objetivos_id=objGeneral, id=id_objetivoEsp)
+    objEspecifico = Objetivos_especificos.objects.get(objetivoGeneral=objGeneral, id=id_objetivoEsp)
     productoEsp = get_or_none(Resultados_y_productos_esperados, objetivo_especifico=objEspecifico.id)
     if request.method == 'POST':
         form = ProducEsperadosForm(request.POST, instance=productoEsp)
@@ -517,19 +524,30 @@ def objetivos_json(request, id_proyecto):
         objetivo = Objetivos.objects.create(proyecto=proyecto)
     objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
     objetivo.objetivo_general = request.POST['objetivo_general']
-    objetivo.save() 
-    print(objetivoEsp[1].objetivo_especifico)
+    objetivo.save()
     for i in range(0, 3):
         if request.POST.get(f'objetivo_especifico{i+1}'):
             try:
-                objetivoEsp[i].objetivo_especifico = 'request.POST[fobjetivo_especifico{i+1}]'
-                objetivoEsp[i].save()
-                print(type(objetivoEsp[i]) , request.POST[f'objetivo_especifico{i+1}'])
+                objEsp = objetivoEsp[i]
+                objEsp.objetivo_especifico = request.POST[f'objetivo_especifico{i+1}']
+                objEsp.save()
             except:
                 objEsp = Objetivos_especificos.objects.create(objetivoGeneral=objetivo)
                 objEsp.objetivo_especifico = request.POST[f'objetivo_especifico{i+1}']
                 objEsp.save()
     
+    return JsonResponse({"mensaje": "Operación exitosa"})
+
+def actividades_json(request, id_proyecto):
+    objetivo = Objetivos.objects.get(proyecto=id_proyecto)
+    objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
+    for i in range(0, len(objetivoEsp)):
+        objEsp = objetivoEsp[i]
+        objEsp.actividades_obj_especificos = request.POST[f'actividad{i+1}']
+        objEsp.causa = request.POST[f'causa{i+1}']
+        objEsp.efecto = request.POST[f'efecto{i+1}']
+        objEsp.save()
+        
     return JsonResponse({"mensaje": "Operación exitosa"})
     
 def centro_formacion(request, id_proyecto):

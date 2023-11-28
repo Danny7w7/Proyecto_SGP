@@ -1,3 +1,14 @@
+inputs = ['objetivo_especifico1', 'objetivo_especifico2', 'objetivo_especifico3']
+function showdivObj(){
+    inputs.forEach((input, i) => {
+        if (!(document.getElementById(input).value == '')){
+            document.getElementById(`Actividad${i+1}`).style.display = 'block'
+            document.getElementById(`divSiguiente`).style.display = 'block'
+            document.getElementById(`text-sapo`).style.display = 'none'
+        }
+    });
+}
+
 let conjuntosMostrados = 1;
 function mostrarDivs() {
   // Mostrar conjuntos adicionales solo si no se han mostrado más de 2
@@ -12,6 +23,11 @@ function mostrarDivs() {
   }
 }
 document.addEventListener("DOMContentLoaded", function() {
+    
+    const button1 = document.getElementById('step2');
+    
+    const collapse1 = document.getElementById('collapseOne');
+    const collapse2 = document.getElementById('collapseTwo');
     const allValidations = {
         //Estructura del proyecto
        "form1": {
@@ -62,6 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("enviar1").addEventListener("click", function() {
         handleFormSubmit(event, 'form1');
     });
+    document.getElementById("enviar2").addEventListener("click", function() {
+        handleFormSubmit(event, 'form2');
+    });
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
@@ -85,7 +104,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                sendPost1();
+                if (formKey == 'form1'){
+                    sendPost1()
+                    button1.setAttribute('aria-expanded', (button1.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                    progress.setAttribute('value', 1 * 100 / (stepButtons.length - 1));
+                    collapse1.classList.remove('show')
+                    collapse2.classList.add('show')
+                }else if (formKey == 'form2'){
+                    sendPost2()
+                }
             });
         }else{
             Swal.fire({
@@ -137,7 +164,46 @@ function sendPost1() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            // Realizar acciones de éxito, si es necesario
+            showdivObj()
+        }
+    })
+    // .catch(error => {
+    //     console.error('Error en la solicitud:', error);
+    //     // Manejar errores en la solicitud, como problemas de red
+    // });
+};
+
+function sendPost2() {
+    var id_proyecto = document.getElementById('id_proyecto').value;
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    if (!(document.getElementById('actividad1').value == '')){
+        formData.append("actividad1", document.getElementById('actividad1').value);
+        formData.append("causa1", document.getElementById('causa1').value);
+        formData.append("efecto1", document.getElementById('efecto1').value);
+    }if (!(document.getElementById('actividad2').value == '')){
+        formData.append("actividad2", document.getElementById('actividad2').value);
+        formData.append("causa2", document.getElementById('causa2').value);
+        formData.append("efecto2", document.getElementById('efecto2').value);
+    }if (!(document.getElementById('actividad3').value == '')){
+        formData.append("actividad3", document.getElementById('actividad3').value);
+        formData.append("causa3", document.getElementById('causa3').value);
+        formData.append("efecto3", document.getElementById('efecto3').value);
+    }
+    formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/arbol-problemas/actividades/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            window.location.href = `/seleccionar-objetivo/${id_proyecto}/`;
         }
     })
     // .catch(error => {

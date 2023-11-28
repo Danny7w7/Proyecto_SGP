@@ -68,6 +68,7 @@ urlpatterns = [
 
     #Arbol de problemas
     path('proyecto/arbol-problemas/objetivos/<int:id_proyecto>/', views.objetivos_json, name='objetivo'),
+    path('proyecto/arbol-problemas/actividades/<int:id_proyecto>/', views.actividades_json, name='actividades'),
 
     #Analisis de riesgo
     path('proyecto/riesgos/riesgo-general/<int:id_proyecto>/', views.riesgos_obj_g_json, name='r_general'),
