@@ -323,3 +323,14 @@ select option:hover {
   height: 800px;
   object-fit: cover;
 }
+
+
+.green-card {
+  background-color: #28a745;
+  color: #fff;
+  width: 250px;
+  height: 250px;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+}

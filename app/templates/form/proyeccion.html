@@ -1,5 +1,5 @@
 {% extends "form/crearp.html" %}
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 {% load static %}
 {% block forms %}
     <div class="accordion" id="accordionExample">
@@ -7,17 +7,8 @@
             <progress id="progress" value=0 max=100 class="mb-4"></progress>
             <div class="step-item flex-fill mb-3">
                 <button class="step-button text-center mb-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="step1">
                     1
-                </button>
-                <div class="step-title">
-                    <label for="text" class="form-label">Resultados y<br>productos esperados</label>
-                </div>
-            </div>
-            <div class="step-item flex-fill mb-3">
-                <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    2
                 </button>
                 <div class="step-title">
                     <label for="text" class="form-label">Tiempo de ejecución<br>del proyecto</label>
@@ -25,8 +16,8 @@
             </div>
             <div class="step-item flex-fill mb-3">
                 <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    3
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="step2">
+                    2
                 </button>
                 <div class="step-title">
                     <label for="text" class="form-label">Cadena de valor<br>del proyecto</label>
@@ -36,275 +27,67 @@
         <div class="d-flex justify-content-center col-12">
             <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">PROYECCIÓN</h5>
         </div>
-
+        <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
         <div class="card">
             <div id="headingOne">
+                <!-- Contenido Primer boton -->
             </div>
-            <!-- Contenido de primer boton -->
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="card-body">
                     <div class="contenido">
-                        <!-- BARRA DE PROGRESO -->
-                        <div class="d-flex justify-content-end mt-3 mr-3">
-                            <div class="col-4 mb-4">
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="d-flex justify-content-center col-12">
-                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">
-                                Resultados y productos esperados</h5>
+                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Tiempo de ejecución del proyecto</h5>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-10">
                                 <div class="bg-light mt-2 spos border_radius row me-0">
-                                    <!-- Primera columna con 4 filas -->
-                                    <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                        <form method="post" class="needs-validation" action="{% url 'autores' %}"
-                                            id="form2">
-                                            {% csrf_token %}
-                                            <label for="" class="form-label">Tipo de resultado esperado objetivo
-                                                específico</label>
-                                            <select name="" id="" class="form-control selectmod">
-                                                <option value="" disabled selected>Selecciona una opción...</option>
-                                                <option value="gen_conocimiento_gnc">Generación del Conocimiento GNC
-                                                </option>
-                                                <option value="desarrollo_tecno_dt">Desarrollo tecnológico DT
-                                                </option>
-                                                <option value="apropiacion_social_asc">Apropiación social del
-                                                    conocimiento ASC</option>
-                                                <option value="formacion_recurso_frh">Formación de recurso humano
-                                                    FRH</option>
-                                            </select>
-
-                                            <label for="" class="form-label">Descripción resultado esperado obj
-                                                específico 1</label>
-                                            <input type="text" class="form-control form-control-sm" name="" id=""
-                                                aria-describedby="helpId" placeholder="">
-                                            <div class="invalid-feedback">
-                                            </div>
-
-                                            <label for="" class="form-label">Nombre del producto resultado de la
-                                                investigación obj específico 1 </label>
-                                            <input type="text" class="form-control form-control-sm" name="" id=""
-                                                aria-describedby="helpId" placeholder="">
-                                            <div class="invalid-feedback">
-                                            </div>
-
-                                            <label for="" class="form-label">Nombre sub-tipología MinCiencias al
-                                                cual pertenece el producto resultado de la investigación obj
-                                                específico 1</label>
-                                            <select name="" id="" class="form-control selectmod">
-                                                <option value="" disabled selected>Selecciona una opción...</option>
-                                                <option value="gnc_articulos_a1_a2_b_c">GNC-Artículos de
-                                                    investigación A1, A2, B y C</option>
-                                                <option value="gnc_articulos_d">GNC-Artículos de investigación D
-                                                </option>
-                                                <option value="gnc_notas_cientificas">GNC-Notas científicas</option>
-                                                <option value="gnc_libros_investigacion">GNC-Libros resultado de
-                                                    investigación</option>
-                                                <option value="gnc_capitulos_libro_investigacion">GNC-Capítulos en
-                                                    libro resultado de investigación</option>
-                                                <option value="gnc_productos_tecnologicos_patentados">GNC-Productos
-                                                    tecnológicos patentados o en proceso de concesión de la patente
-                                                </option>
-                                                <option value="gnc_variedades_vegetales_razas">GNC-Variedades
-                                                    vegetales, nuevas razas animales y poblaciones mejoradas de
-                                                    razas pecuarias</option>
-                                                <option value="gnc_obras_creacion_arte">GNC-Obras o productos de
-                                                    investigación-Creación en artes, arquitectura y diseño</option>
-                                                <option value="dt_productos_tecnologicos">DT-Productos tecnológicos
-                                                    certificados o validados</option>
-                                                <option value="dt_productos_empresariales">DT-Productos
-                                                    empresariales</option>
-                                                <option value="dt_regulaciones_normas">DT-Regulaciones, normas,
-                                                    reglamentos o legislaciones</option>
-                                                <option value="dt_informes_tecnicos">DT- Conceptos técnicos e
-                                                    informes técnicos</option>
-                                                <option value="dt_acuerdos_licencias">DT-Registros de acuerdos de
-                                                    licencias para la explotación de obras protegidas por derecho de
-                                                    autor</option>
-                                                <option value="asc_participacion_ctei">ASC-Participación ciudadana
-                                                    en CTeI y creación</option>
-                                                <option value="asc_estrategias_pedagogicas_ctei">ASC-Estrategias
-                                                    pedagçogicas para el fomento de la CTeI</option>
-                                                <option value="asc_comunicacion_social">ASC-Comunicación social del
-                                                    conocimiento</option>
-                                                <option value="asc_talleres_creacion">ASC-Circulación de
-                                                    conocimiento especializado-Talleres de creación</option>
-                                                <option value="asc_eventos_culturales">ASC-Circulación de
-                                                    conocimiento especializado-Eventos culturales y artísticos
-                                                </option>
-                                                <option value="asc_working_paper">ASC-Circulación de conocimiento
-                                                    especializado-Working paper</option>
-                                                <option value="asc_secuencia_genetica">ASC-Circulación de
-                                                    conocimiento especializado-Nueva secuencia genética</option>
-                                                <option value="asc_boletines_divulgativos">ASC-Circulación de
-                                                    conocimiento especializado-Boletines divulgativos de resultados
-                                                    de investigación</option>
-                                                <option value="asc_ediciones_revista">ASC-Circulación de
-                                                    conocimiento especializado-Ediciones de revista científica
-                                                </option>
-                                                <option value="asc_libro_investigacion">ASC-Circulación de
-                                                    conocimiento especializado-Libro resultado de investigación
-                                                </option>
-                                                <option value="asc_informe_final">ASC-Circulación de conocimiento
-                                                    especializado-Informe final de trabajo</option>
-                                                <option value="asc_consultorias">ASC-Circulación de conocimiento
-                                                    especializado-Consultorías</option>
-                                                <option value="frh_apoyo_formacion">FRH-Apoyo a creación de
-                                                    programas o cursos de formación de investigación</option>
-
-                                            </select>
-                                    </div>
-
-                                    <!-- Segunda columna con 4 filas -->
-                                    <div class="col-12 col-md-6 mb-3">
-                                        <label for="" class="form-label">TRL al cual llegará el producto resultado
-                                            de la investigación obj específico 1 </label>
-                                        <select name="" id="" class="form-control selectmod">
-                                            <option value="" disabled selected>Selecciona una opción...</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                        </select>
-
-                                        <label for="" class="form-label">Indicador del producto resultado de la
-                                            investigación obj específico 1</label>
-                                        <input name="" id="" type="text" class="form-control form-control-sm"
-                                            placeholder="">
-                                        <div class="invalid-feedback">
-                                        </div>
-
-                                        <label for="" class="form-label">Fecha de entrega del producto resultado de
-                                            la investigación Objetivo específico 1</label>
-                                        <input name="" id="" type="text" class="form-control form-control-sm"
-                                            placeholder="">
-                                        <div class="invalid-feedback">
-                                        </div>
-
-                                    </div>
-
-
-                                    <!-- Botón Siguiente centrado -->
-                                    <div class="d-flex justify-content-center col-12">
-                                        <button type="submit"
-                                            class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
-                                    </div>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="card">
-            <div id="headingTwo">
-                <!-- Contenido segundo boton -->
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="card-body">
-                    <div class="contenido">
-                        <!-- BARRA DE PROGRESO -->
-                        <div class="d-flex justify-content-end mt-3 mr-3">
-                            <div class="col-4 mb-4">
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center col-12">
-                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">
-                                Tiempo de ejecución del proyecto</h5>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-md-10">
-                                <div class="bg-light mt-2 spos border_radius row me-0">
-                                    <!-- Primera columna con 4 filas -->
-                                    <div class="col-12 col-md-10">
-                                        <form method="post" class="needs-validation" action="{% url 'autores' %}"
-                                            id="form2">
+                                    <form class="needs-validation" id="form1">
+                                        <!-- Primera columna con 4 filas -->
+                                        <div class="col-12 col-md-10">
                                             {% csrf_token %}
                                             <div class="mt-3" style="width: 95%; margin-left: 2%;">
                                                 <div class="mb-3">
-                                                    <label for="" class="form-label">Duración del proyecto (debe
+                                                    <label class="form-label">Duración del proyecto (debe
                                                         coincidir con el cronograma)</label>
-                                                    <select name="" id="" class="form-control selectmod">
-                                                        <option value="" disabled selected>Selecciona una opción...
-                                                        </option>
-                                                        <option value="gen_conocimiento_gnc">Generación del
-                                                            Conocimiento GNC</option>
-                                                        <option value="desarrollo_tecno_dt">Desarrollo tecnológico
-                                                            DT</option>
-                                                        <option value="apropiacion_social_asc">Apropiación social
-                                                            del conocimiento ASC</option>
-                                                        <option value="formacion_recurso_frh">Formación de recurso
-                                                            humano FRH</option>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Fecha de inicio (Debe coincidir
-                                                        con el cronograma)</label>
-                                                    <input type="text" class="form-control form-control-sm" name=""
-                                                        id="" aria-describedby="helpId" placeholder="">
+                                                    <input disabled id="duracion_proyecto" type="text" class="form-control form-control-sm">
                                                     <div class="invalid-feedback">
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="" class="form-label">Fecha de cierre</label>
-                                                    <input type="text" class="form-control form-control-sm" name=""
-                                                        id="" aria-describedby="helpId" placeholder="">
+                                                    <label class="form-label">Fecha de inicio (Debe coincidir
+                                                        con el cronograma)</label>
+                                                    <input id="fecha_inicio" type="date" class="form-control form-control-sm">
+                                                    <div class="invalid-feedback">
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Fecha de cierre</label>
+                                                    <input id="fecha_cierre" type="date" class="form-control form-control-sm">
                                                     <div class="invalid-feedback">
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div>
-
-
-                                    <!-- Botón Siguiente centrado -->
-                                    <div class="d-flex justify-content-center col-12">
-                                        <button type="submit"
-                                            class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
-                                    </div>
+                                        </div>
+                                        <!-- Botón Siguiente centrado -->
+                                        <div class="d-flex justify-content-center col-12">
+                                            <button id="enviar1" type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
+                                        </div>
                                     </form>
-                                </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <div class="card">
-            <div id="headingThree">
+            <div id="headingTwo">
 
             </div>
-            <!-- Tercer boton de contenido -->
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                data-bs-parent="#accordionExample">
+            <!-- Segundo boton de contenido -->
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="card-body">
                     <div class="contenido">
-                        <!-- BARRA DE PROGRESO -->
-                        <div class="d-flex justify-content-end mt-3 mr-3">
-                            <div class="col-4 mb-4">
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="d-flex justify-content-center col-12">
                             <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">
                                 Cadena de valor del proyecto</h5>
@@ -313,222 +96,43 @@
                             <div class="col-12 col-md-10">
                                 <div class="bg-light mt-2 spos border_radius row me-0">
                                     <!-- Primera columna con 4 campos -->
-                                    <div class="col-12 col-md-10 mb-3">
-                                        <form method="post" class="needs-validation"
-                                            action="{% url 'participantes' %}" id="form3">
+                                    <form method="post" class="needs-validation" id="form2">
+                                        <div class="col-12 col-md-10 mb-3">
                                             {% csrf_token %}
                                             <div class="mb-3">
-                                            
-                                                <label for="Nombre_participantes_de_desarrollo"
-                                                class="form-label">Cadena de valor del proyecto</label>
+                                                <label class="form-label">Cadena de valor del proyecto</label>
                                                 <input class="form-control" name="marco_conceptual" type="file" id="formFile">
                                             </div>
-
                                             <div class="mb-3">
-                                            
-                                                <label for="Rol_Sennova_De_Participantes_de_Proyecto"
-                                                class="form-label">Propuesta de sostenibilidad</label>
-                                                <textarea
-                                                    class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="justificacion" id="justificacion" cols="10" rows="5"></textarea>
-                                                    <div class="invalid-feedback">
-                                                    </div>
+                                                <label class="form-label">Propuesta de sostenibilidad</label>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="propuesta_sostenibilidad" cols="10" rows="5"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
                                             </div>
-
                                             <div class="mb-3">
-
-                                            <label for="" class="form-label">Impacto social</label>
-                                            <textarea
-                                            class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                            name="justificacion" id="justificacion" cols="10" rows="5"></textarea>
-                                            <div class="invalid-feedback">
+                                                <label class="form-label">Impacto social</label>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_social" cols="10" rows="5"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="mb3">
-
-                                            <label for=""
-                                                class="form-label fs-6 fw-normal">Impacto tecnológico</label>
-                                                <textarea
-                                                    class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="justificacion" id="justificacion" cols="10" rows="5"></textarea>
-                                                    <div class="invalid-feedback">
-                                                    </div>
+                                            <div class="mb3">
+                                                <label class="form-label fs-6 fw-normal">Impacto tecnológico</label>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_tecnologico" cols="10" rows="5"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
                                             </div>
-
                                             <div class="mb-3">
-
-                                            <label for=""
-                                                class="form-label fs-6 fw-normal">Impacto centro de formación</label>
-                                                <textarea
-                                                    class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="justificacion" id="justificacion" cols="10" rows="5"></textarea>
-                                                    <div class="invalid-feedback">
-                                                    </div>
+                                                <label class="form-label fs-6 fw-normal">Impacto centro de formación</label>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_centro" cols="10" rows="5"></textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
                                             </div>
-                                    </div>
-
-                                    <!-- Botón Siguiente centrado -->
-                                    <div class="d-flex justify-content-center col-12">
-                                        <button type="submit"
-                                            class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cuarto boton de contenido -->
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
-                data-bs-parent="#accordionExample">
-                <div class="card-body">
-                    <div class="contenido">
-                        <!-- BARRA DE PROGRESO -->
-                        <div class="d-flex justify-content-end mt-3 mr-3">
-                            <div class="col-4 mb-4">
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center col-12">
-                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">
-                                Generalidades</h5>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-md-10">
-                                <div class="bg-light mt-2 spos border_radius row me-0">
-
-                                    <!-- Columna 1 -->
-                                    <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                        <form method="post" class="needs-validation"
-                                            action="{% url 'generalidades' %}" id="form4">
-                                            {% csrf_token %}
-                                            <label for="codigo_Dependencia_Presupuestal" class="form-label">Codigo
-                                                dependencia
-                                                prespuestal<br>(SIIF)</label>
-                                            <select name="codigo_Dependencia_Presupuestal"
-                                                id="codigo_Dependencia_Presupuestal" class="form-control selectmod">
-                                                <option value="" disabled selected>Selecciona una opción...</option>
-                                                <option value="inv_aplicada_66">Investigación aplicada 66</option>
-                                                <option value="desarrollo_tec_mod_ambiente_23">Desarrollo
-                                                    tecnológico(23-Modernización de ambientes)</option>
-                                                <option value="fomento_innovacion_82">Fomento para la innovacion(82)
-                                                </option>
-                                            </select>
-
-                                            <label for="tematicas_Estrategias_SENA"
-                                                class="form-label mt-3">Temáticas estratégicas SENA</label>
-                                            <select name="tematicas_Estrategias_SENA"
-                                                id="tematicas_Estrategias_SENA" class="form-control selectmod">
-                                                <option value="" disabled selected>Selecciona una opción...</option>
-                                                <option value="sostenibilidad_medio_ambiente">Sostenibilidad y medio
-                                                    ambiente</option>
-                                            </select>
-
-                                            <label for="link_video_proyecto" class="form-label mt-4">Link de video
-                                                del proyecto</label>
-                                            <input type="url" name="link_video_proyecto" id="link_video_proyecto"
-                                                class="form-control form-control-sm" placeholder="">
-                                            <div class="invalid-feedback">
-                                            </div>
-
-
-                                            <label for="" class="form-label mt-3">¿El proyecto está relacionado con
-                                                Industrial 4.0?</label>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="proyecto_Relacionado_Industrial40" value="True"
-                                                    id="industrial4_0_yes">
-                                                <label class="form-check-label" for="industrial4_0_si">Sí</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="proyecto_Relacionado_Industrial40" value="False"
-                                                    id="industrial4_0_no" checked>
-                                                <label class="form-check-label" for="industrial4_0_no">No</label>
-                                            </div>
-
-                                            <label for="justificacion_Industrial" class="form-label mt-5">Si
-                                                contestó la pregunta anterior de
-                                                forma afirmativa, justifique.</label>
-                                            <input type="text" name="justificacion_Industrial"
-                                                id="justificacion_Industrial" class="form-control form-control-sm">
-                                            <div class="invalid-feedback">
-                                            </div>
-                                    </div>
-
-                                    <!-- Columna 2 -->
-                                    <div class="col-12 col-md-6 mb-3">
-                                        <label for="" class="form-label mt-2 fuente_p">¿En cuál de estas actividades
-                                            económicas se puede aplicar el proyecto de investigación?<br> Código
-                                            CIIU
-                                            versión 4AC REV Colombia</label>
-                                        <select name="actividades_economicas_del_proyecto_investigacion"
-                                            id="actividades_economicas_del_proyecto_investigacion"
-                                            class="form-control selectmod">
-                                            <option value="" disabled selected>Selecciona una opción...</option>
-                                        </select>
-
-                                        <label for="" class="form-label">¿El proyecto está relacionado con la
-                                            economía naranja?</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="proyecto_Relacionado_Economia_Naranja" value="True"
-                                                id="flexRadioDefault3">
-                                            <label class="form-check-label" for="flexRadioDefault3">Sí</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="proyecto_Relacionado_Economia_Naranja" id="flexRadioDefault4"
-                                                checked value="False">
-                                            <label class="form-check-label" for="flexRadioDefault4">No</label>
                                         </div>
 
-                                        <label for="justificacion_Economia_Naranja" class="form-label">Si contestó
-                                            la pregunta anterior de forma
-                                            afirmativa, justifique.</label>
-                                        <input type="text" name="justificacion_Economia_Naranja"
-                                            id="justificacion_Economia_Naranja" class="form-control form-control-sm"
-                                            placeholder="">
-                                        <div class="invalid-feedback">
+                                        <!-- Botón Siguiente centrado -->
+                                        <div class="d-flex justify-content-center col-12">
+                                            <button type="button" id="enviar2" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                         </div>
-
-                                        <label for="" class="form-label">¿El proyecto aporta a la Política
-                                            Institucional para Atención de las Personas con discapacidad?</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="proyecto_Relacionado_Politica_Discapacidad"
-                                                id="flexRadioDefault5" value="True">
-                                            <label class="form-check-label" for="flexRadioDefault5">Sí</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="proyecto_Relacionado_Politica_Discapacidad"
-                                                id="flexRadioDefault6" checked value="False">
-                                            <label class="form-check-label" for="flexRadioDefault6">No</label>
-                                        </div>
-
-                                        <label for="justificacion_Politica_Discapacidad" class="form-label mt-3">Si
-                                            contestó la pregunta anterior de
-                                            forma afirmativa, justifique.</label>
-                                        <input type="text" class="form-control form-control-sm"
-                                            name="justificacion_Politica_Discapacidad"
-                                            id="justificacion_Politica_Discapacidad" placeholder="">
-                                        <div class="invalid-feedback">
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Botón Siguiente centrado -->
-                                    <div class="d-flex justify-content-center col-12">
-                                        <button type="submit"
-                                            class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
-                                    </div>
                                     </form>
                                 </div>
                             </div>
@@ -541,5 +145,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{% static 'js/infop_validations.js' %}"></script>
+<script src="{% static 'js/proyeccion.js' %}"></script>
 {% endblock %}

@@ -1,19 +1,37 @@
-
 document.addEventListener("DOMContentLoaded", function() {
-    
     const allValidations = {
         //Estructura del proyecto
        "form1": {
-        "titulo_Proyecto": {
-            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,200}$/,
-            errorMsg: 'El titulo del proyecto no es válido. Debe tener entre 5 y 200 caracteres y no puede contener caracteres especiales'
+        "desc_resultado_esperado": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'La descripcion no es válida. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
-        "descripcion": {
-            pattern:  /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,500}$/,
-            errorMsg: 'La descripción no es válida. Debe tener entre 5 y 500 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+        "nombre_resul_investigacion": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
+            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
-    }
-}
+        "indicador_producto_resultado_inv_obj_especifico": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
+            errorMsg: 'El indicador no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+        },
+        "fch_entrega_producto_resultado_inv_obj_especifico": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'Por favor seleccione una fecha.'
+        },
+        "tipo_resultado_esperado_obj_especifico": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'Por favor seleccione una opcion.'
+        },
+        "trl_producto_resultado_inv_obj_especifico": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'Por favor seleccione una opcion.'
+        },
+        "nombre_subtipologia": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
+            errorMsg: 'Por favor seleccione una opcion.'
+        },
+       },
+    };
 
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {
@@ -39,12 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const form1 = document.getElementById("form1");
 
 
-    if(form1) {
-        form1.addEventListener("submit", function(event) {
-            handleFormSubmit(event, 'form1');
-        });
-    }
-
+    document.getElementById("enviar1").addEventListener("click", function() {
+        handleFormSubmit(event, 'form1');
+    });
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
@@ -57,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const feedbackElement = inputField.nextElementSibling;
             const { pattern, errorMsg } = allValidations[formKey][fieldId];
-
+            
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
         event.preventDefault();
@@ -68,8 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                // Esto enviará realmente el formulario
-                event.target.submit();
+                form1.submit();
             });
         }else{
             Swal.fire({

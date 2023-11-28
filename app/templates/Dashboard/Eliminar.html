@@ -165,6 +165,9 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Usuario</h1>
               </div>
+              <div class="container-fluid" style="padding-bottom: 1%; padding-left: 80%;">
+                <a href="{% url 'register' %}" class=" btn btn-primary">Nuevo Usuario</a>
+              </div>
               <div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -182,15 +185,6 @@
                                         <th>Accion</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Correo</th>
-                                        <th>Id</th>
-                                        <th>Nivel de Permisos</th>
-                                        <th>Accion</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     {% for usuario in usuarios %}
                                     {% if usuario == user %}
@@ -216,7 +210,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-outline-danger">Eliminar</button>
+                                                <button type="button" class="btn btn-outline-danger eliminar-usuario" data-usuario-id="{{ usuario.id }}">Eliminar</button>
                                             </td>
                                         </tr>
                                         {% endif %}
@@ -233,24 +227,53 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; SENNOVA</span>
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+<script>
+    $(document).ready(function () {
+        $('.eliminar-usuario').on('click', function () {
+            var usuarioId = $(this).data('usuario-id');
+            if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+                // Obtener el token CSRF del documento
+                var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
+                // Configurar la solicitud AJAX con el token CSRF
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+
+                // Realizar la solicitud AJAX
+                $.ajax({
+                    url: '/eliminar_usuario/' + usuarioId + '/',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert(data.mensaje);
+                        // Puedes realizar otras acciones después de la eliminación si es necesario
+                    },
+                    error: function () {
+                        alert('Error al eliminar el usuario.');
+                    }
+                });
+            }
+        });
+    });
+</script>
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'dashboard-ex/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'dashboard-ex/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

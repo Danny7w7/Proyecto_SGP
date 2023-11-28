@@ -1,35 +1,60 @@
+document.getElementById("fecha_inicio").addEventListener("change", comprobarFechas);
+document.getElementById("fecha_cierre").addEventListener("change", comprobarFechas);
+
 const button1 = document.getElementById('step2');
 
 const collapse1 = document.getElementById('collapseOne');
 const collapse2 = document.getElementById('collapseTwo');
 
+function comprobarFechas() {
+    var inputDuracion = document.getElementById("duracion_proyecto")
+    var fechaInicio = new Date(document.getElementById("fecha_inicio").value);
+    var fechaCierre = new Date(document.getElementById("fecha_cierre").value);
+
+    if (!isNaN(fechaInicio) && !isNaN(fechaCierre) && fechaInicio < fechaCierre) {
+        const duracion = calcularDuracionEnSemanasYDias(fechaInicio, fechaCierre);
+        inputDuracion.value = `La duración es de ${duracion.semanas} semanas y ${duracion.diasRestantes} días`
+    } else {
+        inputDuracion.value = "Por favor, completa ambas fechas."
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
+    
     const allValidations = {
         //Estructura del proyecto
        "form1": {
-        "resumen_ejecutivo": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El resumen ejecutivo no es válido. Debe tener entre 5 y 8000 caracteres.'
-        },        
-        "antecedentes": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El antecedente no es válido. Debe tener entre 5 y 8000 caracteres.'
+        "duracion_proyecto": {
+            pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,250}$/,
+            errorMsg: 'La fecha no es válida. Por favor ingresela nuevamente.'
         },
+        "fecha_inicio": {
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
+            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
+        },
+        "fecha_cierre": {
+            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
+            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
+        }
        },
 
     //Descripcion del problema
        "form2":{
-        "identificacion_y_descripcion_problema": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'La identificación y descripcion del problema no es válido. Debe tener entre 5 y 8000 caracteres.'
+        "propuesta_sostenibilidad": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
         },
-        "justificacion": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 8000 caracteres.'
+        "impacto_social": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
         },
-        "marco_conceptual": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El marco conceptual no es válido. Debe tener entre 5 y 8000 caracteres.'
+        "impacto_tecnologico": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
+        },
+        "impacto_centro": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
         },
        },
     };
@@ -123,20 +148,40 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
+function calcularDuracionEnSemanasYDias(fechaInicio, fechaFin) {
+    // Calcula la diferencia en milisegundos entre las dos fechas
+    const diferenciaEnMilisegundos = fechaFin - fechaInicio;
+  
+    // Convierte la diferencia en días
+    const diferenciaEnDias = diferenciaEnMilisegundos / (1000 * 60 * 60 * 24);
+  
+    // Calcula el número de semanas
+    const semanas = Math.floor(diferenciaEnDias / 7);
+  
+    // Calcula el número de días restantes
+    const diasRestantes = diferenciaEnDias % 7;
+  
+    return { semanas, diasRestantes };
+}
+
 function sendPost1() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var resumen_ejecutivo = document.getElementById("resumen_ejecutivo").value;
-    var antecedentes = document.getElementById("antecedentes").value;
+    
+    var duracion_proyecto = document.getElementById("duracion_proyecto").value;
+    var fecha_inicio = document.getElementById("fecha_inicio").value;
+    var fecha_cierre = document.getElementById("fecha_cierre").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Resumen_ejecutivo", resumen_ejecutivo);
-    formData.append("Antecedentes", antecedentes);
+    formData.append("duracion", duracion_proyecto);
+    formData.append("fch_inicio", fecha_inicio);
+    formData.append("fch_cierre", fecha_cierre);
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`/proyecto/est-proyecto/resumen-antecedentes/${id_proyecto}/`, {
+    fetch(`/proyecto/proyeccion/tiempo-ejecucion/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
@@ -159,19 +204,23 @@ function sendPost1() {
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var identificacion_y_descripcion_problema = document.getElementById("identificacion_y_descripcion_problema").value;
-    var justificacion = document.getElementById("justificacion").value;
-    var marco_conceptual = document.getElementById("marco_conceptual").value;
+    var formFile = document.getElementById("formFile").files[0];
+    var propuesta_sostenibilidad = document.getElementById("propuesta_sostenibilidad").value;
+    var impacto_social = document.getElementById("impacto_social").value;
+    var impacto_tecnologico = document.getElementById("impacto_tecnologico").value;
+    var impacto_centro = document.getElementById("impacto_centro").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Identificacion_y_descripcion_problema", identificacion_y_descripcion_problema);
-    formData.append("Justificacion", justificacion);
-    formData.append("Marco_conceptual", marco_conceptual);
+    formData.append("Cadena_valor", formFile);
+    formData.append("Propuesta_sostenibilidad", propuesta_sostenibilidad);
+    formData.append("Impacto_social", impacto_social);
+    formData.append("Impacto_tecnologico", impacto_tecnologico);
+    formData.append("Impacto_centro", impacto_centro);
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`/proyecto/est-proyecto/descripcion-problema/${id_proyecto}/`, {
+    fetch(`/proyecto/proyeccion/cadena-de-valor/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
@@ -182,7 +231,7 @@ function sendPost2() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            window.location.href = `/objetivos/${id_proyecto}/`;
+            window.location.href = `/analisis-riesgo/${id_proyecto}/`;
         }
     })
     .catch(error => {

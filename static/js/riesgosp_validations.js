@@ -1,3 +1,10 @@
+const button1 = document.getElementById('step2');
+const button2 = document.getElementById('step3');
+const button3 = document.getElementById('step4');
+
+const collapse1 = document.getElementById('collapseOne');
+const collapse2 = document.getElementById('collapseTwo');
+const collapse3 = document.getElementById('collapseThree');
 
 document.addEventListener("DOMContentLoaded", function() {
     
@@ -5,45 +12,45 @@ document.addEventListener("DOMContentLoaded", function() {
         //Riesgos nivel objetivo general
        "form1": {
         "descripcion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
        // Riesgos nivel producto
        "form2":{
         "descripcion2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion2": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
     //Riesgos nivel actividades
        "form3":{
         "descripcion3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'La descripción no es válida. Debe tener entre 5 y 150 caracteres.'
         },
         "efectos3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Los efectos no son válidos. Debe tener entre 5 y 150 caracteres.'
         },
         "medidas_Mitigacion3": {
-            pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,150}$/,
+            pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
             errorMsg: 'Las medidas de mitigación no son válidas. Debe tener entre 5 y 150 caracteres.'
         },
        },
@@ -109,8 +116,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }).then(() => {
                 if (formKey == 'form1'){
                     sendPost()
+                    button1.setAttribute('aria-expanded', (button1.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                    progress.setAttribute('value', 1 * 100 / (stepButtons.length - 1));
+                    collapse1.classList.remove('show')
+                    collapse2.classList.add('show')
                 }else if (formKey == 'form2'){
                     sendPost2()
+                    button2.setAttribute('aria-expanded', (button2.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+                    progress.setAttribute('value', 2 * 100 / (stepButtons.length - 1));
+                    collapse2.classList.remove('show')
+                    collapse3.classList.add('show')
                 }else if(formKey == 'form3'){
                     sendPost3()
                 }
@@ -257,7 +272,7 @@ function sendPost3() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            // Realizar acciones de éxito, si es necesario
+            window.location.href = `/subir_anexos/${id_proyecto}/`;
         }
     })
     .catch(error => {

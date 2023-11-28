@@ -14,7 +14,7 @@
                 1
             </button>
             <div class="step-title">
-                <label for="text" class="form-label">Información<br>proponente</label>
+                <label for="text" class="form-label">Información proponente</label>
             </div>
         </div>
 
@@ -57,40 +57,6 @@
         <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">INFORMACIÓN PROYECTO</h5>
     </div>
     <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
-
-    <!-- Tabla de autores -->
-        <div class="container mt-5">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nombre del autor(a)</th>
-                            <th>Tipo de vinculación</th>
-                            <th>Número de documento</th>
-                            <th>Rol sennova</th>
-                            <th>Correo electrónico</th>
-                            <!-- <th>Num. meses vinculación proyecto</th> -->
-                            <th>Número de teléfono</th>
-                            <!-- <th>Num. horas semanales del proyecto</th> -->
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        <tr>
-                            <!-- Contenido a cargar -->
-                            <td>
-                                <div class="d-flex">
-                                    <!-- <button class="btn btn-sm btn-outline-primary me-2">Editar</button>
-                                    <button class="btn btn-sm btn-outline-danger">Eliminar</button> -->
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                    
-                </table>
-            </div>
-        </div>
 
     <!-- Card Element -->
     <div class="card">
@@ -191,7 +157,7 @@
                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="Numero_Director" class="form-label">Telefono director(a)
                                             regional</label>
-                                        <input type="number" class="form-control form-control-sm" name="Numero_Director"
+                                        <input type="text" class="form-control form-control-sm" name="Numero_Director"
                                             id="Numero_Director" aria-describedby="helpId" placeholder="">
                                         <div class="invalid-feedback">
                                         </div>
@@ -214,7 +180,7 @@
 
                                         <label for="Numero_Sub_Director" class="form-label">Telefono subdirector(a)
                                             regional</label>
-                                        <input type="number" class="form-control form-control-sm"
+                                        <input type="text" class="form-control form-control-sm"
                                             name="Numero_Sub_Director" id="Numero_Sub_Director"
                                             aria-describedby="helpId" placeholder="">
                                         <div class="invalid-feedback">
@@ -235,7 +201,6 @@
         </div>
     </div>
 
-   
 <div class="card">
     <div id="headingTwo">
         <!-- Contenido segundo boton -->
@@ -246,11 +211,66 @@
                 <div class="d-flex justify-content-center col-12">
                     <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Autor</h5>
                 </div>
-                <div class="row justify-content-center">
-                    
+                <!-- Tabla de autores -->
+                <div class="container mt-5">
+                    <div class="table-responsive" id="tabla-container">
+                        <table class="table tablita tabla_autores">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del autor(a)</th>
+                                    <th>Tipo de vinculación</th>
+                                    <th>Número de documento</th>
+                                    <th>Rol sennova</th>
+                                    <th>Correo electrónico</th>
+                                    <th>Número de teléfono</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for autor in autores%}
+                                <tr>
+                                    <td>{{autor.nombre_Autor_Proyecto}}</td>
+                                    <td>{{autor.tipo_Vinculacion_entidad}}</td>
+                                    <td>{{autor.numero_Cedula_Autor}}</td>
+                                    <td>{{autor.rol_Sennova_De_Participantes_de_Proyecto}}</td>
+                                    <td>{{autor.email_Autor_Proyecto}}</td>
+                                    <td>{{autor.numero_Telefono_Autor}}</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Acciones">
+                                            <button onclick="edit_autor({{autor.id}})" type="button" class="btn btn-success">Editar</button>
+                                            <button type="button" class="btn btn-danger">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+                <div class="row justify-content-center" >
+                    <div id="container-inputs-autores">
+                        <div id="inputs_autores">
+                            {% for autor in autores%}
+                            <div id="autor{{ autor.id }}">
+                                <input id="id_autor_hidden" type="hidden" value="{{autor.id}}">
+                                <input id="Nombre_Autor_Proyecto_hidden" type="hidden" value="{{autor.nombre_Autor_Proyecto}}">
+                                <input id="tipo_Vinculacion_entidad_hidden" type="hidden" value="{{autor.tipo_Vinculacion_entidad}}">
+                                <input id="Numero_Cedula_Autor_hidden" type="hidden" value="{{autor.numero_Cedula_Autor}}">
+                                <input id="rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{autor.rol_Sennova_De_Participantes_de_Proyecto}}">
+                                <input id="Email_Autor_Proyecto_hidden" type="hidden" value="{{autor.email_Autor_Proyecto}}">
+                                <input id="Numero_meses_vinculacion_Autor_hidden" type="hidden" value="{{autor.numero_meses_vinculacion_Autor}}">
+                                <input id="Numero_Telefono_Autor_hidden" type="hidden" value="{{autor.numero_Telefono_Autor}}">
+                                <input id="Numero_horas_Semanales_dedicadas_Autores_hidden" type="hidden" value="{{autor.numero_horas_Semanales_dedicadas_Autores}}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                     <div class="col-12 col-md-10">
-                    <form method="post" class="needs-validation" action="" id="form2">
+                        <form method="post" class="needs-validation" action="" id="form2">
                         {% csrf_token %}
+                        <input id="id_autor" type="hidden">
                         <div class="bg-light mt-2 spos border_radius row me-0">
                             <!-- Primera columna con 4 filas -->
                             <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
@@ -260,7 +280,7 @@
                                 </div>
                                 
                                 <label for="Tipo_Vinculacion_entidad" class="form-label">Tipo de vinculación a la entidad</label>
-                                <select name="tipo_Vinculacion_entidad" id="select_box4" class="form-select">
+                                <select name="tipo_Vinculacion_entidad" id="tipo_Vinculacion_entidad" class="form-select">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="contratista">Contratista</option>
                                     <option value="planta">Planta</option>
@@ -273,7 +293,7 @@
                                 </div>
                                 
                                 <label for="Rol_Sennova_De_Participantes_de_Proyecto" class="form-label">Rol sennova del autor 1 del proyecto</label>
-                                <select name="rol_Sennova_De_Participantes_de_Proyecto"  id="select_box5" class="form-select">
+                                <select name="rol_Sennova_De_Participantes_de_Proyecto"  id="rol_Sennova_De_Participantes_de_Proyecto" class="form-select">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="formulador">Formulador</option>
                                     <option value="investigador">Investigador</option>
@@ -297,7 +317,7 @@
                                 </div>
                                 
                                 <label for="Numero_Telefono_Autor" class="form-label">Número de telefóno del autor 1</label>
-                                <input name="Numero_Telefono_Autor" id="Numero_Telefono_Autor" type="number" class="form-control form-control-sm" placeholder="">
+                                <input name="Numero_Telefono_Autor" id="Numero_Telefono_Autor" type="text" class="form-control form-control-sm" placeholder="">
                                 <div class="invalid-feedback">
                                 </div>
                                 
@@ -309,9 +329,11 @@
                             
     
                             <!-- Botón Siguiente centrado -->
-                            <div class="d-flex justify-content-center col-12">
-                                <button class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviar2">Siguiente</button>
-                                
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarGAutores">Guardar autor</button>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarGYSAutores">Guardar e Ir a la Siguiente Vista</button>
                             </div>
                         </form>
                     </div>
@@ -328,25 +350,71 @@
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
         <div class="card-body">
             <div class="contenido">
-                <!-- BARRA DE PROGRESO -->
-                <div class="d-flex justify-content-end mt-3 mr-3">
-                    <div class="col-4 mb-4">
-                        <div class="progress" role="progressbar" aria-label="Example with label"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                            <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                        </div>
-                    </div>
-                </div>
                 <div class="d-flex justify-content-center col-12">
                     <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Participantes</h5>
                 </div>
+                    <!-- Tabla de participantes -->
+                    <div class="container mt-5">
+                        <div class="table-responsive" id="tabla-container-2">
+                            <table class="mitabla table tabla_participantes">
+                                <thead>
+                                    <tr>
+                                        <th>Nombres</th>
+                                        <th>Número documento</th>
+                                        <th>N° meses vinculación</th>
+                                        <th>Email participantes</th>
+                                        <th>N° horas semanales</th>
+                                        <th>Telefono</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for participante in participantes %}
+                                    <tr>
+                                        <td>{{participante.nombre_participantes_de_desarrollo}}</td>
+                                        <td>{{participante.numero_cedula_participantes}}</td>
+                                        <td>{{participante.numero_meses_vinculacion_participantes}}</td>
+                                        <td>{{participante.email_participantes_de_desarrollo}}</td>
+                                        <td>{{participante.numero_horas_Semanales_dedicadas_participantes}}</td>
+                                        <td>{{participante.numero_Telefono_participantes}}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Acciones">
+                                                <button onclick="edit_participantes({{participante.id}})" type="button" class="btn btn-success">Editar</button>
+                                                <button type="button" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-10">
+                        
+                    <div id="container-inputs-participantes">
+                        <div id="inputs_participantes">
+                            {% for participante in participantes %}
+                            <div id="participante{{ participante.id }}">
+                                <input id="id_participante_hidden" type="hidden" value="{{participante.id}}">
+                                <input id="Nombre_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.nombre_participantes_de_desarrollo}}">
+                                <input id="Rol_Sennova_De_Participantes_de_Proyecto_hidden" type="hidden" value="{{participante.rol_Sennova_De_Participantes_de_Proyecto}}">
+                                <input id="Numero_cedula_participantes_hidden" type="hidden" value="{{participante.numero_cedula_participantes}}">
+                                <input id="Numero_meses_vinculacion_participantes_hidden" type="hidden" value="{{participante.numero_meses_vinculacion_participantes}}">
+                                <input id="Email_participantes_de_desarrollo_hidden" type="hidden" value="{{participante.email_participantes_de_desarrollo}}">
+                                <input id="Numero_horas_Semanales_dedicadas_participantes_hidden" type="hidden" value="{{participante.numero_horas_Semanales_dedicadas_participantes}}">
+                                <input id="Numero_Telefono_participantes_hidden" type="hidden" value="{{participante.numero_Telefono_participantes}}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                     <form method="post" class="needs-validation" action="" id="form3">
                         <div class="bg-light mt-2 spos border_radius row me-0">
+                            <input id="id_participante" type="hidden">
                             <!-- Primera columna con 4 campos -->
                             <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                    {% csrf_token %}
+                                {% csrf_token %}
                              
                                 <label for="Nombre_participantes_de_desarrollo" class="form-label">Nombres y apellidos del participante
                                     desarrollo del proyecto</label>
@@ -355,7 +423,7 @@
                                 </div>
 
                                 <label for="Rol_Sennova_De_Participantes_de_Proyecto" class="form-label">Rol Sennova del participante en el desarrollo del proyecto</label>
-                                <select name="Rol_Sennova_De_Participantes_de_Proyecto" id="select_box6" class="form-select">
+                                <select name="Rol_Sennova_De_Participantes_de_Proyecto" id="Rol_Sennova_De_Participantes_de_Proyecto" class="form-select">
                                     <option value="" disabled selected>Seleccione...</option>
                                     <option value="formulador">Formulador</option>
                                     <option value="investigador">Investigador</option>
@@ -401,8 +469,11 @@
                             </div>
                             
                             <!-- Botón Siguiente centrado -->
-                            <div class="d-flex justify-content-center col-12">
-                                <button class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviar3">Siguiente</button>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarGParticipantes">Guardar participante</button>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarGYSParticipantes">Guardar e Ir a la Siguiente Vista</button>
                             </div>
                         </form>
                     </div>
@@ -417,14 +488,6 @@
     <form method="post" class="needs-validation" action="" id="form4">
         <div class="card-body">
             <div class="contenido">
-                <!-- BARRA DE PROGRESO -->
-                <div class="d-flex justify-content-end mt-3 mr-3">
-                    <div class="col-4 mb-4">
-                        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                            <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                        </div>
-                    </div>
-                </div>
                 <div class="d-flex justify-content-center col-12">
                     <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Generalidades</h5>
                 </div>

@@ -1,36 +1,44 @@
-const button1 = document.getElementById('step2');
+inputs = ['objetivo_especifico1', 'objetivo_especifico2', 'objetivo_especifico3']
+function showdivObj(){
+    inputs.forEach((input, i) => {
+        if (!(document.getElementById(input).value == '')){
+            document.getElementById(`Actividad${i+1}`).style.display = 'block'
+            document.getElementById(`divSiguiente`).style.display = 'block'
+            document.getElementById(`text-sapo`).style.display = 'none'
+        }
+    });
+}
 
-const collapse1 = document.getElementById('collapseOne');
-const collapse2 = document.getElementById('collapseTwo');
-
+let conjuntosMostrados = 1;
+function mostrarDivs() {
+  // Mostrar conjuntos adicionales solo si no se han mostrado más de 2
+  if (conjuntosMostrados < 2) {
+    document.querySelector('.la_prueba2').style.display = 'block';
+    conjuntosMostrados++;
+  } else if(conjuntosMostrados == 2) {
+    document.querySelector('.la_prueba3').style.display = 'block';
+    conjuntosMostrados++;
+  } else{
+    alert('Solo puedes crear 3 objetivos especificos por proyecto.')
+  }
+}
 document.addEventListener("DOMContentLoaded", function() {
+    
+    const button1 = document.getElementById('step2');
+    
+    const collapse1 = document.getElementById('collapseOne');
+    const collapse2 = document.getElementById('collapseTwo');
     const allValidations = {
         //Estructura del proyecto
        "form1": {
-        "resumen_ejecutivo": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El resumen ejecutivo no es válido. Debe tener entre 5 y 8000 caracteres.'
-        },        
-        "antecedentes": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El antecedente no es válido. Debe tener entre 5 y 8000 caracteres.'
+        "objetivo_general": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj general no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
-       },
-
-    //Descripcion del problema
-       "form2":{
-        "identificacion_y_descripcion_problema": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'La identificación y descripcion del problema no es válido. Debe tener entre 5 y 8000 caracteres.'
-        },
-        "justificacion": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 8000 caracteres.'
-        },
-        "marco_conceptual": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El marco conceptual no es válido. Debe tener entre 5 y 8000 caracteres.'
-        },
+        "objetivo_especifico1": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj especifico no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
+        }
        },
     };
 
@@ -49,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const { pattern, errorMsg } = allValidations[formKey][fieldId];
 
             inputField.addEventListener("input", function() {
+                let senduwu = false;
                 validateField(inputField, feedbackElement, pattern, errorMsg);
             });
         }
@@ -56,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //ids de los formularios
     const form1 = document.getElementById("form1");
-    const form2 = document.getElementById("form2");
 
 
     document.getElementById("enviar1").addEventListener("click", function() {
@@ -77,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const feedbackElement = inputField.nextElementSibling;
             const { pattern, errorMsg } = allValidations[formKey][fieldId];
-
+            
             isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
         }
         event.preventDefault();
@@ -124,19 +132,20 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function sendPost1() {
-    var id_proyecto = document.getElementById("id_proyecto").value;
-    // Obtener los valores de los campos del formulario
-    var resumen_ejecutivo = document.getElementById("resumen_ejecutivo").value;
-    var antecedentes = document.getElementById("antecedentes").value;
-    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
+    var id_proyecto = document.getElementById('id_proyecto').value;
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Resumen_ejecutivo", resumen_ejecutivo);
-    formData.append("Antecedentes", antecedentes);
-    formData.append("csrfmiddlewaretoken", csrfToken);
+    formData.append("objetivo_general", document.getElementById("objetivo_general").value);
+    if (!(document.getElementById('objetivo_especifico1').value == '')){
+        formData.append("objetivo_especifico1", document.getElementById('objetivo_especifico1').value);
+    }if (!(document.getElementById('objetivo_especifico2').value == '')){
+        formData.append("objetivo_especifico2", document.getElementById('objetivo_especifico2').value);
+    }if (!(document.getElementById('objetivo_especifico3').value == '')){
+        formData.append("objetivo_especifico3", document.getElementById('objetivo_especifico3').value);
+    }
+    formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`/proyecto/est-proyecto/resumen-antecedentes/${id_proyecto}/`, {
+    fetch(`/proyecto/arbol-problemas/objetivos/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
@@ -147,31 +156,35 @@ function sendPost1() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            // Realizar acciones de éxito, si es necesario
+            showdivObj()
         }
     })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
-    });
+    // .catch(error => {
+    //     console.error('Error en la solicitud:', error);
+    //     // Manejar errores en la solicitud, como problemas de red
+    // });
 };
 
 function sendPost2() {
-    var id_proyecto = document.getElementById("id_proyecto").value;
-    // Obtener los valores de los campos del formulario
-    var identificacion_y_descripcion_problema = document.getElementById("identificacion_y_descripcion_problema").value;
-    var justificacion = document.getElementById("justificacion").value;
-    var marco_conceptual = document.getElementById("marco_conceptual").value;
-    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
+    var id_proyecto = document.getElementById('id_proyecto').value;
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Identificacion_y_descripcion_problema", identificacion_y_descripcion_problema);
-    formData.append("Justificacion", justificacion);
-    formData.append("Marco_conceptual", marco_conceptual);
-    formData.append("csrfmiddlewaretoken", csrfToken);
+    if (!(document.getElementById('actividad1').value == '')){
+        formData.append("actividad1", document.getElementById('actividad1').value);
+        formData.append("causa1", document.getElementById('causa1').value);
+        formData.append("efecto1", document.getElementById('efecto1').value);
+    }if (!(document.getElementById('actividad2').value == '')){
+        formData.append("actividad2", document.getElementById('actividad2').value);
+        formData.append("causa2", document.getElementById('causa2').value);
+        formData.append("efecto2", document.getElementById('efecto2').value);
+    }if (!(document.getElementById('actividad3').value == '')){
+        formData.append("actividad3", document.getElementById('actividad3').value);
+        formData.append("causa3", document.getElementById('causa3').value);
+        formData.append("efecto3", document.getElementById('efecto3').value);
+    }
+    formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
     // Realizar una solicitud POST utilizando Fetch
-    fetch(`/proyecto/est-proyecto/descripcion-problema/${id_proyecto}/`, {
+    fetch(`/proyecto/arbol-problemas/actividades/${id_proyecto}/`, {
         method: 'POST',
         body: formData,
     })
@@ -182,12 +195,11 @@ function sendPost2() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            window.location.href = `/objetivos/${id_proyecto}/`;
+            window.location.href = `/seleccionar-objetivo/${id_proyecto}/`;
         }
     })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
-    });
+    // .catch(error => {
+    //     console.error('Error en la solicitud:', error);
+    //     // Manejar errores en la solicitud, como problemas de red
+    // });
 };
-

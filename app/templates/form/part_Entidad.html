@@ -1,0 +1,82 @@
+{% extends "form/crearp.html" %}
+
+{% load static %}
+{% block forms %}
+<div class="d-flex justify-content-center col-12">
+    <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Participantes de la entidad aliada</h5>
+</div>
+
+<div class="contenido">
+    <!-- Tabla de autores -->
+    <div class="container mt-5">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre del participante</th>
+                        <th>Número de documento</th>
+                        <th>Email</th>
+                        <th>Número de teléfono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participante in participantes %}
+                    <tr>
+                        <td>{{participante.nombre}}</td>
+                        <td>{{participante.numero_identificacion}}</td>
+                        <td>{{participante.email}}</td>
+                        <td>{{participante.telefono}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            <div class="bg-light mt-2 pt-2 spos border_radius row me-0">
+                <!-- Primera columna con 4 filas -->
+                <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
+                    <form method="post" class="needs-validation" id="form1">
+                        <input id="id_proyecto" type="hidden" value="{{percentaje}}">
+                        <input id="id_entidad" type="hidden" value="{{entidad_id}}">
+                        {% csrf_token %}
+                        <label for="" class="form-label">Nombres de integrantes que participan</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control form-control-sm" placeholder="">
+                        <div class="invalid-feedback">
+                        </div>
+                        
+                        <label for="" class="form-label">Número de identificación de los integrantes</label>
+                        <input type="number" name="numero_identificacion" id="numero_identificacion" class="form-control form-control-sm" placeholder="">
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
+
+                    <!-- Segunda columna con 4 filas -->
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="" class="form-label">Email de los integrantes</label>
+                        <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="">
+                        <div class="invalid-feedback">
+                        </div>
+                        
+                        <label for="" class="form-label">Número de celular de integrantes</label>
+                        <input type="number" name="telefono" id="telefono" class="form-control form-control-sm" placeholder="">
+                        <div class="invalid-feedback">
+                        </div>
+                    </div>
+                    <!-- Botón Siguiente centrado -->
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarG">Guardar Participante</button>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarGYS">Guardar e Ir a la Siguiente Vista</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/part_entidad_validations.js' %}"></script>
+{% endblock%}

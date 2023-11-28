@@ -2,66 +2,70 @@
 
 {% load static %}
 {% block forms %}
-    <div class="accordion" id="accordionExample">
-        <div class="steps pasop mt-3">
-            <progress id="progress" value=0 max=100 class="mb-4"></progress>
-            <div class="step-item flex-fill mb-3">
-                <button class="step-button text-center mb-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    1
-                </button>
-                <div class="step-title">
-                    <label for="text" class="form-label">Centro de formación</label>
-                </div>
+
+<div class="accordion" id="accordionExample">
+    <div class="steps pasop mt-3">
+        <progress id="progress" value=0 max=100 class="mb-4"></progress>
+
+        <!-- Step 1 -->
+        <div class="step-item flex-fill mb-3">
+            <button class="step-button text-center mb-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="step1">
+                1
+            </button>
+            <div class="step-title">
+                <label for="text" class="form-label">Centro formación</label>
             </div>
-            <div class="step-item flex-fill mb-3">
-                <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    2
-                </button>
-                <div class="step-title">
-                    <label for="text" class="form-label">Entidades aliadas</label>
-                </div>
-            </div>
-            
         </div>
 
-        <div class="d-flex justify-content-center col-12">
-            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">PARTICIPANTES</h5>
+        <!-- Step 2 -->
+        <div class="step-item flex-fill mb-3">
+            <button class="step-button text-center mb-2 collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="step2">
+                2
+            </button>
+            <div class="step-title">
+                <label for="text" class="form-label">Entidad aliada</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Project -->
+    <div class="d-flex justify-content-center col-12">
+        <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">ANÁLISIS PARTICIPANTES</h5>
+    </div>
+    <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
+
+    
+
+    <!-- Card Element  -->
+     <div class="card">
+        <div id="headingOne"> 
         </div>
 
-        <div class="card">
-            <div id="headingOne">
-            </div>
-            <!-- Contenido de primer boton -->
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <!-- Content of First Button -->
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <form method="post" class="needs-validation"id="form1">
                 <div class="card-body">
                     <div class="contenido">
-                        <!-- BARRA DE PROGRESO -->
-                        <div class="d-flex justify-content-end mt-3 mr-3">
-                            <div class="col-4 mb-4">
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="d-flex justify-content-center col-12">
-                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Centro de formación</h5>
-                        </div>
-                        <div class="row justify-content-center">
+                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">
+                                Centro de formación</h5>
+                        </div> 
+
+                         <div class="row justify-content-center">
                             <div class="col-12 col-md-10">
-                                <form method="post"></form>
                                 <div class="bg-light mt-2 spos border_radius row me-0">
-                                    <!-- Primera columna con 5 campos -->
+
+                                    <!-- First Column with 5 rows -->
                                     <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
-                                        <form method="post" action="{% url 'part_proyecto' %}">
-                                            {% csrf_token %}
-                                        <label for="" class="form-label">Nombres de los semilleros de investigación beneficiados</label>
-                                        <input type="text" name="Nombre_Semillero_Investigacion_Beneficiados" id="Nombre_Semillero_Investigacion_Beneficiados" class="form-control form-control-sm" placeholder="">
-            
+                                        <label for="nombre_semillero_investigacion_beneficiados" class="form-label">Nombres de los semilleros de investigación beneficiados</label>
+                                        <input type="text" name="nombre_semillero_investigacion_beneficiados" id="nombre_semillero_investigacion_beneficiados" class="form-control form-control-sm" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
+
                                         <label for="" class="form-label">Número de programas de formación beneficiados que conforman el (los) semillero (s)</label>
-                                        <select name="Numero_Programas_Beneficiarios_Semilleros_Investigacion" id="Numero_Programas_Beneficiarios_Semilleros_Investigacion" class="form-control selectmod">
+                                        <select name="numero_programas_beneficiarios_semilleros_investigacion" id="numero_programas_beneficiarios_semilleros_investigacion" class="form-control selectmod">
                                             <option value="" disabled selected>Seleccione...</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -71,323 +75,402 @@
                                         </select>
             
                                         <label for="" class="form-label">Tipo de programas de formación beneficiados que conforman el (los) semillero (s)</label>
-                                        <select name="Tipo_programas_formación_beneficiados_conforman_semillero" id="Tipo_programas_formación_beneficiados_conforman_semillero" class="form-control selectmod">
+                                        <select name="tipo_programas_formacion_beneficiados_conforman_semillero" id="tipo_programas_formacion_beneficiados_conforman_semillero" class="form-control selectmod">
                                             <option value="" disabled selected>Selecciona una opción...</option>
                                             <option value="tecnico">Técnico</option>
                                             <option value="tecnologico">Tecnológico</option>
                                         </select>
             
                                         <label for="" class="form-label">Nombre de los programas de formación beneficiados que conforman el (los) semillero (s) </label>
-                                        <input type="text" name="Nombre_programas_formación_beneficiados_semillero" id="Nombre_programas_formación_beneficiados_semillero" class="form-control form-control-sm" placeholder="">
-            
+                                        <input type="text" name="nombre_programas_formacion_beneficiados_semillero" id="nombre_programas_formacion_beneficiados_semillero" class="form-control form-control-sm" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
+
                                         <label for="" class="form-label">Tipo de programas de formación beneficiados con la ejecución del proyecto</label>
-                                        <select name="Tipo_programas_de_formación_beneficiados_por_ejecución" id="Tipo_programas_de_formación_beneficiados_por_ejecución" class="form-control selectmod">
+                                        <select name="tipo_programas_de_formacion_beneficiados_por_ejecucion" id="tipo_programas_de_formacion_beneficiados_por_ejecucion" class="form-control selectmod">
                                             <option value="" disabled selected>Selecciona una opción...</option>
                                             <option value="tecnico">Técnico</option>
                                             <option value="tecnologico">Tecnológico</option>
                                         </select>
-                                    </div>
-            
-                                    <!-- Segunda columna con 4 campos -->
-                                    <div class="col-12 col-md-6 mb-3">
+                                    </div> 
+
+                                    <!-- Second Column with 4 rows -->
+                                     <div class="col-12 col-md-6 mb-3">
                                         <label for="" class="form-label">Nombre de los programas de formación beneficiados con la ejecución del proyecto</label>
-                                        <input type="text" name="Nombre_programas_formación_beneficiados_ejecución_proyecto" id="Nombre_programas_formación_beneficiados_ejecución_proyecto" class="form-control form-control-sm" placeholder="">
+                                        <input type="text" name="nombre_programas_formacion_beneficiados_ejecucion_proyecto" id="nombre_programas_formacion_beneficiados_ejecucion_proyecto" class="form-control form-control-sm" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
             
                                         <label for="" class="form-label">Número de los aprendices que participarán en la ejecución del proyecto</label>
-                                        <input type="number" name="Número_aprendices_participarán_ejecución_proyecto" id="Número_aprendices_participarán_ejecución_proyecto" class="form-control form-control-sm" placeholder="">
+                                        <input type="number" name="numero_aprendices_participaran_ejecucion_proyecto" id="numero_aprendices_participaran_ejecucion_proyecto" class="form-control form-control-sm" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
             
                                         <label for="" class="form-label">Número de municipios beneficiados con la ejecución del proyecto</label>
-                                        <input type="number" name="Número_municipios_beneficiados" id="Número_municipios_beneficiados" class="form-control form-control-sm" placeholder="">
+                                        <input type="number" name="numero_municipios_beneficiados" id="numero_municipios_beneficiados" class="form-control form-control-sm" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
             
                                         <label for="" class="form-label">Nombre de los municipios beneficiados y descripción del beneficio</label>
-                                        <input type="text" name="Nombre_municipios_beneficiados_descripción_beneficio" id="Nombre_municipios_beneficiados_descripción_beneficio" class="form-control form-control-sm" placeholder="">
+                                        <input type="text" name="nombre_municipios_beneficiados_descripcion_beneficio" id="nombre_municipios_beneficiados_descripcion_beneficio" class="form-control form-control-sm" placeholder="">
+                                        <div class="invalid-feedback">
+                                        </div>
                                     </div>
-            
-                                    <!-- Botón Siguiente centrado -->
+
+                                    <!-- Next Button Centered -->
                                     <div class="d-flex justify-content-center col-12">
-                                        <button type="submit"
+                                        <button id="enviar1"
                                             class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                     </div>
-                                </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </form>
         </div>
-        <div class="card">
-            <div id="headingTwo">
-                <!-- Contenido segundo boton -->
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="card-body">
-                    <div class="contenido">
-                        <!-- BARRA DE PROGRESO -->
-                        <div class="d-flex justify-content-end mt-3 mr-3">
-                            <div class="col-4 mb-4">
-                                <div class="progress" role="progressbar" aria-label="Example with label"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25;">
-                                    <div class="progress-bar bg-green" style="width: 25%">25%</div>
+    </div>
+
+   
+<div class="card">
+    <div id="headingTwo">
+        <!-- Contenido segundo boton -->
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="card-body">
+            <div class="contenido">
+                <div class="d-flex justify-content-center col-12">
+                    <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Entidad aliada</h5>
+                </div>
+                <!-- Tabla de participantes -->
+                <div class="container mt-5">
+                    <div class="table-responsive" id="tabla-container">
+                        <table class="tablita table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre entidad</th>
+                                    <th>NIT</th>
+                                    <th>Tipo entidad</th>
+                                    <th>Naturaleza entidad</th>
+                                    <th>Clasificación empresa</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entidad_a in entidad_a %}
+                                <tr>
+                                    <td>{{entidad_a.nombre_entidad}}</td>
+                                    <td>{{entidad_a.nit}}</td>
+                                    <td>{{entidad_a.tipo_entidad_aliada}}</td>
+                                    <td>{{entidad_a.naturaleza_entidad}}</td>
+                                    <td>{{entidad_a.clasificacion_empresa}}</td>
+                                    <td>
+                                        <button onclick="edit_entidad({{entidad_a.id}})" type="button" class="btn btn-success">Editar</button>
+                                        <button type="button" class="btn btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% for entidad_a in entidad_a %}
+                <div id="entidad{{ entidad_a.id }}">
+                    <input id="id_entidad_hidden" type="hidden" value="{{entidad_a.id}}">
+                    <input id="nombre_entidad_hidden" type="hidden" value="{{entidad_a.nombre_entidad}}">
+                    <input id="tipo_entidad_aliada_hidden" type="hidden" value="{{entidad_a.tipo_entidad_aliada}}">
+                    <input id="naturaleza_entidad_hidden" type="hidden" value="{{entidad_a.naturaleza_entidad}}">
+                    <input id="clasificacion_empresa_hidden" type="hidden" value="{{entidad_a.clasificacion_empresa}}">
+                    <input id="nit_hidden" type="hidden" value="{{entidad_a.nit}}">
+                    <input id="convenio_hidden" type="hidden" value="{{entidad_a.convenio}}">
+                    <input id="especifique_tipo_codigo_convenio_hidden" type="hidden" value="{{entidad_a.especifique_tipo_codigo_convenio}}">
+                    <input id="recursos_especie_entidad_hidden" type="hidden" value="{{entidad_a.recursos_especie_entidad}}">
+                    <input id="descripcion_recursos_especie_aportados_hidden" type="hidden" value="{{entidad_a.descripcion_recursos_especie_aportados}}">
+                    <input id="recursos_dinero_entidad_aliada_hidden" type="hidden" value="{{entidad_a.recursos_dinero_entidad_aliada}}">
+                    <input id="descripcion_destinacion_dinero_aportado_hidden" type="hidden" value="{{entidad_a.descripcion_destinacion_dinero_aportado}}">
+                    <input id="nombre_grupo_inv_entidad_aliada_hidden" type="hidden" value="{{entidad_a.nombre_grupo_inv_entidad_aliada}}">
+                    <input id="codigo_gruplac_entidad_aliada_hidden" type="hidden" value="{{entidad_a.codigo_gruplac_entidad_aliada}}">
+                    <input id="link_gruplac_entidad_aliada_hidden" type="hidden" value="{{entidad_a.link_gruplac_entidad_aliada}}">
+                    <input id="actividades_desarrollar_entidad_aliada_marco_proyecto_hidden" type="hidden" value="{{entidad_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}">
+                    <input id="metodologia_act_transferencia_centro_formacion_hidden" type="hidden" value="{{entidad_a.metodologia_act_transferencia_centro_formacion}}">
+                </div>
+                {% endfor %}
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10">
+                    <form  class="needs-validation" method="post" id="form2">
+                        {% csrf_token %}
+                        <div class="bg-light mt-2 spos border_radius row me-0">
+                            <!-- Primera columna con 11 campos-->
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3 border-end pe-4 border-color-custom">
+                                    
+                                    <input id="id_entidad" type="hidden">
+                                    <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
+                                    
+                                    <label for="" class="form-label">Nombre de la entidad aliada/Centro de Formación</label>
+                                    <input type="text" name="nombre_entidad" id="nombre_entidad" class="form-control form-control-sm" placeholder="">
+                                    <div class="invalid-feedback">
+                                    </div>
+
+                                    <label for="" class="form-label">Tipo de entidad aliada en el proyecto</label>
+                                    <select name="tipo_entidad_aliada" id="tipo_entidad_aliada" class="form-control selectmod">
+                                        <option value="" disabled selected>Seleccione una opción...</option>
+                                        <option value="Empresa">Empresa</option>
+                                        <option value="Universidad">Universidad</option>
+                                        <option value="Entidad sin animo de lucro">Entidad sin ánimo de lucro</option>
+                                        <option value="Centro de formacion SENA">Centro de formación SENA</option>
+                                        <option value="Otra">Otra</option>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </select>
+
+                                    <label for="" class="form-label">Naturaleza de la entidad en el proyecto</label>
+                                    <select name="naturaleza_entidad" id="naturaleza_entidad" class="form-control selectmod">
+                                        <option value="" disabled selected>Selecciona una opción...</option>
+                                        <option value="Publica">Pública</option>
+                                        <option value="Privada">Privada</option>
+                                        <option value="Mixta">Mixta</option>
+                                        <option value="ONG">ONG</option>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </select>
+
+                                    <label for="" class="form-label">Clasificación de empresa (entidad aliada)</label>
+                                    <select name="clasificacion_empresa" id="clasificacion_empresa" class="form-control selectmod">
+                                        <option value="" disabled selected>Seleccione una opción...</option>
+                                        <option value="Microempresa">Microempresa</option>
+                                        <option value="Pequeña">Pequeña</option>
+                                        <option value="Mediana">Mediana</option>
+                                        <option value="Grande">Grande</option>
+                                    </select>
+
+                                    <label for="" class="form-label">NIT (entidad aliada)</label>
+                                    <input type="text" name="nit" id="nit" class="form-control form-control-sm" placeholder="">
+                                    <div class="invalid-feedback">
+                                    </div>
+                                    
+                                    <label for="" class="form-label">Convenio (entidad aliada)</label>
+                                    <select name="convenio" id="convenio" class="form-control selectmod">
+                                        <option value="" disabled selected>Seleccione una opción...</option>
+                                        <option value=True>Sí</option>
+                                        <option value=False>No</option>
+                                    </select>
+
+                                    <label for="" class="form-label">Si contestó la pregunta anterior tipo y código de convenio</label>
+                                    <input type="text" name="especifique_tipo_codigo_convenio" id="especifique_tipo_codigo_convenio" class="form-control form-control-sm" placeholder="">
+                                    <div class="invalid-feedback">
+                                    </div>
+
+                                    <label for="" class="form-label">Metodología o actividades de transferencia (Centro Formación)</label>
+                                    <input type="text" name="metodologia_act_transferencia_centro_formacion" id="metodologia_act_transferencia_centro_formacion" class="form-control form-control-sm" placeholder="">
+                                    <div class="invalid-feedback">
+                                    </div>
+
+                                    <label for="" class="form-label">Objetivo(s) especificos relacionados</label> <br>
+                                    {% for objEspecifico in objEspecificos %}
+                                    <input type="checkbox" id="objEspecifico{{ forloop.counter }}" class="objEspecifico">
+                                    <small>{{objEspecifico.objetivo_especificos}}</small> <br>
+                                    {% endfor %}
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-center col-12">
-                            <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Entidades aliadas</h5>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-md-10">
-                                <div class="bg-light mt-2 spos border_radius row me-0">
-                                    <!-- Primera columna con 11 campos -->
-                                    <div class="col-12 col-md-6">
-                                        <div class="mb-3 border-end pe-4 border-color-custom">
-                                            <form method="post" action="{% url 'ent_aliada' %}">
-                                                {% csrf_token %}
-                                            
-                                            <label for="" class="form-label">Nombre de la entidad aliada/Centro de Formación</label>
-                                            <input type="text" name="nombre_entidad" id="nombre_entidad" class="form-control form-control-sm" placeholder="">
-
-                                            <label for="" class="form-label">Tipo de entidad aliada en el proyecto</label>
-                                            <select name="tipo_entidad_aliada" id="tipo_entidad_aliada" class="form-control selectmod">
-                                                <option value="" disabled selected>Seleccione una opción...</option>
-                                                <option value="empresa">Empresa</option>
-                                                <option value="universidad">Universidad</option>
-                                                <option value="entidad_sin_animo_lucro">Entidad sin ánimo de lucro</option>
-                                                <option value="centro_formacion_sena">Centro de formación SENA</option>
-                                                <option value="otra">Otra</option>
-                                            </select>
-
-                                            <label for="" class="form-label">Naturaleza de la entidad en el proyecto</label>
-                                            <select name="naturaleza_entidad" id="naturaleza_entidad" class="form-control selectmod">
-                                                <option value="" disabled selected>Selecciona una opción...</option>
-                                                <option value="publica">Pública</option>
-                                                <option value="privada">Privada</option>
-                                                <option value="mixta">Mixta</option>
-                                                <option value="ong">ONG</option>
-                                            </select>
-
-                                            <label for="" class="form-label">Clasificación de empresa (entidad aliada)</label>
-                                            <select name="clasificiacion_empresa" id="clasificiacion_empresa" class="form-control selectmod">
-                                                <option value="" disabled selected>Seleccione una opción...</option>
-                                                <option value="microempresa">Microempresa</option>
-                                                <option value="pequena">Pequeña</option>
-                                                <option value="mediana">Mediana</option>
-                                                <option value="grande">Grande</option>
-                                            </select>
-
-                                            <label for="" class="form-label">NIT (entidad aliada)</label>
-                                            <input type="number" name="nit" id="nit" class="form-control form-control-sm" placeholder="">
-                                            
-                                            <label for="" class="form-label">Convenio (entidad aliada)</label>
-                                            <select name="convenio" id="convenio" class="form-control selectmod">
-                                                <option value="" disabled selected>Seleccione una opción...</option>
-                                                <option value="True">Sí</option>
-                                                <option value="False">No</option>
-                                            </select>
-
-                                            <label for="" class="form-label">Si contestó la pregunta anterior tipo y código de convenio</label>
-                                            <input type="text" name="especifique_tipo_codigo_convenio" id="especifique_tipo_codigo_convenio" class="form-control form-control-sm" placeholder="">
-                                        
-                                        
-                                            <label for="" class="form-label">Nombres de integrantes que participan (entidad aliada)</label>
-                                            <input type="text" name="nombres_integrantes_participantes_entidad_aliada" id="nombres_integrantes_participantes_entidad_aliada" class="form-control form-control-sm" placeholder="">
-
-                                            <label for="" class="form-label">Número de identificación de los integrantes</label>
-                                            <input type="number" name="numero_identificacion_integrantes" id="numero_identificacion_integrantes" class="form-control form-control-sm" placeholder="">
-
-                                            <label for="" class="form-label">Email de los integrantes<br>(entidad aliada)</label>
-                                            <input type="email" name="email_integrantes" id="email_integrantes" class="form-control form-control-sm" placeholder="">
-
-                                            <label for="" class="form-label">Número de celular de integrantes<br>(entidad aliada)</label>
-                                            <input type="number" name="numeros_celular_integrantes" id="numeros_celular_integrantes" class="form-control form-control-sm" placeholder="">
-                                        </div>
-                                    </div>
-                                    <!-- Segunda columna con 10 campos -->
-                                    <div class="col-12 col-md-6">
-                                        <!-- Campo 1 -->
-                                        
-                                            <label for="" class="form-label">Recursos en especie entidad aliada ($COP)</label>
-                                            <input type="number" name="recursos_especie_entidad" id="recursos_especie_entidad" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 2 -->
-                                        
-                                            <label for="" class="form-label">Descripción de los recursos en especie aportados</label>
-                                            <input type="text" name="descripcion_recursos_especie_aportados" id="descripcion_recursos_especie_aportados" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 3 -->
-                                        
-                                            <label for="" class="form-label">Recursos en dinero entidad aliada ($COP)</label>
-                                            <input type="number" name="recursos_dinero_entidad_aliada" id="recursos_dinero_entidad_aliada" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 4 -->
-                                        
-                                            <label for="" class="form-label">Descripción de la destinación del dinero aportado</label>
-                                            <input type="text" name="descripcion_destinacion_dinero_aportado" id="descripcion_destinacion_dinero_aportado" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 5 -->
-                                        
-                                            <label for="" class="form-label">Nombre del grupo de investigación de la entidad aliada</label>
-                                            <input type="text" name="nombre_grupo_inv_entidad_aliada" id="nombre_grupo_inv_entidad_aliada" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 6 -->
-                                        
-                                            <label for="" class="form-label">Código de GrupLAC (entidad aliada)</label>
-                                            <select name="codigo_gruplac_entidad_aliada" id="codigo_gruplac_entidad_aliada" class="form-control selectmod">
-                                                <option value="" disabled selected>Seleccione una opción...</option>
-                                                <option value="col0153676">COL0153676</option>
-                                            <option value="col0085647">COL0085647</option>
-                                            <option value="col0106783">COL0106783</option>
-                                            <option value="col0110481">COL0110481</option>
-                                            <option value="col0113017">COL0113017</option>
-                                            <option value="col0113975">COL0113975</option>
-                                            <option value="col0129409">COL0129409</option>
-                                            <option value="col0131024">COL0131024</option>
-                                            <option value="col0133799">COL0133799</option>
-                                            <option value="col0146626">COL0146626</option>
-                                            <option value="col0149529">COL0149529</option>
-                                            <option value="col0149869">COL0149869</option>
-                                            <option value="col0150772">COL0150772</option>
-                                            <option value="col0151199">COL0151199</option>
-                                            <option value="col0158921">COL0158921</option>
-                                            <option value="col0163494">COL0163494</option>
-                                            <option value="col0179313">COL0179313</option>
-                                            <option value="col0160339">COL0160339</option>
-                                            <option value="col0147712">COL0147712</option>
-                                            <option value="col0147991">COL0147991</option>
-                                            <option value="col0148246">COL0148246</option>
-                                            <option value="col0148273">COL0148273</option>
-                                            <option value="col0116654">COL0116654</option>
-                                            <option value="col0150389">COL0150389</option>
-                                            <option value="col0152427">COL0152427</option>
-                                            <option value="col0152739">COL0152739</option>
-                                            <option value="col0152937">COL0152937</option>
-                                            <option value="col0157352">COL0157352</option>
-                                            <option value="col0158019">COL0158019</option>
-                                            <option value="col0162236">COL0162236</option>
-                                            <option value="col0102695">COL0102695</option>
-                                            <option value="col0129797">COL0129797</option>
-                                            <option value="col0135328">COL0135328</option>
-                                            <option value="col0153193">COL0153193</option>
-                                            <option value="col0154978">COL0154978</option>
-                                            <option value="col0161426">COL0161426</option>
-                                            <option value="col0160536">COL0160536</option>
-                                            <option value="col0149369">COL0149369</option>
-                                            <option value="col0150487">COL0150487</option>
-                                            <option value="col0141469">COL0141469</option>
-                                            <option value="col0039958">COL0039958</option>
-                                            <option value="col0149637">COL0149637</option>
-                                            <option value="col0192825">COL0192825</option>
-                                            <option value="col0160376">COL0160376</option>
-                                            <option value="col0151189">COL0151189</option>
-                                            <option value="col0154548">COL0154548</option>
-                                            <option value="col0157577">COL0157577</option>
-                                            <option value="col0138544">COL0138544</option>
-                                            <option value="col0144004">COL0144004</option>
-                                            <option value="col0150244">COL0150244</option>
-                                            <option value="col0160438">COL0160438</option>
-                                            <option value="col0164025">COL0164025</option>
-                                            <option value="col0166807">COL0166807</option>
-                                            <option value="col0133996">COL0133996</option>
-                                            <option value="col0146223">COL0146223</option>
-                                            <option value="col0148068">COL0148068</option>
-                                            <option value="col0149305">COL0149305</option>
-                                            <option value="col0150478">COL0150478</option>
-                                            <option value="col0150899">COL0150899</option>
-                                            <option value="col0152356">COL0152356</option>
-                                            <option value="col0154539">COL0154539</option>
-                                            <option value="col0157835">COL0157835</option>
-                                            <option value="col0158663">COL0158663</option>
-                                            <option value="col0160287">COL0160287</option>
-                                            <option value="col0160607">COL0160607</option>
-                                            <option value="col0160616">COL0160616</option>
-                                            <option value="col0162871">COL0162871</option>
-                                            <option value="col0163529">COL0163529</option>
-                                            <option value="col0147276">COL0147276</option>
-                                            <option value="col0153719">COL0153719</option>
-                                            <option value="col0182408">COL0182408</option>
-                                            <option value="col0151018">COL0151018</option>
-                                            <option value="col0039288">COL0039288</option>
-                                            <option value="col0149439">COL0149439</option>
-                                            <option value="col0149468">COL0149468</option>
-                                            <option value="col0150674">COL0150674</option>
-                                            <option value="col0164713">COL0164713</option>
-                                            <option value="col0155376">COL0155376</option>
-                                            <option value="col0157737">COL0157737</option>
-                                            <option value="col0110285">COL0110285</option>
-                                            <option value="col0156739">COL0156739</option>
-                                            <option value="col0150057">COL0150057</option>
-                                            <option value="col0157906">COL0157906</option>
-                                            <option value="col0192754">COL0192754</option>
-                                            <option value="col0160679">COL0160679</option>
-                                            <option value="col0171834">COL0171834</option>
-                                            <option value="col0153709">COL0153709</option>
-                                            <option value="col0117491">COL0117491</option>
-                                            <option value="col0149628">COL0149628</option>
-                                            <option value="col0153433">COL0153433</option>
-                                            <option value="col0149566">COL0149566</option>
-                                            <option value="col0153291">COL0153291</option>
-                                            <option value="col0163609">COL0163609</option>
-                                            <option value="col0156149">COL0156149</option>
-                                            <option value="col0056672">COL0056672</option>
-                                            <option value="col0133029">COL0133029</option>
-                                            <option value="col0135139">COL0135139</option>
-                                            <option value="col0149501">COL0149501</option>
-                                            <option value="col0150932">COL0150932</option>
-                                            <option value="col0152098">COL0152098</option>
-                                            <option value="col0154486">COL0154486</option>
-                                            <option value="col0156462">COL0156462</option>
-                                            <option value="col0155044">COL0155044</option>
-                                            <option value="col0112154">COL0112154</option>
-                                            <option value="col0149225">COL0149225</option>
-                                            <option value="col0149388">COL0149388</option>
-                                            <option value="col0041052">COL0041052</option>
-                                            <option value="col0104635">COL0104635</option>
-                                            <option value="col0112332">COL0112332</option>
-                                            <option value="col0125779">COL0125779</option>
-                                            <option value="col0143188">COL0143188</option>
-                                            <option value="col0149323">COL0149323</option>
-                                            <option value="col0150745">COL0150745</option>
-                                            <option value="col0156229">COL0156229</option>
-                                            <option value="col0158699">COL0158699</option>
-                                            <option value="col0165784">COL0165784</option>
-                                            <option value="col0189276">COL0189276</option>
-                                            <option value="col0171843">COL0171843</option>
-                                            <option value="col0164249">COL0164249</option>
-                                            </select>
-                                        
-                                        <!-- Campo 7 -->
-                                        
-                                            <label for="" class="form-label">Link de GrupLAC<br>(entidad aliada)</label>
-                                            <input type="text" name="link_gruplac_entidad_aliada" id="link_gruplac_entidad_aliada" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 8 -->
-                                        
-                                            <label for="" class="form-label">Actividades a desarrollar por la entidad aliada<br>(proyecto)</label>
-                                            <input type="text" name="actividades_desarrollar_entidad_aliada_marco_proyecto" id="actividades_desarrollar_entidad_aliada_marco_proyecto" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 9 -->
-                                        
-                                            <label for="" class="form-label">Objetivo(s) especificos relacionados</label>
-                                            <input type="text" name="objetivo_especificos_relacionados" id="objetivo_especificos_relacionados" class="form-control form-control-sm" placeholder="">
-                                        
-                                        <!-- Campo 10 -->
-                                        
-                                            <label for="" class="form-label">Metodología o actividades de transferencia (Centro Formación)</label>
-                                            <input type="text" name="metodologia_act_transferencia_centro_formacion" id="metodologia_act_transferencia_centro_formacion" class="form-control form-control-sm" placeholder="">
-                                        </div>
-                                    </div>
-                                    <!-- Botón Siguiente centrado -->
-                                    <div class="d-flex justify-content-center col-12">
-                                        <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
-                                    </div>
-                                </form>
+    
+                            <!-- Segunda columna con 10 campos -->
+                            <div class="col-12 col-md-6">
+                                <!-- Campo 1 -->
+                                    
+                                <label for="" class="form-label">Recursos en especie entidad aliada ($COP)</label>
+                                <input type="number" name="recursos_especie_entidad" id="recursos_especie_entidad" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback">
+                                </div>
+                            
+                            <!-- Campo 2 -->
+                            
+                                <label for="" class="form-label">Descripción de los recursos en especie aportados</label>
+                                <input type="text" name="descripcion_recursos_especie_aportados" id="descripcion_recursos_especie_aportados" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback">
+                                </div>
+                            
+                            <!-- Campo 3 -->
+                            
+                                <label for="" class="form-label">Recursos en dinero entidad aliada ($COP)</label>
+                                <input type="number" name="recursos_dinero_entidad_aliada" id="recursos_dinero_entidad_aliada" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback">
+                                </div>
+                            
+                            <!-- Campo 4 -->
+                            
+                                <label for="" class="form-label">Descripción de la destinación del dinero aportado</label>
+                                <input type="text" name="descripcion_destinacion_dinero_aportado" id="descripcion_destinacion_dinero_aportado" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback">
+                                </div>
+                            
+                            <!-- Campo 5 -->
+                            
+                                <label for="" class="form-label">Nombre del grupo de investigación de la entidad aliada</label>
+                                <input type="text" name="nombre_grupo_inv_entidad_aliada" id="nombre_grupo_inv_entidad_aliada" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback">
+                                </div>
+                            
+                            <!-- Campo 6 -->
+                            
+                            <label for="" class="form-label">Código de GrupLAC (entidad aliada)</label>
+                            <select name="codigo_gruplac_entidad_aliada" id="codigo_gruplac_entidad_aliada" class="form-control selectmod">
+                                <option value="" disabled selected>Seleccione una opción...</option>
+                                <option value="col0153676">COL0153676</option>
+                                <option value="col0085647">COL0085647</option>
+                                <option value="col0106783">COL0106783</option>
+                                <option value="col0110481">COL0110481</option>
+                                <option value="col0113017">COL0113017</option>
+                                <option value="col0113975">COL0113975</option>
+                                <option value="col0129409">COL0129409</option>
+                                <option value="col0131024">COL0131024</option>
+                                <option value="col0133799">COL0133799</option>
+                                <option value="col0146626">COL0146626</option>
+                                <option value="col0149529">COL0149529</option>
+                                <option value="col0149869">COL0149869</option>
+                                <option value="col0150772">COL0150772</option>
+                                <option value="col0151199">COL0151199</option>
+                                <option value="col0158921">COL0158921</option>
+                                <option value="col0163494">COL0163494</option>
+                                <option value="col0179313">COL0179313</option>
+                                <option value="col0160339">COL0160339</option>
+                                <option value="col0147712">COL0147712</option>
+                                <option value="col0147991">COL0147991</option>
+                                <option value="col0148246">COL0148246</option>
+                                <option value="col0148273">COL0148273</option>
+                                <option value="col0116654">COL0116654</option>
+                                <option value="col0150389">COL0150389</option>
+                                <option value="col0152427">COL0152427</option>
+                                <option value="col0152739">COL0152739</option>
+                                <option value="col0152937">COL0152937</option>
+                                <option value="col0157352">COL0157352</option>
+                                <option value="col0158019">COL0158019</option>
+                                <option value="col0162236">COL0162236</option>
+                                <option value="col0102695">COL0102695</option>
+                                <option value="col0129797">COL0129797</option>
+                                <option value="col0135328">COL0135328</option>
+                                <option value="col0153193">COL0153193</option>
+                                <option value="col0154978">COL0154978</option>
+                                <option value="col0161426">COL0161426</option>
+                                <option value="col0160536">COL0160536</option>
+                                <option value="col0149369">COL0149369</option>
+                                <option value="col0150487">COL0150487</option>
+                                <option value="col0141469">COL0141469</option>
+                                <option value="col0039958">COL0039958</option>
+                                <option value="col0149637">COL0149637</option>
+                                <option value="col0192825">COL0192825</option>
+                                <option value="col0160376">COL0160376</option>
+                                <option value="col0151189">COL0151189</option>
+                                <option value="col0154548">COL0154548</option>
+                                <option value="col0157577">COL0157577</option>
+                                <option value="col0138544">COL0138544</option>
+                                <option value="col0144004">COL0144004</option>
+                                <option value="col0150244">COL0150244</option>
+                                <option value="col0160438">COL0160438</option>
+                                <option value="col0164025">COL0164025</option>
+                                <option value="col0166807">COL0166807</option>
+                                <option value="col0133996">COL0133996</option>
+                                <option value="col0146223">COL0146223</option>
+                                <option value="col0148068">COL0148068</option>
+                                <option value="col0149305">COL0149305</option>
+                                <option value="col0150478">COL0150478</option>
+                                <option value="col0150899">COL0150899</option>
+                                <option value="col0152356">COL0152356</option>
+                                <option value="col0154539">COL0154539</option>
+                                <option value="col0157835">COL0157835</option>
+                                <option value="col0158663">COL0158663</option>
+                                <option value="col0160287">COL0160287</option>
+                                <option value="col0160607">COL0160607</option>
+                                <option value="col0160616">COL0160616</option>
+                                <option value="col0162871">COL0162871</option>
+                                <option value="col0163529">COL0163529</option>
+                                <option value="col0147276">COL0147276</option>
+                                <option value="col0153719">COL0153719</option>
+                                <option value="col0182408">COL0182408</option>
+                                <option value="col0151018">COL0151018</option>
+                                <option value="col0039288">COL0039288</option>
+                                <option value="col0149439">COL0149439</option>
+                                <option value="col0149468">COL0149468</option>
+                                <option value="col0150674">COL0150674</option>
+                                <option value="col0164713">COL0164713</option>
+                                <option value="col0155376">COL0155376</option>
+                                <option value="col0157737">COL0157737</option>
+                                <option value="col0110285">COL0110285</option>
+                                <option value="col0156739">COL0156739</option>
+                                <option value="col0150057">COL0150057</option>
+                                <option value="col0157906">COL0157906</option>
+                                <option value="col0192754">COL0192754</option>
+                                <option value="col0160679">COL0160679</option>
+                                <option value="col0171834">COL0171834</option>
+                                <option value="col0153709">COL0153709</option>
+                                <option value="col0117491">COL0117491</option>
+                                <option value="col0149628">COL0149628</option>
+                                <option value="col0153433">COL0153433</option>
+                                <option value="col0149566">COL0149566</option>
+                                <option value="col0153291">COL0153291</option>
+                                <option value="col0163609">COL0163609</option>
+                                <option value="col0156149">COL0156149</option>
+                                <option value="col0056672">COL0056672</option>
+                                <option value="col0133029">COL0133029</option>
+                                <option value="col0135139">COL0135139</option>
+                                <option value="col0149501">COL0149501</option>
+                                <option value="col0150932">COL0150932</option>
+                                <option value="col0152098">COL0152098</option>
+                                <option value="col0154486">COL0154486</option>
+                                <option value="col0156462">COL0156462</option>
+                                <option value="col0155044">COL0155044</option>
+                                <option value="col0112154">COL0112154</option>
+                                <option value="col0149225">COL0149225</option>
+                                <option value="col0149388">COL0149388</option>
+                                <option value="col0041052">COL0041052</option>
+                                <option value="col0104635">COL0104635</option>
+                                <option value="col0112332">COL0112332</option>
+                                <option value="col0125779">COL0125779</option>
+                                <option value="col0143188">COL0143188</option>
+                                <option value="col0149323">COL0149323</option>
+                                <option value="col0150745">COL0150745</option>
+                                <option value="col0156229">COL0156229</option>
+                                <option value="col0158699">COL0158699</option>
+                                <option value="col0165784">COL0165784</option>
+                                <option value="col0189276">COL0189276</option>
+                                <option value="col0171843">COL0171843</option>
+                                <option value="col0164249">COL0164249</option>
+                            </select>
+                            
+                            <!-- Campo 7 -->
+                            
+                                <label for="" class="form-label">Link de GrupLAC<br>(entidad aliada)</label>
+                                <input type="text" name="link_gruplac_entidad_aliada" id="link_gruplac_entidad_aliada" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback">
+                                </div>
+                            
+                            <!-- Campo 8 -->
+                            
+                                <label for="" class="form-label">Actividades a desarrollar por la entidad aliada<br>(proyecto)</label>
+                                <input type="text" name="actividades_desarrollar_entidad_aliada_marco_proyecto" id="actividades_desarrollar_entidad_aliada_marco_proyecto" class="form-control form-control-sm" placeholder="">
+                                <div class="invalid-feedback">
                                 </div>
                             </div>
-                        </div>
+                            
+    
+                            <!-- Botón Siguiente centrado -->
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarG">Guardar Entidad Aliada</button>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow" id="enviarGYS">Guardar e Ir a la Siguiente Vista</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            
+        </div>
     </div>
+</div>
+
+
 {% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/centro_formacion.js' %}"></script>
+{% endblock%}

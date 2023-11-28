@@ -1,8 +1,10 @@
 #Funciones de ADMIN MENU
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from app.models import Usuarios, Roles
 from django.contrib.auth.decorators import login_required
+
 
 def user_has_role(user, *roles):
     user_roles = set(user.roles.values_list('rol', flat=True))
@@ -71,3 +73,32 @@ def proyectoT(request):
     if not user_has_role(request.user,'Admin'):
       return redirect('index')
     return render(request, 'Dashboard/Proyectos-terminado.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        if Usuarios.objects.filter(email=request.POST["email"]).exists():
+            msg = "Este email ya existe"
+            return render(request, 'Dashboard/register.html', {'msg': msg})
+        else:
+            user = Usuarios.objects.create_user(email=request.POST["email"],
+                                            password=request.POST["password"],
+                                            username=request.POST["email"],
+                                            first_name=request.POST["first_name"],
+                                            last_name=request.POST["last_name"],
+                                            tipo_documento=request.POST["tipo_documento"],
+                                            num_documento=request.POST["num_documento"])
+            rol_lector = Roles.objects.get(rol='L')
+            user.roles.add(rol_lector)
+            user.save()
+            return redirect('Usuarios')
+    else:
+        return render(request, 'Dashboard/register.html')
+      
+def eliminar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuarios, id=usuario_id)
+    roles = list(usuario.roles.all())
+    usuario.delete()
+    for rol in roles:
+        rol.usuarios_set.remove(usuario)
+    return JsonResponse({'mensaje': 'Usuario eliminado exitosamente.'})

@@ -1,0 +1,27 @@
+{% extends "form/crearp.html" %}
+
+{% load static %}
+{% block forms %}
+    <h3 class="text-center">Selecciona el objetivo especifico al cual le quieres agregar su resultado y productos esperados</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Contenido</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for objetivo in objetivosEsp %}
+                <tr>
+                    <td>{{objetivo.objetivo_especifico}}</td>
+                    <td>
+                        <a href="{% url 'producEsperados' id_proyecto objetivo.id %}" type="button" class="btn btn-primary">Seleccionar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}
