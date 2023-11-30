@@ -90,7 +90,7 @@ urlpatterns = [
 
     # PDF
     path('generar_pdf/<int:proyecto_id>/', generar_pdf, name='generar_pdf'),
-    path('generar_c_valor/<int:proyecto_id>/', generar_c_valor, name='cadena_valor'),  
+    path('generar_c_valor/<int:proyecto_id>/', generar_c_valor, name='generar_c_valor'),  
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
     path('Dashboard/404/notfount/', views.not404, name='404'),
