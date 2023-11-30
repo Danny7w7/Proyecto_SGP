@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadena de valor</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            /* Aumenta el ancho del contenedor principal */
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0 0 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        h5 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            background-color: #59AB6E;
+            padding: 10px;
+            width: 100%;
+        }
+
+
+        .info {
+            width: 48%;
+            margin-right: 2%;
+            margin-bottom: 20px;
+        }
+
+        .info table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .info td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .info td:first-child {
+            font-weight: bold;
+            min-width: 200px;
+            /* Aumenta el ancho mínimo de la primera columna */
+            width: 50%;
+            /* Aumenta el ancho de la primera columna al máximo */
+        }
+
+        .info td:nth-child(2) {
+            width: 50%;
+
+        }
+
+        .bg {
+            font-size: 18px;
+            margin-bottom: 10px;
+            background-color: #59AB6E;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Sistema de reportes</h1>
+
+        <h5 class="bg">Cadena de valor del proyecto</h5>
+        <div class="info">
+            <h3>Objetivos del proyecto</h3>
+            <table>
+                <tr>
+                    <td><strong>Objetivo general:</strong></td>
+                    <td>{{ objetivos.objetivo_general }}</td>
+                </tr>
+                {% for obj_especifico in objetivos_especificos %}
+                <tr>
+                    <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
+                    <td>{{ obj_especifico.objetivo_especifico }}</td>
+                </tr>
+                {% if obj_especifico.actividades_obj_especificos %}
+                <tr>
+                    <td><strong>Actividades:</strong></td>
+                    <td>{{ obj_especifico.actividades_obj_especificos }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Causa:</strong></td>
+                    <td>{{ obj_especifico.causa }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Efecto:</strong></td>
+                    <td>{{ obj_especifico.efecto }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2"><strong>Actividades, Causa y Efecto:</strong> No hay información asociada.</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -204,7 +204,6 @@ function sendPost1() {
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var formFile = document.getElementById("formFile").files[0];
     var propuesta_sostenibilidad = document.getElementById("propuesta_sostenibilidad").value;
     var impacto_social = document.getElementById("impacto_social").value;
     var impacto_tecnologico = document.getElementById("impacto_tecnologico").value;
@@ -213,7 +212,6 @@ function sendPost2() {
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("Cadena_valor", formFile);
     formData.append("Propuesta_sostenibilidad", propuesta_sostenibilidad);
     formData.append("Impacto_social", impacto_social);
     formData.append("Impacto_tecnologico", impacto_tecnologico);

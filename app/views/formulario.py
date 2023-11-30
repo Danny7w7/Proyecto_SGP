@@ -184,6 +184,45 @@ def generar_pdf(request, proyecto_id):
     return response
 
 
+def generar_c_valor(request, proyecto_id):
+    # Obtener el proyecto y otros datos relacionados
+    proyecto = get_object_or_404(Proyecto, id=proyecto_id)
+    objetivos = Objetivos.objects.filter(proyecto=proyecto).first()
+    objetivos_especificos = Objetivos_especificos.objects.filter(objetivoGeneral=objetivos)
+
+    
+    # Renderizar el template con los datos
+    context = {
+        "proyecto": proyecto,
+        "informacion_proponente": informacion_proponente,
+        'objetivos': objetivos,
+
+    }
+    try:
+        nuevos_campos = {
+            "objetivos_especificos": objetivos_especificos,
+        }
+    except:
+        nuevos_campos = {
+            "objetivos_especificos": None,
+        }
+    context.update(nuevos_campos)
+
+    template_path = "form/cadena_valor.html"
+    html = render_to_string(template_path, context)
+
+    # Lógica para generar el informe PDF a partir del HTML con xhtml2pdf
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = "attachment; filename=cadena_valor.pdf"
+
+    pisa_status = pisa.CreatePDF(html, dest=response)
+
+    if pisa_status.err:
+        return HttpResponse("Error al generar el PDF", status=500)
+
+    return response
+
+
 # ------Formulario------
 @login_required(login_url="/login")
 def crear_proyecto(request):
@@ -407,7 +446,7 @@ def Informacion_de_centro(request, id_proyecto):
 @login_required(login_url="/login")
 def subir_anexos(request, proyecto_id):
     if not own_user(request.user, get_or_none(Proyecto, id=proyecto_id).id):
-        return redirect('index')  # Asegúrate de que 'index' sea la ruta correcta
+        return redirect('index')  
     proyecto = get_or_none(Proyecto, pk=proyecto_id)
 
     if request.method == "POST":
@@ -817,7 +856,6 @@ def cadena_valor(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         cadena = Proyeccion.objects.create(proyecto=proyecto)
-    cadena.cadena_valor = request.FILES["Cadena_valor"]
     cadena.propuesta_sostenibilidad = request.POST["Propuesta_sostenibilidad"]
     cadena.impacto_social = request.POST["Impacto_social"]
     cadena.impacto_tecnologico = request.POST["Impacto_tecnologico"]

@@ -92,6 +92,7 @@
                             <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">
                                 Cadena de valor del proyecto</h5>
                         </div>
+                        <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-10">
                                 <div class="bg-light mt-2 spos border_radius row me-0">
@@ -101,7 +102,7 @@
                                             {% csrf_token %}
                                             <div class="mb-3">
                                                 <label class="form-label">Cadena de valor del proyecto</label>
-                                                <input class="form-control" name="marco_conceptual" type="file" id="formFile">
+                                                <div class="col"> <a href="{% url 'generar_c_valor' proyecto.id %}" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Descargar </a> </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Propuesta de sostenibilidad</label>

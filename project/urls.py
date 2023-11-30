@@ -20,7 +20,7 @@ from app import views
 from django.conf.urls.static import static
 from django.conf import settings
 from app.views.dashboard import eliminar_usuario
-from app.views.formulario import generar_pdf
+from app.views.formulario import generar_c_valor, generar_pdf
 
 
 
@@ -89,7 +89,8 @@ urlpatterns = [
     path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
 
     # PDF
-    path('generar_pdf/<int:proyecto_id>/', generar_pdf, name='generar_pdf'),  
+    path('generar_pdf/<int:proyecto_id>/', generar_pdf, name='generar_pdf'),
+    path('generar_c_valor/<int:proyecto_id>/', generar_c_valor, name='generar_c_valor'),  
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
     path('Dashboard/404/notfount/', views.not404, name='404'),
