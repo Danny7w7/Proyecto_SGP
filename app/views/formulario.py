@@ -856,7 +856,6 @@ def cadena_valor(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         cadena = Proyeccion.objects.create(proyecto=proyecto)
-    cadena.cadena_valor = request.FILES["Cadena_valor"]
     cadena.propuesta_sostenibilidad = request.POST["Propuesta_sostenibilidad"]
     cadena.impacto_social = request.POST["Impacto_social"]
     cadena.impacto_tecnologico = request.POST["Impacto_tecnologico"]
