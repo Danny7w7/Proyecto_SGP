@@ -180,7 +180,7 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Correo</th>
-                                        <th>Id</th>
+                                        <th>Nro Documento</th>
                                         <th>Nivel de Permisos</th>
                                         <th>Accion</th>
                                     </tr>
@@ -190,9 +190,9 @@
                                     {% if usuario == user %}
                                     {% else %}
                                         <tr>
-                                            <td>{{ usuario.username }}</td>
+                                            <td>{{ usuario.first_name}} {{ usuario.last_name}}</td>
                                             <td>{{ usuario.email }}</td>
-                                            <td>{{ usuario.id }}</td>
+                                            <td>{{ usuario.num_documento }}</td>
                                             <td>
                                                 <form method="post" action="">
                                                     {% csrf_token %}

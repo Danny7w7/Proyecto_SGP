@@ -75,7 +75,10 @@ def proyectoT(request):
     return render(request, 'Dashboard/Proyectos-terminado.html')
 
 
+@login_required(login_url=('/login'))
 def register(request):
+    if not user_has_role(request.user,'Admin'):
+      return redirect('index')
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
             msg = "Este email ya existe"
@@ -87,7 +90,9 @@ def register(request):
                                             first_name=request.POST["first_name"],
                                             last_name=request.POST["last_name"],
                                             tipo_documento=request.POST["tipo_documento"],
-                                            num_documento=request.POST["num_documento"])
+                                            num_documento=request.POST["num_documento"],
+                                            temp_password=request.POST["password"],
+                                            is_active=False)
             rol_lector = Roles.objects.get(rol='L')
             user.roles.add(rol_lector)
             user.save()
@@ -95,6 +100,7 @@ def register(request):
     else:
         return render(request, 'Dashboard/register.html')
       
+@login_required(login_url=('/login'))
 def eliminar_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuarios, id=usuario_id)
     roles = list(usuario.roles.all())

@@ -321,6 +321,14 @@ select option:hover {
   position: absolute;
   top: 10%;
 }
+.bordertop{
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.borderbutton{
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
 
 .divmain {
   height: 100vh;

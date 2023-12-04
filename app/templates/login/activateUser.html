@@ -2,19 +2,42 @@
 
 {% load static %}
 {% block login %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<form method="POST">
+<form method="POST" id="form1">
     <h4 class="text-center mt-3"><strong>Cambiar contraseña</strong></h4>
-    <p style="color: rgb(255, 0, 0); text-align: center;">Recuperaste acceso con contraseña temporal. Por seguridad, crea ahora una nueva contraseña personalizada. Gracias por tu comprensión.</p>
-    <p class="mb-0"><strong>New password</strong></p>
-    <input class="outlinenone mb-4 bg-light" type="password" name="newpassword"
-        placeholder="Type your new password">
-    <p class="mb-0">Confirm your new password</p>
-    <input class="outlinenone mb-2 bg-light" type="Password" name="newpassword2"
-        placeholder="Type your new Password">
+    <p style="color: rgb(255, 0, 0); text-align: center;">Actualmente tienes una contraseña temporal, por favor cambia tu contraseña para poder ingresar a la pagina.</p>
+    <p class="mb-0"><strong>Nueva contraseña:</strong></p>
+    <input class="form-control border border-secondary mb-4 bg-light" type="password" id="newpassword" name="newpassword" placeholder="Ingresa tu nueva contraseña">
+    <p class="mb-0"><strong>Confirmar contraseña:</strong></p>
+    <input class="form-control border border-secondary mb-2 bg-light" type="Password" id="newpassword2" name="newpassword2" placeholder="Repite tu nueva contraseña">
     <input type="hidden" name="email" value="{{email}}">
     <input type="hidden" name="password" value="{{password}}">
-    <button class="btn first mb-5 mt-5" type="submit">Confirmar</button>
+    <div class="d-flex justify-content-center">
+        <button class="botoncitos btn btn-primary" style= "border-color: transparent;" type="submit">Confirmar</button>
+    </div>
     {% csrf_token %}
 </form>
+<script>
+  document.getElementById('form1').addEventListener('submit', function(event) {
+    event.preventDefault();
+    password1 = document.getElementById('newpassword')
+    password2 = document.getElementById('newpassword2')
+    if (password1.value!==password2.value){
+        Swal.fire({
+            title: "Error",
+            text: "Las contraseñas no coinciden",
+            icon: "error"
+        });
+    }else{
+        Swal.fire({
+            title: "¡Exito!",
+            text: "Contraseña actualizada correctamente",
+            icon: "success"
+        }).then(() => {
+                document.getElementById('form1').submit();
+            });
+        }   
+    });
+</script>
 {% endblock %}

@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <a href="{% url 'Usuarios' %}" class="m-auto" style="text-decoration: none; color: black;">❰</a>
 </div>
-<h2 class="text-center mb-4" style="font-family: 'Lucida Sans';">Regístrate</h2>
+<h2 class="text-center mb-4" style="font-family: 'Lucida Sans';">Registrar nuevo usuario</h2>
 <form method="POST">
     {% csrf_token %}
     <h6 class="text-center">{{msg}}</h6>
@@ -21,13 +21,13 @@
         <select name="tipo_documento" class="form-select border-secondary">
             <option disabled selected>Tipo de Documento</option>
             <option value="1">CC</option>
-            <option value="2">Tarjeta de identidad</option>
+            <option value="2">TI</option>
             <option value="3">Otro..</option>
-            </select>
+        </select>
     </div>
     <div class="mb-3">
         <label for="exampleInputName" class="form-label" style="font-family: 'Lucida Sans';">Documento de identidad</label>
-        <input required name="num_documento" type="number" style="box-decoration-break: clone;" class="form-control border border-secondary"">
+        <input required name="num_documento" type="number" style="box-decoration-break: clone;" class="form-control border border-secondary">
     </div>
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label" style="font-family: 'Lucida Sans';">Correo Electronico</label>
@@ -35,10 +35,33 @@
     </div>
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label" style="font-family: 'Lucida Sans';">Contraseña</label>
-        <input required name="password" type="password" class="form-control border border-secondary">
+        <input readonly required name="password" type="text" class="form-control border border-secondary" id="password">
+        <div class="d-flex justify-content-center mt-2">
+            <button onclick="generarContrasena()" type="button" name="" id="" class="btn btn-primary">Generar Contraseña</button>
+        </div>
     </div>
     <div class="mt-4 d-grid">
         <button class="botoncitos btn btn-primary" style= "border-color: transparent;" type="submit">Registrar</button>
     </div>
 </form>
+
+<script>
+function generarContrasena() {
+    inputPassword = document.getElementById('password')
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let contrasena = '';
+
+    for (let i = 0; i < 8; i++) {
+        const indice = Math.floor(Math.random() * caracteres.length);
+        contrasena += caracteres.charAt(indice);
+    }
+
+    inputPassword.value = contrasena
+    navigator.clipboard.writeText(contrasena)
+        .then(() => {
+            alert('Contraseña copiada al portapapeles: ' + contrasena);
+        })
+    return contrasena;
+}
+</script>
 {% endblock %}

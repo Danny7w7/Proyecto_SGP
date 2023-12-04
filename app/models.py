@@ -94,7 +94,7 @@ class Resumen_antecedentes(models.Model):
 
 
 class Descripcion_problema(models.Model):
-    identificacion_y_descripcion_problema = models.CharField(max_length=10000, null=False)
+    identificacion_y_descripcion_problema = models.TextField(max_length=10000, null=False)
     justificacion = models.TextField(max_length=8000, null=True)
     marco_conceptual = models.TextField(max_length=8000, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
@@ -132,7 +132,7 @@ class Entidades_aliadas(models.Model):
     tipo_entidad_aliada = models.CharField(max_length=50, null=True)
     naturaleza_entidad = models.CharField(max_length=50, null=True)
     clasificacion_empresa = models.CharField(max_length=50, null=True)
-    nit = models.CharField(max_length=200, null=True)
+    nit = models.CharField(max_length=30, null=True)
     convenio = models.BooleanField(null=True)
     especifique_tipo_codigo_convenio = models.CharField(max_length=50, null=True)
     recursos_especie_entidad = models.BigIntegerField(null=True)
@@ -143,7 +143,7 @@ class Entidades_aliadas(models.Model):
     codigo_gruplac_entidad_aliada = models.CharField(max_length=50, null=True)
     link_gruplac_entidad_aliada = models.CharField(max_length=500 ,null=True)
     actividades_desarrollar_entidad_aliada_marco_proyecto = models.CharField(max_length=1500, null=True)
-    metodologia_act_transferencia_centro_formacion = models.CharField(max_length= 500, null=True)
+    metodologia_act_transferencia_centro_formacion = models.CharField(max_length=500, null=True)
     objetivo_especificos = models.ManyToManyField(Objetivos_especificos)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
@@ -175,7 +175,7 @@ class Proyeccion(models.Model):
     impacto_social= models.CharField(max_length=500, null=True)
     impacto_tecnologico = models.CharField(max_length=500, null=True)
     impacto_centro_formacion = models.CharField(max_length=500, null=True)
-    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 
 #Riesgos
