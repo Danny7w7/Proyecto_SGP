@@ -495,6 +495,7 @@
                             <!-- Columna 1 -->
                             <div class="col-12 col-md-6 mb-3 border-end pe-4 border-color-custom">
                                 {% csrf_token %}
+                               
                                 <label for="codigo_Dependencia_Presupuestal" class="form-label">Codigo dependencia prespuestal<br>(SIIF)</label>
                                 <select name="codigo_Dependencia_Presupuestal" id="select_box7" class="form-select">
                                     <option value="" disabled selected>Selecciona una opción...</option>
@@ -531,6 +532,9 @@
                                 <label for="justificacion_Industrial" class="form-label mt-5">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
                                 <input type="text" name="justificacion_Industrial" id="justificacion_Industrial" class="form-control form-control-sm">
                                 <div class="invalid-feedback"></div>
+                                <span id="char-counter1">0/600 máximo</span>
+                                <input type="hidden" name="val_just" value="600">
+                                
                             </div>
                             <!-- Columna 2 -->
                             <div class="col-12 col-md-6 mb-3">
@@ -597,6 +601,8 @@
                                 <label for="justificacion_Economia_Naranja" class="form-label">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
                                 <input type="text" name="justificacion_Economia_Naranja" id="justificacion_Economia_Naranja" class="form-control form-control-sm" placeholder="">
                                 <div class="invalid-feedback"></div>
+                                <span id="char-counter2">0/600 máximo</span>
+                                <input type="hidden" name="val_just2" value="600">
                                 
                                 <label for="" class="form-label">¿El proyecto aporta a la Política Institucional para Atención de las Personas con discapacidad?</label>
                                 <select name="proyecto_Relacionado_Politica_Discapacidad" id="proyecto_Relacionado_Politica_Discapacidad" class="form-control selectmod">
@@ -608,6 +614,8 @@
                                 <label for="justificacion_Politica_Discapacidad" class="form-label mt-3">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
                                 <input type="text" class="form-control form-control-sm" name="justificacion_Politica_Discapacidad" id="justificacion_Politica_Discapacidad" placeholder="">
                                 <div class="invalid-feedback"></div>
+                                <span id="char-counter3">0/600 máximo</span>
+                                <input type="hidden" name="val_just3" value="600">
                             </div>
                         </div>
                         <!-- Botón Siguiente centrado -->

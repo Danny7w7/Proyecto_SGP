@@ -42,6 +42,45 @@ document.addEventListener("DOMContentLoaded", function() {
        },
     };
 
+        // Verificador de caracteres
+        function handleTextareaInput(textarea, counterId) {
+            const counter = document.getElementById(counterId);
+            const val_jus = parseInt(counter.nextElementSibling.value);
+        
+            textarea.addEventListener("input", function () {
+                const currentLength = textarea.value.length;
+                counter.textContent = `${currentLength}/${val_jus} máximo`;
+            });
+        }
+        
+                const textarea1 = document.getElementById("objetivo_general");
+                const textarea2 = document.getElementById("objetivo_especifico1");
+                const textarea3 = document.getElementById("objetivo_especifico2");
+                const textarea4 = document.getElementById("objetivo_especifico3");
+                const textarea5 = document.getElementById("actividad1");
+                const textarea6 = document.getElementById("causa1");
+                const textarea7 = document.getElementById("efecto1");
+                const textarea8 = document.getElementById("actividad2");
+                const textarea9 = document.getElementById("causa2");
+                const textarea10 = document.getElementById("efecto2");
+                const textarea11 = document.getElementById("actividad3");
+                const textarea12 = document.getElementById("causa3");
+                const textarea13 = document.getElementById("efecto3");
+                
+                handleTextareaInput(textarea1, "char-counter1");
+                handleTextareaInput(textarea2, "char-counter2");
+                handleTextareaInput(textarea3, "char-counter3");
+                handleTextareaInput(textarea4, "char-counter4");
+                handleTextareaInput(textarea5, "char-counter5");
+                handleTextareaInput(textarea6, "char-counter6");
+                handleTextareaInput(textarea7, "char-counter7");
+                handleTextareaInput(textarea8, "char-counter8");
+                handleTextareaInput(textarea9, "char-counter9");
+                handleTextareaInput(textarea10, "char-counter10");
+                handleTextareaInput(textarea11, "char-counter11");
+                handleTextareaInput(textarea12, "char-counter12");
+                handleTextareaInput(textarea13, "char-counter13");
+
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {
         for (let fieldId in allValidations[formKey]) {

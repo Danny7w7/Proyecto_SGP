@@ -34,6 +34,29 @@ document.addEventListener("DOMContentLoaded", function() {
        },
     };
 
+     // Verificador de caracteres
+     function handleTextareaInput(textarea, counterId) {
+        const counter = document.getElementById(counterId);
+        const val_jus = parseInt(counter.nextElementSibling.value);
+    
+        textarea.addEventListener("input", function () {
+            const currentLength = textarea.value.length;
+            counter.textContent = `${currentLength}/${val_jus} máximo`;
+        });
+    }
+    
+    const textarea1 = document.getElementById("resumen_ejecutivo");
+    const textarea2 = document.getElementById("antecedentes");
+    const textarea3 = document.getElementById("identificacion_y_descripcion_problema");
+    const textarea4 = document.getElementById("justificacion");
+    const textarea5 = document.getElementById("marco_conceptual");
+    
+    handleTextareaInput(textarea1, "char-counter1");
+    handleTextareaInput(textarea2, "char-counter2");
+    handleTextareaInput(textarea3, "char-counter3");
+    handleTextareaInput(textarea4, "char-counter4");
+    handleTextareaInput(textarea5, "char-counter5");
+
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {
         for (let fieldId in allValidations[formKey]) {

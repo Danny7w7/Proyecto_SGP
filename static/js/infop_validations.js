@@ -22,12 +22,35 @@ function edit_participantes(id){
     }
 }
 var sig;
+var currentLength
+var currentLength2
+var currentLength3
 document.addEventListener("DOMContentLoaded", function() {
     fieldQuestion = ['proyecto_Relacionado_Industrial40', 'proyecto_Relacionado_Economia_Naranja', 'proyecto_Relacionado_Politica_Discapacidad']
     fieldExclude = ['justificacion_Industrial', 'justificacion_Economia_Naranja', 'justificacion_Politica_Discapacidad']
     var inputs = fieldQuestion.map(function(id) {
         return document.getElementById(id);
     });
+    
+            // Verificador de caracteres
+            function handleTextareaInput(textarea, counterId) {
+                const counter = document.getElementById(counterId);
+                const val_jus = parseInt(counter.nextElementSibling.value);
+            
+                textarea.addEventListener("input", function () {
+                    const currentLength = textarea.value.length;
+                    counter.textContent = `${currentLength}/${val_jus} máximo`;
+                });
+            }
+            
+            const textarea1 = document.getElementById("justificacion_Industrial");
+            const textarea2 = document.getElementById("justificacion_Economia_Naranja");
+            const textarea3 = document.getElementById("justificacion_Politica_Discapacidad");
+            
+            handleTextareaInput(textarea1, "char-counter1");
+            handleTextareaInput(textarea2, "char-counter2");
+            handleTextareaInput(textarea3, "char-counter3");
+            
     
     const button1 = document.getElementById('step2');
     const button2 = document.getElementById('step3');
@@ -135,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 
         "justificacion_Industrial":{
             pattern: /^[\s\S]{5,600}$/,
-            errorMsg: 'La justificación industrial 4.0 no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
+            errorMsg: `La justificación industrial 4.0 no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.`,
         }, 
        }
     };
