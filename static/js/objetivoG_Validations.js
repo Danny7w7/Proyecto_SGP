@@ -44,7 +44,15 @@ document.addEventListener("DOMContentLoaded", function() {
         "objetivo_especifico1": {
             pattern: /^[\s\S]{5,500}$/,
             errorMsg: 'El obj especifico no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
-        }
+        },
+        "objetivo_especifico2": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj especifico 2 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
+        },
+        "objetivo_especifico3": {
+            pattern: /^[\s\S]{5,500}$/,
+            errorMsg: 'El obj especifico 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
+        },
        },
     };
 
@@ -52,12 +60,18 @@ document.addEventListener("DOMContentLoaded", function() {
         function handleTextareaInput(textarea, counterId) {
             const counter = document.getElementById(counterId);
             const val_jus = parseInt(counter.nextElementSibling.value);
-        
-            textarea.addEventListener("input", function () {
+
+            function updateCounter() {
                 const currentLength = textarea.value.length;
                 counter.textContent = `${currentLength}/${val_jus} máximo`;
-            });
+            }
+
+            textarea.addEventListener("input", updateCounter);
+
+            // Llama a updateCounter para actualizar el contador cuando se carga la información
+            updateCounter();
         }
+        
         
                 const textarea1 = document.getElementById("objetivo_general");
                 const textarea2 = document.getElementById("objetivo_especifico1");
@@ -86,6 +100,30 @@ document.addEventListener("DOMContentLoaded", function() {
                 handleTextareaInput(textarea11, "char-counter11");
                 handleTextareaInput(textarea12, "char-counter12");
                 handleTextareaInput(textarea13, "char-counter13");
+        
+        
+                // Verificador de caracteres cargados
+        // function handleTextareaInput(textarea, counterId) {
+        //     const counter = document.getElementById(counterId);
+        //     const val_jus = parseInt(counter.nextElementSibling.value);
+        
+        //     textarea.addEventListener("input", function () {
+        //         const currentLength = textarea.value.length;
+        //         counter.textContent = `${currentLength}/${val_jus} máximo`;
+        //     });
+        // }
+        
+        //         const txt1 = document.getElementById("objetivo_general");
+        //         const txt2 = document.getElementById("objetivo_especifico1");
+        //         const txt3 = document.getElementById("objetivo_especifico2");
+        //         const txt4 = document.getElementById("objetivo_especifico3");
+
+                
+        //         handleTextareaInput(txt1, "char-counter1");
+        //         handleTextareaInput(txt2, "char-counter2");
+        //         handleTextareaInput(txt3, "char-counter3");
+        //         handleTextareaInput(txt4, "char-counter4");
+
 
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {

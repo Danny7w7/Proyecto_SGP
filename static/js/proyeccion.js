@@ -59,6 +59,33 @@ document.addEventListener("DOMContentLoaded", function() {
        },
     };
 
+            // Verificador de caracteres
+            function handleTextareaInput(textarea, counterId) {
+                const counter = document.getElementById(counterId);
+                const val_jus = parseInt(counter.nextElementSibling.value);
+    
+                function updateCounter() {
+                    const currentLength = textarea.value.length;
+                    counter.textContent = `${currentLength}/${val_jus} máximo`;
+                }
+    
+                textarea.addEventListener("input", updateCounter);
+    
+                // Llama a updateCounter para actualizar el contador cuando se carga la información
+                updateCounter();
+            }
+            
+                    const textarea1 = document.getElementById("propuesta_sostenibilidad");
+                    const textarea2 = document.getElementById("impacto_social");
+                    const textarea3 = document.getElementById("impacto_tecnologico");
+                    const textarea4 = document.getElementById("impacto_centro");
+
+                    handleTextareaInput(textarea1, "char-counter1");
+                    handleTextareaInput(textarea2, "char-counter2");
+                    handleTextareaInput(textarea3, "char-counter3");
+                    handleTextareaInput(textarea4, "char-counter4");
+            
+
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {
         for (let fieldId in allValidations[formKey]) {

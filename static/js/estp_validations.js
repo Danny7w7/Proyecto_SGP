@@ -38,11 +38,16 @@ document.addEventListener("DOMContentLoaded", function() {
      function handleTextareaInput(textarea, counterId) {
         const counter = document.getElementById(counterId);
         const val_jus = parseInt(counter.nextElementSibling.value);
-    
-        textarea.addEventListener("input", function () {
+
+        function updateCounter() {
             const currentLength = textarea.value.length;
             counter.textContent = `${currentLength}/${val_jus} máximo`;
-        });
+        }
+
+        textarea.addEventListener("input", updateCounter);
+
+        // Llama a updateCounter para actualizar el contador cuando se carga la información
+        updateCounter();
     }
     
     const textarea1 = document.getElementById("resumen_ejecutivo");
