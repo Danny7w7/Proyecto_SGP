@@ -32,7 +32,7 @@
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">ANEXO 1A. Acta Reunión
                                                         Regional</label>
-                                                    <input class="form-control" name="anexo1" type="file" id="formFile">
+                                                    <input class="form-control" name="anexo1" type="file" id="formFile" onchange="validateFileType()">
                                                 </div>
                                             </div>
 
@@ -41,14 +41,14 @@
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">ANEXO 1C. Carta C.I
                                                         Director Regional</label>
-                                                    <input class="form-control" name="anexo2" type="file" id="formFile">
+                                                    <input class="form-control" name="anexo2" type="file" id="formFile" onchange="validateFileType()">
                                                 </div>
                                             </div>
                                             <div class="mb-3">
                                                 <div class="mb-3">
                                                     <label for="formFile" class="form-label">ANEXO 2. Ficha técnica para
                                                         maquinaria y equipos.</label>
-                                                    <input class="form-control" name="anexo3" type="file" id="formFile">
+                                                    <input class="form-control" name="anexo3" type="file" id="formFile" onchange="validateFileType()">
                                                 </div>
                                             </div>
                                             <div class="mb-3">
@@ -56,7 +56,7 @@
                                                     <label for="formFile" class="form-label">ANEXO 4. Modernización.
                                                         (Obligatorio para los proyectos cuyo objeto sea la actualización
                                                         y modernización de ambientes de formación (SIIF 23))</label>
-                                                    <input class="form-control" name="anexo4" type="file" id="formFile">
+                                                    <input class="form-control" name="anexo4" type="file" id="formFile" onchange="validateFileType()">
                                                 </div>
                                             </div>
                                             <div class="mb-3">
@@ -65,7 +65,7 @@
                                                         o acta que soporta el trabajo articulado con entidades aliadas
                                                         (diferentes al SENA) (Obligatorio si se articula con entidad
                                                         aliada o con otro Centro de Formación)</label>
-                                                    <input class="form-control" name="anexo5" type="file" id="formFile">
+                                                    <input class="form-control" name="anexo5" type="file" id="formFile" onchange="validateFileType()">
                                                 </div>
                                             </div>
                                             <div class="mb-3">
@@ -73,7 +73,7 @@
                                                     <label for="formFile" class="form-label">ANEXO 8. Propiedad
                                                         intelectual (Obligatorio si se articula con entidad aliada o con
                                                         otro Centro de Formación)</label>
-                                                    <input class="form-control" name="anexo6" type="file" id="formFile">
+                                                    <input class="form-control" name="anexo6" type="file" id="formFile" onchange="validateFileType()">
                                                 </div>
                                             </div>
 
@@ -92,6 +92,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    function validateFileType() {
+        const fileInput = event.target;
+        const allowedFileTypes = ['.docx', '.pdf'];
+
+        if (fileInput.files.length > 0) {
+            const selectedFile = fileInput.files[0];
+            const fileExtension = '.' + selectedFile.name.split('.').pop();
+
+            if (!allowedFileTypes.includes(fileExtension.toLowerCase())) {
+                Swal.fire({
+                    title: 'Advertencia',
+                    text: 'Archivo no permitido. Por favor, selecciona un archivo .docx o .pdf',
+                    icon: 'warning',
+                    confirmButtonText: 'Aceptar'
+                })
+                fileInput.value = '';
+            }
+        }
+    }
+</script>
+
 <script>
     function validarTamanioArchivo(input, maxSizeInBytes) {
         const files = input.files;
