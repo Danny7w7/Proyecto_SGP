@@ -19,7 +19,13 @@ function mostrarDivs() {
     document.querySelector('.la_prueba3').style.display = 'block';
     conjuntosMostrados++;
   } else{
-    alert('Solo puedes crear 3 objetivos especificos por proyecto.')
+    // alert('Solo puedes crear 3 objetivos especificos por proyecto.')
+    Swal.fire({
+        title: '¡Advertencia!',
+        text: 'Solo puede crear 3 objetivos específicos por proyecto.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar'
+    })
   }
 }
 document.addEventListener("DOMContentLoaded", function() {
