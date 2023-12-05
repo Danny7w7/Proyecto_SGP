@@ -101,30 +101,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 handleTextareaInput(textarea12, "char-counter12");
                 handleTextareaInput(textarea13, "char-counter13");
         
-        
-                // Verificador de caracteres cargados
-        // function handleTextareaInput(textarea, counterId) {
-        //     const counter = document.getElementById(counterId);
-        //     const val_jus = parseInt(counter.nextElementSibling.value);
-        
-        //     textarea.addEventListener("input", function () {
-        //         const currentLength = textarea.value.length;
-        //         counter.textContent = `${currentLength}/${val_jus} máximo`;
-        //     });
-        // }
-        
-        //         const txt1 = document.getElementById("objetivo_general");
-        //         const txt2 = document.getElementById("objetivo_especifico1");
-        //         const txt3 = document.getElementById("objetivo_especifico2");
-        //         const txt4 = document.getElementById("objetivo_especifico3");
-
-                
-        //         handleTextareaInput(txt1, "char-counter1");
-        //         handleTextareaInput(txt2, "char-counter2");
-        //         handleTextareaInput(txt3, "char-counter3");
-        //         handleTextareaInput(txt4, "char-counter4");
-
-
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {
         for (let fieldId in allValidations[formKey]) {
