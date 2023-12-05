@@ -60,6 +60,8 @@
                                                 name="objetivo_general" id="objetivo_general" cols="20" rows="3">{{objetivo.objetivo_general}}</textarea>
                                             <div class="invalid-feedback">
                                             </div>
+                                            <span id="char-counter1">0/500 máximo</span>
+                                            <input type="hidden" name="val_just1" value="500">
                                         </div>
                                     
                                         <!-- Segundo textarea con label para Objetivo Específico -->
@@ -72,6 +74,8 @@
                                                     name="objetivo_especificos" id="objetivo_especifico1" cols="20" rows="3">{{objEsp.0.objetivo_especifico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
+                                                <span id="char-counter2">0/500 máximo</span>
+                                                <input type="hidden" name="val_just2" value="500">
                                             </div>
                                         </div>
 
@@ -83,6 +87,8 @@
                                                     name="objetivo_especificos2" id="objetivo_especifico2" cols="20" rows="3">{{objEsp.1.objetivo_especifico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
+                                                <span id="char-counter3">0/500 máximo</span>
+                                                <input type="hidden" name="val_just3" value="500">
                                             </div>
                                         </div>
                                         <div class="la_prueba3" style="display: {% if objEsp.2.objetivo_especifico %}block{% else %}none{% endif %};">
@@ -93,6 +99,8 @@
                                                     name="objetivo_especificos3" id="objetivo_especifico3" cols="20" rows="3">{{objEsp.2.objetivo_especifico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
+                                                <span id="char-counter4">0/500 máximo</span>
+                                                <input type="hidden" name="val_just4" value="500">
                                             </div>
                                         </div>
                                         <!-- Botón Siguiente centrado -->
@@ -134,12 +142,16 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad1" cols="20" rows="3">{{objEsp.0.actividades_obj_especificos}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
+                                                    <span id="char-counter5">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just5" value="1000">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="justificacion" class="form-label">Causa del objetivo especifico 1</label>
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa1" cols="20" rows="3">{{objEsp.0.causa}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
+                                                    <span id="char-counter6">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just6" value="1000">
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="mb-3">
@@ -147,6 +159,8 @@
                                                         <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto1" cols="20" rows="3">{{objEsp.0.efecto}}</textarea>
                                                         <div class="invalid-feedback">
                                                         </div>
+                                                        <span id="char-counter7">0/1000 máximo</span>
+                                                        <input type="hidden" name="val_just7" value="1000">
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,12 +171,16 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad2" cols="20" rows="3">{{objEsp.1.actividades_obj_especificos}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
+                                                    <span id="char-counter8">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just8" value="1000">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="justificacion" class="form-label">Causa del objetivo especifico 2</label>
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa2" cols="20" rows="3">{{objEsp.1.causa}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
+                                                    <span id="char-counter9">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just9" value="1000">
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="mb-3">
@@ -170,6 +188,8 @@
                                                         <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto2" cols="20" rows="3">{{objEsp.1.efecto}}</textarea>
                                                         <div class="invalid-feedback">
                                                         </div>
+                                                        <span id="char-counter10">0/1000 máximo</span>
+                                                        <input type="hidden" name="val_just10" value="1000">
                                                     </div>
                                                 </div>
                                             </div>
@@ -180,12 +200,16 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad3" cols="20" rows="3">{{objEsp.2.actividades_obj_especificos}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
+                                                    <span id="char-counter11">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just11" value="1000">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="justificacion" class="form-label">Causa del objetivo especifico 3</label>
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa3" cols="20" rows="3">{{objEsp.2.causa}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
+                                                    <span id="char-counter12">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just12" value="1000">
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="mb-3">
@@ -193,6 +217,8 @@
                                                         <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto3" cols="20" rows="3">{{objEsp.2.efecto}}</textarea>
                                                         <div class="invalid-feedback">
                                                         </div>
+                                                        <span id="char-counter13">0/1000 máximo</span>
+                                                        <input type="hidden" name="val_just13" value="1000">
                                                     </div>
                                                 </div>
                                             </div>
