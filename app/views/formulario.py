@@ -379,6 +379,10 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
     objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
     objEspecifico = Objetivos_especificos.objects.get(objetivoGeneral=objGeneral, id=id_objetivoEsp)
     productoEsp = get_or_none(Resultados_y_productos_esperados, objetivo_especifico=objEspecifico.id)
+    try:
+        fecha_entrega = productoEsp.fch_entrega_producto_resultado_inv_obj_especifico.strftime('%Y-%m-%d')
+    except:
+        fecha_entrega = None
     if request.method == 'POST':
         form = ProducEsperadosForm(request.POST, instance=productoEsp)
         if form.is_valid():
@@ -389,7 +393,8 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
     form = ProyectoForm()
     contex = {'percentaje':id_proyecto,
               'objEspecifico':objEspecifico,
-              'productosEsp':productoEsp}
+              'productosEsp':productoEsp,
+              'fecha':fecha_entrega}
     return render(request, 'form/producEsperados.html', contex)
 
 
@@ -398,8 +403,12 @@ def proyeccion(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
     proyeccion = get_or_none(Proyeccion, proyecto=id_proyecto)
-    fch_inicio = proyeccion.fch_inicio.strftime('%Y-%m-%d')
-    fch_cierre = proyeccion.fch_cierre.strftime('%Y-%m-%d')
+    try:
+        fch_inicio = proyeccion.fch_inicio.strftime('%Y-%m-%d')
+        fch_cierre = proyeccion.fch_cierre.strftime('%Y-%m-%d')
+    except:
+        fch_inicio = None
+        fch_cierre = None
     contex = {
         "percentaje": id_proyecto,
         "proyecto": get_or_none(Proyecto, id=id_proyecto),

@@ -77,15 +77,15 @@
                         <label class="form-label">TRL al cual llegará el producto resultado de la investigación objetivo específico</label>
                         <select id="trl_producto_resultado_inv_obj_especifico" name="trl_producto_resultado_inv_obj_especifico" class="form-control selectmod">
                             <option value="" disabled selected>Selecciona una opción...</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 1 %} selected{%endif%} value="1">1</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 2 %} selected{%endif%} value="2">2</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 3 %} selected{%endif%} value="3">3</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 4 %} selected{%endif%} value="4">4</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 5 %} selected{%endif%} value="5">5</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 6 %} selected{%endif%} value="6">6</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 7 %} selected{%endif%} value="7">7</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 8 %} selected{%endif%} value="8">8</option>
-                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == 9 %} selected{%endif%} value="9">9</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '1' %} selected{%endif%} value="1">1</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '2' %} selected{%endif%} value="2">2</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '3' %} selected{%endif%} value="3">3</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '4' %} selected{%endif%} value="4">4</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '5' %} selected{%endif%} value="5">5</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '6' %} selected{%endif%} value="6">6</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '7' %} selected{%endif%} value="7">7</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '8' %} selected{%endif%} value="8">8</option>
+                            <option{% if productosEsp.trl_producto_resultado_inv_obj_especifico == '9' %} selected{%endif%} value="9">9</option>
                         </select>
                         <div class="invalid-feedback">
                         </div>
@@ -97,7 +97,7 @@
                         </div>
 
                         <label class="form-label">Fecha de entrega del producto resultado de la investigación Objetivo específico</label>
-                        <input name="fch_entrega_producto_resultado_inv_obj_especifico" id="fch_entrega_producto_resultado_inv_obj_especifico" type="date" class="form-control form-control-sm">
+                        <input name="fch_entrega_producto_resultado_inv_obj_especifico" id="fch_entrega_producto_resultado_inv_obj_especifico" type="date" class="form-control form-control-sm" value="{{fecha}}">
                         
                         <div class="invalid-feedback">
                         </div>
