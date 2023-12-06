@@ -199,7 +199,7 @@ function dselect(el, option = {}) {
           <div class="dselect-items" style="max-height:${maxHeight};overflow:auto">
             ${itemTags(el.querySelectorAll('*'))}
           </div>
-          <div class="${classNoResults} d-none">No results found</div>
+          <div class="${classNoResults} d-none">Sin resultados encontrados</div>
         </div>
       </div>
       ${clearBtn}
