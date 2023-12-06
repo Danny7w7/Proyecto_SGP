@@ -47,13 +47,14 @@ function edit_entidad(id){
 }
 
 
-var sig;
 document.addEventListener("DOMContentLoaded", function() {
     fieldQuestion = ['convenio']
     fieldExclude = ['especifique_tipo_codigo_convenio']
     var inputs = fieldQuestion.map(function(id) {
         return document.getElementById(id);
     });
+
+    var id_proyecto = document.getElementById('id_proyecto').value;
     
     const allValidations = {
         "form1": {
@@ -164,13 +165,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     document.getElementById("enviarG").addEventListener("click", function(event) {
-        sig = false
         handleFormSubmit(event, 'form2');
     });
 
     document.getElementById("enviarGYS").addEventListener("click", function(event) {
-        sig = true
-        handleFormSubmit(event, 'form2');
+        window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
     });
 
 
@@ -369,10 +368,7 @@ function sendPost2() {
                 console.log('Mensaje de éxito:', data.mensaje);
                 
                 actualizarTabla(data.entidades);
-                  
-                if (sig){
-                    window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
-                }
+
                 const input = document.getElementById('id_entidad');
                 input.value = '';
             }

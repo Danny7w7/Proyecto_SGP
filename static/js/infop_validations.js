@@ -21,7 +21,6 @@ function edit_participantes(id){
         changeDiv.value = inputs[i].value
     }
 }
-var sig;
 var currentLength
 var currentLength2
 var currentLength3
@@ -32,39 +31,43 @@ document.addEventListener("DOMContentLoaded", function() {
         return document.getElementById(id);
     });
     
-            // Verificador de caracteres
-            function handleTextareaInput(textarea, counterId) {
-                const counter = document.getElementById(counterId);
-                const val_jus = parseInt(counter.nextElementSibling.value);
-    
-                function updateCounter() {
-                    const currentLength = textarea.value.length;
-                    counter.textContent = `${currentLength}/${val_jus} máximo`;
-                }
-    
-                textarea.addEventListener("input", updateCounter);
-    
-                // Llama a updateCounter para actualizar el contador cuando se carga la información
-                updateCounter();
-            }
+    // Verificador de caracteres
+    function handleTextareaInput(textarea, counterId) {
+        const counter = document.getElementById(counterId);
+        const val_jus = parseInt(counter.nextElementSibling.value);
+
+        function updateCounter() {
+            const currentLength = textarea.value.length;
+            counter.textContent = `${currentLength}/${val_jus} máximo`;
+        }
+
+        textarea.addEventListener("input", updateCounter);
+
+        // Llama a updateCounter para actualizar el contador cuando se carga la información
+        updateCounter();
+    }
             
-            const textarea1 = document.getElementById("justificacion_Industrial");
-            const textarea2 = document.getElementById("justificacion_Economia_Naranja");
-            const textarea3 = document.getElementById("justificacion_Politica_Discapacidad");
-            
-            handleTextareaInput(textarea1, "char-counter1");
-            handleTextareaInput(textarea2, "char-counter2");
-            handleTextareaInput(textarea3, "char-counter3");
+    const textarea1 = document.getElementById("justificacion_Industrial");
+    const textarea2 = document.getElementById("justificacion_Economia_Naranja");
+    const textarea3 = document.getElementById("justificacion_Politica_Discapacidad");
+    
+    handleTextareaInput(textarea1, "char-counter1");
+    handleTextareaInput(textarea2, "char-counter2");
+    handleTextareaInput(textarea3, "char-counter3");
             
     
-    const button1 = document.getElementById('step2');
-    const button2 = document.getElementById('step3');
-    const button3 = document.getElementById('step4');
-    
-    const collapse1 = document.getElementById('collapseOne');
-    const collapse2 = document.getElementById('collapseTwo');
-    const collapse3 = document.getElementById('collapseThree');
-    const collapse4 = document.getElementById('collapseFour');
+    const buttons = [
+        document.getElementById('step2'),
+        document.getElementById('step3'),
+        document.getElementById('step4')
+    ];
+
+    const collapses = [
+        document.getElementById('collapseOne'),
+        document.getElementById('collapseTwo'),
+        document.getElementById('collapseThree'),
+        document.getElementById('collapseFour')
+    ];
     
     const allValidations = {
         //Validacion info proponente
@@ -195,31 +198,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("enviar1").addEventListener("click", function(event) {
         handleFormSubmit(event, 'form1');
+        nextStep(0)
     });
 
     document.getElementById("enviarGAutores").addEventListener("click", function(event) {
-        sig = false
         handleFormSubmit(event, 'form2');
     });
 
-    document.getElementById("enviarGYSAutores").addEventListener("click", function(event) {
-        sig = true
-        handleFormSubmit(event, 'form2');
+    document.getElementById("sigAutores").addEventListener("click", function(event) {
+        nextStep(1)
     });
 
     document.getElementById("enviarGParticipantes").addEventListener("click", function(event) {
-        sig = false
         handleFormSubmit(event, 'form3');
     });
 
     document.getElementById("enviarGYSParticipantes").addEventListener("click", function(event) {
-        sig = true
-        handleFormSubmit(event, 'form3');
+        nextStep(2)
     });
 
     document.getElementById("enviar4").addEventListener("click", function(event) {
         handleFormSubmit(event, 'form4');
     });
+
+    function nextStep(i) {
+        const currentButton = buttons[i];
+        const currentcollapse = collapses[i]
+        currentButton.setAttribute('aria-expanded', (currentButton.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
+        progress.setAttribute('value', (i+1) * 100 / (stepButtons.length - 1));
+        collapses[i].classList.remove('show')
+        collapses[i+1].classList.add('show')
+    }
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
@@ -260,27 +269,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }).then(() => {
                 if (formKey == 'form1'){
                     sendPost1()
-                    button1.setAttribute('aria-expanded', (button1.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
-                    progress.setAttribute('value', 1 * 100 / (stepButtons.length - 1));
-                    collapse1.classList.remove('show')
-                    collapse2.classList.add('show')
                 }else if (formKey == 'form2'){
                     sendPost2()
-                    if (sig){
-                        button2.setAttribute('aria-expanded', (button2.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
-                        progress.setAttribute('value', 2 * 100 / (stepButtons.length - 1));
-                        collapse2.classList.remove('show')
-                        collapse3.classList.add('show')
-                    }
+                    clearinputs(formKey)
                 }
                 else if (formKey == 'form3'){
                     sendPost3()
-                    if (sig){
-                        button3.setAttribute('aria-expanded', (button3.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
-                        progress.setAttribute('value', 3 * 100 / (stepButtons.length - 1));
-                        collapse3.classList.remove('show')
-                        collapse4.classList.add('show')
-                    }
+                    clearinputs(formKey)
                 }
                 else if (formKey == 'form4'){
                     sendPost4()
@@ -319,6 +314,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+function clearinputs(form) {
+    form = document.getElementById(form)
+    const inputs = form.querySelectorAll('input');
+    const selects = form.querySelectorAll('select');
+
+    inputs.forEach(input => {
+        input.value = ''
+    });
+    selects.forEach(select => {
+        select.selectedIndex = 0;
+    });
+
+}
 
 function sendPost1() {
     // Obtener los valores de los campos del formulario

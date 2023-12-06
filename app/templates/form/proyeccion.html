@@ -47,22 +47,23 @@
                                             {% csrf_token %}
                                             <div class="mt-3" style="width: 95%; margin-left: 2%;">
                                                 <div class="mb-3">
+                                                    
                                                     <label class="form-label">Duración del proyecto (debe
                                                         coincidir con el cronograma)</label>
-                                                    <input disabled id="duracion_proyecto" type="text" class="form-control form-control-sm">
+                                                    <input disabled id="duracion_proyecto" type="text" class="form-control form-control-sm" value="{{proyeccion.duracion}}">
                                                     <div class="invalid-feedback">
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Fecha de inicio (Debe coincidir
                                                         con el cronograma)</label>
-                                                    <input id="fecha_inicio" type="date" class="form-control form-control-sm">
+                                                    <input id="fecha_inicio" type="date" class="form-control form-control-sm" value="{{fch_inicio}}">
                                                     <div class="invalid-feedback">
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Fecha de cierre</label>
-                                                    <input id="fecha_cierre" type="date" class="form-control form-control-sm">
+                                                    <input id="fecha_cierre" type="date" class="form-control form-control-sm" value="{{fch_cierre}}">
                                                     <div class="invalid-feedback">
                                                     </div>
                                                 </div>
@@ -106,7 +107,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Propuesta de sostenibilidad</label>
-                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="propuesta_sostenibilidad" cols="10" rows="5"></textarea>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="propuesta_sostenibilidad" cols="10" rows="5">{{proyeccion.propuesta_sostenibilidad}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter1">0/500 máximo</span>
@@ -114,7 +115,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Impacto social</label>
-                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_social" cols="10" rows="5"></textarea>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_social" cols="10" rows="5">{{proyeccion.impacto_social}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter2">0/500 máximo</span>
@@ -122,7 +123,7 @@
                                             </div>
                                             <div class="mb3">
                                                 <label class="form-label fs-6 fw-normal">Impacto tecnológico</label>
-                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_tecnologico" cols="10" rows="5"></textarea>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_tecnologico" cols="10" rows="5">{{proyeccion.impacto_tecnologico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter3">0/500 máximo</span>
@@ -130,7 +131,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label fs-6 fw-normal">Impacto centro de formación</label>
-                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_centro" cols="10" rows="5"></textarea>
+                                                <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="impacto_centro" cols="10" rows="5">{{proyeccion.impacto_centro_formacion}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter4">0/500 máximo</span>

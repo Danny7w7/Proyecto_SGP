@@ -38,7 +38,7 @@ from app.views.index import index
 # Listas desplegables
 from app.models import Listas_plegables
 
-import datetime
+from datetime import datetime
 import os
 import json
 
@@ -392,9 +392,15 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
 def proyeccion(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
         return redirect(index)
+    proyeccion = get_or_none(Proyeccion, proyecto=id_proyecto)
+    fch_inicio = proyeccion.fch_inicio.strftime('%Y-%m-%d')
+    fch_cierre = proyeccion.fch_cierre.strftime('%Y-%m-%d')
     contex = {
         "percentaje": id_proyecto,
         "proyecto": get_or_none(Proyecto, id=id_proyecto),
+        "proyeccion": proyeccion,
+        "fch_inicio":fch_inicio,
+        "fch_cierre":fch_cierre
     }
     return render(request, "form/proyeccion.html", contex)
 
