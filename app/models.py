@@ -219,6 +219,7 @@ class Listas_plegables(models.Model):
     subareas_conocimiento = models.CharField(max_length=200, null=True)
     diciplina_subarea = models.CharField(max_length=200, null=True)
     nombre_centro_formacion = models.CharField(max_length=200, null=True)
+    actividades_economicas = models.CharField(max_length=250, null=True)
     
 #Middleware
 class UltimaVista(models.Model):

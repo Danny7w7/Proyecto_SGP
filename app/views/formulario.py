@@ -97,6 +97,9 @@ def contex_form():
     nombresC = lista.order_by("nombre_centro_formacion").values_list(
         "nombre_centro_formacion", flat=True
     )
+    actividades = lista.order_by("actividades_economicas").values_list(
+        "actividades_economicas", flat=True
+    )
     return {
         "codigos": codigos,
         "nombres": nombres,
@@ -104,6 +107,7 @@ def contex_form():
         "subareas": subareas,
         "diciplinas": diciplinas,
         "nombresC": nombresC,
+        "actividades": actividades
     }
 
 
@@ -252,6 +256,7 @@ def informacion_proponente(request, id_proyecto):
                'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
                'autores': Autores.objects.filter(proyecto = proyecto),
                'participantes': Participantes_Proyecto.objects.filter(proyecto = proyecto),
+               'generalidades':get_or_none(Generalidades_del_proyecto, proyecto=id_proyecto),
                'percentaje':id_proyecto,
                'listaPlegable':contex_form()}
     return render(request, 'form/infop.html', context)
