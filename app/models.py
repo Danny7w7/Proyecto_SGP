@@ -170,7 +170,6 @@ class Proyeccion(models.Model):
     duracion = models.CharField(max_length=100,null=True)
     fch_inicio = models.DateField(null=True)
     fch_cierre = models.DateField(null=True)
-    # cadena_valor = models.ImageField(null=True)
     propuesta_sostenibilidad = models.CharField(max_length=500, null=True)
     impacto_social= models.CharField(max_length=500, null=True)
     impacto_tecnologico = models.CharField(max_length=500, null=True)
