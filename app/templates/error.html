@@ -1,0 +1,22 @@
+{% extends "form/crearp.html" %}
+{% load static %}
+{% block forms %}
+
+<main>
+    <div class="divsito_bonito">
+        <img src="{% static 'img/1.jfif' %}" alt="">
+    </div>
+    <div>
+        <h1 style="color: #333; text-align: center;">Ups!!</h1>
+
+        <p style="font-size: 1.2em; text-align: center;">
+         <strong> Querido usuario,</strong>
+        </p>
+    
+        <p style="text-align: center;">
+            <strong>{{ mensaje_error }}</strong>
+        </p>
+    </div> 
+</main>
+
+{% endblock %}  

@@ -342,3 +342,9 @@ select option:hover {
   background-size: cover;
   backdrop-filter: url(commonfilters.svg#filter);
 }
+
+.divsito_bonito{
+  display: flex;
+  justify-content: center;
+  height: 60vh;
+}

@@ -45,6 +45,7 @@ import json
 # PDF
 from django.template.loader import render_to_string
 from xhtml2pdf import pisa
+from app.utils import mostrar_error
 
 
 # ------Decoradores------
@@ -222,7 +223,7 @@ def generar_c_valor(request, proyecto_id):
     pisa_status = pisa.CreatePDF(html, dest=response)
 
     if pisa_status.err:
-        return HttpResponse("Error al generar el PDF", status=500)
+        return mostrar_error(request,"Error al generar el PDF", status=500)
 
     return response
 
@@ -296,7 +297,7 @@ def participantes(request, id_proyecto):
     try:
         objGeneral = Objetivos.objects.get(proyecto=proyecto.id)
     except Objetivos.DoesNotExist:
-        return HttpResponse('Para acceder a esta vista por favor cree un OBJETIVO GENERAL DEL PROYECTO') 
+        return mostrar_error(request, 'Para acceder a esta vista por favor cree un Objetivo general del proyecto')
     context = {
         "proyecto": proyecto,
         "entidad_a": Entidades_aliadas.objects.filter(proyecto=proyecto),
@@ -328,9 +329,7 @@ def selecEntidad(request, id_proyecto):
     if not own_user(request.user, proyecto.id):
         return redirect(index)
     if not Entidades_aliadas.objects.filter(proyecto=proyecto).exists():
-        return HttpResponse(
-            "Para acceder a esta vista debes de crear por lo menos una entidad aliada"
-        )
+        return mostrar_error(request,"Para acceder a esta vista debes de crear por lo menos una entidad aliada")
     contex = {
         "entidades": Entidades_aliadas.objects.filter(proyecto=proyecto),
         "percentaje": proyecto.id,
@@ -361,7 +360,7 @@ def selectObj(request, id_proyecto):
         objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
         objEspecificos = Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral)
     except:
-        return HttpResponse(
+        return mostrar_error(request,
             "Para acceder a esta vista debes de crear los objetivos especificos"
         )
     contex = {
@@ -961,3 +960,9 @@ def continuar_sesion(request):
         if ultima_vista:
             return redirect(ultima_vista.ultima_vista)
     return redirect(proyectos_usuario)
+
+def error(request):
+    contex = {
+        'percentaje': 0
+    }
+    return render(request, "error.html" , contex)

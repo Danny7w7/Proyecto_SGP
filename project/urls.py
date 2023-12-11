@@ -34,6 +34,7 @@ urlpatterns = [
     path('continuar-sesion/', views.continuar_sesion, name='continuar_sesion'),
     path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
     path('seleccionar/<int:id_proyecto>/', views.seleccionar , name='seleccionar'),
+    path('error/', views.error, name ='error'),
 
     #Views Form
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
