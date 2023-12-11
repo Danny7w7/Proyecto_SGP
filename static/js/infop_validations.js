@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El número de horas no es válido. Debe tener digitos númericos y máximo 48 horas.',
         },
        },
-    //    //Validacion participantes
+        //Validacion participantes
        "form3":{
         "Nombre_participantes_de_desarrollo":{
             pattern:  /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
