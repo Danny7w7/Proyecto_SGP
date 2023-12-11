@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -342,32 +341,32 @@
                 <td>{{ objetivos.objetivo_general }}</td>
             </tr>
             {% for obj_especifico in objetivos_especificos %}
-                <tr>
-                    <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
-                    <td>{{ obj_especifico.objetivo_especifico }}</td>
-                </tr>
-                {% if obj_especifico.actividades_obj_especificos %}
-                <tr>
-                    <td><strong>Actividades:</strong></td>
-                    <td>{{ obj_especifico.actividades_obj_especificos }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Causa:</strong></td>
-                    <td>{{ obj_especifico.causa }}</td>
-                </tr>
-                <tr>
-                    <td><strong>Efecto:</strong></td>
-                    <td>{{ obj_especifico.efecto }}</td>
-                </tr>                
-                {% else %}
-                <tr>
-                    <td colspan="2"><strong>Actividades, Causa y Efecto:</strong> No hay información asociada.</td>
-                </tr>
-                {% endif %}
+            <tr>
+                <td><strong>Objetivo específico {{ forloop.counter }}:</strong></td>
+                <td>{{ obj_especifico.objetivo_especifico }}</td>
+            </tr>
+            {% if obj_especifico.actividades_obj_especificos %}
+            <tr>
+                <td><strong>Actividades:</strong></td>
+                <td>{{ obj_especifico.actividades_obj_especificos }}</td>
+            </tr>
+            <tr>
+                <td><strong>Causa:</strong></td>
+                <td>{{ obj_especifico.causa }}</td>
+            </tr>
+            <tr>
+                <td><strong>Efecto:</strong></td>
+                <td>{{ obj_especifico.efecto }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2"><strong>Actividades, Causa y Efecto:</strong> No hay información asociada.</td>
+            </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </div>
-    
+
 
 
 
@@ -505,7 +504,7 @@
                     <td><strong>Teléfono:</strong></td>
                     <td>{{ participante.telefono }}</td>
                 </tr>
-                </table>
+            </table>
             {% endfor %}
         </div>
         {% endfor %}
