@@ -960,9 +960,3 @@ def continuar_sesion(request):
         if ultima_vista:
             return redirect(ultima_vista.ultima_vista)
     return redirect(proyectos_usuario)
-
-def error(request):
-    contex = {
-        'percentaje': 0
-    }
-    return render(request, "error.html" , contex)
