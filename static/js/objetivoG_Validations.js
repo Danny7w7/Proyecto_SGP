@@ -54,6 +54,44 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'El obj especifico 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales'
         },
        },
+       "form2":{
+        "actividad1":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'La actividad de obj especifico 1 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "actividad2":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'La actividad de obj especifico 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "actividad3":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'La actividad de obj especifico 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "causa1":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'La causa no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "causa2":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'La causa 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "causa3":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'La causa 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "efecto1":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'El efecto 1 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "efecto2":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'El efecto 2 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+        "efecto3":{
+            pattern: /^[\s\S]{5,1000}$/,
+            errorMsg: 'El efecto 3 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales'
+        },
+       }
     };
 
         // Verificador de caracteres
