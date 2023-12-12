@@ -64,7 +64,7 @@
                                             beneficiados</label>
                                         <input type="text" name="nombre_semillero_investigacion_beneficiados"
                                             id="nombre_semillero_investigacion_beneficiados"
-                                            class="form-control form-control-sm" placeholder="">
+                                            class="form-control form-control-sm" placeholder="" value="{{centro_f.nombre_semillero_investigacion_beneficiados}}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -74,11 +74,11 @@
                                             id="numero_programas_beneficiarios_semilleros_investigacion"
                                             class="form-control selectmod">
                                             <option value="" disabled selected>Seleccione...</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
+                                            <option {%if centro_f.numero_programas_beneficiarios_semilleros_investigacion == 1 %}selected{%endif%} value="1">1</option>
+                                            <option {%if centro_f.numero_programas_beneficiarios_semilleros_investigacion == 2 %}selected{%endif%} value="2">2</option>
+                                            <option {%if centro_f.numero_programas_beneficiarios_semilleros_investigacion == 3 %}selected{%endif%} value="3">3</option>
+                                            <option {%if centro_f.numero_programas_beneficiarios_semilleros_investigacion == 4 %}selected{%endif%} value="4">4</option>
+                                            <option {%if centro_f.numero_programas_beneficiarios_semilleros_investigacion == 5 %}selected{%endif%} value="5">5</option>
                                         </select>
 
                                         <label for="" class="form-label">Tipo de programas de formación beneficiados que
@@ -87,15 +87,15 @@
                                             id="tipo_programas_formacion_beneficiados_conforman_semillero"
                                             class="form-control selectmod">
                                             <option value="" disabled selected>Selecciona una opción...</option>
-                                            <option value="tecnico">Técnico</option>
-                                            <option value="tecnologico">Tecnológico</option>
+                                            <option {%if centro_f.tipo_programas_formacion_beneficiados_conforman_semillero == 'tecnico' %}selected{%endif%} value="tecnico">Técnico</option>
+                                            <option {%if centro_f.tipo_programas_formacion_beneficiados_conforman_semillero == 'tecnologico' %}selected{%endif%} value="tecnologico">Tecnológico</option>
                                         </select>
 
                                         <label for="" class="form-label">Nombre de los programas de formación
                                             beneficiados que conforman el (los) semillero (s) </label>
                                         <input type="text" name="nombre_programas_formacion_beneficiados_semillero"
                                             id="nombre_programas_formacion_beneficiados_semillero"
-                                            class="form-control form-control-sm" placeholder="">
+                                            class="form-control form-control-sm" placeholder="" value="{{centro_f.nombre_programas_formacion_beneficiados_semillero}}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -105,8 +105,8 @@
                                             id="tipo_programas_de_formacion_beneficiados_por_ejecucion"
                                             class="form-control selectmod">
                                             <option value="" disabled selected>Selecciona una opción...</option>
-                                            <option value="tecnico">Técnico</option>
-                                            <option value="tecnologico">Tecnológico</option>
+                                            <option {%if centro_f.tipo_programas_de_formacion_beneficiados_por_ejecucion == 'tecnico' %}selected{%endif%} value="tecnico">Técnico</option>
+                                            <option {%if centro_f.tipo_programas_de_formacion_beneficiados_por_ejecucion == 'tecnologico' %}selected{%endif%} value="tecnologico">Tecnológico</option>
                                         </select>
                                     </div>
 
@@ -117,7 +117,7 @@
                                         <input type="text"
                                             name="nombre_programas_formacion_beneficiados_ejecucion_proyecto"
                                             id="nombre_programas_formacion_beneficiados_ejecucion_proyecto"
-                                            class="form-control form-control-sm" placeholder="">
+                                            class="form-control form-control-sm" placeholder="" value="{{centro_f.nombre_programas_formacion_beneficiados_ejecucion_proyecto}}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -125,7 +125,7 @@
                                             ejecución del proyecto</label>
                                         <input type="number" name="numero_aprendices_participaran_ejecucion_proyecto"
                                             id="numero_aprendices_participaran_ejecucion_proyecto"
-                                            class="form-control form-control-sm" placeholder="">
+                                            class="form-control form-control-sm" placeholder="" value="{{centro_f.numero_aprendices_participaran_ejecucion_proyecto}}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -133,7 +133,7 @@
                                             ejecución del proyecto</label>
                                         <input type="number" name="numero_municipios_beneficiados"
                                             id="numero_municipios_beneficiados" class="form-control form-control-sm"
-                                            placeholder="">
+                                            placeholder="" value="{{centro_f.numero_municipios_beneficiados}}">
                                         <div class="invalid-feedback">
                                         </div>
 
@@ -141,7 +141,7 @@
                                             descripción del beneficio</label>
                                         <input type="text" name="nombre_municipios_beneficiados_descripcion_beneficio"
                                             id="nombre_municipios_beneficiados_descripcion_beneficio"
-                                            class="form-control form-control-sm" placeholder="">
+                                            class="form-control form-control-sm" placeholder="" value="{{centro_f.nombre_municipios_beneficiados_descripcion_beneficio}}">
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>

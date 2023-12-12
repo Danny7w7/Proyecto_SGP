@@ -1,5 +1,5 @@
-var id_proyecto = document.getElementById("id_proyecto").value; 
-function edit_autor(id){
+var id_proyecto = document.getElementById("id_proyecto").value;
+function edit_autor(id) {
     const selectDiv = document.getElementById(`autor${id}`);
     const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
 
@@ -7,30 +7,38 @@ function edit_autor(id){
         let texto = inputs[i].id;
         texto = texto.substring(0, texto.length - 7);
         const changeDiv = document.getElementById(texto);
-        changeDiv.value = inputs[i].value
+        changeDiv.value = inputs[i].value;
     }
 }
-function edit_participantes(id){
+function edit_participantes(id) {
     const selectDiv = document.getElementById(`participante${id}`);
     const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
-    
+
     for (let i = 0; i < inputs.length; i++) {
         let texto = inputs[i].id;
         texto = texto.substring(0, texto.length - 7);
         const changeDiv = document.getElementById(texto);
-        changeDiv.value = inputs[i].value
+        changeDiv.value = inputs[i].value;
     }
 }
-var currentLength
-var currentLength2
-var currentLength3
-document.addEventListener("DOMContentLoaded", function() {
-    fieldQuestion = ['proyecto_Relacionado_Industrial40', 'proyecto_Relacionado_Economia_Naranja', 'proyecto_Relacionado_Politica_Discapacidad']
-    fieldExclude = ['justificacion_Industrial', 'justificacion_Economia_Naranja', 'justificacion_Politica_Discapacidad']
-    var inputs = fieldQuestion.map(function(id) {
+var currentLength;
+var currentLength2;
+var currentLength3;
+document.addEventListener("DOMContentLoaded", function () {
+    fieldQuestion = [
+        "proyecto_Relacionado_Industrial40",
+        "proyecto_Relacionado_Economia_Naranja",
+        "proyecto_Relacionado_Politica_Discapacidad",
+    ];
+    fieldExclude = [
+        "justificacion_Industrial",
+        "justificacion_Economia_Naranja",
+        "justificacion_Politica_Discapacidad",
+    ];
+    var inputs = fieldQuestion.map(function (id) {
         return document.getElementById(id);
     });
-    
+
     // Verificador de caracteres
     function handleTextareaInput(textarea, counterId) {
         const counter = document.getElementById(counterId);
@@ -46,29 +54,32 @@ document.addEventListener("DOMContentLoaded", function() {
         // Llama a updateCounter para actualizar el contador cuando se carga la información
         updateCounter();
     }
-            
+
     const textarea1 = document.getElementById("justificacion_Industrial");
     const textarea2 = document.getElementById("justificacion_Economia_Naranja");
     const textarea3 = document.getElementById("justificacion_Politica_Discapacidad");
-    
+
     handleTextareaInput(textarea1, "char-counter1");
     handleTextareaInput(textarea2, "char-counter2");
     handleTextareaInput(textarea3, "char-counter3");
             
+            
+    
+
     
     const buttons = [
-        document.getElementById('step2'),
-        document.getElementById('step3'),
-        document.getElementById('step4')
+        document.getElementById("step2"),
+        document.getElementById("step3"),
+        document.getElementById("step4"),
     ];
 
     const collapses = [
-        document.getElementById('collapseOne'),
-        document.getElementById('collapseTwo'),
-        document.getElementById('collapseThree'),
-        document.getElementById('collapseFour')
+        document.getElementById("collapseOne"),
+        document.getElementById("collapseTwo"),
+        document.getElementById("collapseThree"),
+        document.getElementById("collapseFour"),
     ];
-    
+
     const allValidations = {
         //Validacion info proponente
        "form1": {
@@ -175,9 +186,9 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let formKey in allValidations) {
         for (let fieldId in allValidations[formKey]) {
             const inputField = document.getElementById(fieldId);
-            
+
             // Verifica si el inputField realmente existe
-            if(!inputField) {
+            if (!inputField) {
                 console.error(`El campo con id ${fieldId} no fue encontrado.`);
                 continue;
             }
@@ -185,64 +196,85 @@ document.addEventListener("DOMContentLoaded", function() {
             const feedbackElement = inputField.nextElementSibling;
             const { pattern, errorMsg } = allValidations[formKey][fieldId];
 
-            inputField.addEventListener("input", function() {
+            inputField.addEventListener("input", function () {
                 validateField(inputField, feedbackElement, pattern, errorMsg);
             });
         }
     }
 
-//ids de los formularios
+    //ids de los formularios
     const form1 = document.getElementById("form1");
     const form2 = document.getElementById("form2");
 
+    document
+        .getElementById("enviar1")
+        .addEventListener("click", function (event) {
+            handleFormSubmit(event, "form1");
+            nextStep(0);
+        });
 
-    document.getElementById("enviar1").addEventListener("click", function(event) {
-        handleFormSubmit(event, 'form1');
-        nextStep(0)
-    });
+    document
+        .getElementById("enviarGAutores")
+        .addEventListener("click", function (event) {
+            handleFormSubmit(event, "form2");
+        });
 
-    document.getElementById("enviarGAutores").addEventListener("click", function(event) {
-        handleFormSubmit(event, 'form2');
-    });
+    document
+        .getElementById("sigAutores")
+        .addEventListener("click", function (event) {
+            nextStep(1);
+        });
 
-    document.getElementById("sigAutores").addEventListener("click", function(event) {
-        nextStep(1)
-    });
+    document
+        .getElementById("enviarGParticipantes")
+        .addEventListener("click", function (event) {
+            handleFormSubmit(event, "form3");
+        });
 
-    document.getElementById("enviarGParticipantes").addEventListener("click", function(event) {
-        handleFormSubmit(event, 'form3');
-    });
+    document
+        .getElementById("enviarGYSParticipantes")
+        .addEventListener("click", function (event) {
+            nextStep(2);
+        });
 
-    document.getElementById("enviarGYSParticipantes").addEventListener("click", function(event) {
-        nextStep(2)
-    });
-
-    document.getElementById("enviar4").addEventListener("click", function(event) {
-        handleFormSubmit(event, 'form4');
-    });
+    document
+        .getElementById("enviar4")
+        .addEventListener("click", function (event) {
+            handleFormSubmit(event, "form4");
+        });
 
     function nextStep(i) {
         const currentButton = buttons[i];
-        const currentcollapse = collapses[i]
-        currentButton.setAttribute('aria-expanded', (currentButton.getAttribute('aria-expanded') === 'true') ? 'false' : 'true');
-        progress.setAttribute('value', (i+1) * 100 / (stepButtons.length - 1));
-        collapses[i].classList.remove('show')
-        collapses[i+1].classList.add('show')
+        const currentcollapse = collapses[i];
+        currentButton.setAttribute(
+            "aria-expanded",
+            currentButton.getAttribute("aria-expanded") === "true"
+                ? "false"
+                : "true"
+        );
+        progress.setAttribute(
+            "value",
+            ((i + 1) * 100) / (stepButtons.length - 1)
+        );
+        collapses[i].classList.remove("show");
+        collapses[i + 1].classList.add("show");
     }
 
     function handleFormSubmit(event, formKey) {
         let isValid = true;
         // Verifica cuántas filas hay en la tabla (autores registrados)
-        var numRows = document.querySelectorAll('#table_autores tbody tr').length;
-        console.log(numRows)
+        var numRows = document.querySelectorAll(
+            "#table_autores tbody tr"
+        ).length;
+        console.log(numRows);
 
         // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
-        if (formKey === 'form2' && numRows > 2) {
+        if (formKey === "form2" && numRows > 2) {
             Swal.fire({
-                title: 'Advertencia',
-                text: 'Ya has alcanzado el límite de 3 autores para este proyecto.',
-                icon: 'warning',
-                confirmButtonText: 'Aceptar'
+                title: "Advertencia",
+                text: "Ya has alcanzado el límite de 3 autores para este proyecto.",
+                icon: "warning",
+                confirmButtonText: "Aceptar",
             });
             event.preventDefault(); // Detener el envío del formulario
             return;
@@ -250,63 +282,63 @@ document.addEventListener("DOMContentLoaded", function() {
 
         for (let fieldId in allValidations[formKey]) {
             const inputField = document.getElementById(fieldId);
-                
+
             // Nueva comprobación para evitar errores
-            if(!inputField) continue;
+            if (!inputField) continue;
 
             const feedbackElement = inputField.nextElementSibling;
             const { pattern, errorMsg } = allValidations[formKey][fieldId];
 
-            isValid = validateField(inputField, feedbackElement, pattern, errorMsg) && isValid;
+            isValid =
+                validateField(inputField, feedbackElement, pattern, errorMsg) &&
+                isValid;
         }
         event.preventDefault();
         if (isValid) {
             Swal.fire({
-                title: '¡Éxito!',
-                text: 'Información registrada correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
+                title: "¡Éxito!",
+                text: "Información registrada correctamente.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
             }).then(() => {
-                if (formKey == 'form1'){
-                    sendPost1()
-                }else if (formKey == 'form2'){
-                    sendPost2()
-                    clearinputs(formKey)
-                }
-                else if (formKey == 'form3'){
-                    sendPost3()
-                    clearinputs(formKey)
-                }
-                else if (formKey == 'form4'){
-                    sendPost4()
+                if (formKey == "form1") {
+                    sendPost1();
+                } else if (formKey == "form2") {
+                    sendPost2();
+                    clearinputs(formKey);
+                } else if (formKey == "form3") {
+                    sendPost3();
+                    clearinputs(formKey);
+                } else if (formKey == "form4") {
+                    sendPost4();
                 }
             });
-        }else{
+        } else {
             Swal.fire({
-                title: 'Error!',
-                text: 'Por favor, corrija los errores en el formulario antes de enviar.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
+                title: "Error!",
+                text: "Por favor, corrija los errores en el formulario antes de enviar.",
+                icon: "error",
+                confirmButtonText: "Aceptar",
             });
         }
     }
 
     function validateField(field, feedback, pattern, errorMsg) {
-        if (fieldExclude.includes(field.id)){
+        if (fieldExclude.includes(field.id)) {
             var index = fieldExclude.indexOf(field.id);
-            if (inputs[index].value == '0'){   
+            if (inputs[index].value == "0") {
                 field.classList.remove("is-invalid");
                 field.classList.add("is-valid");
-                feedback.textContent = '';
+                feedback.textContent = "";
                 return true;
             }
         }
         if (pattern.test(field.value)) {
             field.classList.remove("is-invalid");
             field.classList.add("is-valid");
-            feedback.textContent = '';
+            feedback.textContent = "";
             return true;
-        }else{
+        } else {
             field.classList.remove("is-valid");
             field.classList.add("is-invalid");
             feedback.textContent = errorMsg;
@@ -316,31 +348,35 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function clearinputs(form) {
-    form = document.getElementById(form)
-    const inputs = form.querySelectorAll('input');
-    const selects = form.querySelectorAll('select');
+    form = document.getElementById(form);
+    const inputs = form.querySelectorAll("input");
+    const selects = form.querySelectorAll("select");
 
-    inputs.forEach(input => {
-        input.value = ''
+    inputs.forEach((input) => {
+        input.value = "";
     });
-    selects.forEach(select => {
+    selects.forEach((select) => {
         select.selectedIndex = 0;
     });
-
 }
 
 function sendPost1() {
     // Obtener los valores de los campos del formulario
-    var region = document.getElementById("select_box").value; 
+    var region = document.getElementById("select_box").value;
     var regional = document.getElementById("select_box2").value;
     var nombre_centro_formacion = document.getElementById("select_box3").value;
     var nombre_Director = document.getElementById("Nombre_Director").value;
     var email_director = document.getElementById("email_director").value;
     var numero_Director = document.getElementById("Numero_Director").value;
-    var nombre_Sub_Director = document.getElementById("Nombre_Sub_Director").value;
-    var email_sub_director = document.getElementById("email_sub_director").value;
-    var numero_Sub_Director = document.getElementById("Numero_Sub_Director").value;
-    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    var nombre_Sub_Director = document.getElementById(
+        "Nombre_Sub_Director"
+    ).value;
+    var email_sub_director =
+        document.getElementById("email_sub_director").value;
+    var numero_Sub_Director = document.getElementById(
+        "Numero_Sub_Director"
+    ).value;
+    var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
@@ -356,202 +392,301 @@ function sendPost1() {
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
     fetch(`/proyecto/info-proyecto/info-proponente/${id_proyecto}/`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
     })
-    .then(response => response.json())  // Parsea la respuesta JSON
-    .then(data => {
-        if (data.error) {
-            console.error('Error:', data.error);
-            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
-        } else {
-            console.log('Mensaje de éxito:', data.mensaje);
-            // Realizar acciones de éxito, si es necesario
-        }
-    })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
-    });
-};
+        .then((response) => response.json()) // Parsea la respuesta JSON
+        .then((data) => {
+            if (data.error) {
+                console.error("Error:", data.error);
+                // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+            } else {
+                console.log("Mensaje de éxito:", data.mensaje);
+                // Realizar acciones de éxito, si es necesario
+            }
+        })
+        .catch((error) => {
+            console.error("Error en la solicitud:", error);
+            // Manejar errores en la solicitud, como problemas de red
+        });
+}
 
 // Autores
 function sendPost2() {
     var id_proyecto = document.getElementById("id_proyecto").value;
 
     // Obtener los valores de los campos del formulario
-    var nombre_autor_proyecto = document.getElementById("Nombre_Autor_Proyecto").value;
-    var tipo_vinculacion_entidad = document.getElementById("tipo_Vinculacion_entidad").value;
-    var numero_cedula_autor = document.getElementById("Numero_Cedula_Autor").value;
-    var rol_sennova_participantes_proyecto = document.getElementById("rol_Sennova_De_Participantes_de_Proyecto").value;
-    var email_autor_proyecto = document.getElementById("Email_Autor_Proyecto").value;
-    var numero_meses_vinculacion_autor = document.getElementById("Numero_meses_vinculacion_Autor").value;
-    var numero_telefono_autor = document.getElementById("Numero_Telefono_Autor").value;
-    var numero_horas_semanales_dedicadas_Autores = document.getElementById("Numero_horas_Semanales_dedicadas_Autores").value;
-    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    var nombre_autor_proyecto = document.getElementById(
+        "Nombre_Autor_Proyecto"
+    ).value;
+    var tipo_vinculacion_entidad = document.getElementById(
+        "tipo_Vinculacion_entidad"
+    ).value;
+    var numero_cedula_autor = document.getElementById(
+        "Numero_Cedula_Autor"
+    ).value;
+    var rol_sennova_participantes_proyecto = document.getElementById(
+        "rol_Sennova_De_Participantes_de_Proyecto"
+    ).value;
+    var email_autor_proyecto = document.getElementById(
+        "Email_Autor_Proyecto"
+    ).value;
+    var numero_meses_vinculacion_autor = document.getElementById(
+        "Numero_meses_vinculacion_Autor"
+    ).value;
+    var numero_telefono_autor = document.getElementById(
+        "Numero_Telefono_Autor"
+    ).value;
+    var numero_horas_semanales_dedicadas_Autores = document.getElementById(
+        "Numero_horas_Semanales_dedicadas_Autores"
+    ).value;
+    var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    if (document.getElementById('id_autor').value == ''){
-        console.log("Ta vacio mamaguevo")
-    }else{
-        formData.append("id_autor", document.getElementById('id_autor').value);
+    if (document.getElementById("id_autor").value == "") {
+        console.log("Ta vacio mamaguevo");
+    } else {
+        formData.append("id_autor", document.getElementById("id_autor").value);
     }
     formData.append("nombre_Autor_Proyecto", nombre_autor_proyecto);
     formData.append("tipo_Vinculacion_entidad", tipo_vinculacion_entidad);
     formData.append("numero_Cedula_Autor", numero_cedula_autor);
-    formData.append("rol_Sennova_De_Participantes_de_Proyecto", rol_sennova_participantes_proyecto);
+    formData.append(
+        "rol_Sennova_De_Participantes_de_Proyecto",
+        rol_sennova_participantes_proyecto
+    );
     formData.append("email_Autor_Proyecto", email_autor_proyecto);
-    formData.append("numero_meses_vinculacion_Autor", numero_meses_vinculacion_autor);
+    formData.append(
+        "numero_meses_vinculacion_Autor",
+        numero_meses_vinculacion_autor
+    );
     formData.append("numero_Telefono_Autor", numero_telefono_autor);
-    formData.append("numero_horas_Semanales_dedicadas_Autores", numero_horas_semanales_dedicadas_Autores);
+    formData.append(
+        "numero_horas_Semanales_dedicadas_Autores",
+        numero_horas_semanales_dedicadas_Autores
+    );
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
     fetch(`/proyecto/info-proyecto/info-autor/${id_proyecto}/`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
     })
-    .then(response => response.json())  // Parsea la respuesta JSON
-    .then(data => {
-        if (data.error) {
-            console.error('Error:', data.error);
-            alert(data.error); // O muestra el error de alguna otra manera
-        } else {
-            console.log('Mensaje de éxito:', data.mensaje);
-            
-            actualizarTablaAutores(data.autores);
-            actualizarInputAutores(data.autores);
-            
-            const input = document.getElementById('id_autor');
-            input.value = '';
-        }
-    })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
-    });
-};
+        .then((response) => response.json()) // Parsea la respuesta JSON
+        .then((data) => {
+            if (data.error) {
+                console.error("Error:", data.error);
+                alert(data.error); // O muestra el error de alguna otra manera
+            } else {
+                console.log("Mensaje de éxito:", data.mensaje);
+
+                actualizarTablaAutores(data.autores);
+                actualizarInputAutores(data.autores);
+
+                const input = document.getElementById("id_autor");
+                input.value = "";
+            }
+        })
+        .catch((error) => {
+            console.error("Error en la solicitud:", error);
+            // Manejar errores en la solicitud, como problemas de red
+        });
+}
 
 // Participantes
 function sendPost3() {
     var id_proyecto = document.getElementById("id_proyecto").value;
-    console.log(id_proyecto)
+    console.log(id_proyecto);
     // Obtener los valores de los campos del formulario
-    var nombre_participantes_de_desarrollo = document.getElementById("Nombre_participantes_de_desarrollo").value;
-    var rol_sennova_de_participantes_de_proyecto = document.getElementById("Rol_Sennova_De_Participantes_de_Proyecto").value;
-    var numero_Cedula_participantes = document.getElementById("Numero_cedula_participantes").value;
-    var numero_meses_vinculacion_participantes = document.getElementById("Numero_meses_vinculacion_participantes").value;
-    var email_participantes_de_desarrollo = document.getElementById("Email_participantes_de_desarrollo").value;
-    var numero_horas_semanales_dedicadas_participantes = document.getElementById("Numero_horas_Semanales_dedicadas_participantes").value;
-    var numero_telefono_participantes = document.getElementById("Numero_Telefono_participantes").value;
-    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    var nombre_participantes_de_desarrollo = document.getElementById(
+        "Nombre_participantes_de_desarrollo"
+    ).value;
+    var rol_sennova_de_participantes_de_proyecto = document.getElementById(
+        "Rol_Sennova_De_Participantes_de_Proyecto"
+    ).value;
+    var numero_Cedula_participantes = document.getElementById(
+        "Numero_cedula_participantes"
+    ).value;
+    var numero_meses_vinculacion_participantes = document.getElementById(
+        "Numero_meses_vinculacion_participantes"
+    ).value;
+    var email_participantes_de_desarrollo = document.getElementById(
+        "Email_participantes_de_desarrollo"
+    ).value;
+    var numero_horas_semanales_dedicadas_participantes =
+        document.getElementById(
+            "Numero_horas_Semanales_dedicadas_participantes"
+        ).value;
+    var numero_telefono_participantes = document.getElementById(
+        "Numero_Telefono_participantes"
+    ).value;
+    var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    if (document.getElementById('id_participante').value == ''){
-        console.log("Ta vacio mamaguevo")
-    }else{
-        formData.append("id_participante", document.getElementById('id_participante').value);
+    if (document.getElementById("id_participante").value == "") {
+        console.log("Ta vacio mamaguevo");
+    } else {
+        formData.append(
+            "id_participante",
+            document.getElementById("id_participante").value
+        );
     }
-    formData.append("nombre_participantes_de_desarrollo", nombre_participantes_de_desarrollo);
-    formData.append("rol_Sennova_De_Participantes_de_Proyecto", rol_sennova_de_participantes_de_proyecto);
+    formData.append(
+        "nombre_participantes_de_desarrollo",
+        nombre_participantes_de_desarrollo
+    );
+    formData.append(
+        "rol_Sennova_De_Participantes_de_Proyecto",
+        rol_sennova_de_participantes_de_proyecto
+    );
     formData.append("numero_cedula_participantes", numero_Cedula_participantes);
-    formData.append("numero_meses_vinculacion_participantes", numero_meses_vinculacion_participantes);
-    formData.append("email_participantes_de_desarrollo", email_participantes_de_desarrollo);
-    formData.append("numero_horas_Semanales_dedicadas_participantes", numero_horas_semanales_dedicadas_participantes);
-    formData.append("numero_Telefono_participantes", numero_telefono_participantes);
+    formData.append(
+        "numero_meses_vinculacion_participantes",
+        numero_meses_vinculacion_participantes
+    );
+    formData.append(
+        "email_participantes_de_desarrollo",
+        email_participantes_de_desarrollo
+    );
+    formData.append(
+        "numero_horas_Semanales_dedicadas_participantes",
+        numero_horas_semanales_dedicadas_participantes
+    );
+    formData.append(
+        "numero_Telefono_participantes",
+        numero_telefono_participantes
+    );
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
     fetch(`/proyecto/info-proyecto/info-participante/${id_proyecto}/`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
     })
-    .then(response => response.json())  // Parsea la respuesta JSON
-    .then(data => {
-        if (data.error) {
-            console.error('Error:', data.error);
-            alert(data.error); // O muestra el error de alguna otra manera
-        } else {
-            console.log('Mensaje de éxito:', data.mensaje);
-            
-            actualizarTablaParticipantes(data.participantes);
-            actualizarInputParticipantes(data.participantes);
+        .then((response) => response.json()) // Parsea la respuesta JSON
+        .then((data) => {
+            if (data.error) {
+                console.error("Error:", data.error);
+                alert(data.error); // O muestra el error de alguna otra manera
+            } else {
+                console.log("Mensaje de éxito:", data.mensaje);
 
-            const input = document.getElementById('id_participante');
-            input.value = '';
-        }
-    })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
-    });
-};
+                actualizarTablaParticipantes(data.participantes);
+                actualizarInputParticipantes(data.participantes);
+
+                const input = document.getElementById("id_participante");
+                input.value = "";
+            }
+        })
+        .catch((error) => {
+            console.error("Error en la solicitud:", error);
+            // Manejar errores en la solicitud, como problemas de red
+        });
+}
 
 // Generalidades
 function sendPost4() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
-    var codigo_dependencia_presupuestal = document.getElementById("select_box7").value;
-    var tematicas_estrategias_sena = document.getElementById("select_box8").value;
-    var link_video_proyecto = document.getElementById("link_video_proyecto").value;
-    var proyecto_relacionado_industrial40 = document.getElementById("proyecto_Relacionado_Industrial40").value;
-    var justificacion_industrial = document.getElementById("justificacion_Industrial").value;
-    var actividades_economicas_del_proyecto_investigacion = document.getElementById("select_box9").value;
-    var proyecto_relacionado_economia_naranja = document.getElementById("proyecto_Relacionado_Economia_Naranja").value;
-    var justificacion_economia_naranja = document.getElementById("justificacion_Economia_Naranja").value;
-    var proyecto_relacionado_politica_discapacidad = document.getElementById("proyecto_Relacionado_Politica_Discapacidad").value;
-    var justificacion_politica_discapacidad = document.getElementById("justificacion_Politica_Discapacidad").value;
-    var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    var codigo_dependencia_presupuestal =
+        document.getElementById("select_box7").value;
+    var tematicas_estrategias_sena =
+        document.getElementById("select_box8").value;
+    var link_video_proyecto = document.getElementById(
+        "link_video_proyecto"
+    ).value;
+    var proyecto_relacionado_industrial40 = document.getElementById(
+        "proyecto_Relacionado_Industrial40"
+    ).value;
+    var justificacion_industrial = document.getElementById(
+        "justificacion_Industrial"
+    ).value;
+    var actividades_economicas_del_proyecto_investigacion =
+        document.getElementById("select_box9").value;
+    var proyecto_relacionado_economia_naranja = document.getElementById(
+        "proyecto_Relacionado_Economia_Naranja"
+    ).value;
+    var justificacion_economia_naranja = document.getElementById(
+        "justificacion_Economia_Naranja"
+    ).value;
+    var proyecto_relacionado_politica_discapacidad = document.getElementById(
+        "proyecto_Relacionado_Politica_Discapacidad"
+    ).value;
+    var justificacion_politica_discapacidad = document.getElementById(
+        "justificacion_Politica_Discapacidad"
+    ).value;
+    var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
-    formData.append("codigo_Dependencia_Presupuestal", codigo_dependencia_presupuestal);
+    formData.append(
+        "codigo_Dependencia_Presupuestal",
+        codigo_dependencia_presupuestal
+    );
     formData.append("tematicas_Estrategias_SENA", tematicas_estrategias_sena);
     formData.append("link_video_proyecto", link_video_proyecto);
-    formData.append("proyecto_Relacionado_Industrial40", proyecto_relacionado_industrial40);
+    formData.append(
+        "proyecto_Relacionado_Industrial40",
+        proyecto_relacionado_industrial40
+    );
     formData.append("justificacion_Industrial", justificacion_industrial);
-    formData.append("actividades_economicas_del_proyecto_investigacion", actividades_economicas_del_proyecto_investigacion);
-    formData.append("proyecto_Relacionado_Economia_Naranja", proyecto_relacionado_economia_naranja);
-    formData.append("justificacion_Economia_Naranja", justificacion_economia_naranja);
-    formData.append("proyecto_Relacionado_Politica_Discapacidad", proyecto_relacionado_politica_discapacidad);
-    formData.append("justificacion_Politica_Discapacidad", justificacion_politica_discapacidad);
+    formData.append(
+        "actividades_economicas_del_proyecto_investigacion",
+        actividades_economicas_del_proyecto_investigacion
+    );
+    formData.append(
+        "proyecto_Relacionado_Economia_Naranja",
+        proyecto_relacionado_economia_naranja
+    );
+    formData.append(
+        "justificacion_Economia_Naranja",
+        justificacion_economia_naranja
+    );
+    formData.append(
+        "proyecto_Relacionado_Politica_Discapacidad",
+        proyecto_relacionado_politica_discapacidad
+    );
+    formData.append(
+        "justificacion_Politica_Discapacidad",
+        justificacion_politica_discapacidad
+    );
     formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
     fetch(`/proyecto/info-proyecto/info-generalidades/${id_proyecto}/`, {
-        method: 'POST',
+        method: "POST",
         body: formData,
     })
-    .then(response => response.json())  // Parsea la respuesta JSON
-    .then(data => {
-        if (data.error) {
-            console.error('Error:', data.error);
-            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
-        } else {
-            console.log('Mensaje de éxito:', data.mensaje);
-            window.location.href = `/estructura-proyecto/${id_proyecto}/`;
-        }
-    })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        // Manejar errores en la solicitud, como problemas de red
-    });
-};
+        .then((response) => response.json()) // Parsea la respuesta JSON
+        .then((data) => {
+            if (data.error) {
+                console.error("Error:", data.error);
+                // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+            } else {
+                console.log("Mensaje de éxito:", data.mensaje);
+                window.location.href = `/estructura-proyecto/${id_proyecto}/`;
+            }
+        })
+        .catch((error) => {
+            console.error("Error en la solicitud:", error);
+            // Manejar errores en la solicitud, como problemas de red
+        });
+}
 
 function actualizarTablaAutores(autores) {
     // Obtener el elemento de la tabla por su clase
-    const tabla = document.querySelector('.tabla_autores');
-  
+    const tabla = document.querySelector(".tabla_autores");
+
     // Si la tabla existe, eliminarla
     if (tabla) {
-      tabla.remove();
+        tabla.remove();
     }
-  
+
     // Crear una nueva tabla
-    const nuevaTabla = document.createElement('table');
-    nuevaTabla.classList.add('tablita', 'table', 'tabla_autores');
-  
+    const nuevaTabla = document.createElement("table");
+    nuevaTabla.classList.add("tablita", "table", "tabla_autores");
+
     // Crear el encabezado de la tabla
-    const thead = document.createElement('thead');
+    const thead = document.createElement("thead");
     const encabezado = `
     <tr>
         <th>Nombre del autor(a)</th>
@@ -565,11 +700,11 @@ function actualizarTablaAutores(autores) {
     `;
     thead.innerHTML = encabezado;
     nuevaTabla.appendChild(thead);
-  
+
     // Crear el cuerpo de la tabla
-    const tbody = document.createElement('tbody');
-    autores.forEach(autor => {
-      const fila = `
+    const tbody = document.createElement("tbody");
+    autores.forEach((autor) => {
+        const fila = `
         <tr>
             <td>${autor.nombre_Autor_Proyecto}</td>
             <td>${autor.tipo_Vinculacion_entidad}</td>
@@ -584,27 +719,27 @@ function actualizarTablaAutores(autores) {
             </td>
         </tr>
       `;
-      tbody.innerHTML += fila;
+        tbody.innerHTML += fila;
     });
     nuevaTabla.appendChild(tbody);
-  
+
     // Agregar la nueva tabla al documento
-    const contenedorTabla = document.getElementById('tabla-container');
+    const contenedorTabla = document.getElementById("tabla-container");
     contenedorTabla.appendChild(nuevaTabla);
 }
 
 function actualizarInputAutores(autores) {
-    const selectDiv = document.getElementById('inputs_autores');
+    const selectDiv = document.getElementById("inputs_autores");
 
     if (selectDiv) {
         selectDiv.remove();
     }
 
-    const contenedorInput = document.createElement('div');
-    contenedorInput.id = 'inputs_autores';
+    const contenedorInput = document.createElement("div");
+    contenedorInput.id = "inputs_autores";
 
-    autores.forEach(autor => {
-        const divAutor = document.createElement('div');
+    autores.forEach((autor) => {
+        const divAutor = document.createElement("div");
         divAutor.id = `autor${autor.id}`;
 
         divAutor.innerHTML = `
@@ -622,26 +757,26 @@ function actualizarInputAutores(autores) {
         contenedorInput.appendChild(divAutor);
     });
 
-    const containerInputs = document.getElementById('container-inputs-autores');
+    const containerInputs = document.getElementById("container-inputs-autores");
     containerInputs.appendChild(contenedorInput);
 }
 
 function actualizarTablaParticipantes(participantes) {
-// Obtener el elemento de la tabla por su clase
-const tabla = document.querySelector('.tabla_participantes');
+    // Obtener el elemento de la tabla por su clase
+    const tabla = document.querySelector(".tabla_participantes");
 
-// Si la tabla existe, eliminarla
-if (tabla) {
-    tabla.remove();
-}
+    // Si la tabla existe, eliminarla
+    if (tabla) {
+        tabla.remove();
+    }
 
-// Crear una nueva tabla
-const nuevaTabla = document.createElement('table');
-nuevaTabla.classList.add('tablita', 'table', 'tabla_participantes');
+    // Crear una nueva tabla
+    const nuevaTabla = document.createElement("table");
+    nuevaTabla.classList.add("tablita", "table", "tabla_participantes");
 
-// Crear el encabezado de la tabla
-const thead = document.createElement('thead');
-const encabezado = `
+    // Crear el encabezado de la tabla
+    const thead = document.createElement("thead");
+    const encabezado = `
 <tr>
     <th>Nombres</th>
     <th>Número documento</th>
@@ -652,13 +787,13 @@ const encabezado = `
     <th>Acciones</th>
 </tr>
 `;
-thead.innerHTML = encabezado;
-nuevaTabla.appendChild(thead);
+    thead.innerHTML = encabezado;
+    nuevaTabla.appendChild(thead);
 
-// Crear el cuerpo de la tabla
-const tbody = document.createElement('tbody');
-participantes.forEach(participante => {
-    const fila = `
+    // Crear el cuerpo de la tabla
+    const tbody = document.createElement("tbody");
+    participantes.forEach((participante) => {
+        const fila = `
     <tr>
         <td>${participante.nombre_participantes_de_desarrollo}</td>
         <td>${participante.numero_cedula_participantes}</td>
@@ -673,27 +808,27 @@ participantes.forEach(participante => {
         </td>
     </tr>
     `;
-    tbody.innerHTML += fila;
-});
-nuevaTabla.appendChild(tbody);
+        tbody.innerHTML += fila;
+    });
+    nuevaTabla.appendChild(tbody);
 
-// Agregar la nueva tabla al documento
-const contenedorTabla = document.getElementById('tabla-container-2');
-contenedorTabla.appendChild(nuevaTabla);
+    // Agregar la nueva tabla al documento
+    const contenedorTabla = document.getElementById("tabla-container-2");
+    contenedorTabla.appendChild(nuevaTabla);
 }
 
 function actualizarInputParticipantes(participantes) {
-    const selectDiv = document.getElementById('inputs_participantes');
+    const selectDiv = document.getElementById("inputs_participantes");
 
     if (selectDiv) {
         selectDiv.remove();
     }
 
-    const contenedorInput = document.createElement('div');
-    contenedorInput.id = 'inputs_participantes';
+    const contenedorInput = document.createElement("div");
+    contenedorInput.id = "inputs_participantes";
 
-    participantes.forEach(participante => {
-        const divParticipante = document.createElement('div');
+    participantes.forEach((participante) => {
+        const divParticipante = document.createElement("div");
         divParticipante.id = `participante${participante.id}`;
 
         divParticipante.innerHTML = `
@@ -710,6 +845,8 @@ function actualizarInputParticipantes(participantes) {
         contenedorInput.appendChild(divParticipante);
     });
 
-    const containerInputs = document.getElementById('container-inputs-participantes');
+    const containerInputs = document.getElementById(
+        "container-inputs-participantes"
+    );
     containerInputs.appendChild(contenedorInput);
 }
