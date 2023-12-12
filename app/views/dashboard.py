@@ -42,13 +42,6 @@ def usuarios(request):
     
     return render(request, 'Dashboard/Eliminar.html', {'usuarios': usuarios, 'roles': roles})
 
-# def editar_permisos(request, usuario_id):
-#     if request.method == 'POST':
-#         nuevos_roles = request.POST.getlist('roles')
-#         usuario = Usuarios.objects.get(id=usuario_id)
-#         usuario.roles.set(Roles.objects.filter(rol__in=nuevos_roles))
-
-#     return redirect('usuarios')
 
 @login_required(login_url=('/login'))
 def preguntas(request):

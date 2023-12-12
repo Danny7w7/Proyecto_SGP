@@ -75,7 +75,7 @@ def recover_password(request):
             comp.is_active = False
             comp.save()
 
-            print(sendEmail(email_subject, receiver_email_address, "Hola caballero, al parecer usted ha perdido el acceso a nuestra pagina web, este es su contraseña temporal: " + password))
+            print(sendEmail(email_subject, receiver_email_address, "Cordial saludo, al parecer usted ha perdido el acceso a nuestra plataforma, este es su contraseña temporal: " + password))
 
             request.session['msg'] = "Se envio su nueva contraseña via correo, revise su bandeja"  # noqa: E501
             return redirect(login_)
