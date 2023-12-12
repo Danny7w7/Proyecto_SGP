@@ -445,7 +445,7 @@ function sendPost2() {
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
     if (document.getElementById("id_autor").value == "") {
-        console.log("Ta vacio mamaguevo");
+       
     } else {
         formData.append("id_autor", document.getElementById("id_autor").value);
     }
@@ -525,7 +525,7 @@ function sendPost3() {
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
     if (document.getElementById("id_participante").value == "") {
-        console.log("Ta vacio mamaguevo");
+        
     } else {
         formData.append(
             "id_participante",

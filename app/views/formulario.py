@@ -63,9 +63,6 @@ def progress_bar(id):
     return round((proyecto.progress / 89) * 100, 1)
 
 
-# Falta ponerlo a funcionar en todos los formularios y que tambien trabaje con AJAX que va a implementar Miguel.
-
-
 def own_user(user, proyecto_id):
     proyecto = Proyecto.objects.filter(id=proyecto_id).first()
     return user.id == proyecto.usuario_id
@@ -773,7 +770,6 @@ def centro_formacion(request, id_proyecto):
 
     try:
         centro_f.save()
-        # print("Guardado exitosamente")
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
@@ -884,9 +880,6 @@ def cadena_valor(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-
-
-# ---FIN YEISON ---
 
 
 # ------Editar proyecto------

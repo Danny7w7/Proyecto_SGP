@@ -96,10 +96,6 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-left: 5%;
 }
 
-/* .selectmod{
-    width: 100%;
-
-} */
 .form-control,
 .form-control-sm {
   box-sizing: border-box;

@@ -40,7 +40,7 @@ function edit_entidad(id){
                 
             }
             if (data.id == document.getElementById('id_entidad').length - 7){
-                console.log("UWU")
+                
             }
         }
     })
@@ -332,7 +332,7 @@ function sendPost2() {
     // Crear un objeto FormData para los datos del formulario
     var formData = new FormData();
     if (document.getElementById('id_entidad').value == ''){
-        console.log("Ta vacio mamaguevo")
+        
     }else{
         formData.append("id_entidad", document.getElementById('id_entidad').value);
     }
