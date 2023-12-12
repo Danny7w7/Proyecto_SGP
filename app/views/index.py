@@ -8,7 +8,9 @@ import smtplib
 from django.db.models import Q
 from django.conf import settings
 from email.message import EmailMessage
-
+from django.views.generic import(
+    TemplateView
+)
 import importlib
 from django.contrib.auth.decorators import login_required
 
@@ -107,3 +109,15 @@ def sendEmail(subject: str, receiverEmail: str, content: str) -> bool:
         return True
     except:
         return False
+
+class Error404(TemplateView):
+    template_name = "404.html"
+    
+    @classmethod
+    def as_error_view(cls):
+        v = cls.as_view()
+        def view(request, exception):
+            r = v(request)
+            r.render()
+            return r
+        return view

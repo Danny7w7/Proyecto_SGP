@@ -21,6 +21,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 from app.views.dashboard import eliminar_usuario
 from app.views.formulario import generar_c_valor, generar_pdf
+#
+from django.conf.urls import handler404
+from app.views.index import Error404
 
 
 
@@ -102,3 +105,5 @@ urlpatterns = [
     path('Dashboard/Proyectos-Pendientes', views.proyectoP, name='Proyecto-Pendiente'),
     path('eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = Error404.as_error_view()
