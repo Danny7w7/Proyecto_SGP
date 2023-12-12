@@ -300,7 +300,7 @@ def participantes(request, id_proyecto):
     context = {
         "proyecto": proyecto,
         "entidad_a": Entidades_aliadas.objects.filter(proyecto=proyecto),
-        "centro_f": Centro_de_formacion.objects.filter(proyecto=proyecto),
+        "centro_f": Centro_de_formacion.objects.filter(proyecto=proyecto).first(),
         "objEspecificos": Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral),
         "percentaje": id_proyecto,
     }
