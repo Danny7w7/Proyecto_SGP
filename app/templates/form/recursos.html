@@ -195,7 +195,6 @@
         gantt.config.xml_date = "%Y-%m-%d";
         gantt.init("gantt_chart");
 
-        // Definir la función para cargar datos
         function cargarDatosGantt() {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "{% url 'gantt_data' %}", true);
@@ -211,7 +210,6 @@
                         };
                     });
 
-                    // Limpiar todas las tareas existentes antes de parsear los nuevos datos
                     gantt.clearAll();
                     gantt.parse({ data: formattedData });
                 }
@@ -219,7 +217,6 @@
             xhr.send();
         }
 
-        // Asociar la función con el botón de ver diagrama
         var verDiagramaBtn = document.getElementById('ver-diagrama-btn');
         if (verDiagramaBtn) {
             verDiagramaBtn.addEventListener('click', cargarDatosGantt);
