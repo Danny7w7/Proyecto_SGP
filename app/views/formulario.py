@@ -29,10 +29,6 @@ from app.models import (
     Centro_de_formacion,
     Proyeccion,
     Participantes_entidad_alidad,
-    CronogramaAct,
-    Presupuesto,
-    Rubro,
-    TipoRubro
 )
 
 
@@ -50,24 +46,6 @@ import json
 from django.template.loader import render_to_string
 from xhtml2pdf import pisa
 from app.utils import mostrar_error
-
-
-import plotly.figure_factory as ff
-from django.http import HttpResponse
-
-def gantt_chart(request, id_proyecto):
-    objGen = Objetivos.objects.filter(proyecto=id_proyecto).first()
-    objEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objGen.id)
-    cron = CronogramaAct.objects.filter(actividad__in=objEsp)
-    df = []
-    
-    for i, act in enumerate(cron, start=1):
-        df.append(dict(Task=f'Actividad {i}', Start=act.fch_inicio, Finish=act.fch_cierre))
-
-    fig = ff.create_gantt(df)
-    fig.update_traces(marker_color='#5E81AC', marker_line_color='#2E3440', marker_line_width=2)
-    fig.update_layout(font_family='Roboto', font_size=14)
-    fig.show()
 
 
 # ------Decoradores------
@@ -416,20 +394,6 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
     return render(request, 'form/producEsperados.html', contex)
 
 
-def recursos(request, id_proyecto):
-    objGeneral = get_or_none(Objetivos, proyecto=id_proyecto)
-    objEspecificos = Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral.id)
-    entidades = Entidades_aliadas.objects.filter(proyecto=id_proyecto)
-    participantes = Participantes_entidad_alidad.objects.filter(entidad__in=entidades)
-    contex = {'percentaje': id_proyecto,
-              'objEspecificos':objEspecificos,
-              'entidades':entidades,
-              'participantes':participantes,
-              'rubros':Rubro.objects.filter(estado=True).order_by('descripcion'),
-              'tipoRubros':TipoRubro.objects.all().order_by('descripcion')}
-    return render(request, 'form/recursos.html', contex)
-
-
 @login_required(login_url="/login")
 def proyeccion(request, id_proyecto):
     if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
@@ -658,67 +622,7 @@ def info_generalidades(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
-    
 
-def cronogramaJson(request, id_proyecto, id_actividad):
-    entidades = Entidades_aliadas.objects.filter(proyecto=id_proyecto)
-    participantes = Participantes_entidad_alidad.objects.filter(entidad__in=entidades)
-    try:
-        cronograma = CronogramaAct.objects.get(actividad=id_actividad)
-    except:
-        actividad = Objetivos_especificos.objects.get(id=id_actividad)
-        cronograma = CronogramaAct.objects.create(actividad=actividad)
-
-    cronograma.save()
-    
-
-    array_booleanos_entidad = json.loads(request.POST['actorEntidad'])
-    array_booleanos_participantes = json.loads(request.POST['actorPartipantes'])
-    for indice, entidadUwU in enumerate(entidades, start=1):
-        if array_booleanos_entidad[indice - 1]:
-            cronograma.actorEntidad.add(entidadUwU.id)
-    
-    for indice, participanteUwU in enumerate(participantes, start=1):
-        if array_booleanos_participantes[indice - 1]:
-            cronograma.actorParticipante.add(participanteUwU.id)
-
-    model = CronogramaAct
-    column_names = [field.name for field in model._meta.fields]
-
-    for name in column_names:
-        if name == "id" or name == "actividad":
-            continue
-
-        setattr(cronograma, name, request.POST.get(name))
-    try:
-        cronograma.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-    
-
-def presupuestoJson(request, id_proyecto, id_actividad):
-    try:
-        presupuesto = Presupuesto.objects.get(actividad=id_actividad)
-        presupuesto.actividad = request.POST.get('actividadR')
-        presupuesto.tipoRubro = request.POST.get('tipo_rubro')
-        presupuesto.valor = request.POST.get('valor')
-        presupuesto.rubro = valor=request.POST.get('rubro')
-        presupuesto.save()
-    except:
-        actividad = Objetivos_especificos.objects.get(id=request.POST.get('actividadR'))
-        tipoRubro = TipoRubro.objects.get(id=request.POST.get('tipo_rubro'))
-        rubro = Rubro.objects.get(id=request.POST.get('rubro'))
-        presupuesto = Presupuesto.objects.create(actividad=actividad,
-                                                 tipoRubro=tipoRubro,
-                                                 valor=request.POST.get('valor'),
-                                                 rubro=rubro
-                                                 )
-    try:
-        presupuesto.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
 
 def riesgos_obj_g_json(request, id_proyecto):
     try:
