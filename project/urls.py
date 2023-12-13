@@ -101,4 +101,10 @@ urlpatterns = [
     path('Dashboard/Proyectos-Completos/', views.proyectoT, name='Proyecto-Completo'),
     path('Dashboard/Proyectos-Pendientes', views.proyectoP, name='Proyecto-Pendiente'),
     path('eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
+    
+    path('gantt_data/', views.gantt_data, name='gantt_data'),
+    path('recursos/<int:id_proyecto>/', views.recursos, name='recursos'),
+    path('proyecto/<int:id_proyecto>/recursos/cronograma/<int:id_actividad>/', views.cronogramaJson, name='cronograma'),
+    path('proyecto/<int:id_proyecto>/recursos/presupuesto/<int:id_actividad>/', views.presupuestoJson, name='presupuesto'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
