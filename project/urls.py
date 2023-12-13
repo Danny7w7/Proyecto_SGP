@@ -45,6 +45,7 @@ urlpatterns = [
     path('proyecto/<int:id_proyecto>/entidad/<int:id_entidad>', views.parcipantes_entidad, name='part_entidad'),
     path('seleccionar-objetivo/<int:id_proyecto>/', views.selectObj, name='seleccionarObjetivo'),
     path('resultado/<int:id_proyecto>/objetivo-especifico/<int:id_objetivoEsp>/', views.producEsperados, name='producEsperados'),
+    path('recursos/<int:id_proyecto>/', views.recursos, name='recursos'),
     path('proyeccion/<int:id_proyecto>/', views.proyeccion, name='proyeccion'),
     path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
 
@@ -83,6 +84,11 @@ urlpatterns = [
     #Proyeccion
     path('proyecto/proyeccion/tiempo-ejecucion/<int:id_proyecto>/', views.tiempo_ejecucion, name='tiempo_ejecucion'),
     path('proyecto/proyeccion/cadena-de-valor/<int:id_proyecto>/', views.cadena_valor, name='cadena_valor'),
+
+    #Recursos
+    path('proyecto/<int:id_proyecto>/recursos/cronograma/<int:id_actividad>/', views.cronogramaJson, name='cronograma'),
+    path('proyecto/<int:id_proyecto>/recursos/presupuesto/<int:id_actividad>/', views.presupuestoJson, name='presupuesto'),
+    path('gantt/<int:id_proyecto>/', views.gantt_chart, name='gantt_chart'),
 
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),

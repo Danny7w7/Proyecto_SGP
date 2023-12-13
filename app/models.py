@@ -177,6 +177,35 @@ class Proyeccion(models.Model):
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 
+#Rubros
+class TipoRubro(models.Model):
+    # codigo = models.CharField(primary_key=True) Voy a trabajar con el ID para mas facilidad al obtenerlo, si papi Gus nos da un codigo alfanumerico lo cambiamos.
+    descripcion = models.CharField(max_length=500)
+
+class Rubro(models.Model):
+    # codigo = models.CharField(primary_key=True) Lo mismo con esto.
+    tipo = models.ForeignKey(TipoRubro, on_delete=models.CASCADE)
+    descripcion = models.CharField(max_length=500)
+    estado = models.BooleanField()
+
+
+#Recursos
+class CronogramaAct(models.Model):
+    fch_inicio = models.DateField(null=True)
+    fch_cierre = models.DateField(null=True)
+    observacion = models.CharField(max_length=800, null=True)
+    actividad = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+    actorEntidad = models.ManyToManyField(Entidades_aliadas)
+    actorParticipante = models.ManyToManyField(Participantes_entidad_alidad)
+
+class Presupuesto(models.Model):
+    valor = models.BigIntegerField()
+    actividad = models.OneToOneField(Objetivos_especificos, on_delete=models.CASCADE)
+    tipoRubro = models.OneToOneField(TipoRubro, on_delete=models.CASCADE)
+    rubro = models.OneToOneField(Rubro, on_delete=models.CASCADE)
+
+
+
 #Riesgos
 class BaseRiesgo(models.Model):
     tipo = models.CharField(max_length=50, null=True)
@@ -220,6 +249,7 @@ class Listas_plegables(models.Model):
     nombre_centro_formacion = models.CharField(max_length=200, null=True)
     actividades_economicas = models.CharField(max_length=250, null=True)
     
+
 #Middleware
 class UltimaVista(models.Model):
     usuario = models.OneToOneField(Usuarios, on_delete=models.CASCADE)
