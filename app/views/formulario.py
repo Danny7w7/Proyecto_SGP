@@ -29,6 +29,10 @@ from app.models import (
     Centro_de_formacion,
     Proyeccion,
     Participantes_entidad_alidad,
+    CronogramaAct,
+    Presupuesto,
+    Rubro,
+    TipoRubro
 )
 
 
@@ -953,3 +957,100 @@ def continuar_sesion(request):
         if ultima_vista:
             return redirect(ultima_vista.ultima_vista)
     return redirect(proyectos_usuario)
+
+
+def recursos(request, id_proyecto):
+    objGeneral = get_or_none(Objetivos, proyecto=id_proyecto)
+    objEspecificos = Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral.id)
+    entidades = Entidades_aliadas.objects.filter(proyecto=id_proyecto)
+    participantes = Participantes_entidad_alidad.objects.filter(entidad__in=entidades)
+    contex = {'percentaje': id_proyecto,
+              'objEspecificos':objEspecificos,
+              'entidades':entidades,
+              'participantes':participantes,
+              'rubros':Rubro.objects.filter(estado=True).order_by('descripcion'),
+              'tipoRubros':TipoRubro.objects.all().order_by('descripcion')}
+    return render(request, 'form/recursos.html', contex)
+
+def presupuestoJson(request, id_proyecto, id_actividad):
+    try:
+        presupuesto = Presupuesto.objects.get(actividad=id_actividad)
+        presupuesto.actividad = request.POST.get('actividadR')
+        presupuesto.tipoRubro = request.POST.get('tipo_rubro')
+        presupuesto.valor = request.POST.get('valor')
+        presupuesto.rubro = valor=request.POST.get('rubro')
+        presupuesto.save()
+    except:
+        actividad = Objetivos_especificos.objects.get(id=request.POST.get('actividadR'))
+        tipoRubro = TipoRubro.objects.get(id=request.POST.get('tipo_rubro'))
+        rubro = Rubro.objects.get(id=request.POST.get('rubro'))
+        presupuesto = Presupuesto.objects.create(actividad=actividad,
+                                                 tipoRubro=tipoRubro,
+                                                 valor=request.POST.get('valor'),
+                                                 rubro=rubro
+                                                 )
+    try:
+        presupuesto.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+def cronogramaJson(request, id_proyecto, id_actividad):
+    entidades = Entidades_aliadas.objects.filter(proyecto=id_proyecto)
+    participantes = Participantes_entidad_alidad.objects.filter(entidad__in=entidades)
+    try:
+        cronograma = CronogramaAct.objects.get(actividad=id_actividad)
+    except:
+        actividad = Objetivos_especificos.objects.get(id=id_actividad)
+        cronograma = CronogramaAct.objects.create(actividad=actividad)
+
+    cronograma.save()
+    
+
+    array_booleanos_entidad = json.loads(request.POST['actorEntidad'])
+    array_booleanos_participantes = json.loads(request.POST['actorPartipantes'])
+    for indice, entidadUwU in enumerate(entidades, start=1):
+        if array_booleanos_entidad[indice - 1]:
+            cronograma.actorEntidad.add(entidadUwU.id)
+    
+    for indice, participanteUwU in enumerate(participantes, start=1):
+        if array_booleanos_participantes[indice - 1]:
+            cronograma.actorParticipante.add(participanteUwU.id)
+
+    model = CronogramaAct
+    column_names = [field.name for field in model._meta.fields]
+
+    for name in column_names:
+        if name == "id" or name == "actividad":
+            continue
+
+        setattr(cronograma, name, request.POST.get(name))
+    try:
+        cronograma.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+    
+@csrf_exempt
+def gantt_data(request):
+    if request.method == 'GET':
+        data = []
+
+        objetivos_especificos = Objetivos_especificos.objects.all()
+
+        for objetivo in objetivos_especificos:
+            cronograma = objetivo.cronogramaact
+
+            if cronograma:
+
+                data.append({
+                    "id": objetivo.id,
+                    "text": objetivo.actividades_obj_especificos,
+                    "start_date": datetime.strftime(cronograma.fch_inicio, "%Y-%m-%d"),
+                    "duration": (cronograma.fch_cierre - cronograma.fch_inicio).days + 1,
+                })
+        response_data = {"data": data}
+        return JsonResponse(response_data, safe=False)
+    else:
+        return JsonResponse({"error": "Método no permitido"}, status=405)
