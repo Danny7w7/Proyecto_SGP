@@ -2,7 +2,7 @@
 
 {% load static %}
 {% block forms %}
-    <h3 class="text-center">Selecciona el objetivo especifico al cual le quieres agregar su resultado y productos esperados</h3>
+    <h3 class="text-center">Selecciona el objetivo específico al cual le quieres agregar su resultado y productos esperados</h3>
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -22,6 +22,10 @@
                 {% endfor %}
             </tbody>
         </table>
+        <form class="d-flex justify-content-center row" action="{% url 'participantes' percentaje %}" method="get">
+            <small class="col-12 centradow">¿Completaste la información de los resultados y productos esperados de los objetivos específicos?</small>
+            <button type="submit" class="btn-bg-green pt-3 pb-3 mb-2 border_radius col-12" id="enviarG">Siguiente vista</button>
+        </form>
     </div>
     
 {% endblock %}

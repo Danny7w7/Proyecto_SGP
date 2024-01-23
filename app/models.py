@@ -54,7 +54,7 @@ class Informacion_proponente(models.Model):
 class Autores(models.Model):
     nombre_Autor_Proyecto = models.CharField(null=True, max_length=40)
     tipo_Vinculacion_entidad = models.CharField(max_length=15 ,null=True, choices=[('planta', 'Planta'), ('contratista', 'Contratista') , ('planta_temporal' , 'Planta_temporal')])
-    numero_Cedula_Autor = models.IntegerField(null=True)
+    numero_Cedula_Autor = models.BigIntegerField(null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
     email_Autor_Proyecto = models.EmailField(null=True)
     numero_meses_vinculacion_Autor = models.IntegerField(null=True)

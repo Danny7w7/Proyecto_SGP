@@ -1,4 +1,5 @@
-var sig;
+
+var id_proyecto = document.getElementById('id_proyecto').value;
 document.addEventListener("DOMContentLoaded", function() {
     const allValidations = {
        "form1": {
@@ -46,13 +47,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     document.getElementById("enviarG").addEventListener("click", function(event) {
-        sig = false
         handleFormSubmit(event, 'form1');
     });
 
     document.getElementById("enviarGYS").addEventListener("click", function(event) {
-        sig = true
-        handleFormSubmit(event, 'form1');
+        window.location.href = `/proyeccion/${id_proyecto}/`;
     });
 
     function handleFormSubmit(event, formKey) {
