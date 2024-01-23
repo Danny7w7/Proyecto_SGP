@@ -225,6 +225,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 return true;
             }
         }
+        if (document.getElementById('recursos_dinero_entidad_aliada').value == 0){
+            field.classList.remove("is-invalid");
+            field.classList.add("is-valid");
+            feedback.textContent = '';
+            key = false
+            return true;
+        } 
         if (pattern.test(field.value)) {
             field.classList.remove("is-invalid");
             field.classList.add("is-valid");
@@ -257,37 +264,37 @@ function sendPost1() {
     var nombre_municipios_beneficiados_descripcion_beneficio = document.getElementById("nombre_municipios_beneficiados_descripcion_beneficio").value;
     var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-// Crear un objeto FormData para los datos del formulario
-var formData = new FormData();
-formData.append("nombre_semillero_investigacion_beneficiados",nombre_semillero_investigacion_beneficiados);
-formData.append("numero_programas_beneficiarios_semilleros_investigacion", numero_programas_beneficiarios_semilleros_investigacion);
-formData.append("tipo_programas_formacion_beneficiados_conforman_semillero", tipo_programas_formacion_beneficiados_conforman_semillero);
-formData.append("nombre_programas_formacion_beneficiados_semillero", nombre_programas_formacion_beneficiados_semillero);
-formData.append("tipo_programas_de_formacion_beneficiados_por_ejecucion", tipo_programas_de_formacion_beneficiados_por_ejecucion);
-formData.append("nombre_programas_formacion_beneficiados_ejecucion_proyecto", nombre_programas_formacion_beneficiados_ejecucion_proyecto);
-formData.append("numero_aprendices_participaran_ejecucion_proyecto", numero_aprendices_participaran_ejecucion_proyecto);
-formData.append("numero_municipios_beneficiados", numero_municipios_beneficiados);
-formData.append("nombre_municipios_beneficiados_descripcion_beneficio", nombre_municipios_beneficiados_descripcion_beneficio);
-formData.append("csrfmiddlewaretoken", csrfToken);
-// Realizar una solicitud POST utilizando Fetch
-fetch(`/proyecto/info-proyecto/centro-formacion/${id_proyecto}/`, {
-    method: 'POST',
-    body: formData,
-})
-.then(response => response.json())  // Parsea la respuesta JSON
-.then(data => {
-    if (data.error) {
-        console.error('Error:', data.error);
-        // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
-    } else {
-        console.log('Mensaje de éxito:', data.mensaje);
-        limpiarInputs()
-    }
-})
-.catch(error => {
-    console.error('Error en la solicitud:', error);
-    // Manejar errores en la solicitud, como problemas de red
-});
+    // Crear un objeto FormData para los datos del formulario
+    var formData = new FormData();
+    formData.append("nombre_semillero_investigacion_beneficiados",nombre_semillero_investigacion_beneficiados);
+    formData.append("numero_programas_beneficiarios_semilleros_investigacion", numero_programas_beneficiarios_semilleros_investigacion);
+    formData.append("tipo_programas_formacion_beneficiados_conforman_semillero", tipo_programas_formacion_beneficiados_conforman_semillero);
+    formData.append("nombre_programas_formacion_beneficiados_semillero", nombre_programas_formacion_beneficiados_semillero);
+    formData.append("tipo_programas_de_formacion_beneficiados_por_ejecucion", tipo_programas_de_formacion_beneficiados_por_ejecucion);
+    formData.append("nombre_programas_formacion_beneficiados_ejecucion_proyecto", nombre_programas_formacion_beneficiados_ejecucion_proyecto);
+    formData.append("numero_aprendices_participaran_ejecucion_proyecto", numero_aprendices_participaran_ejecucion_proyecto);
+    formData.append("numero_municipios_beneficiados", numero_municipios_beneficiados);
+    formData.append("nombre_municipios_beneficiados_descripcion_beneficio", nombre_municipios_beneficiados_descripcion_beneficio);
+    formData.append("csrfmiddlewaretoken", csrfToken);
+    // Realizar una solicitud POST utilizando Fetch
+    fetch(`/proyecto/info-proyecto/centro-formacion/${id_proyecto}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            limpiarInputs()
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
 };
 
 // Entidad aliada

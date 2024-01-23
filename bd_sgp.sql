@@ -812,3 +812,8 @@ INSERT INTO app_rubro (id, tipo_id, descripcion, estado) VALUES
 (509, 30, 'Bioingeniería ambiental y bioremediación', 1),
 (510, 30, 'Aplicaciones de bioingeniería en la industria farmacéutica', 1);
 
+
+INSERT INTO `app_usuarios` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `temp_password`, `tipo_documento`, `num_documento`) 
+VALUES ('1', 'pbkdf2_sha256$600000$ntyixdNr1uvRZZhhlXoBk2$hT9jQzhI7vcpyovrv+WZVvoQriLylWlacjrQaohSyXs=', NULL, '1', 'admin', 'admin', 'admin', 'admin@admin.com', '1', '1', '2024-01-01 11:35:02.000000', '', 'CC', '13123123');}
+
+INSERT INTO `app_usuarios_roles` (`id`, `usuarios_id`, `roles_id`) VALUES ('1', '1', '4');
