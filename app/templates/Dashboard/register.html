@@ -5,16 +5,16 @@
 <div class="container-fluid">
     <a href="{% url 'Usuarios' %}" class="m-auto" style="text-decoration: none; color: black;">❰</a>
 </div>
-<h2 class="text-center mb-4" style="font-family: 'Lucida Sans';">Registrar nuevo usuario</h2>
+<h2 class="text-center mb-4" style="font-family: 'Lucida Sans';">Registrar nuevos usuarios</h2>
 <form method="POST">
     {% csrf_token %}
     <h6 class="text-center">{{msg}}</h6>
     <div class="mb-3">
-        <label for="exampleInputName" class="form-label" style="font-family: 'Lucida Sans';">Nombre</label>
+        <label for="exampleInputName" class="form-label" style="font-family: 'Lucida Sans';">Nombres</label>
         <input required name="first_name" type="text" class="form-control border border-secondary" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
-        <label for="exampleInputName2" class="form-label" style="font-family: 'Lucida Sans';">Apellido</label>
+        <label for="exampleInputName2" class="form-label" style="font-family: 'Lucida Sans';">Apellidos</label>
         <input required name="last_name" type="text" class="form-control border border-secondary">
     </div>
     <div class="mt-4 mb-3">

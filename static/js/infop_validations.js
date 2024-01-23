@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
             errorMsg: 'El número de documento no es válido. Debe tener digitos númericos',
         },
         "Numero_meses_vinculacion_participantes": {
-            pattern: /^\d{1,2}$/,
+            pattern: /^(?:[1-9]|1[0-1]|0?\.\d|[1-9]\.\d|10\.\d|11\.[0-9]|12)$/i,
             errorMsg: 'El número de meses no es válido. Debe tener digitos númericos',
         },
         "Email_participantes_de_desarrollo": {
