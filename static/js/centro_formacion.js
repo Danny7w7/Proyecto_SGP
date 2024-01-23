@@ -129,8 +129,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
             },
             "metodologia_act_transferencia_centro_formacion": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,500}$/u,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
+                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/()+*==$><|°]{5,8000}$/u,
+                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 8000 caracteres.',
             },
            }
     };
