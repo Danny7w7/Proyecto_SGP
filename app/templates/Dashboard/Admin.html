@@ -24,11 +24,10 @@
 
 </head>
 
-<body id="page-top">
 
+<body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -161,6 +160,9 @@
                     </ul>
                 </nav>
                 <!-- End of Topbar -->
+                {% block admin %}
+
+
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -292,21 +294,21 @@
                         </div>
                     </div>
                 </div>
+                {% endblock %}
                 <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SENNOVA </span>
-                    </div>
-                </div>
-            </footer>
             <!-- End of Footer -->
         </div>
+        {% block footer %}
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+             <div class="copyright text-center my-auto">
+                <span>Copyright &copy; SENNOVA </span>
+              </div>
+            </div>
+        </footer>
+    {% endblock %}
         <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
