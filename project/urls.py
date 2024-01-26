@@ -56,6 +56,13 @@ urlpatterns = [
     # GetEditFormJson
     path('getEntidad/<int:id_entidad>/', views.getObjEspecificos, name='getObjEspecificos'),
     
+    #Dashboard Json
+    path('dashboard/lista-codigos/', views.grupos_Investigacion, name='tabla1'),
+    path('dashboard/lista-codigos2/', views.redes_de_conocimiento, name='tabla2'),
+    path('dashboard/lista-codigos3/', views.subareas_de_conocimiento, name='tabla3'),
+    path('dashboard/lista-codigos4/', views.diciplina_de_subarea, name='tabla4'),
+    path('dashboard/lista-codigos5/', views.nombre_de_centro_formacion, name='tabla5'),
+    
     #Informacion proyecto
     path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info_proponente'),
     path('proyecto/info-proyecto/info-autor/<int:id_proyecto>/', views.info_autores, name='info-autores'),
@@ -93,8 +100,7 @@ urlpatterns = [
     path('generar_c_valor/<int:proyecto_id>/', generar_c_valor, name='generar_c_valor'),  
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
-    path('Dashboard/404/notfount/', views.not404, name='404'),
-    path('Dashboard/anexosdoc/<int:proyecto_id>/', views.anexosdoc, name='anexosdoc'),
+    path('Dashboard/code_iv/', views.act_info, name='act_info'),
     path('Dashboard/Usuarios/', views.usuarios, name='Usuarios'),
     path('Dashboard/PreguntasPoli/', views.preguntas, name='preguntaspoli'),
     path('Dashboard/Proyectos-Inactivos/', views.proyectosINA, name='Proyecto-inactivo'),

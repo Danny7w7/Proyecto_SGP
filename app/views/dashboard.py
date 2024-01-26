@@ -2,8 +2,10 @@
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.models import Usuarios, Roles
+from app.models import Listas_plegables, Usuarios, Roles
 from django.contrib.auth.decorators import login_required
+
+from app.views.formulario import get_or_none
 
 
 def user_has_role(user, *roles):
@@ -18,15 +20,6 @@ def admin(request):
     if not user_has_role(request.user,'Admin'):
       return redirect('index')
     return render(request, 'Dashboard/Admin.html')
-
-def not404(request):
-    return render(request, 'Dashboard/404.html')
-
-@login_required(login_url='/login')
-def anexosdoc(request):
-    if not user_has_role(request.user,'Admin'):
-      return redirect('index')
-    return render(request, 'Dashboard/Anexos.html')
 
 
 @login_required(login_url='/login')
@@ -101,3 +94,62 @@ def eliminar_usuario(request, usuario_id):
     for rol in roles:
         rol.usuarios_set.remove(usuario)
     return JsonResponse({'mensaje': 'Usuario eliminado exitosamente.'})
+  
+  
+def act_info(request):
+    return render(request, 'Dashboard/code_iv.html')
+
+
+def grupos_Investigacion(request):
+    if request.method == 'GET':
+        # Filtra los registros que no tienen campos vacíos
+        data = list(Listas_plegables.objects.exclude(
+            nombre_grupo_investigacion__isnull=True,
+            nombre_grupo_investigacion__exact='',
+            codigos_grupo_investigacion__isnull=True,
+            codigos_grupo_investigacion__exact=''
+        ).values('nombre_grupo_investigacion', 'codigos_grupo_investigacion'))
+
+        response_data = {"data": data}
+        return JsonResponse(response_data, safe=False)
+    
+def redes_de_conocimiento(request):
+    if request.method == 'GET':
+        # Filtra los registros que no tienen campos vacíos
+        data = list(Listas_plegables.objects.exclude(
+            redes_conocimiento__isnull=True,
+            redes_conocimiento__exact='',
+        ).values('redes_conocimiento'))
+
+        response_data = {"data": data}
+        return JsonResponse(response_data, safe=False)
+    
+def subareas_de_conocimiento(request):
+    if request.method == 'GET':
+        data = list(Listas_plegables.objects.exclude(
+            subareas_conocimiento__isnull=True,
+            subareas_conocimiento__exact='',
+        ).values('subareas_conocimiento'))
+
+        response_data = {"data": data}
+        return JsonResponse(response_data, safe=False)
+    
+def diciplina_de_subarea(request):
+    if request.method == 'GET':
+        data = list(Listas_plegables.objects.exclude(
+            diciplina_subarea__isnull=True,
+            diciplina_subarea__exact='',
+        ).values('diciplina_subarea'))
+
+        response_data = {"data": data}
+        return JsonResponse(response_data, safe=False)
+    
+def nombre_de_centro_formacion(request):
+    if request.method == 'GET':
+        data = list(Listas_plegables.objects.exclude(
+            nombre_centro_formacion__isnull=True,
+            nombre_centro_formacion__exact='',
+        ).values('nombre_centro_formacion'))
+
+        response_data = {"data": data}
+        return JsonResponse(response_data, safe=False)

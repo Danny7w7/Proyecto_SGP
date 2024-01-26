@@ -87,10 +87,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Anexos</span></a>
-            </li>
+                <a class="nav-link" href="{% url 'act_info' %}">
+                    <i class="fas fa-search"></i>
+                    <span>Grupos de Investigacion</span></a>
+            </li> 
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -338,7 +338,7 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'dashboard-ex/js/demo/chart-area-demo.js' %}"></script>
     <script src="{% static 'dashboard-ex/js/demo/chart-pie-demo.js' %}"></script>
-
+    <script src="{% static 'js\dashboard.js' %}"></script>
 </body>
 
 </html>
