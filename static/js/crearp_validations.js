@@ -1,3 +1,30 @@
+select = document.getElementById("select_box");
+options = select.getElementsByTagName('option');
+button = select.nextElementSibling;
+elements = button.querySelector('.form-select');
+
+selected_select = document.getElementById('nombre_Grupo_Investigacion')
+options2 = selected_select.getElementsByTagName('option');
+input = document.getElementById('nombregrupo')
+
+elements.addEventListener("DOMSubtreeModified", () => {
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].label == elements.textContent){
+            var indice = i
+            console.log(options[i])
+            break;
+        }
+    }
+    for (var i = 0; i < options2.length; i++) {
+        if (indice == i){
+            input.value = options2[i].value
+            break;
+        }
+    }
+});
+
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     

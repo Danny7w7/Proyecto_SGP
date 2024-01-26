@@ -25,6 +25,7 @@ var currentLength;
 var currentLength2;
 var currentLength3;
 document.addEventListener("DOMContentLoaded", function () {
+    getRegiones()
     fieldQuestion = [
         "proyecto_Relacionado_Industrial40",
         "proyecto_Relacionado_Economia_Naranja",
@@ -62,10 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
     handleTextareaInput(textarea1, "char-counter1");
     handleTextareaInput(textarea2, "char-counter2");
     handleTextareaInput(textarea3, "char-counter3");
-            
-            
-    
-
     
     const buttons = [
         document.getElementById("step2"),
@@ -849,4 +846,77 @@ function actualizarInputParticipantes(participantes) {
         "container-inputs-participantes"
     );
     containerInputs.appendChild(contenedorInput);
+}
+
+function getRegiones() {
+    fetch("/getRegiones/")
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("La solicitud no fue exitosa");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            showRegional(data)
+        })
+        .catch((error) => {
+            console.error("Error al realizar la solicitud:", error);
+        });
+
+  
+};
+
+function showRegional(data) {
+    let id_region;
+    let id_regional
+    var selectRegion = document.getElementById("select_box");
+    var selectRegional = document.getElementById("select_box2")
+    
+    selectRegion.addEventListener("change", function() {
+        for (let i = 0; i < data.regiones.length; i++) {
+            if (data.regiones[i].nombre == selectRegion.value){
+                id_region = data.regiones[i].id
+                break;
+            }
+        }
+        const options = getArraybuttonOption("select_box2")
+        for (let i = 0; i < data.regionales.length; i++) {
+            if (data.regionales[i].region_id == id_region) {
+                console.log(data.regionales[i].region_id)
+                options[i+1].style.display = 'block';
+            } else{
+                options[i+1].style.display = 'none';
+            }
+        }
+    });
+    selectRegional.addEventListener("change", function() {
+        for (let i = 0; i < data.regionales.length; i++) {
+            if (data.regionales[i].nombre.toLowerCase() == selectRegional.value.toLowerCase()){
+                id_regional = data.regionales[i].cod_regional
+                console.log(id_regional)
+                break;
+            }
+        }
+        const options2 = getArraybuttonOption("select_box3")
+        for (let i = 0; i < data.centros.length; i++) {
+            console.log('El centro ' + data.centros[i].codigo +'-'+ data.centros[i].nombre +' tiene que ser iwal que ')
+            console.log(options2[i+1])
+            console.log("\n\n")
+            if (data.centros[i].region_id == id_regional) {
+                // console.log(data.centros[i].region_id)
+                // console.log(options2[i+1])
+                options2[i+1].style.display = 'block';
+            } else{
+                options2[i+1].style.display = 'none';
+            }
+        }
+    });
+}
+
+function getArraybuttonOption(id) {
+    select = document.getElementById(id);
+    button = select.nextElementSibling;
+    elements = button.querySelector('.dselect-items');
+    options = elements.getElementsByTagName('button');
+    return options
 }

@@ -344,3 +344,10 @@ select option:hover {
   justify-content: center;
   height: 60vh;
 }
+
+#nombregrupo{
+  color: black;
+  background-color: white;
+  text-align: center;
+  font-weight: bold;
+}

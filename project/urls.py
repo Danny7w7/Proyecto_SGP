@@ -52,6 +52,8 @@ urlpatterns = [
     path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
 
     #Json
+    # GetRegionesJson
+    path('getRegiones/', views.getRegionJson, name='getRegion'),
 
     # GetEditFormJson
     path('getEntidad/<int:id_entidad>/', views.getObjEspecificos, name='getObjEspecificos'),
@@ -99,6 +101,7 @@ urlpatterns = [
     # PDF
     path('generar_pdf/<int:proyecto_id>/', generar_pdf, name='generar_pdf'),
     path('generar_c_valor/<int:proyecto_id>/', generar_c_valor, name='generar_c_valor'),  
+
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
     path('Dashboard/code_iv/', views.act_info, name='act_info'),

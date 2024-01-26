@@ -137,10 +137,12 @@
                             </div>
                             <div class="col-12 col-sm-4 mb-3 p-1">
                                 <label for="nombre_grupo1">Nombre grupo de investigación</label>
-                                <select name="nombre_Grupo_Investigacion" class="form-select" id="select_box1">
-                                    <option value="" disabled selected>Selecciona una opción...</option>
+                                <input id="nombregrupo" name="nombre_Grupo_Investigacion" class="form-control" readonly>
+                                
+                                <select class="form-select" id="nombre_Grupo_Investigacion" style="display: none;">
+                                    <option selected disabled value=""></option>
                                     {% for nombre in listaPlegable.nombres %}
-                                    {% if codigo == '' %}
+                                    {% if nombre == '' %}
                                     {% else %}
                                     <option{% if nombre == proyecto.nombre_Grupo_Investigacion %} selected{% endif %} value="{{nombre}}">{{nombre}}</option>
                                     {% endif %}

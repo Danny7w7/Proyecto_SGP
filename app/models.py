@@ -219,6 +219,28 @@ class Listas_plegables(models.Model):
     diciplina_subarea = models.CharField(max_length=200, null=True)
     nombre_centro_formacion = models.CharField(max_length=200, null=True)
     actividades_economicas = models.CharField(max_length=250, null=True)
+
+# Lista centros de formacion
+class Region(models.Model):
+    nombre = models.CharField(max_length=20)
+
+    def __str__(self):
+        return str(self.nombre)
+    
+class Regional(models.Model):
+    cod_regional = models.IntegerField(primary_key=True)
+    nombre = models.CharField(max_length=20)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.cod_regional)
+    
+class Centro_formacion(models.Model):
+    codigo = models.IntegerField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+    region = models.ForeignKey(Regional, on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.codigo)
     
 #Middleware
 class UltimaVista(models.Model):

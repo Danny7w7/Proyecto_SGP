@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
+from django.core.serializers import serialize
 
 from app.forms import (
     Informacion_proponenteForm,
@@ -10,12 +11,15 @@ from app.forms import (
 )
 
 from app.models import (
+    Centro_formacion,
     Entidades_aliadas,
     Proyecto,
     Informacion_proponente,
     Generalidades_del_proyecto,
     Participantes_Proyecto,
     Autores,
+    Region,
+    Regional,
     Resultados_y_productos_esperados,
     Resumen_antecedentes,
     Objetivos,
@@ -626,6 +630,22 @@ def info_generalidades(request, id_proyecto):
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+    
+
+def getRegionJson(request):
+    centross = list(Centro_formacion.objects.all().order_by('codigo').values())
+    i = 0
+    for item in centross:
+        i=1+i
+    print(i)
+    return JsonResponse(
+            {
+                "mensaje": "Operación exitosa",
+                "regiones": list(Region.objects.all().values()),
+                "regionales": list(Regional.objects.all().order_by('nombre').values()),
+                "centros": list(Centro_formacion.objects.all().order_by('codigo').values())
+            }
+        )
 
 
 def riesgos_obj_g_json(request, id_proyecto):
