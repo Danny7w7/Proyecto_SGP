@@ -403,4 +403,24 @@ document.addEventListener('DOMContentLoaded', function() {
         actualizarPaginacion();
     }
 });
+//Fin tabla 5
 
+// Funcion mostrar usuarios
+document.addEventListener('DOMContentLoaded', function () {
+    var usuariosContainer = document.getElementById('usuarios-container');
+
+    // Realizar la solicitud AJAX al cargar la página
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Parsear la respuesta JSON y actualizar el contenido
+                var data = JSON.parse(xhr.responseText);
+                usuariosContainer.textContent = data.cantidad_usuarios;
+            }
+        }
+    };
+
+    xhr.open('GET', '/dashboard/count-usuarios/', true);
+    xhr.send();
+});

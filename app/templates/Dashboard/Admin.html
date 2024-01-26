@@ -180,10 +180,10 @@
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
-                                                    <a href="{% url 'Usuarios' %}" style="text-decoration: none;">
+                                                    <a href="#" id="usuarios-link" style="text-decoration: none;">
                                                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                            Usuarios registrados (mensual)</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">200</div>
+                                                            Usuarios registrados</div>
+                                                            <div id="usuarios-container" class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                                     </a>
                                                     
                                                 </div>
@@ -248,7 +248,7 @@
                                         <div class="col mr-2">
                                             <a href="{% url 'Proyecto-Pendiente' %}" style="text-decoration: none;">
                                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                    Proyectos eliminados</div>
+                                                    Proyectos Suspendidos</div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                             </a>
 
@@ -295,25 +295,10 @@
                     </div>
                 </div>
                 {% endblock %}
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Footer -->
         </div>
-        {% block footer %}
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-             <div class="copyright text-center my-auto">
-                <span>Copyright &copy; SENNOVA </span>
-              </div>
-            </div>
-        </footer>
-    {% endblock %}
-        <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -337,7 +322,6 @@
 
     <!-- Page level custom scripts -->
     <script src="{% static 'dashboard-ex/js/demo/chart-area-demo.js' %}"></script>
-    <script src="{% static 'dashboard-ex/js/demo/chart-pie-demo.js' %}"></script>
     <script src="{% static 'js\dashboard.js' %}"></script>
 </body>
 

@@ -21,6 +21,12 @@ def admin(request):
       return redirect('index')
     return render(request, 'Dashboard/Admin.html')
 
+@login_required(login_url='/login')
+def cantidad_usuarios(request):
+    cantidad_usuarios = Usuarios.objects.exclude(pk=request.user.id).count()
+    data = {'cantidad_usuarios': cantidad_usuarios}
+    return JsonResponse(data)
+
 
 @login_required(login_url='/login')
 def usuarios(request):

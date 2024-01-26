@@ -62,6 +62,7 @@ urlpatterns = [
     path('dashboard/lista-codigos3/', views.subareas_de_conocimiento, name='tabla3'),
     path('dashboard/lista-codigos4/', views.diciplina_de_subarea, name='tabla4'),
     path('dashboard/lista-codigos5/', views.nombre_de_centro_formacion, name='tabla5'),
+    path('dashboard/count-usuarios/', views.cantidad_usuarios, name='cantidad_usuarios'),
     
     #Informacion proyecto
     path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info_proponente'),
