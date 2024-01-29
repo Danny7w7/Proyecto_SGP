@@ -1,8 +1,10 @@
+// Avances del step mediante los botones
 const button1 = document.getElementById('step2');
 
 const collapse1 = document.getElementById('collapseOne');
 const collapse2 = document.getElementById('collapseTwo');
 
+// Rditar entidad aliada
 function edit_entidad(id){
     const selectDiv = document.getElementById(`entidad${id}`);
     const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
@@ -45,6 +47,31 @@ function edit_entidad(id){
         }
     })
 }
+
+// Seleccionar el nombre automaticamente solo con el codigo de grupo de investigacion
+select = document.getElementById("select_box");
+options = select.getElementsByTagName('option');
+buttonselect = select.nextElementSibling;
+elements = buttonselect.querySelector('.form-select');
+
+selected_select = document.getElementById('nombre_Grupo_Investigacion')
+options2 = selected_select.getElementsByTagName('option');
+input = document.getElementById('nombregrupo')
+
+elements.addEventListener("DOMSubtreeModified", () => {
+    for (var i = 0; i < options.length; i++) {
+        if (options[i].label == elements.textContent){
+            var indice = i
+            break;
+        }
+    }
+    for (var i = 0; i < options2.length; i++) {
+        if (indice == i){
+            input.value = options2[i].value
+            break;
+        }
+    }
+});
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -115,10 +142,6 @@ document.addEventListener("DOMContentLoaded", function() {
             "descripcion_destinacion_dinero_aportado": {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
                 errorMsg: 'El nombre no es válido debe llevar minimo 5 y 150 caracteres.',
-            },
-            "nombre_grupo_inv_entidad_aliada": {
-                pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,170}$/u,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 170 caracteres.',
             },
             "link_gruplac_entidad_aliada": {
                 pattern: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
@@ -437,4 +460,23 @@ function actualizarTabla(entidades) {
     // Agregar la nueva tabla al documento
     const contenedorTabla = document.getElementById('tabla-container');
     contenedorTabla.appendChild(nuevaTabla);
-  }
+}
+
+document.getElementById("recursos_dinero_entidad_aliada").addEventListener("input", function(event) {
+    disabledThirdElement('recursos_dinero_entidad_aliada')
+});
+
+document.getElementById("convenio").addEventListener("input", function(event) {
+    disabledThirdElement('convenio')
+});
+
+function disabledThirdElement(id){
+    let input = document.getElementById(id)
+    if(input.value == 0 || input.value === 'False'){
+        for (let i = 0; i < 3; i++){
+            input = input.nextElementSibling;
+            console.log(input)
+        }
+        input.readOnly = true;
+    }
+}

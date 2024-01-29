@@ -45,7 +45,9 @@
         {% endif %}
         </div>
         <div class="col-md-8 col-8 text-center align-self-center">
-            <img class="img-fluid pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" alt="LogoSenaVerde" width="50">
+            <a href="{% url 'index' %}">
+                <img class="img-fluid pt-3 pb-3" src="{% static 'img/LogoSenaVerde.png' %}" alt="LogoSenaVerde" width="50">
+            </a>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-end">
             <img class="img-fluid me-2" src="{% static 'img/Logo_GICI.png' %}" alt="Logo Gici" width="70">

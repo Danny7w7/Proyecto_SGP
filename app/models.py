@@ -238,6 +238,7 @@ class Regional(models.Model):
 class Centro_formacion(models.Model):
     codigo = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=100)
+    cod_grupo_investigacion = models.CharField(max_length=10, null=True)
     region = models.ForeignKey(Regional, on_delete=models.CASCADE)
     def __str__(self):
         return str(self.codigo)

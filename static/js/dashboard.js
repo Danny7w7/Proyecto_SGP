@@ -1,3 +1,11 @@
+document.getElementById('clickPassword').addEventListener('click', () => {
+    $('#myModal').modal({
+        keyboard: false
+      })
+    contrasena = document.getElementById('clickPassword').textContent
+    navigator.clipboard.writeText(contrasena)
+})
+
 document.addEventListener('DOMContentLoaded', function() {
     $.ajax({
         url: '/dashboard/lista-codigos/',

@@ -308,6 +308,7 @@ def participantes(request, id_proyecto):
         "entidad_a": Entidades_aliadas.objects.filter(proyecto=proyecto),
         "centro_f": Centro_de_formacion.objects.filter(proyecto=proyecto).first(),
         "objEspecificos": Objetivos_especificos.objects.filter(objetivoGeneral=objGeneral),
+        "listaPlegable": contex_form(),
         "percentaje": id_proyecto,
     }
     return render(request, "form/partp.html", context)

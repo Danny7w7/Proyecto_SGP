@@ -45,23 +45,37 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="dataTable text-center" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Nro Documento</th>
-                                    <th>Nivel de Permisos</th>
-                                    <th>Accion</th>
+                                    <th>
+                                        <p class="d-flex justify-content-center align-items-center text-center">Nombre</p>
+                                    </th>
+                                    <th>
+                                        <p class="d-flex justify-content-center align-items-center text-center">Correo</p>
+                                    </th>
+                                    <th class="text-center">
+                                        Contraseña temporal<br><small>(Si el usuario cambio su contraseña este campo estara vacio)</small>
+                                    </th>
+                                    <th>
+                                        <p class="d-flex justify-content-center align-items-center text-center">Nro Documento</p>
+                                    </th>
+                                    <th>
+                                        <p class="d-flex justify-content-center align-items-center text-center">Nivel de Permisos</p>
+                                    </th>
+                                    <th>
+                                        <p class="d-flex justify-content-center align-items-center text-center">Accion</p>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for usuario in usuarios %}
                                 {% if usuario == user %}
                                 {% else %}
-                                    <tr>
+                                    <tr class="text-center">
                                         <td>{{ usuario.first_name}} {{ usuario.last_name}}</td>
                                         <td>{{ usuario.email }}</td>
+                                        <td id="clickPassword">{{ usuario.temp_password }}</td>
                                         <td>{{ usuario.num_documento }}</td>
                                         <td>
                                             <form method="post" action="">
@@ -89,6 +103,17 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Small modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
+
+    <div class="modal fade bd-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content text-center">
+                Texto copiado en el portapapeles
             </div>
         </div>
     </div>

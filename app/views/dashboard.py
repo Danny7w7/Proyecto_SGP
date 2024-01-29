@@ -39,7 +39,7 @@ def usuarios(request):
         usuario = Usuarios.objects.get(id=request.POST['id_usuario'])
         usuario.roles.set(Roles.objects.filter(rol__in=nuevos_roles))
     
-    return render(request, 'Dashboard/Eliminar.html', {'usuarios': usuarios, 'roles': roles})
+    return render(request, 'Dashboard/usuarios.html', {'usuarios': usuarios, 'roles': roles})
 
 
 @login_required(login_url=('/login'))
