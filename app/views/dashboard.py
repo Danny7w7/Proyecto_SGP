@@ -2,8 +2,9 @@
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.models import Listas_plegables, Usuarios, Roles
+from app.models import Centro_formacion, Listas_plegables, Usuarios, Roles
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 from app.views.formulario import get_or_none
 
@@ -159,3 +160,119 @@ def nombre_de_centro_formacion(request):
 
         response_data = {"data": data}
         return JsonResponse(response_data, safe=False)
+  
+    
+@csrf_exempt
+def agregar_dato(request):
+    if request.method == 'POST':
+        try:
+            campo1 = request.POST.get('campo1')
+            campo2 = request.POST.get('campo2')
+
+            registros_con_campos_vacios = Listas_plegables.objects.filter(codigos_grupo_investigacion='', nombre_grupo_investigacion='')
+
+            if registros_con_campos_vacios.exists():
+                primer_registro_con_campos_vacios = registros_con_campos_vacios.first()
+                primer_registro_con_campos_vacios.nombre_grupo_investigacion = campo1
+                primer_registro_con_campos_vacios.codigos_grupo_investigacion = campo2
+                primer_registro_con_campos_vacios.save()
+                
+                print("Registro actualizado con campos vacíos.")
+            else:
+                print("No se encontraron registros con ambos campos vacíos.")
+
+                nuevo_dato = Listas_plegables(nombre_grupo_investigacion=campo1, codigos_grupo_investigacion=campo2)
+                nuevo_dato.save()
+
+                print("Nuevo registro creado.")
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            print(f'Error al agregar datos: {str(e)}')
+            return JsonResponse({'status': 'error', 'error_message': str(e)})
+
+    return JsonResponse({'status': 'error'})
+
+@csrf_exempt
+def agregar_dato2(request):
+    if request.method == 'POST':
+        try:
+            redes_c = request.POST.get('campo1')
+            registros_con_campos_vacios = Listas_plegables.objects.filter(redes_conocimiento='')
+
+            if registros_con_campos_vacios.exists():
+                primer_registro_con_campos_vacios = registros_con_campos_vacios.first()
+                primer_registro_con_campos_vacios.redes_conocimiento = redes_c
+                primer_registro_con_campos_vacios.save()
+                
+                print("Registro actualizado con campos vacíos.")
+            else:
+                print("No se encontraron registros con ambos campos vacíos.")
+
+                nuevo_dato = Listas_plegables(redes_conocimiento=redes_c)
+                nuevo_dato.save()
+
+                print("Nuevo registro creado.")
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            print(f'Error al agregar datos: {str(e)}')
+            return JsonResponse({'status': 'error', 'error_message': str(e)})
+
+    return JsonResponse({'status': 'error'})
+
+@csrf_exempt
+def agregar_dato3(request):
+    if request.method == 'POST':
+        try:
+            subareas = request.POST.get('campo1')
+            registros_con_campos_vacios = Listas_plegables.objects.filter(subareas_conocimiento='')
+
+            if registros_con_campos_vacios.exists():
+                primer_registro_con_campos_vacios = registros_con_campos_vacios.first()
+                primer_registro_con_campos_vacios.subareas_conocimiento = subareas
+                primer_registro_con_campos_vacios.save()
+                
+                print("Registro actualizado con campos vacíos.")
+            else:
+                print("No se encontraron registros con ambos campos vacíos.")
+
+                nuevo_dato = Listas_plegables(subareas_conocimiento=subareas)
+                nuevo_dato.save()
+
+                print("Nuevo registro creado.")
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            print(f'Error al agregar datos: {str(e)}')
+            return JsonResponse({'status': 'error', 'error_message': str(e)})
+
+    return JsonResponse({'status': 'error'})
+
+@csrf_exempt
+def agregar_dato4(request):
+    if request.method == 'POST':
+        try:
+            diciplina = request.POST.get('campo1')
+            registros_con_campos_vacios = Listas_plegables.objects.filter(diciplina_subarea='')
+
+            if registros_con_campos_vacios.exists():
+                primer_registro_con_campos_vacios = registros_con_campos_vacios.first()
+                primer_registro_con_campos_vacios.diciplina_subarea = diciplina
+                primer_registro_con_campos_vacios.save()
+                
+                print("Registro actualizado con campos vacíos.")
+            else:
+                print("No se encontraron registros con ambos campos vacíos.")
+
+                nuevo_dato = Listas_plegables(diciplina_subarea=diciplina)
+                nuevo_dato.save()
+
+                print("Nuevo registro creado.")
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            print(f'Error al agregar datos: {str(e)}')
+            return JsonResponse({'status': 'error', 'error_message': str(e)})
+
+    return JsonResponse({'status': 'error'}) 

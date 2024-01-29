@@ -417,18 +417,157 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function () {
     var usuariosContainer = document.getElementById('usuarios-container');
 
-    // Realizar la solicitud AJAX al cargar la página
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                // Parsear la respuesta JSON y actualizar el contenido
                 var data = JSON.parse(xhr.responseText);
                 usuariosContainer.textContent = data.cantidad_usuarios;
             }
         }
     };
-
     xhr.open('GET', '/dashboard/count-usuarios/', true);
     xhr.send();
 });
+
+// Funcionalidades de guardado
+// modal1
+$(document).ready(function () {
+    function abrirModal() {
+      $("#myModal").modal("show");
+    }
+
+    $(".tabla1").click(abrirModal);
+
+    // Solicitud AJAX
+    $("#mi-formulario").submit(function (e) {
+      e.preventDefault();
+
+      var formData = $(this).serialize();
+
+      $.ajax({
+        type: "POST",
+        url: "/dashboard/agregar-grupo-code/",
+        data: formData,
+        success: function (response) {
+          if (response.status === "success") {
+            alert("Datos agregados exitosamente");
+            // Puedes recargar la tabla u otras actualizaciones aquí
+          } else {
+            alert("Error al agregar datos");
+          }
+        },
+        error: function () {
+          alert("Error de conexión");
+        },
+        complete: function () {
+          $("#myModal").modal("hide");
+        },
+      });
+    });
+  });
+
+// modal2
+  $(document).ready(function () {
+    function abrirModal() {
+      $("#myModal2").modal("show");
+    }
+
+    $(".tabla2").click(abrirModal);
+
+    // Solicitud AJAX
+    $("#mi-formulario2").submit(function (e) {
+      e.preventDefault();
+
+      var formData = $(this).serialize();
+
+      $.ajax({
+        type: "POST",
+        url: "/dashboard/redes-conocimiento/",
+        data: formData,
+        success: function (response) {
+          if (response.status === "success") {
+            alert("Datos agregados exitosamente");
+          } else {
+            alert("Error al agregar datos");
+          }
+        },
+        error: function () {
+          alert("Error de conexión");
+        },
+        complete: function () {
+          $("#myModal2").modal("hide");
+        },
+      });
+    });
+  });
+
+// modal3
+$(document).ready(function () {
+    function abrirModal() {
+      $("#myModal3").modal("show");
+    }
+
+    $(".tabla3").click(abrirModal);
+
+    // Solicitud AJAX
+    $("#mi-formulario3").submit(function (e) {
+      e.preventDefault();
+
+      var formData = $(this).serialize();
+
+      $.ajax({
+        type: "POST",
+        url: "/dashboard/subareas-conocimiento/",
+        data: formData,
+        success: function (response) {
+          if (response.status === "success") {
+            alert("Datos agregados exitosamente");
+          } else {
+            alert("Error al agregar datos");
+          }
+        },
+        error: function () {
+          alert("Error de conexión");
+        },
+        complete: function () {
+          $("#myModal3").modal("hide");
+        },
+      });
+    });
+  });
+
+// modal4
+$(document).ready(function () {
+    function abrirModal() {
+      $("#myModal4").modal("show");
+    }
+
+    $(".tabla4").click(abrirModal);
+
+    // Solicitud AJAX
+    $("#mi-formulario4").submit(function (e) {
+      e.preventDefault();
+
+      var formData = $(this).serialize();
+
+      $.ajax({
+        type: "POST",
+        url: "/dashboard/disciplina-subarea/",
+        data: formData,
+        success: function (response) {
+          if (response.status === "success") {
+            alert("Datos agregados exitosamente");
+          } else {
+            alert("Error al agregar datos");
+          }
+        },
+        error: function () {
+          alert("Error de conexión");
+        },
+        complete: function () {
+          $("#myModal4").modal("hide");
+        },
+      });
+    });
+  });
