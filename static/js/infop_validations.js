@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
             errorMsg: 'El correo no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_meses_vinculacion_Autor": {
-            pattern: /^\d{1,2}$/,
+            pattern: /^(?:[1-9]|1[0-1]|0?\.\d|[1-9]\.\d|10\.\d|11\.[0-9]|12)$/i,
             errorMsg: 'El número de meses de vinculación  no es válido. Debe tener digitos númericos.',
         },
         "Numero_Telefono_Autor": {
