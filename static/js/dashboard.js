@@ -1,10 +1,42 @@
-document.getElementById('clickPassword').addEventListener('click', () => {
-    $('#myModal').modal({
-        keyboard: false
-      })
-    contrasena = document.getElementById('clickPassword').textContent
-    navigator.clipboard.writeText(contrasena)
-})
+
+
+try {
+    document.getElementById('clickPassword').addEventListener('click', () => {
+        $('#myModal').modal({
+            keyboard: false
+          })
+        contrasena = document.getElementById('clickPassword').textContent
+        navigator.clipboard.writeText(contrasena)
+    })
+  } catch (error) {
+    console.error("Ocurrió un error:", error);
+  }
+  
+// Funcion mostrar usuarios
+document.addEventListener('DOMContentLoaded', function () {
+    var usuariosContainer = document.getElementById('usuarios-container');
+    try {
+        if (!usuariosContainer) {
+            throw new Error('El elemento #usuarios-container no fue encontrado en el DOM.');
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    usuariosContainer.textContent = data.cantidad_usuarios;
+                } else {
+                    console.error('Error en la solicitud: ', xhr.status);
+                }
+            }
+        };
+        xhr.open('GET', '/dashboard/count-usuarios/', true);
+        xhr.send();
+    } catch (error) {
+        console.error('Error: ', error.message);
+    }
+});
+
 
 document.addEventListener('DOMContentLoaded', function() {
     $.ajax({
@@ -413,22 +445,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 //Fin tabla 5
 
-// Funcion mostrar usuarios
-document.addEventListener('DOMContentLoaded', function () {
-    var usuariosContainer = document.getElementById('usuarios-container');
-
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                usuariosContainer.textContent = data.cantidad_usuarios;
-            }
-        }
-    };
-    xhr.open('GET', '/dashboard/count-usuarios/', true);
-    xhr.send();
-});
 
 // Funcionalidades de guardado
 // modal1
