@@ -37,6 +37,35 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// Codigo para eliminar usuarios.
+$(document).ready(function () {
+    $('.eliminar-usuario').on('click', function () {
+        var usuarioId = $(this).data('usuario-id');
+        if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+            var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+            $.ajax({
+                url: '/eliminar_usuario/' + usuarioId + '/',
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    alert(data.mensaje);
+                },
+                error: function () {
+                    alert('Error al eliminar el usuario.');
+                }
+            });
+        }
+    });
+});
+
 
 document.addEventListener('DOMContentLoaded', function() {
     $.ajax({
