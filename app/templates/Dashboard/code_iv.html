@@ -1,259 +1,222 @@
 {% extends "Dashboard/Admin.html" %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>DASHBOARD-404</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'dashboard-ex/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link href="{% static 'dashboard-ex/css/sb-admin-2.css' %}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
-</head>
-
-<body id="page-top">
-    <div id="wrapper">
-    {% block admin %}
+{% block admin %}
 <!-- Modal-1 -->
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Agregar Nuevo Dato</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="mi-formulario">
-                        <div class="form-group">
-                            <label for="campo1">Grupos de Investigación:</label>
-                            <input type="text" class="form-control" id="campo1" name="campo1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="campo2">Códigos de Grupos de Investigación:</label>
-                            <input type="text" class="form-control" id="campo2" name="campo2" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </form>
-                </div>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Dato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="mi-formulario">
+                    <div class="form-group">
+                        <label for="campo1">Grupos de Investigación:</label>
+                        <input type="text" class="form-control" id="campo1" name="campo1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="campo2">Códigos de Grupos de Investigación:</label>
+                        <input type="text" class="form-control" id="campo2" name="campo2" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Modal-2 -->
-    <div id="myModal2" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Agregar Nuevo Dato</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="mi-formulario2">
-                        <div class="form-group">
-                            <label for="campo1">Redes de conocimiento:</label>
-                            <input type="text" class="form-control" id="campo1" name="campo1" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </form>
-                </div>
+</div>
+<!-- Modal-2 -->
+<div id="myModal2" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Dato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="mi-formulario2">
+                    <div class="form-group">
+                        <label for="campo1">Redes de conocimiento:</label>
+                        <input type="text" class="form-control" id="campo1" name="campo1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Modal-3 -->
-    <div id="myModal3" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Agregar Nuevo Dato</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="mi-formulario3">
-                        <div class="form-group">
-                            <label for="campo1">Sub area de conocimiento:</label>
-                            <input type="text" class="form-control" id="campo1" name="campo1" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </form>
-                </div>
+</div>
+<!-- Modal-3 -->
+<div id="myModal3" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Dato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="mi-formulario3">
+                    <div class="form-group">
+                        <label for="campo1">Sub area de conocimiento:</label>
+                        <input type="text" class="form-control" id="campo1" name="campo1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Modal-4 -->
-    <div id="myModal4" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Agregar Nuevo Dato</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="mi-formulario4">
-                        <div class="form-group">
-                            <label for="campo1">Disciplina de Sub area:</label>
-                            <input type="text" class="form-control" id="campo1" name="campo1" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </form>
-                </div>
+</div>
+<!-- Modal-4 -->
+<div id="myModal4" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Dato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="mi-formulario4">
+                    <div class="form-group">
+                        <label for="campo1">Disciplina de Sub area:</label>
+                        <input type="text" class="form-control" id="campo1" name="campo1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <h1 class="h3 mb-2 text-gray-800">Grupos de Investigacion</h1>
-                        <p class="mb-4">Podras agregar mas codigos y grupos de investigacion.</p>
-                    </div>
-                    <div class="col-6 mt-5" style="padding-left: 20%;">
-                        <button type="button"  class="tabla1 btn btn-success">Add</button> 
-                    </div> 
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 80%;" id="tablaDatos" cellspacing="0">
-                        <thead>
-                            <th>nombres de grupos de investigacion</th>
-                            <th>Codigos</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <div class="paginacion" id="paginacion"></div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <h1 class="h3 mb-2 text-gray-800">Redes de conocimiento</h1>
-                        <p class="mb-4">Podras agregar mas redes de conocimiento.</p>
-                    </div>
-                    <div class="col-6 mt-5" style="padding-left: 2%;">
-                        <button type="button"  class="tabla2 btn btn-success">Add</button> 
-                    </div> 
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 40%;" id="tablaDatos2" cellspacing="0">
-                        <thead>
-                            <th>Redes de conocimiento</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <div class="paginacion2" id="paginacion2"></div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <h1 class="h3 mb-2 text-gray-800">Subareas de conocimiento</h1>
-                        <p class="mb-4">Podras agregar mas Subareas de conocimiento.</p>
-                    </div>
-                    <div class="col-6 mt-5">
-                        <button type="button"  class="tabla3 btn btn-success">Add</button> 
-                    </div>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 40%;" id="tablaDatos3" cellspacing="0">
-                        <thead>
-                            <th>Subareas de conocimiento</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <div class="paginacion3" id="paginacion3"></div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <h1 class="h3 mb-2 text-gray-800">Disciplina de Subarea</h1>
-                        <p class="mb-4">Podras agregar mas diciplinas de subareas de conocimiento.</p>
-                    </div>
-                    <div class="col-6 mt-5">
-                        <button type="button"  class="tabla4 btn btn-success">Add</button> 
-                    </div>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 40%;" id="tablaDatos4" cellspacing="0">
-                        <thead>
-                            <th>Diciplina de Subarea</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <div class="paginacion4" id="paginacion4"></div>
-                </div>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                        <h1 class="h3 mb-2 text-gray-800">Nombres de centro de formacion</h1>
-                        <p class="mb-4">Podras agregar mas diciplinas de subareas de conocimiento.</p>
-                    </div>
-                    <div class="col-6 mt-5">
-                        <button type="button"  class="btn btn-success">Add</button> 
-                    </div>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" style="width: 40%;" id="tablaDatos5" cellspacing="0">
-                        <thead>
-                            <th> nombres de centros de formacion</th>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <div class="paginacion5" id="paginacion5"></div>
-                </div>
-            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Grupos de Investigacion</h1>
+            <p class="mb-4">Podras agregar mas codigos y grupos de investigacion.</p>
         </div>
+        <div class="col-6 mt-5" style="padding-left: 20%;">
+            <button type="button" class="tabla1 btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 80%;" id="tablaDatos" cellspacing="0">
+            <thead>
+                <th>nombres de grupos de investigacion</th>
+                <th>Codigos</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="paginacion" id="paginacion"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Redes de conocimiento</h1>
+            <p class="mb-4">Podras agregar mas redes de conocimiento.</p>
+        </div>
+        <div class="col-6 mt-5" style="padding-left: 2%;">
+            <button type="button" class="tabla2 btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 40%;" id="tablaDatos2" cellspacing="0">
+            <thead>
+                <th>Redes de conocimiento</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="paginacion2" id="paginacion2"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Subareas de conocimiento</h1>
+            <p class="mb-4">Podras agregar mas Subareas de conocimiento.</p>
+        </div>
+        <div class="col-6 mt-5">
+            <button type="button" class="tabla3 btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 40%;" id="tablaDatos3" cellspacing="0">
+            <thead>
+                <th>Subareas de conocimiento</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="paginacion3" id="paginacion3"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Disciplina de Subarea</h1>
+            <p class="mb-4">Podras agregar mas diciplinas de subareas de conocimiento.</p>
+        </div>
+        <div class="col-6 mt-5">
+            <button type="button" class="tabla4 btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 40%;" id="tablaDatos4" cellspacing="0">
+            <thead>
+                <th>Diciplina de Subarea</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="paginacion4" id="paginacion4"></div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Nombres de centro de formacion</h1>
+            <p class="mb-4">Podras agregar mas diciplinas de subareas de conocimiento.</p>
+        </div>
+        <div class="col-6 mt-5">
+            <button type="button" class="btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 40%;" id="tablaDatos5" cellspacing="0">
+            <thead>
+                <th> nombres de centros de formacion</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="paginacion5" id="paginacion5"></div>
+    </div>
+</div>
+</div>
 
-        {% endblock %}
-
-    <script src="{% static 'dashboard-ex/vendor/jquery/jquery.min.js' %}"></script>
-    
-    <script src="{% static 'dashboard-ex/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'dashboard-ex/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'dashboard-ex/js/sb-admin-2.min.js'%}"></script>
-</body>
-
-</html>
+{% endblock %}

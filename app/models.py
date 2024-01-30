@@ -72,17 +72,20 @@ class Participantes_Proyecto(models.Model):
     numero_Telefono_participantes = models.CharField(max_length=30, null=True)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
+# Preguntas politicas
+class preguntasP(models.Model):
+    enunciado = models.CharField(max_length=200)
+    estado = models.BooleanField()
+    periodo = models.IntegerField()
+
 class Generalidades_del_proyecto(models.Model):
     codigo_Dependencia_Presupuestal = models.CharField(max_length=50, null=True)
     tematicas_Estrategias_SENA = models.CharField(max_length=100, null=True)
     link_video_proyecto = models.CharField(max_length=500, null=True)
-    proyecto_Relacionado_Industrial40 = models.BooleanField(null=True)
-    justificacion_Industrial = models.CharField(max_length=600, null=True)
     actividades_economicas_del_proyecto_investigacion = models.CharField(max_length=100, null=True)
-    proyecto_Relacionado_Economia_Naranja = models.BooleanField(null=True)
-    justificacion_Economia_Naranja = models.CharField(max_length=600, null=True)
-    proyecto_Relacionado_Politica_Discapacidad = models.BooleanField(null=True)
-    justificacion_Politica_Discapacidad = models.CharField(max_length=600, null=True)
+    campo1 = models.CharField(max_length=600)
+    campo2 = models.CharField(max_length=600)
+
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 

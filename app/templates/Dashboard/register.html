@@ -11,7 +11,8 @@
     <h6 class="text-center">{{msg}}</h6>
     <div class="mb-3">
         <label for="exampleInputName" class="form-label" style="font-family: 'Lucida Sans';">Nombres</label>
-        <input required name="first_name" type="text" class="form-control border border-secondary" aria-describedby="emailHelp">
+        <input required name="first_name" type="text" class="form-control border border-secondary"
+            aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
         <label for="exampleInputName2" class="form-label" style="font-family: 'Lucida Sans';">Apellidos</label>
@@ -26,42 +27,47 @@
         </select>
     </div>
     <div class="mb-3">
-        <label for="exampleInputName" class="form-label" style="font-family: 'Lucida Sans';">Documento de identidad</label>
-        <input required name="num_documento" type="number" style="box-decoration-break: clone;" class="form-control border border-secondary">
+        <label for="exampleInputName" class="form-label" style="font-family: 'Lucida Sans';">Documento de
+            identidad</label>
+        <input required name="num_documento" type="number" style="box-decoration-break: clone;"
+            class="form-control border border-secondary">
     </div>
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label" style="font-family: 'Lucida Sans';">Correo Electronico</label>
-        <input required name="email" type="email" class="form-control border border-secondary" aria-describedby="emailHelp">
+        <label for="exampleInputEmail1" class="form-label" style="font-family: 'Lucida Sans';">Correo
+            Electronico</label>
+        <input required name="email" type="email" class="form-control border border-secondary"
+            aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label" style="font-family: 'Lucida Sans';">Contraseña</label>
         <input readonly required name="password" type="text" class="form-control border border-secondary" id="password">
         <div class="d-flex justify-content-center mt-2">
-            <button onclick="generarContrasena()" type="button" name="" id="" class="btn btn-primary">Generar Contraseña</button>
+            <button onclick="generarContrasena()" type="button" name="" id="" class="btn btn-primary">Generar
+                Contraseña</button>
         </div>
     </div>
     <div class="mt-4 d-grid">
-        <button class="botoncitos btn btn-primary" style= "border-color: transparent;" type="submit">Registrar</button>
+        <button class="botoncitos btn btn-primary" style="border-color: transparent;" type="submit">Registrar</button>
     </div>
 </form>
 
 <script>
-function generarContrasena() {
-    inputPassword = document.getElementById('password')
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let contrasena = '';
+    function generarContrasena() {
+        inputPassword = document.getElementById('password')
+        const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let contrasena = '';
 
-    for (let i = 0; i < 8; i++) {
-        const indice = Math.floor(Math.random() * caracteres.length);
-        contrasena += caracteres.charAt(indice);
+        for (let i = 0; i < 8; i++) {
+            const indice = Math.floor(Math.random() * caracteres.length);
+            contrasena += caracteres.charAt(indice);
+        }
+
+        inputPassword.value = contrasena
+        navigator.clipboard.writeText(contrasena)
+            .then(() => {
+                alert('Contraseña copiada al portapapeles: ' + contrasena);
+            })
+        return contrasena;
     }
-
-    inputPassword.value = contrasena
-    navigator.clipboard.writeText(contrasena)
-        .then(() => {
-            alert('Contraseña copiada al portapapeles: ' + contrasena);
-        })
-    return contrasena;
-}
 </script>
 {% endblock %}

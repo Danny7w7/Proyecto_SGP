@@ -2,7 +2,7 @@
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.models import Centro_formacion, Listas_plegables, Usuarios, Roles
+from app.models import Centro_formacion, Listas_plegables, Usuarios, Roles, preguntasP
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -47,7 +47,10 @@ def usuarios(request):
 def preguntas(request):
     if not user_has_role(request.user,'Admin'):
       return redirect('index')
-    return render(request, 'Dashboard/PreguntasP.html')
+    contex = {
+        'preguntas':preguntasP.objects.all()
+    }
+    return render(request, 'Dashboard/PreguntasP.html', contex)
 
 @login_required(login_url=('/login'))
 def proyectosINA(request):
@@ -276,3 +279,19 @@ def agregar_dato4(request):
             return JsonResponse({'status': 'error', 'error_message': str(e)})
 
     return JsonResponse({'status': 'error'}) 
+
+def agregar_pregunta(request):
+    try:
+        pregunta = preguntasP()
+        pregunta.enunciado = request.POST["iPregunta"]
+        pregunta.estado = True
+        pregunta.periodo = request.POST["iPeriodo"]
+        pregunta.save()
+        new_question = {
+            "enunciado": pregunta.enunciado,
+            "estado": pregunta.estado,
+            "periodo": pregunta.periodo,
+        }
+        return JsonResponse({"mensaje": "Operación exitosa", "question": new_question})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)

@@ -1,175 +1,170 @@
 {% extends "Dashboard/Admin.html" %}
 {% load static %}
+{% block admin %}
+<link href="{% static 'dashboard-ex/css/switch.css' %}" rel="stylesheet" />
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SENNOVA</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'dashboard-ex/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="{% static 'dashboard-ex/css/sb-admin-2.min.css' %}" rel="stylesheet">
-
-</head>
-
-<body id="page-top">
-    <div id="wrapper">
-        {% block admin %}
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-6">
-                            <h1 class="h3 mb-2 text-gray-800">Preguntas editables</h1>
-                            <p class="mb-4">Podras agregar mas preguntas del formulario con respecto a las politicas.</p>
-                        </div>
-                        <div class="col-6 mt-5" style="padding-left: 20%;">
-                            <button type="button"  class="btn btn-success">Add</button> 
-                        </div> 
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered"  style="width: 80%;" id="dataTable" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th class="col-7">Pregunta Politicas</th>
-                                    <th>Fecha creacion</th>
-                                </tr>
-                            </thead>    
-                            <tbody>
-                                <tr>
-                                    <td>Preguntas politicas</td>
-                                    <td>Fecha</td>
-                                    
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-6">
-                            <h1 class="h3 mb-2 text-gray-800">Anexos</h1>
-                            <p class="mb-4">Podras crear nuevos anexos requeridos para un proyecto.</p>
-                        </div>
-                        <div class="col-6 mt-5" style="padding-left: 20%;">
-                            <button type="button"  class="btn btn-success">Add</button>
-                        </div> 
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="width: 80%;" id="dataTable"  cellspacing="0">                            
-                            <thead>
-                                <tr>
-                                    <th class="col-7">Anexos</th>
-                                    <th class="">Fecha de creacion</th>
-                                </tr>   
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Nombre de Anexo</td>
-                                    <td>Fecha creacion</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-6">
-                            <h1 class="h3 mb-2 text-gray-800">Codigos SIIF</h1>
-                            <p class="mb-4">Podras crear nuevos codigos SIIF segun los requeridos por cada proyecto.</p>
-                        </div>
-                        <div class="col-6 mt-5" style="padding-left: 20%;">
-                            <button type="button"  class="btn btn-success">Add</button>
-                        </div> 
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="width: 80%;" id="dataTable"  cellspacing="0">                            
-                            <thead>
-                                <tr>
-                                    <th class="col-7">Codigos SIIF</th>
-                                    <th class="">Fecha de creacion</th>
-                                </tr>   
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Codigo SIIF nuevo</td>
-                                    <td>Fecha</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-6">
-                            <h1 class="h3 mb-2 text-gray-800">Tematicas Estrategicas SENA</h1>
-                            <p class="mb-4">Podras crear nuevas Tematicas Estrategicas SENA segun los requeridos por cada proyecto.</p>
-                        </div>
-                        <div class="col-6 mt-5" style="padding-left: 20%;">
-                            <button type="button"  class="btn btn-success">Add</button>
-                        </div> 
-                    </div>
-                </div>
-                <div class="card-body" style="padding-bottom: 5%;">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="width: 80%;" id="dataTable"  cellspacing="0">                            
-                            <thead>
-                                <tr>
-                                    <th class="col-7">Tematicas Estrategicas SENA</th>
-                                    <th class="">Fecha de creacion</th>
-                                </tr>   
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Tematica Estrategica nueva</td>
-                                    <td>Fecha</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<!-- Modal de confimacion de guardado de datos -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex justify-content-center row">
+                <h5 class="modal-title text-center col-12" id="exampleModalLabel">Pregunta correctamente guardada</h5>
+                <img class="" width="125" src="	https://cdn-icons-png.flaticon.com/512/148/148767.png">
             </div>
-            {% endblock %}
         </div>
     </div>
-    <a class="scroll-to-top rounded" href="#page-top">  
-        <i class="fas fa-angle-up"></i>
-    </a>
+</div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'dashboard-ex/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'dashboard-ex/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Preguntas editables</h1>
+            <p class="mb-4">Podras agregar mas preguntas del formulario con respecto a las politicas.</p>
+        </div>
+        <div class="col-6 mt-5" style="padding-left: 20%;">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPreguntaPolitica">Agregar</button>
+        </div>
+    </div>
+</div>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'dashboard-ex/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'dashboard-ex/js/sb-admin-2.min.js' %}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{% static 'dashboard-ex/vendor/chart.js/Chart.min.js' %}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{% static 'dashboard-ex/js/demo/chart-area-demo.js' %}"></script>
-
-</body>
-
-</html>
+<!-- Modal -->
+<div class="modal fade" id="addPreguntaPolitica" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar una pregunta politica</h5>
+            </div>
+            <div class="modal-body">
+                <form id="postPreguntaPolitica">
+                    <div class="mb-3">
+                        <label class="form-label">Enunciado de la pregunta</label>
+                        <input id="iPregunta" type="text" class="form-control" placeholder="Ingrese la pregunta con buena ortografía y gramática"/>
+                        <small id="helpId" class="form-text text-muted">Ejemplo: ¿El proyecto está relacionado con la industria 4.0?</small>
+                        {% csrf_token %} 
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Periodo</label>
+                        <input id="iPeriodo" type="number" class="form-control"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="addPreguntas()" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 80%;" id="tablequestion" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="col-7">Pregunta</th>
+                    <th>Periodo</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pregunta in preguntas %}
+                <tr>
+                    <td>{{pregunta.enunciado}}</td>
+                    <td>{{pregunta.periodo}}</td>
+                    <td>{{pregunta.estado}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Anexos</h1>
+            <p class="mb-4">Podras crear nuevos anexos requeridos para un proyecto.</p>
+        </div>
+        <div class="col-6 mt-5" style="padding-left: 20%;">
+            <button type="button" class="btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 80%;" id="dataTable" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="col-7">Anexos</th>
+                    <th class="">Fecha de creacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nombre de Anexo</td>
+                    <td>Fecha creacion</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Codigos SIIF</h1>
+            <p class="mb-4">Podras crear nuevos codigos SIIF segun los requeridos por cada proyecto.</p>
+        </div>
+        <div class="col-6 mt-5" style="padding-left: 20%;">
+            <button type="button" class="btn btn-success">Add</button>
+        </div>
+    </div>
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 80%;" id="dataTable" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="col-7">Codigos SIIF</th>
+                    <th class="">Fecha de creacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Codigo SIIF nuevo</td>
+                    <td>Fecha</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="h3 mb-2 text-gray-800">Tematicas Estrategicas SENA</h1>
+            <p class="mb-4">Podras crear nuevas Tematicas Estrategicas SENA segun los requeridos por cada
+                proyecto.</p>
+        </div>
+        <div class="col-6 mt-5" style="padding-left: 20%;">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
+        </div>
+    </div>
+</div>
+<div class="card-body" style="padding-bottom: 5%;">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 80%;" id="dataTable" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="col-7">Tematicas Estrategicas SENA</th>
+                    <th class="">Fecha de creacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tematica Estrategica nueva</td>
+                    <td>Fecha</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

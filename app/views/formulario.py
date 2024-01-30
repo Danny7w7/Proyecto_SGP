@@ -729,9 +729,7 @@ def descripcion_problema(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
-    descripcion.identificacion_y_descripcion_problema = request.POST[
-        "Identificacion_y_descripcion_problema"
-    ]
+    descripcion.identificacion_y_descripcion_problema = request.POST["Identificacion_y_descripcion_problema"]
     descripcion.justificacion = request.POST["Justificacion"]
     descripcion.marco_conceptual = request.POST["Marco_conceptual"]
 

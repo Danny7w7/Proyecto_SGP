@@ -616,3 +616,39 @@ $(document).ready(function () {
       });
     });
   });
+
+// Agregar preguntas politicas
+function addPreguntas(){
+    var formData = new FormData();
+    formData.append("iPregunta", document.getElementById('iPregunta').value);
+    formData.append("iPeriodo", document.getElementById('iPeriodo').value);
+    formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
+    
+    fetch(`/dashboard/addquestion/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+            $('#addPreguntaPolitica').modal('hide')
+            $('#successModal').modal('show')
+            updateTablePregunta(data)
+        }
+    })
+    // .catch(error => {
+    //     console.error('Error en la solicitud:', error);
+    //     // Manejar errores en la solicitud, como problemas de red
+    // });
+}
+
+function updateTablePregunta(data){
+    let table = document.getElementById('tablequestion')
+    let nuevaFila = table.insertRow();
+    nuevaFila.insertCell().textContent = data.question.enunciado;
+    nuevaFila.insertCell().textContent = data.question.periodo;
+    nuevaFila.insertCell().textContent = data.question.estado;
+}
