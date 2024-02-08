@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
             errorMsg: 'La justificación no es válida. Debe tener entre 5 y 8000 caracteres.'
         },
         "marco_conceptual": {
-            pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El marco conceptual no es válido. Debe tener entre 5 y 8000 caracteres.'
+            pattern: /^[\s\S]{5,11000}$/,
+            errorMsg: 'El marco conceptual no es válido. Debe tener entre 5 y 11000 caracteres.'
         },
        },
     };
