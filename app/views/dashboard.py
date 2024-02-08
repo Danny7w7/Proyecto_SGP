@@ -2,11 +2,9 @@
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.models import Centro_formacion, Listas_plegables, Usuarios, Roles, preguntasP
+from app.models import Centro_formacion, Document, Listas_plegables, Usuarios, Roles, preguntasP
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-
-from app.views.formulario import get_or_none
 
 
 def user_has_role(user, *roles):
@@ -43,14 +41,7 @@ def usuarios(request):
     return render(request, 'Dashboard/usuarios.html', {'usuarios': usuarios, 'roles': roles})
 
 
-@login_required(login_url=('/login'))
-def preguntas(request):
-    if not user_has_role(request.user,'Admin'):
-      return redirect('index')
-    contex = {
-        'preguntas':preguntasP.objects.all()
-    }
-    return render(request, 'Dashboard/PreguntasP.html', contex)
+
 
 @login_required(login_url=('/login'))
 def proyectosINA(request):
@@ -295,3 +286,48 @@ def agregar_pregunta(request):
         return JsonResponse({"mensaje": "Operación exitosa", "question": new_question})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+
+## Estoy probando:
+
+@login_required(login_url=('/login'))
+def preguntas(request):
+    documents = Document.objects.all()
+    print(documents)
+    if not user_has_role(request.user,'Admin'):
+      return redirect('index')
+    contex = {
+        'documents': documents,
+        'preguntas':preguntasP.objects.all()
+    }
+    return render(request, 'Dashboard/PreguntasP.html', contex)
+
+
+@csrf_exempt 
+def guardar_anexo(request):
+    if request.method == 'POST':
+        nombre_anexo = request.POST.get('nombre_anexo')
+        estado_anexo_str = request.POST.get('estado_anexo')
+        
+        # Convertir el string 'true' o 'false' a un booleano
+        estado_anexo = estado_anexo_str.lower() == 'true'
+
+        # Guardar el nuevo anexo en la base de datos
+        nuevo_anexo = Document(nombre=nombre_anexo, estado=estado_anexo)
+        nuevo_anexo.save()
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False})
+    
+@csrf_exempt
+def cargar_guia(request):
+    if request.method == 'POST':
+        document_id = request.POST.get('document_id')
+        document = Document.objects.get(id=document_id)
+        guia_file = request.FILES.get('guia')
+
+        document.guia = guia_file
+        document.save()
+
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False, 'message': 'Método no permitido'}, status=405)

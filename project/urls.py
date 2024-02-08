@@ -47,9 +47,7 @@ urlpatterns = [
     path('resultado/<int:id_proyecto>/objetivo-especifico/<int:id_objetivoEsp>/', views.producEsperados, name='producEsperados'),
     path('proyeccion/<int:id_proyecto>/', views.proyeccion, name='proyeccion'),
     path('analisis-riesgo/<int:id_proyecto>/', views.riesgo_general, name='riesgo_general'),
-
-    #Form
-    path('subir_anexos/<int:proyecto_id>/', views.subir_anexos, name='subir_anexos'),
+    path('anexos/<int:id_proyecto>', views.anexos, name='anexos'),
 
     #Json
     # GetRegionesJson
@@ -102,11 +100,13 @@ urlpatterns = [
 
     #Editar
     path('edit_proyec/<int:id_proyecto>/', views.edit_proyect, name='edit_proyec'),
-    path('editar_anexo/<int:proyecto_id>/', views.editar_anexo, name='editar_anexo'),
 
     # PDF
     path('generar_pdf/<int:proyecto_id>/', generar_pdf, name='generar_pdf'),
-    path('generar_c_valor/<int:proyecto_id>/', generar_c_valor, name='generar_c_valor'),  
+    path('generar_c_valor/<int:proyecto_id>/', generar_c_valor, name='generar_c_valor'),
+    # Anexos
+    path('descargar_guia/<int:documento_id>/', views.descargar_guia, name='descargar_guia'),
+    path('subir_anexo/', views.subir_anexo, name='subir_anexo'),
 
     # paths admin menu
     path('Dashboard/', views.admin, name='Dashboard'),
@@ -117,10 +117,12 @@ urlpatterns = [
     path('Dashboard/Proyectos-Completos/', views.proyectoT, name='Proyecto-Completo'),
     path('Dashboard/Proyectos-Pendientes', views.proyectoP, name='Proyecto-Pendiente'),
     path('eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
+    path('guardar_anexo/', views.guardar_anexo, name='guardar_anexo'),
+    path('cargar_guia/', views.cargar_guia, name='cargar_guia'),
     
     path('gantt_data/', views.gantt_data, name='gantt_data'),
     path('recursos/<int:id_proyecto>/', views.recursos, name='recursos'),
     path('proyecto/<int:id_proyecto>/recursos/cronograma/<int:id_actividad>/', views.cronogramaJson, name='cronograma'),
     path('proyecto/<int:id_proyecto>/recursos/presupuesto/<int:id_actividad>/', views.presupuestoJson, name='presupuesto'),
-    
+       
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

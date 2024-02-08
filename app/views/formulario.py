@@ -6,11 +6,11 @@ from django.core.serializers import serialize
 from app.forms import (
     Informacion_proponenteForm,
     ProyectoForm,
-    DocumentForm,
     ProducEsperadosForm,
 )
 
 from app.models import (
+    Anexos,
     Centro_formacion,
     Entidades_aliadas,
     Proyecto,
@@ -259,6 +259,7 @@ def informacion_proponente(request, id_proyecto):
         return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
     context = {'proyecto':get_or_none(Proyecto, id=id_proyecto),
+               'anexo' : Anexos.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)),
                'infoProyecto':Informacion_proponente.objects.filter(proyecto_id=get_or_none(Proyecto, id=id_proyecto)).first(),
                'autores': Autores.objects.filter(proyecto = proyecto),
                'participantes': Participantes_Proyecto.objects.filter(proyecto = proyecto),
@@ -467,38 +468,6 @@ def Informacion_de_centro(request, id_proyecto):
     context = {"form": form, "proyecto": proyecto, "percentaje": id_proyecto}
     return render(request, "form/infop.html", context)
 
-
-@login_required(login_url="/login")
-def subir_anexos(request, proyecto_id):
-    if not own_user(request.user, get_or_none(Proyecto, id=proyecto_id).id):
-        return redirect('index')  
-    proyecto = get_or_none(Proyecto, pk=proyecto_id)
-
-    if request.method == "POST":
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            anexo = form.save(commit=False)
-            anexo.proyecto = proyecto
-            anexo.save()
-
-            # Mostrar alerta de éxito
-            return render(request, "form/anexos.html", {
-                "proyecto": proyecto,
-                "percentaje": proyecto_id,
-                "success_alert": True
-            })
-        else:
-            # Mostrar alerta de error si el formulario no es válido
-            return render(request, "form/anexos.html", {
-                "proyecto": proyecto,
-                "percentaje": proyecto_id,
-                "error_alert": True,
-                "form": form 
-            })
-
-    documents = Document.objects.filter(proyecto=proyecto)
-    contex = {"docs": documents, "proyecto": proyecto, "percentaje": proyecto_id}
-    return render(request, "form/anexos.html", contex)
 
 @login_required()   
 def seleccionar(request,  id_proyecto):
@@ -929,36 +898,6 @@ def edit_proyect(request, id_proyecto):
     return render(request, "edit_form/edit_proy.html", context)
 
 
-def editar_anexo(request, proyecto_id):
-    try:
-        proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
-        anexo = Document.objects.filter(proyecto=proyecto).first()
-        print(anexo)
-    except:
-        return redirect("subir_anexos", proyecto_id)
-
-    if request.method == "POST":
-        model = Document
-        column_names = [field.name for field in model._meta.fields]
-
-        for name in column_names:
-            if (
-                name == "id"
-                or name == "fecha"
-                or name == "proyecto_id"
-                or request.FILES.get(name) == None
-            ):
-                continue
-            setattr(anexo, name, request.FILES.get(name))
-        anexo.save()
-
-    form = DocumentForm()
-    return render(
-        request,
-        "edit_form/edit_anexos.html",
-        {"form": form, "proyecto": proyecto, "percentaje": 0},
-    )
-
 def proyectos_usuario(request):
     proyectos = Proyecto.objects.filter(usuario=request.user)
     contex = {
@@ -1073,3 +1012,61 @@ def gantt_data(request):
         return JsonResponse(response_data, safe=False)
     else:
         return JsonResponse({"error": "Método no permitido"}, status=405)
+    
+## Funciones de anexo
+def anexos(request, id_proyecto):
+    proyecto = Proyecto.objects.get(id=id_proyecto)
+    documentos = Document.objects.filter(estado=True)
+
+    contex = {
+        'percentaje' : 0,
+        'id_proyecto': id_proyecto,
+        'documentos': documentos,
+    }
+    
+    return render(request, 'form/anexos.html', contex)
+
+## Hola este es de subir
+@csrf_exempt
+def subir_anexo(request):
+    if request.method == 'POST':
+        try:
+            proyecto_id = request.POST.get('proyecto_id')
+            documentos = Document.objects.all()
+
+            archivos_subidos = 0
+            for documento in documentos:
+                nombre_input = 'anexo_' + str(documento.id)
+                if nombre_input in request.FILES:
+                    archivo = request.FILES[nombre_input]
+                    nuevo_anexo = Anexos(anexo_requerido=documento, proyecto_id=proyecto_id, anexo=archivo)
+                    nuevo_anexo.save()
+                    archivos_subidos += 1
+
+            if archivos_subidos > 0:
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'message': 'No se han enviado archivos'}, status=400)
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)}, status=500)
+    else:
+        return JsonResponse({'success': False, 'message': 'Método no permitido'}, status=405)
+
+def obtener_id_anexo_requerido(nombre_anexo_requerido):
+    try:
+        anexo_requerido = Anexos.objects.get(anexo_requerido=nombre_anexo_requerido)
+        return anexo_requerido.id
+    except Anexos.DoesNotExist:
+        return None
+
+def descargar_guia(request, documento_id):
+    documento = get_object_or_404(Document, pk=documento_id)
+    if documento.guia:
+        # Abrir el archivo y leer su contenido
+        with open(documento.guia.path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="{documento.guia.name}"'
+            return response
+    else:
+        # Si no hay guía disponible, regresar un mensaje de error
+        return HttpResponse('El documento guía no está disponible', status=404)

@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-center col-12">
         <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">ANEXOS</h5>
     </div>
-
+    <input type="hidden" id="proyecto_id" value="{{ id_proyecto }}">
     <div class="card">
         <div id="headingOne">
         </div>
@@ -22,72 +22,28 @@
                         <div class="col-12 md-10">
                             <div class="bg-light mt-2 border_radius row me-0">
                                 <div class="col-12 md-10">
-                                    <form method="post" id="form1" action="" class="needs-validation"
-                                        enctype="multipart/form-data">
+                                    <form method="post" id="form1" action="" class="needs-validation" enctype="multipart/form-data">
                                         {% csrf_token %}
-
                                         <div class="mt-3" style="width: 95%; margin-left: 2%;">
-
-                                            <div class="mb-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">ANEXO 1A. Acta Reunión
-                                                        Regional</label>
-                                                    <input class="form-control" name="anexo1" type="file" id="formFile"
-                                                        onchange="validateFileType()">
+                                            {% for documento in documentos %}
+                                                <div class="mb-1" style="margin-left: 80%;">
+                                                    {% if documento.guia %}
+                                                        <a href="{{ documento.guia.url }}" class="btn btn-success mt-2" download>Descargar Guía</a>
+                                                    {% else %}
+                                                        <span class="text-muted">No hay guía disponible</span>
+                                                    {% endif %}
                                                 </div>
-                                            </div>
-
-                                            <!-- Segundo textarea con label -->
-                                            <div class="mb-3">
                                                 <div class="mb-3">
-                                                    <label for="formFile" class="form-label">ANEXO 1C. Carta C.I
-                                                        Director Regional</label>
-                                                    <input class="form-control" name="anexo2" type="file" id="formFile"
-                                                        onchange="validateFileType()">
+                                                    <label for="anexo_{{ documento.id }}" class="form-label">{{ documento.nombre }}</label>
+                                                    <input class="form-control" name="anexo_{{ documento.id }}" type="file" id="anexo_{{ documento.id }}" onchange="validateFileType()">
                                                 </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">ANEXO 2. Ficha técnica para
-                                                        maquinaria y equipos.</label>
-                                                    <input class="form-control" name="anexo3" type="file" id="formFile"
-                                                        onchange="validateFileType()">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">ANEXO 4. Modernización.
-                                                        (Obligatorio para los proyectos cuyo objeto sea la actualización
-                                                        y modernización de ambientes de formación (SIIF 23))</label>
-                                                    <input class="form-control" name="anexo4" type="file" id="formFile"
-                                                        onchange="validateFileType()">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">ANEXO 7. Carta de intención
-                                                        o acta que soporta el trabajo articulado con entidades aliadas
-                                                        (diferentes al SENA) (Obligatorio si se articula con entidad
-                                                        aliada o con otro Centro de Formación)</label>
-                                                    <input class="form-control" name="anexo5" type="file" id="formFile"
-                                                        onchange="validateFileType()">
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="mb-3">
-                                                    <label for="formFile" class="form-label">ANEXO 8. Propiedad
-                                                        intelectual (Obligatorio si se articula con entidad aliada o con
-                                                        otro Centro de Formación)</label>
-                                                    <input class="form-control" name="anexo6" type="file" id="formFile"
-                                                        onchange="validateFileType()">
-                                                </div>
-                                            </div>
-
+                                            {% endfor %}
+                                        
                                             <!-- Botón Siguiente centrado -->
                                             <div class="d-flex justify-content-center col-12">
-                                                <button type="submit"
-                                                    class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
+                                                <button type="submit" data-proyecto-id="{{ id_proyecto }}" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                             </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -98,6 +54,7 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 {% if success_alert %}
 <script>

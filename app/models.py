@@ -203,16 +203,16 @@ class RiesgoActividades(BaseRiesgo):
     pass
 
 class Document(models.Model):
-    anexo1 = models.FileField(upload_to="", null=True)
-    anexo2 = models.FileField(upload_to="", null=True)
-    anexo3 = models.FileField(upload_to="", null=True)
-    anexo4 = models.FileField(upload_to="", null=True)
-    anexo5 = models.FileField(upload_to="", null=True)
-    anexo6 = models.FileField(upload_to="", null=True)
-    fecha = models.DateTimeField(auto_now=True)
-    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100, null=True)
+    estado = models.BooleanField(default=True)
+    vigencia = models.DateTimeField(auto_now=True)
+    guia = models.FileField(upload_to='', null=True, blank=True)
 
-
+class Anexos(models.Model):
+    proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
+    anexo = models.FileField(upload_to='', null=True, blank=True)
+    anexo_requerido = models.ForeignKey(Document, on_delete=models.CASCADE)
+     
 # Listas plegable
 class Listas_plegables(models.Model):
     codigos_grupo_investigacion = models.CharField(max_length=10, null=True)

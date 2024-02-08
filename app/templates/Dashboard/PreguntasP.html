@@ -83,10 +83,10 @@
     <div class="row">
         <div class="col-6">
             <h1 class="h3 mb-2 text-gray-800">Anexos</h1>
-            <p class="mb-4">Podras crear nuevos anexos requeridos para un proyecto.</p>
+            <p class="mb-4">Podrás crear nuevos anexos requeridos para un proyecto.</p>
         </div>
         <div class="col-6 mt-5" style="padding-left: 20%;">
-            <button type="button" class="btn btn-success">Add</button>
+            <button type="button" class="btn btn-success" onclick="agregarAnexo()">Add</button>
         </div>
     </div>
 </div>
@@ -96,14 +96,25 @@
             <thead>
                 <tr>
                     <th class="col-7">Anexos</th>
-                    <th class="">Fecha de creacion</th>
+                    <th class="">Estado</th>
+                    <th class="">Carga y descargar</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Nombre de Anexo</td>
-                    <td>Fecha creacion</td>
-                </tr>
+            <tbody id="tablaCuerpo">
+                {% for document in documents %}
+                    <tr>
+                        <td>{{ document.nombre }}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input cambioEstado" type="checkbox" id="estado_{{ document.id }}" {% if document.estado %}checked{% endif %}>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary">Ver</button> 
+                            <button class="btn btn-secondary" onclick="cargarGuia('{{ document.id }}')">Cargar Guía</button>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -167,4 +178,6 @@
         </table>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 {% endblock %}

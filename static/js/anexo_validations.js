@@ -38,24 +38,33 @@ function validarTamanioArchivo(input, maxSizeInBytes) {
     return true;
 }
 
-const form = document.getElementById('form1');
-form.addEventListener('submit', (event) => {
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
+$(document).ready(function() {
+    $('#form1').submit(function(event) {
+        event.preventDefault();
 
-    for (const input of fileInputs) {
-        if (!validarTamanioArchivo(input, maxSizeInBytes)) {
-            event.preventDefault();
-            return;
-        }
-    }
-});
+        var formData = new FormData(this);
+        var proyecto_id = $('#proyecto_id').val();
 
-const fileInputs = document.querySelectorAll('input[type="file"]');
-const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB
+        // Agregar el proyecto_id al FormData
+        formData.append('proyecto_id', proyecto_id);
 
-fileInputs.forEach(input => {
-    input.addEventListener('change', () => {
-        validarTamanioArchivo(input, maxSizeInBytes);
+        $.ajax({
+            type: 'POST',
+            url: '/subir_anexo/',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.success) {
+                    alert('Anexos subidos exitosamente');
+                } else {
+                    alert('Error al subir los anexos: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX para subir los anexos:', error);
+                alert('Error en la solicitud AJAX para subir los anexos');
+            }
+        });
     });
 });
