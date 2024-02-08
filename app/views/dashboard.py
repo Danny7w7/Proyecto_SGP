@@ -310,7 +310,7 @@ def preguntas(request):
       return redirect('index')
     contex = {
         'documents': documents,
-        'preguntas':preguntasP.objects.all()
+        'preguntas':PreguntasP.objects.all()
     }
     return render(request, 'Dashboard/PreguntasP.html', contex)
 

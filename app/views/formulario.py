@@ -87,10 +87,10 @@ def get_or_none(model, *args, **kwargs):
 
 def contex_form():
     lista = Listas_plegables.objects.all()
-    codigos = lista.order_by("codigos_grupo_investigacion").values_list(
+    codigos = lista.values_list(
         "codigos_grupo_investigacion", flat=True
     )
-    nombres = lista.order_by("nombre_grupo_investigacion").values_list(
+    nombres = lista.values_list(
         "nombre_grupo_investigacion", flat=True
     )
     redes = lista.order_by("redes_conocimiento").values_list(

@@ -64,7 +64,7 @@
         </div>
 
         <!-- Content of First Button -->
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <form method="post" class="needs-validation" action="" id="form1">
                 <div class="card-body">
                     <div class="contenido">
@@ -485,7 +485,7 @@
     </div>
         
     <!-- Cuarto boton de contenido -->
-    <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
         <form method="post" class="needs-validation" action="" id="form4">
             <div class="card-body">
                 <div class="contenido">
@@ -523,7 +523,7 @@
                                     </select>
 
                                     {% for pregunta in preguntas %}
-                                        {% if not forloop.counter|divisibleby:2 %}
+                                        {% if not forloop.counter|divisibleby:2 and pregunta.estado %}
                                             <label class="form-label mt-3">{{pregunta.enunciado}}</label>
                                             <!-- En el name y el id lo tengo que traer con DJango desde el contex es el fieldquestion -->
                                             <select name="{{pregunta.normalized}}select" id="{{pregunta.normalized}}select" class="form-control selectmod fieldQuestionAddByDjango">

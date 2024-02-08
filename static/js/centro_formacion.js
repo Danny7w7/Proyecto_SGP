@@ -337,8 +337,8 @@ function sendPost2() {
     var descripcion_recursos_especie_aportados = document.getElementById("descripcion_recursos_especie_aportados").value;
     var recursos_dinero_entidad_aliada = document.getElementById("recursos_dinero_entidad_aliada").value;
     var descripcion_destinacion_dinero_aportado = document.getElementById("descripcion_destinacion_dinero_aportado").value;
-    var nombre_grupo_inv_entidad_aliada = document.getElementById("nombre_grupo_inv_entidad_aliada").value;
-    var codigo_gruplac_entidad_aliada = document.getElementById("codigo_gruplac_entidad_aliada").value;
+    var nombre_grupo_inv_entidad_aliada = document.getElementById("nombre_Grupo_Investigacion").value;
+    var codigo_gruplac_entidad_aliada = document.getElementById("select_box").value;
     var link_gruplac_entidad_aliada = document.getElementById("link_gruplac_entidad_aliada").value;
     var actividades_desarrollar_entidad_aliada_marco_proyecto = document.getElementById("actividades_desarrollar_entidad_aliada_marco_proyecto").value;
     var metodologia_act_transferencia_centro_formacion = document.getElementById("metodologia_act_transferencia_centro_formacion").value;
