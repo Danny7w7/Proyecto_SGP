@@ -21,21 +21,34 @@ function edit_participantes(id) {
         changeDiv.value = inputs[i].value;
     }
 }
-var currentLength;
-var currentLength2;
-var currentLength3;
+
+
 document.addEventListener("DOMContentLoaded", function () {
     getRegiones()
-    fieldQuestion = [
-        "proyecto_Relacionado_Industrial40",
-        "proyecto_Relacionado_Economia_Naranja",
-        "proyecto_Relacionado_Politica_Discapacidad",
-    ];
-    fieldExclude = [
-        "justificacion_Industrial",
-        "justificacion_Economia_Naranja",
-        "justificacion_Politica_Discapacidad",
-    ];
+
+    var fieldQuestion = [];
+    var fieldExclude = [];
+    const textsArea = []
+    
+    //Obtengo todos los inputs de preguntas politicas agregador por el contex de Django
+    fieldQuestionAddByDjango = document.getElementsByClassName('fieldQuestionAddByDjango')
+    fieldExcludeAddByDjango = document.getElementsByClassName('fieldExcludeAddByDjango')
+    for (let i = 0; i < fieldQuestionAddByDjango.length; i++) {
+        fieldQuestion.push(fieldQuestionAddByDjango[i].id)
+        fieldExclude.push(fieldExcludeAddByDjango[i].id)
+        textsArea.push(fieldExcludeAddByDjango[i])
+    }
+
+    for (let i = 0; i < fieldQuestionAddByDjango.length; i++) {
+        fieldQuestionAddByDjango[i].addEventListener("change", function () {
+            if (fieldQuestionAddByDjango[i].value == 0) {
+                fieldExcludeAddByDjango[i].readOnly = true;
+            }else{
+                fieldExcludeAddByDjango[i].readOnly = false;
+            }
+        });
+    }
+
     var inputs = fieldQuestion.map(function (id) {
         return document.getElementById(id);
     });
@@ -56,13 +69,9 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCounter();
     }
 
-    const textarea1 = document.getElementById("justificacion_Industrial");
-    const textarea2 = document.getElementById("justificacion_Economia_Naranja");
-    const textarea3 = document.getElementById("justificacion_Politica_Discapacidad");
-
-    handleTextareaInput(textarea1, "char-counter1");
-    handleTextareaInput(textarea2, "char-counter2");
-    handleTextareaInput(textarea3, "char-counter3");
+    for (let i = 0; i < textsArea.length; i++) {
+        handleTextareaInput(textsArea[i], `char-counter${i+1}`);
+    }
     
     const buttons = [
         document.getElementById("step2"),
@@ -164,20 +173,15 @@ document.addEventListener("DOMContentLoaded", function () {
             pattern: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
             errorMsg: 'El link del vídeo no es válido.',
         },
-        "justificacion_Economia_Naranja":{
-            pattern: /^[\s\S]{5,600}$/,
-            errorMsg: 'La justificación de economía naranja no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
-        }, 
-        "justificacion_Politica_Discapacidad":{
-            pattern: /^[\s\S]{5,600}$/,
-            errorMsg: 'La justificación de política de discapacidad no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
-        }, 
-        "justificacion_Industrial":{
-            pattern: /^[\s\S]{5,600}$/,
-            errorMsg: `La justificación industrial 4.0 no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.`,
-        }, 
        }
     };
+
+    for (let i = 0; i < fieldExclude.length; i++) {
+        allValidations.form4[fieldExclude[i]] = {
+            pattern: /^[\s\S]{5,600}$/,
+            errorMsg: 'La justificación no es válida. Debe tener entre 5 y 600 caracteres y solo puede contener letras y espacios.',
+        };
+    }
 
     // Itera sobre cada conjunto de validaciones
     for (let formKey in allValidations) {
@@ -263,7 +267,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var numRows = document.querySelectorAll(
             "#table_autores tbody tr"
         ).length;
-        console.log(numRows);
 
         // Si ya hay 3 autores, muestra una alerta y no envía la solicitud POST
         if (formKey === "form2" && numRows > 2) {
@@ -586,32 +589,32 @@ function sendPost4() {
     var id_proyecto = document.getElementById("id_proyecto").value;
     // Obtener los valores de los campos del formulario
     var codigo_dependencia_presupuestal =
-        document.getElementById("select_box7").value;
+    document.getElementById("select_box7").value;
     var tematicas_estrategias_sena =
-        document.getElementById("select_box8").value;
-    var link_video_proyecto = document.getElementById(
-        "link_video_proyecto"
-    ).value;
-    var proyecto_relacionado_industrial40 = document.getElementById(
-        "proyecto_Relacionado_Industrial40"
-    ).value;
-    var justificacion_industrial = document.getElementById(
-        "justificacion_Industrial"
-    ).value;
+    document.getElementById("select_box8").value;
+    var link_video_proyecto = 
+    document.getElementById("link_video_proyecto").value;
     var actividades_economicas_del_proyecto_investigacion =
-        document.getElementById("select_box9").value;
-    var proyecto_relacionado_economia_naranja = document.getElementById(
-        "proyecto_Relacionado_Economia_Naranja"
-    ).value;
-    var justificacion_economia_naranja = document.getElementById(
-        "justificacion_Economia_Naranja"
-    ).value;
-    var proyecto_relacionado_politica_discapacidad = document.getElementById(
-        "proyecto_Relacionado_Politica_Discapacidad"
-    ).value;
-    var justificacion_politica_discapacidad = document.getElementById(
-        "justificacion_Politica_Discapacidad"
-    ).value;
+    document.getElementById("select_box9").value;
+
+
+    
+    // var proyecto_relacionado_industrial40 = 
+    // document.getElementById("proyecto_Relacionado_Industrial40").value;
+    // var justificacion_industrial = 
+    // document.getElementById("justificacion_Industrial").value;
+
+    // var proyecto_relacionado_economia_naranja = 
+    // document.getElementById("proyecto_Relacionado_Economia_Naranja").value;
+    // var justificacion_economia_naranja = 
+    // document.getElementById("justificacion_Economia_Naranja").value;
+
+    // var proyecto_relacionado_politica_discapacidad = 
+    // document.getElementById("proyecto_Relacionado_Politica_Discapacidad").value;
+    // var justificacion_politica_discapacidad = 
+    // document.getElementById("justificacion_Politica_Discapacidad").value;
+
+
     var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     // Crear un objeto FormData para los datos del formulario
@@ -620,34 +623,29 @@ function sendPost4() {
         "codigo_Dependencia_Presupuestal",
         codigo_dependencia_presupuestal
     );
-    formData.append("tematicas_Estrategias_SENA", tematicas_estrategias_sena);
-    formData.append("link_video_proyecto", link_video_proyecto);
     formData.append(
-        "proyecto_Relacionado_Industrial40",
-        proyecto_relacionado_industrial40
-    );
-    formData.append("justificacion_Industrial", justificacion_industrial);
-    formData.append(
-        "actividades_economicas_del_proyecto_investigacion",
-        actividades_economicas_del_proyecto_investigacion
+        "tematicas_Estrategias_SENA", 
+        tematicas_estrategias_sena
     );
     formData.append(
-        "proyecto_Relacionado_Economia_Naranja",
-        proyecto_relacionado_economia_naranja
+        "link_video_proyecto", 
+        link_video_proyecto
     );
+
+
+    for (let i = 0; i < fieldQuestionAddByDjango.length; i++) {
+        if (fieldQuestionAddByDjango[i].value != 0) {
+            formData.append(
+                fieldQuestionAddByDjango[i].value,
+                fieldExcludeAddByDjango[i].value
+            )
+        }
+    }
+
     formData.append(
-        "justificacion_Economia_Naranja",
-        justificacion_economia_naranja
+        "csrfmiddlewaretoken", 
+        csrfToken
     );
-    formData.append(
-        "proyecto_Relacionado_Politica_Discapacidad",
-        proyecto_relacionado_politica_discapacidad
-    );
-    formData.append(
-        "justificacion_Politica_Discapacidad",
-        justificacion_politica_discapacidad
-    );
-    formData.append("csrfmiddlewaretoken", csrfToken);
     // Realizar una solicitud POST utilizando Fetch
     fetch(`/proyecto/info-proyecto/info-generalidades/${id_proyecto}/`, {
         method: "POST",
@@ -660,7 +658,7 @@ function sendPost4() {
                 // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
             } else {
                 console.log("Mensaje de éxito:", data.mensaje);
-                window.location.href = `/estructura-proyecto/${id_proyecto}/`;
+                // window.location.href = `/estructura-proyecto/${id_proyecto}/`;
             }
         })
         .catch((error) => {
@@ -862,8 +860,6 @@ function getRegiones() {
         .catch((error) => {
             console.error("Error al realizar la solicitud:", error);
         });
-
-  
 };
 
 function showRegional(data) {
@@ -882,7 +878,6 @@ function showRegional(data) {
         const options = getArraybuttonOption("select_box2")
         for (let i = 0; i < data.regionales.length; i++) {
             if (data.regionales[i].region_id == id_region) {
-                console.log(data.regionales[i].region_id)
                 options[i+1].style.display = 'block';
             } else{
                 options[i+1].style.display = 'none';
@@ -893,18 +888,12 @@ function showRegional(data) {
         for (let i = 0; i < data.regionales.length; i++) {
             if (data.regionales[i].nombre.toLowerCase() == selectRegional.value.toLowerCase()){
                 id_regional = data.regionales[i].cod_regional
-                console.log(id_regional)
                 break;
             }
         }
         const options2 = getArraybuttonOption("select_box3")
         for (let i = 0; i < data.centros.length; i++) {
-            console.log('El centro ' + data.centros[i].codigo +'-'+ data.centros[i].nombre +' tiene que ser iwal que ')
-            console.log(options2[i+1])
-            console.log("\n\n")
             if (data.centros[i].region_id == id_regional) {
-                // console.log(data.centros[i].region_id)
-                // console.log(options2[i+1])
                 options2[i+1].style.display = 'block';
             } else{
                 options2[i+1].style.display = 'none';

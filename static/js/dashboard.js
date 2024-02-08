@@ -639,18 +639,27 @@ function addPreguntas(){
             updateTablePregunta(data)
         }
     })
-    // .catch(error => {
-    //     console.error('Error en la solicitud:', error);
-    //     // Manejar errores en la solicitud, como problemas de red
-    // });
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        // Manejar errores en la solicitud, como problemas de red
+    });
 }
 
 function updateTablePregunta(data){
+    var div = document.createElement('div');
+    div.innerHTML = `
+        <label class="switch">
+            <input id="stateInput${data.question.id}" onclick="changeState(${data.question.id})" type="checkbox" ${data.question.estado ? 'checked' : ''}>
+            <span class="slider round"></span>
+        </label>
+    `;
     let table = document.getElementById('tablequestion')
     let nuevaFila = table.insertRow();
     nuevaFila.insertCell().textContent = data.question.enunciado;
     nuevaFila.insertCell().textContent = data.question.periodo;
     nuevaFila.insertCell().textContent = data.question.estado;
+    var nuevaCelda = nuevaFila.insertCell();
+    nuevaCelda.appendChild(div);
 }
 
 // Funcion de agregar nuevo anexo
@@ -725,3 +734,21 @@ function cargarGuia(documentId) {
     // Simular clic en el input de tipo archivo
     inputFile.click();
 }putFile.click();
+
+function changeState(id){
+    var formData = new FormData();
+    formData.append("state", document.getElementById('stateInput'+id).checked);
+    formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
+    fetch(`/dashboard/changeState/${id}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+        }
+    })
+}

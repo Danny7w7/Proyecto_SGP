@@ -64,7 +64,7 @@
         </div>
 
         <!-- Content of First Button -->
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <form method="post" class="needs-validation" action="" id="form1">
                 <div class="card-body">
                     <div class="contenido">
@@ -485,7 +485,7 @@
     </div>
         
     <!-- Cuarto boton de contenido -->
-    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+    <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
         <form method="post" class="needs-validation" action="" id="form4">
             <div class="card-body">
                 <div class="contenido">
@@ -508,6 +508,7 @@
                                         <option {%if generalidades.codigo_Dependencia_Presupuestal == 'fomento_innovacion_82'%}selected{%endif%} value="fomento_innovacion_82">Fomento para la innovacion(82)
                                         </option>
                                     </select>
+
                                     <label for="tematicas_Estrategias_SENA" class="form-label mt-3">Temáticas estratégicas SENA</label>
                                     <select name="tematicas_Estrategias_SENA" id="select_box8" class="form-select">
                                         <option value="" disabled selected>Selecciona una opción...</option>
@@ -520,21 +521,31 @@
                                         <option {%if generalidades.tematicas_Estrategias_SENA == 'industria_40'%}selected{%endif%} value="industria_40">Industria 4.0</option>
                                         <option {%if generalidades.tematicas_Estrategias_SENA == 'movilidad_industria'%}selected{%endif%} value="movilidad_industria">Movilidad e industria</option>
                                     </select>
-                                    <label for="link_video_proyecto" class="form-label mt-4">Link de video del proyecto</label>
-                                    <input type="url" name="link_video_proyecto" id="link_video_proyecto" class="form-control form-control-sm" value="{{generalidades.link_video_proyecto}}">
-                                    <div class="invalid-feedback"></div>
-                                    <label for="" class="form-label mt-3">¿El proyecto está relacionado con Industrial 4.0?</label>
-                                    <select name="proyecto_Relacionado_Industrial40" id="proyecto_Relacionado_Industrial40" class="form-control selectmod">
-                                        <option value="" disabled selected>Selecciona una opción...</option>
-                                        <option {%if generalidades.proyecto_Relacionado_Industrial40 == 1%}selected{%endif%} value="1">Sí</option>
-                                        <option {%if generalidades.proyecto_Relacionado_Industrial40 == 0%}selected{%endif%} value="0">No</option>
-                                    </select>
-                                    <label for="justificacion_Industrial" class="form-label mt-5">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
-                                    <input type="text" name="justificacion_Industrial" id="justificacion_Industrial" class="form-control form-control-sm" value="{{generalidades.justificacion_Industrial}}">
-                                    <div class="invalid-feedback"></div>
-                                    <span id="char-counter1">0/600 máximo</span>
-                                    <input type="hidden" name="val_just" value="600">
-                                    
+
+                                    {% for pregunta in preguntas %}
+                                        {% if not forloop.counter|divisibleby:2 %}
+                                            <label class="form-label mt-3">{{pregunta.enunciado}}</label>
+                                            <!-- En el name y el id lo tengo que traer con DJango desde el contex es el fieldquestion -->
+                                            <select name="{{pregunta.normalized}}select" id="{{pregunta.normalized}}select" class="form-control selectmod fieldQuestionAddByDjango">
+                                                <!-- Aqui luego veo que putas hago xd -->
+                                                <option selected value="" disabled>Selecciona una opción...</option>
+                                                <option 
+                                                {% for respuesta in respuestas %}
+                                                    {% if respuesta.pregunta_id == pregunta.id %}
+                                                        selected
+                                                    {% endif %}
+                                                {% endfor %}
+                                                value="{{pregunta.id}}">Sí</option>
+                                                <option value="0">No</option>
+                                            </select>
+                                            <label class="form-label mt-3">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                            <textarea name="{{pregunta.normalized}}input" id="{{pregunta.normalized}}input" class="form-control fieldExcludeAddByDjango" rows="3">{% for respuesta in respuestas %}{% if respuesta.pregunta_id == pregunta.id %}{{respuesta.respuesta}}{% endif %}{% endfor %}</textarea>
+                                            <div class="invalid-feedback"></div>
+                                            <small id="char-counter{{forloop.counter}}">0/600 máximo</small>
+                                            <input type="hidden" name="val_just" value="600">
+                                            {% else %}
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                                 <!-- Columna 2 -->
                                 <div class="col-12 col-md-6 mb-3">
@@ -548,31 +559,36 @@
                                             {% endif %}
                                         {% endfor %} 
                                     </select>
-                                    <label for="" class="form-label">¿El proyecto está relacionado con la economía naranja?</label>
-                                    <select name="proyecto_Relacionado_Economia_Naranja" id="proyecto_Relacionado_Economia_Naranja" class="form-control selectmod">
-                                        <option value="" disabled selected>Selecciona una opción...</option>
-                                        <option {%if generalidades.proyecto_Relacionado_Economia_Naranja == 1%}selected{%endif%} value="1">Sí</option>
-                                        <option {%if generalidades.proyecto_Relacionado_Economia_Naranja == 0%}selected{%endif%} value="0">No</option>
-                                    </select>
-                                    
-                                    <label for="justificacion_Economia_Naranja" class="form-label">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
-                                    <input type="text" name="justificacion_Economia_Naranja" id="justificacion_Economia_Naranja" class="form-control form-control-sm" value="{{generalidades.justificacion_Economia_Naranja}}">
+
+                                    <label for="link_video_proyecto" class="form-label mt-4">Link de video del proyecto</label>
+                                    <input type="url" name="link_video_proyecto" id="link_video_proyecto" class="form-control form-control-sm" value="{{generalidades.link_video_proyecto}}">
                                     <div class="invalid-feedback"></div>
-                                    <span id="char-counter2">0/600 máximo</span>
-                                    <input type="hidden" name="val_just2" value="600">
-                                    
-                                    <label for="" class="form-label">¿El proyecto aporta a la Política Institucional para Atención de las Personas con discapacidad?</label>
-                                    <select name="proyecto_Relacionado_Politica_Discapacidad" id="proyecto_Relacionado_Politica_Discapacidad" class="form-control selectmod">
-                                        <option value="" disabled selected>Selecciona una opción...</option>
-                                        <option {%if generalidades.proyecto_Relacionado_Politica_Discapacidad == 1%}selected{%endif%} value="1">Sí</option>
-                                        <option {%if generalidades.proyecto_Relacionado_Politica_Discapacidad == 0%}selected{%endif%} value="0">No</option>
-                                    </select>
-                                    
-                                    <label for="justificacion_Politica_Discapacidad" class="form-label mt-3">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
-                                    <input type="text" class="form-control form-control-sm" name="justificacion_Politica_Discapacidad" id="justificacion_Politica_Discapacidad" value="{{generalidades.justificacion_Politica_Discapacidad}}">
-                                    <div class="invalid-feedback"></div>
-                                    <span id="char-counter3">0/600 máximo</span>
-                                    <input type="hidden" name="val_just3" value="600">
+
+                                    {% for pregunta in preguntas %}
+                                        {% if forloop.counter|divisibleby:2 %}
+                                            <label class="form-label mt-3">{{pregunta.enunciado}}</label>
+                                            <!-- En el name y el id lo tengo que traer con DJango desde el contex es el fieldquestion -->
+                                            <select name="{{pregunta.normalized}}" id="{{pregunta.normalized}}" class="form-control selectmod fieldQuestionAddByDjango">
+                                                <!-- Aqui luego veo que putas hago xd -->
+                                                <option value="" disabled selected>Selecciona una opción...</option>
+                                                <option 
+                                                {% for respuesta in respuestas %}
+                                                    {% if respuesta.pregunta_id == pregunta.id %}
+                                                        selected
+                                                    {% endif %}
+                                                {% endfor %}
+                                                value="{{pregunta.id}}">Sí</option>
+                                                <option value="0">No</option>
+                                            </select>
+                                            <label class="form-label mt-3">Si contestó la pregunta anterior de forma afirmativa, justifique.</label>
+                                            <textarea name="{{pregunta.normalized}}input" id="{{pregunta.normalized}}input" class="form-control fieldExcludeAddByDjango" rows="3">{% for respuesta in respuestas %}{% if respuesta.pregunta_id == pregunta.id %}{{respuesta.respuesta}}{% endif %}{% endfor %}</textarea>
+                                            <div class="invalid-feedback"></div>
+                                            <small id="char-counter{{forloop.counter}}">0/600 máximo</small>
+                                            <input type="hidden" name="val_just" value="600">
+                                        {% else %}
+
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
                             <!-- Botón Siguiente centrado -->

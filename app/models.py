@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from unidecode import unidecode
+import re
+
 class Roles(models.Model):
     ROLES_CHOICES = (
         ('Admin', 'Administrador'),
@@ -73,21 +76,37 @@ class Participantes_Proyecto(models.Model):
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
 
 # Preguntas politicas
-class preguntasP(models.Model):
+class PreguntasP(models.Model):
     enunciado = models.CharField(max_length=200)
     estado = models.BooleanField()
     periodo = models.IntegerField()
+    normalized = models.CharField(max_length=200)
+
+    def save(self, *args, **kwargs):
+        patterns_to_eliminate = [
+            (" ", ""),
+            ("¿", ""),
+            ("?", ""),
+            ("El", ""),
+            ("el", ""),
+            (".", ""),
+        ]
+        for patron, reemplazo in patterns_to_eliminate:
+            self.normalized =unidecode(re.sub(re.escape(patron), reemplazo, self.normalized))
+        super().save(*args, **kwargs)
+         
 
 class Generalidades_del_proyecto(models.Model):
     codigo_Dependencia_Presupuestal = models.CharField(max_length=50, null=True)
     tematicas_Estrategias_SENA = models.CharField(max_length=100, null=True)
     link_video_proyecto = models.CharField(max_length=500, null=True)
     actividades_economicas_del_proyecto_investigacion = models.CharField(max_length=100, null=True)
-    campo1 = models.CharField(max_length=600)
-    campo2 = models.CharField(max_length=600)
-
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
+class Respuestas(models.Model):
+    respuesta = models.CharField(max_length=600, null=False)
+    pregunta = models.OneToOneField(PreguntasP, on_delete=models.CASCADE)
+    generalidad = models.ForeignKey(Generalidades_del_proyecto, on_delete=models.CASCADE)
 
 #Estructura del proyecto
 class Resumen_antecedentes(models.Model):

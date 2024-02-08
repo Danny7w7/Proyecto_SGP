@@ -36,7 +36,9 @@ from app.models import (
     CronogramaAct,
     Presupuesto,
     Rubro,
-    TipoRubro
+    TipoRubro,
+    PreguntasP,
+    Respuestas
 )
 
 
@@ -265,6 +267,8 @@ def informacion_proponente(request, id_proyecto):
                'participantes': Participantes_Proyecto.objects.filter(proyecto = proyecto),
                'generalidades':get_or_none(Generalidades_del_proyecto, proyecto=id_proyecto),
                'percentaje':id_proyecto,
+               'preguntas':PreguntasP.objects.all(),
+               'respuestas':Respuestas.objects.filter(generalidad_id=get_or_none(Generalidades_del_proyecto, proyecto=id_proyecto)),  # Obtener las respuestas asociadas a las generalidades del proyecto
                'listaPlegable':contex_form()}
     return render(request, 'form/infop.html', context)
 
@@ -587,6 +591,25 @@ def info_generalidades(request, id_proyecto):
         proyecto = Proyecto.objects.get(id=id_proyecto)
         generalidades = Generalidades_del_proyecto.objects.create(proyecto=proyecto)
 
+    preguntas = PreguntasP.objects.all()
+
+    #Recorro todas las preguntas creadas para luego comprobar si la ID de la respuesta coincide con la pregunta y asi asociarla correctamente
+    for pregunta in preguntas:
+        if str(pregunta.id) in request.POST and request.POST[str(pregunta.id)]:
+            try:
+                respuesta = Respuestas.objects.get(pregunta_id=pregunta.id)
+            except:
+                respuesta = Respuestas()
+            respuesta.respuesta = request.POST[str(pregunta.id)]
+            respuesta.generalidad_id = generalidades.id
+            respuesta.pregunta_id = pregunta.id
+            respuesta.save()
+        #Si le ID de la pregunta no llego es porque el usuario selecciono que no, por ende en caso de que exista hay que borrarla.
+        if not str(pregunta.id) in request.POST and Respuestas.objects.filter(pregunta_id=pregunta.id).exists():
+            Respuestas.objects.get(pregunta_id=pregunta.id).delete()
+
+        
+
     model = Generalidades_del_proyecto
     column_names = [field.name for field in model._meta.fields]
 
@@ -607,7 +630,6 @@ def getRegionJson(request):
     i = 0
     for item in centross:
         i=1+i
-    print(i)
     return JsonResponse(
             {
                 "mensaje": "Operación exitosa",

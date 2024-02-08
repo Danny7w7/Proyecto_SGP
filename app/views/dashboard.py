@@ -1,8 +1,11 @@
 #Funciones de ADMIN MENU
+
+import json
+
 from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.models import Centro_formacion, Document, Listas_plegables, Usuarios, Roles, preguntasP
+from app.models import Centro_formacion, Document, Listas_plegables, Usuarios, Roles, PreguntasP
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -42,6 +45,14 @@ def usuarios(request):
 
 
 
+@login_required(login_url=('/login'))
+def preguntas(request):
+    if not user_has_role(request.user,'Admin'):
+      return redirect('index')
+    contex = {
+        'preguntas':PreguntasP.objects.all()
+    }
+    return render(request, 'Dashboard/PreguntasP.html', contex)
 
 @login_required(login_url=('/login'))
 def proyectosINA(request):
@@ -273,12 +284,14 @@ def agregar_dato4(request):
 
 def agregar_pregunta(request):
     try:
-        pregunta = preguntasP()
+        pregunta = PreguntasP()
         pregunta.enunciado = request.POST["iPregunta"]
         pregunta.estado = True
         pregunta.periodo = request.POST["iPeriodo"]
+        pregunta.normalized = request.POST["iPregunta"]
         pregunta.save()
         new_question = {
+            "id": pregunta.id,
             "enunciado": pregunta.enunciado,
             "estado": pregunta.estado,
             "periodo": pregunta.periodo,
@@ -331,3 +344,15 @@ def cargar_guia(request):
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False, 'message': 'Método no permitido'}, status=405)
+    
+def changeState(request, id):
+    try:
+        question = PreguntasP.objects.get(id=id)
+        state = request.POST.get('state')
+        question.estado = json.loads(state.lower())
+
+        question.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+

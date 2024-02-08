@@ -50,7 +50,7 @@ urlpatterns = [
     path('anexos/<int:id_proyecto>', views.anexos, name='anexos'),
 
     #Json
-    # GetRegionesJson
+    #GetRegionesJson
     path('getRegiones/', views.getRegionJson, name='getRegion'),
 
     # GetEditFormJson
@@ -69,6 +69,7 @@ urlpatterns = [
     path('dashboard/dashboard/disciplina-subarea/', views.agregar_dato4, name='agregar_dato4'),
 
     path('dashboard/addquestion/', views.agregar_pregunta, name='agregar_pregunta'),
+    path('dashboard/changeState/<int:id>/', views.changeState, name='changeState'),
     
     #Informacion proyecto
     path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info_proponente'),
