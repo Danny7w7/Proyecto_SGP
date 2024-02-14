@@ -26,11 +26,18 @@
                                         {% csrf_token %}
                                         <div class="mt-3" style="width: 95%; margin-left: 2%;">
                                             {% for documento in documentos %}
-                                                <div class="mb-1" style="margin-left: 80%;">
+                                                <div class="row mb-1" style="margin-left: 80%;">
                                                     {% if documento.guia %}
-                                                        <a href="{{ documento.guia.url }}" class="btn btn-success mt-2" download>Descargar Guía</a>
+                                                        <a href="{{ documento.guia.url }}" class="col-8 btn btn-success mt-2" download>Descargar Guía</a>
                                                     {% else %}
                                                         <span class="text-muted">No hay guía disponible</span>
+                                                    {% endif %}
+                                                {% if documento.anexos_set.all|length > 0 %}
+                                                      {% for anexo in documento.anexos_set.all %}
+                                                         <a href="{{ anexo.anexo.url }}" class="col-8 btn btn-success mt-1" download>Descargar {{ anexo.nombre }}</a>
+                                                        {% endfor %}
+                                                     {% else %}
+                                                        <span class="text-muted">No hay anexo subido</span>
                                                     {% endif %}
                                                 </div>
                                                 <div class="mb-3">
@@ -56,6 +63,11 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+<script>
+    function descargarAnexo(anexoId) {
+    window.location.href = '/descargar_anexo/' + anexoId;
+}
+</script>
 {% if success_alert %}
 <script>
     Swal.fire({

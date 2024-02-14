@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.core.serializers import serialize
+from django.conf import settings
 
 from app.forms import (
     Informacion_proponenteForm,
@@ -1092,3 +1093,16 @@ def descargar_guia(request, documento_id):
     else:
         # Si no hay guía disponible, regresar un mensaje de error
         return HttpResponse('El documento guía no está disponible', status=404)
+    
+def descargar_anexo(request, anexo_id):
+    try:
+        anexo = Anexos.objects.get(pk=anexo_id)
+        file_path = os.path.join(settings.MEDIA_ROOT, str(anexo.anexo))
+        with open(file_path, 'rb') as file:
+            response = HttpResponse(file.read(), content_type='application/octet-stream')
+            response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+            return response
+    except Anexos.DoesNotExist:
+        return HttpResponse('Anexo no encontrado', status=404)
+    except Exception as e:
+        return HttpResponse(str(e), status=500)

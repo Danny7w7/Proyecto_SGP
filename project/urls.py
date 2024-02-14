@@ -119,6 +119,7 @@ urlpatterns = [
     path('Dashboard/Proyectos-Pendientes', views.proyectoP, name='Proyecto-Pendiente'),
     path('eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
     path('guardar_anexo/', views.guardar_anexo, name='guardar_anexo'),
+    path('descargar_anexo/<int:anexo_id>/', views.descargar_anexo, name='descargar_anexo'),
     path('cargar_guia/', views.cargar_guia, name='cargar_guia'),
     
     path('gantt_data/', views.gantt_data, name='gantt_data'),

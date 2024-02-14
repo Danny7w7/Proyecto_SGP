@@ -15,7 +15,7 @@ class ActualizarUltimaVistaMiddleware(MiddlewareMixin):
     #Formulador
     '/Dashboard/', '/Dashboard/Doc-Anexos/', '/Dashboard/Usuarios/', '/Dashboard/PreguntasPoli',
     '/Dashboard/Proyectos-Inactivos/','/Dashboard/Proyectos-Completos/','/Dashboard/Proyectos-Inactivos/',
-    '/Dashboard/Proyectos-Pendientes/','/Dashboard/404/notfount/' 
+    '/Dashboard/Proyectos-Pendientes/','/Dashboard/404/notfount/', '/seleccionar/', '/'
 
     #Anexo
     '/editar_anexo/<int:proyecto_id>/',
