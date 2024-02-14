@@ -525,9 +525,7 @@
                                     {% for pregunta in preguntas %}
                                         {% if not forloop.counter|divisibleby:2 and pregunta.estado %}
                                             <label class="form-label mt-3">{{pregunta.enunciado}}</label>
-                                            <!-- En el name y el id lo tengo que traer con DJango desde el contex es el fieldquestion -->
                                             <select name="{{pregunta.normalized}}select" id="{{pregunta.normalized}}select" class="form-control selectmod fieldQuestionAddByDjango">
-                                                <!-- Aqui luego veo que putas hago xd -->
                                                 <option selected value="" disabled>Selecciona una opción...</option>
                                                 <option 
                                                 {% for respuesta in respuestas %}
@@ -565,11 +563,9 @@
                                     <div class="invalid-feedback"></div>
 
                                     {% for pregunta in preguntas %}
-                                        {% if forloop.counter|divisibleby:2 %}
+                                        {% if forloop.counter|divisibleby:2 and pregunta.estado %}
                                             <label class="form-label mt-3">{{pregunta.enunciado}}</label>
-                                            <!-- En el name y el id lo tengo que traer con DJango desde el contex es el fieldquestion -->
-                                            <select name="{{pregunta.normalized}}" id="{{pregunta.normalized}}" class="form-control selectmod fieldQuestionAddByDjango">
-                                                <!-- Aqui luego veo que putas hago xd -->
+                                            <select name="{{pregunta.normalized}}" id="{{pregunta.normalized}}select" class="form-control selectmod fieldQuestionAddByDjango">
                                                 <option value="" disabled selected>Selecciona una opción...</option>
                                                 <option 
                                                 {% for respuesta in respuestas %}

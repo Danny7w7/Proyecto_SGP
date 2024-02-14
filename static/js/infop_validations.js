@@ -55,7 +55,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Verificador de caracteres
     function handleTextareaInput(textarea, counterId) {
-        const counter = document.getElementById(counterId);
+        let counter = null;
+        while (counterId<1000) {
+            // Intento obtener el elemento con el ID char-counter
+            counter = document.getElementById(`char-counter${counterId}`);
+            // Compruebo si este existe para asi salir del ciclo while
+            if (counter){
+                counterId = 1000
+            }
+            // En caso de que no exista se va a aumentar el ID del counter para que intente obtener el siguiente y asi continuar con el ciclo hasta que lo obtenga
+            counterId++;
+        }
         const val_jus = parseInt(counter.nextElementSibling.value);
 
         function updateCounter() {
@@ -70,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     for (let i = 0; i < textsArea.length; i++) {
-        handleTextareaInput(textsArea[i], `char-counter${i+1}`);
+        handleTextareaInput(textsArea[i], i+1);
     }
     
     const buttons = [
@@ -598,23 +608,6 @@ function sendPost4() {
     document.getElementById("select_box9").value;
 
 
-    
-    // var proyecto_relacionado_industrial40 = 
-    // document.getElementById("proyecto_Relacionado_Industrial40").value;
-    // var justificacion_industrial = 
-    // document.getElementById("justificacion_Industrial").value;
-
-    // var proyecto_relacionado_economia_naranja = 
-    // document.getElementById("proyecto_Relacionado_Economia_Naranja").value;
-    // var justificacion_economia_naranja = 
-    // document.getElementById("justificacion_Economia_Naranja").value;
-
-    // var proyecto_relacionado_politica_discapacidad = 
-    // document.getElementById("proyecto_Relacionado_Politica_Discapacidad").value;
-    // var justificacion_politica_discapacidad = 
-    // document.getElementById("justificacion_Politica_Discapacidad").value;
-
-
     var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     // Crear un objeto FormData para los datos del formulario
@@ -630,6 +623,10 @@ function sendPost4() {
     formData.append(
         "link_video_proyecto", 
         link_video_proyecto
+    );
+    formData.append(
+        "actividades_economicas_del_proyecto_investigacion", 
+        actividades_economicas_del_proyecto_investigacion
     );
 
 
@@ -658,7 +655,7 @@ function sendPost4() {
                 // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
             } else {
                 console.log("Mensaje de éxito:", data.mensaje);
-                // window.location.href = `/estructura-proyecto/${id_proyecto}/`;
+                window.location.href = `/estructura-proyecto/${id_proyecto}/`;
             }
         })
         .catch((error) => {
