@@ -9,6 +9,8 @@ from app.models import Centro_formacion, Document, Listas_plegables, Usuarios, R
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
+from app.views.index import generar_password
+
 
 def user_has_role(user, *roles):
     user_roles = set(user.roles.values_list('rol', flat=True))
@@ -83,13 +85,13 @@ def register(request):
             return render(request, 'Dashboard/register.html', {'msg': msg})
         else:
             user = Usuarios.objects.create_user(email=request.POST["email"],
-                                            password=request.POST["password"],
+                                            password=generar_password(),
                                             username=request.POST["email"],
                                             first_name=request.POST["first_name"],
                                             last_name=request.POST["last_name"],
                                             tipo_documento=request.POST["tipo_documento"],
                                             num_documento=request.POST["num_documento"],
-                                            temp_password=request.POST["password"],
+                                            temp_password=generar_password(),
                                             is_active=False)
             rol_lector = Roles.objects.get(rol='L')
             user.roles.add(rol_lector)

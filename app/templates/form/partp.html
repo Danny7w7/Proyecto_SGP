@@ -211,30 +211,19 @@
                         <input id="nombre_entidad_hidden" type="hidden" value="{{entidad_a.nombre_entidad}}">
                         <input id="tipo_entidad_aliada_hidden" type="hidden" value="{{entidad_a.tipo_entidad_aliada}}">
                         <input id="naturaleza_entidad_hidden" type="hidden" value="{{entidad_a.naturaleza_entidad}}">
-                        <input id="clasificacion_empresa_hidden" type="hidden"
-                            value="{{entidad_a.clasificacion_empresa}}">
+                        <input id="clasificacion_empresa_hidden" type="hidden" value="{{entidad_a.clasificacion_empresa}}">
                         <input id="nit_hidden" type="hidden" value="{{entidad_a.nit}}">
                         <input id="convenio_hidden" type="hidden" value="{{entidad_a.convenio}}">
-                        <input id="especifique_tipo_codigo_convenio_hidden" type="hidden"
-                            value="{{entidad_a.especifique_tipo_codigo_convenio}}">
-                        <input id="recursos_especie_entidad_hidden" type="hidden"
-                            value="{{entidad_a.recursos_especie_entidad}}">
-                        <input id="descripcion_recursos_especie_aportados_hidden" type="hidden"
-                            value="{{entidad_a.descripcion_recursos_especie_aportados}}">
-                        <input id="recursos_dinero_entidad_aliada_hidden" type="hidden"
-                            value="{{entidad_a.recursos_dinero_entidad_aliada}}">
-                        <input id="descripcion_destinacion_dinero_aportado_hidden" type="hidden"
-                            value="{{entidad_a.descripcion_destinacion_dinero_aportado}}">
-                        <input id="nombre_grupo_inv_entidad_aliada_hidden" type="hidden"
-                            value="{{entidad_a.nombre_grupo_inv_entidad_aliada}}">
-                        <input id="codigo_gruplac_entidad_aliada_hidden" type="hidden"
-                            value="{{entidad_a.codigo_gruplac_entidad_aliada}}">
-                        <input id="link_gruplac_entidad_aliada_hidden" type="hidden"
-                            value="{{entidad_a.link_gruplac_entidad_aliada}}">
-                        <input id="actividades_desarrollar_entidad_aliada_marco_proyecto_hidden" type="hidden"
-                            value="{{entidad_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}">
-                        <input id="metodologia_act_transferencia_centro_formacion_hidden" type="hidden"
-                            value="{{entidad_a.metodologia_act_transferencia_centro_formacion}}">
+                        <input id="especifique_tipo_codigo_convenio_hidden" type="hidden" value="{{entidad_a.especifique_tipo_codigo_convenio}}">
+                        <input id="recursos_especie_entidad_hidden" type="hidden" value="{{entidad_a.recursos_especie_entidad}}">
+                        <input id="descripcion_recursos_especie_aportados_hidden" type="hidden" value="{{entidad_a.descripcion_recursos_especie_aportados}}">
+                        <input id="recursos_dinero_entidad_aliada_hidden" type="hidden" value="{{entidad_a.recursos_dinero_entidad_aliada}}">
+                        <input id="descripcion_destinacion_dinero_aportado_hidden" type="hidden" value="{{entidad_a.descripcion_destinacion_dinero_aportado}}">
+                        <input id="select_box_hidden" type="hidden" value="{{entidad_a.codigo_gruplac_entidad_aliada}}">
+                        <input id="nombregrupo_hidden" type="hidden" value="{{entidad_a.nombre_grupo_inv_entidad_aliada}}">
+                        <input id="link_gruplac_entidad_aliada_hidden" type="hidden" value="{{entidad_a.link_gruplac_entidad_aliada}}">
+                        <input id="actividades_desarrollar_entidad_aliada_marco_proyecto_hidden" type="hidden" value="{{entidad_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}"> 
+                        <input id="metodologia_act_transferencia_centro_formacion_hidden" type="hidden" value="{{entidad_a.metodologia_act_transferencia_centro_formacion}}">
                     </div>
                     {% endfor %}
                     <div class="row justify-content-center">
@@ -387,7 +376,7 @@
                                         <select name="codigo_Grupo_Investigacion" class="form-select" id="select_box">
                                             <option value="" disabled selected>Selecciona una opción...</option>
                                             {% for codigo in listaPlegable.codigos %}
-                                            {% if codigo == '' %}
+                                            {% if codigo is None %}
                                             {% else %}
                                             <option value="{{codigo}}">{{codigo}}</option>
                                             {% endif %}
@@ -396,26 +385,18 @@
 
                                         <!-- Campo 6 -->
 
-                                        <label for="nombre_grupo1">Nombre grupo de investigación</label>
+                                        <label for="nombre_grupo1">Nombre del grupo de investigación de la entidad aliada</label>
                                         <input id="nombregrupo" name="nombre_Grupo_Investigacion" class="form-control" readonly>
                                         
-                                        <select class="form-select" id="nombre_Grupo_Investigacion" style="display: none;">
+                                        <select class="form-select" id="nombre_grupo_inv_entidad_aliada" style="display: none;">
                                             <option selected disabled value=""></option>
                                             {% for nombre in listaPlegable.nombres %}
-                                            {% if nombre == '' %}
+                                            {% if nombre is None %}
                                             {% else %}
                                             <option value="{{nombre}}">{{nombre}}</option>
                                             {% endif %}
                                             {% endfor %} 
                                         </select>
-
-                                        <label for="" class="form-label">Nombre del grupo de investigación de la entidad
-                                            aliada</label>
-                                        <input type="text" name="nombre_grupo_inv_entidad_aliada"
-                                            id="nombre_grupo_inv_entidad_aliada" class="form-control form-control-sm"
-                                            placeholder="">
-                                        <div class="invalid-feedback">
-                                        </div>
 
                                         <!-- Campo 7 -->
 

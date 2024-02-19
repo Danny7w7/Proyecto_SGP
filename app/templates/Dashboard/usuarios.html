@@ -12,7 +12,7 @@
         <div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Tabala de Usuario</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tabla de Usuario</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -39,6 +39,11 @@
                                     </th>
                                 </tr>
                             </thead>
+                            <style>
+                                .hoverPointer{
+                                cursor: pointer;
+                                }
+                            </style>
                             <tbody>
                                 {% for usuario in usuarios %}
                                 {% if usuario == user %}
@@ -46,7 +51,7 @@
                                     <tr class="text-center">
                                         <td>{{ usuario.first_name}} {{ usuario.last_name}}</td>
                                         <td>{{ usuario.email }}</td>
-                                        <td id="clickPassword">{{ usuario.temp_password }}</td>
+                                        <td id="clickPassword" class="hoverPointer">{{ usuario.temp_password }}</td>
                                         <td>{{ usuario.num_documento }}</td>
                                         <td>
                                             <form method="post" action="">

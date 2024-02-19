@@ -4,13 +4,14 @@ const button1 = document.getElementById('step2');
 const collapse1 = document.getElementById('collapseOne');
 const collapse2 = document.getElementById('collapseTwo');
 
-// Rditar entidad aliada
+// Editar entidad aliada
 function edit_entidad(id){
     const selectDiv = document.getElementById(`entidad${id}`);
     const inputs = selectDiv.querySelectorAll('input[type="hidden"]');
 
     for (let i = 0; i < inputs.length; i++) {
         let texto = inputs[i].id;
+        console.log(texto)
         texto = texto.substring(0, texto.length - 7);
         const changeDiv = document.getElementById(texto);
         changeDiv.value = inputs[i].value
@@ -54,7 +55,7 @@ options = select.getElementsByTagName('option');
 buttonselect = select.nextElementSibling;
 elements = buttonselect.querySelector('.form-select');
 
-selected_select = document.getElementById('nombre_Grupo_Investigacion')
+selected_select = document.getElementById('nombre_grupo_inv_entidad_aliada')
 options2 = selected_select.getElementsByTagName('option');
 input = document.getElementById('nombregrupo')
 
@@ -337,7 +338,7 @@ function sendPost2() {
     var descripcion_recursos_especie_aportados = document.getElementById("descripcion_recursos_especie_aportados").value;
     var recursos_dinero_entidad_aliada = document.getElementById("recursos_dinero_entidad_aliada").value;
     var descripcion_destinacion_dinero_aportado = document.getElementById("descripcion_destinacion_dinero_aportado").value;
-    var nombre_grupo_inv_entidad_aliada = document.getElementById("nombre_Grupo_Investigacion").value;
+    var nombre_grupo_inv_entidad_aliada = document.getElementById("nombregrupo").value;
     var codigo_gruplac_entidad_aliada = document.getElementById("select_box").value;
     var link_gruplac_entidad_aliada = document.getElementById("link_gruplac_entidad_aliada").value;
     var actividades_desarrollar_entidad_aliada_marco_proyecto = document.getElementById("actividades_desarrollar_entidad_aliada_marco_proyecto").value;
@@ -351,7 +352,6 @@ function sendPost2() {
         const elemento = document.getElementById(`objEspecifico${i}`);
         if (elemento) {
             elementos.push(elemento.checked);
-            console.log(`Elemento ${i}:`, elemento.checked);
         } else {
             break;
         }
