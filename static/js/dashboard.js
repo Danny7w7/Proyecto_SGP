@@ -735,11 +735,29 @@ function cargarGuia(documentId) {
     inputFile.click();
 }putFile.click();
 
-function changeState(id){
+function changeStateQuestion(id){
     var formData = new FormData();
-    formData.append("state", document.getElementById('stateInput'+id).checked);
+    formData.append("state", document.getElementById('stateInputQuestion'+id).checked);
     formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
     fetch(`/dashboard/changeState/${id}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())  // Parsea la respuesta JSON
+    .then(data => {
+        if (data.error) {
+            console.error('Error:', data.error);
+        } else {
+            console.log('Mensaje de éxito:', data.mensaje);
+        }
+    })
+}
+
+function changeStateAnnex(id){
+    var formData = new FormData();
+    formData.append("state", document.getElementById('stateInputAnnex'+id).checked);
+    formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
+    fetch(`/dashboard/changeStateAnnex/${id}/`, {
         method: 'POST',
         body: formData,
     })

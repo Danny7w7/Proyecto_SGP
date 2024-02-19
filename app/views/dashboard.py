@@ -345,13 +345,25 @@ def cargar_guia(request):
     else:
         return JsonResponse({'success': False, 'message': 'Método no permitido'}, status=405)
     
-def changeState(request, id):
+def changeStateQuestion(request, id):
     try:
         question = PreguntasP.objects.get(id=id)
         state = request.POST.get('state')
         question.estado = json.loads(state.lower())
 
         question.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+
+def changeStateAnnex(request, id):
+    try:
+        annex = Document.objects.get(id=id)
+        state = request.POST.get('state')
+        annex.estado = json.loads(state.lower())
+
+        annex.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)

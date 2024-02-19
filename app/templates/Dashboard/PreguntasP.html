@@ -73,7 +73,7 @@
                     <td>{{pregunta.periodo}}</td>
                     <td>
                         <label class="switch">
-                            <input id="stateInput{{pregunta.id}}" onclick="changeState({{pregunta.id}})" type="checkbox" {% if pregunta.estado %}checked{% endif %}>
+                            <input id="stateInputQuestion{{pregunta.id}}" onclick="changeStateQuestion({{pregunta.id}})" type="checkbox" {% if pregunta.estado %}checked{% endif %}>
                             <span class="slider round"></span>
                         </label>
                     </td>
@@ -109,9 +109,10 @@
                     <tr>
                         <td>{{ document.nombre }}</td>
                         <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input cambioEstado" type="checkbox" id="estado_{{ document.id }}" {% if document.estado %}checked{% endif %}>
-                            </div>
+                            <label class="switch">
+                                <input id="stateInputAnnex{{ document.id }}" onclick="changeStateAnnex({{document.id}})" type="checkbox" {% if document.estado %}checked{% endif %}>
+                                <span class="slider round"></span>
+                            </label>
                         </td>
                         <td>
                             <button class="btn btn-primary">Ver</button> 
