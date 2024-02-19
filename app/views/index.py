@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 
-from app.models import Roles, Usuarios
+from app.models import Roles, Usuarios, Descripcion_problema
 from django.contrib.auth import authenticate, login, logout
 import random
 import string

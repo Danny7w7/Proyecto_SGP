@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.core.serializers import serialize
 from django.conf import settings
 
+import re
+
 from app.forms import (
     Informacion_proponenteForm,
     ProyectoForm,
@@ -50,7 +52,6 @@ from app.views.index import index
 from app.models import Listas_plegables
 
 from datetime import datetime
-import os
 import json
 
 # PDF
@@ -68,6 +69,11 @@ def user_has_role(user, *roles):
 
 
 # ------Funciones generales------
+
+def deleteSpacesInText(spaces):
+    text = re.sub(r'[\r\n]+', ' ', spaces)
+    return text
+
 def progress_bar(id):
     proyecto = Proyecto.objects.get(id=id)
     print(proyecto.progress)
@@ -245,6 +251,9 @@ def crear_proyecto(request):
         form = ProyectoForm(request.POST)
         if form.is_valid():
             proyecto = form.save(commit=False)
+            print(request.POST.get('titulo_Proyecto'))
+            proyecto.titulo_Proyecto = deleteSpacesInText(request.POST.get('titulo_Proyecto'))
+            proyecto.descripcion = deleteSpacesInText(request.POST.get('descripcion'))
             proyecto.usuario = request.user
             proyecto.progress = 10
             proyecto.save()
@@ -601,7 +610,7 @@ def info_generalidades(request, id_proyecto):
                 respuesta = Respuestas.objects.get(pregunta_id=pregunta.id)
             except:
                 respuesta = Respuestas()
-            respuesta.respuesta = request.POST[str(pregunta.id)]
+            respuesta.respuesta = deleteSpacesInText(request.POST[str(pregunta.id)])
             respuesta.generalidad_id = generalidades.id
             respuesta.pregunta_id = pregunta.id
             respuesta.save()
@@ -639,6 +648,38 @@ def getRegionJson(request):
                 "centros": list(Centro_formacion.objects.all().order_by('codigo').values())
             }
         )
+
+
+def resumen_antecedentes(request, id_proyecto):
+    try:
+        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
+    resumen.resumen_ejecutivo = deleteSpacesInText(request.POST["Resumen_ejecutivo"])
+    resumen.antecedentes = deleteSpacesInText(request.POST["Antecedentes"])
+    try:
+        resumen.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
+
+
+def descripcion_problema(request, id_proyecto):
+    try:
+        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
+    except:
+        proyecto = Proyecto.objects.get(id=id_proyecto)
+        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
+    descripcion.identificacion_y_descripcion_problema = deleteSpacesInText(request.POST["Identificacion_y_descripcion_problema"])
+    descripcion.justificacion = deleteSpacesInText(request.POST["Justificacion"])
+    descripcion.marco_conceptual = deleteSpacesInText(request.POST["Marco_conceptual"])
+
+    try:
+        descripcion.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)
 
 
 def riesgos_obj_g_json(request, id_proyecto):
@@ -695,38 +736,6 @@ def riesgo_a_json(request, id_proyecto):
         setattr(riesgo_a_json, name, request.POST.get(name))
     try:
         riesgo_a_json.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-
-def resumen_antecedentes(request, id_proyecto):
-    try:
-        resumen = Resumen_antecedentes.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        resumen = Resumen_antecedentes.objects.create(proyecto=proyecto)
-    resumen.resumen_ejecutivo = request.POST["Resumen_ejecutivo"]
-    resumen.antecedentes = request.POST["Antecedentes"]
-    try:
-        resumen.save()
-        return JsonResponse({"mensaje": "Operación exitosa"})
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
-
-
-def descripcion_problema(request, id_proyecto):
-    try:
-        descripcion = Descripcion_problema.objects.get(proyecto=id_proyecto)
-    except:
-        proyecto = Proyecto.objects.get(id=id_proyecto)
-        descripcion = Descripcion_problema.objects.create(proyecto=proyecto)
-    descripcion.identificacion_y_descripcion_problema = request.POST["Identificacion_y_descripcion_problema"]
-    descripcion.justificacion = request.POST["Justificacion"]
-    descripcion.marco_conceptual = request.POST["Marco_conceptual"]
-
-    try:
-        descripcion.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
@@ -886,10 +895,10 @@ def cadena_valor(request, id_proyecto):
     except:
         proyecto = Proyecto.objects.get(id=id_proyecto)
         cadena = Proyeccion.objects.create(proyecto=proyecto)
-    cadena.propuesta_sostenibilidad = request.POST["Propuesta_sostenibilidad"]
-    cadena.impacto_social = request.POST["Impacto_social"]
-    cadena.impacto_tecnologico = request.POST["Impacto_tecnologico"]
-    cadena.impacto_centro_formacion = request.POST["Impacto_centro"]
+    cadena.propuesta_sostenibilidad = deleteSpacesInText(request.POST["Propuesta_sostenibilidad"])
+    cadena.impacto_social = deleteSpacesInText(request.POST["Impacto_social"])
+    cadena.impacto_tecnologico = deleteSpacesInText(request.POST["Impacto_tecnologico"])
+    cadena.impacto_centro_formacion = deleteSpacesInText(request.POST["Impacto_centro"])
     try:
         cadena.save()
         return JsonResponse({"mensaje": "Operación exitosa"})
@@ -908,13 +917,15 @@ def edit_proyect(request, id_proyecto):
         column_names = [field.name for field in model._meta.fields]
 
         for name in column_names:
-            if name == "id" or name == "usuario":
+            if name == "id" or name == "usuario" or name == 'titulo_Proyecto' or name == 'descripcion':
                 continue
             setattr(proyecto, name, request.POST.get(name))
+        proyecto.titulo_Proyecto = deleteSpacesInText(request.POST.get('titulo_Proyecto'))
+        proyecto.descripcion = deleteSpacesInText(request.POST.get('descripcion'))
         proyecto.save()
 
     context = {
-        "proyecto": user.proyecto_set.first(),
+        "proyecto": proyecto,
         "listaPlegable": contex_form(),
         "percentaje": id_proyecto,
     }

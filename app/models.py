@@ -60,7 +60,7 @@ class Autores(models.Model):
     numero_Cedula_Autor = models.BigIntegerField(null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
     email_Autor_Proyecto = models.EmailField(null=True)
-    numero_meses_vinculacion_Autor = models.IntegerField(null=True)
+    numero_meses_vinculacion_Autor = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     numero_Telefono_Autor = models.CharField(max_length=30, null=True)
     numero_horas_Semanales_dedicadas_Autores = models.IntegerField(null=True)
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
@@ -69,7 +69,7 @@ class Participantes_Proyecto(models.Model):
     nombre_participantes_de_desarrollo = models.CharField(max_length=40, null=True)
     rol_Sennova_De_Participantes_de_Proyecto = models.CharField(max_length=50, choices=[('formulador', 'Formulador'), ('investigador', 'Investigador'), ('dinamizador', 'Dinamizador'), ('instructor', 'Instructor'), ('aprendiz','Aprendiz')], null=True)
     numero_cedula_participantes = models.BigIntegerField(null=True)
-    numero_meses_vinculacion_participantes = models.IntegerField(null=True)
+    numero_meses_vinculacion_participantes = models.DecimalField(null=True, max_digits=3, decimal_places=1)
     email_participantes_de_desarrollo = models.EmailField(null=True)
     numero_horas_Semanales_dedicadas_participantes = models.IntegerField(null=True)
     numero_Telefono_participantes = models.CharField(max_length=30, null=True)
@@ -118,7 +118,7 @@ class Resumen_antecedentes(models.Model):
 class Descripcion_problema(models.Model):
     identificacion_y_descripcion_problema = models.TextField(max_length=10000, null=False)
     justificacion = models.TextField(max_length=8000, null=True)
-    marco_conceptual = models.TextField(max_length=8000, null=True)
+    marco_conceptual = models.TextField(max_length=11000, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
 

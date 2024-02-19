@@ -134,7 +134,7 @@
                                             class="form-select">
                                             <option value="" disabled selected>Selecciona una opción...</option>
                                             {% for nombre in listaPlegable.nombresC %}
-                                            {% if nombre == '' %}
+                                            {% if nombre is None %}
                                             {% else %}
                                             <option {%if infoProyecto.Nombre_centro_formacion == nombre%}selected{%endif%} value="{{nombre}}">{{nombre}}</option>
                                             {% endif %}
@@ -439,7 +439,7 @@
                                     <div class="invalid-feedback">
                                     </div>
                                     
-                                    <label for="Numero_meses_vinculacion_participantes" class="form-label fs-6 fw-normal">Num. meses vinculación participante en el
+                                    <label for="Numero_meses_vinculacion_participantes" class="form-label">Num. meses vinculación participante en el
                                         desarrollo del proyecto</label>
                                     <input type="number" name="Numero_meses_vinculacion_participantes" id="Numero_meses_vinculacion_participantes" class="form-control form-control-sm" placeholder="">
                                     <div class="invalid-feedback">
@@ -551,7 +551,7 @@
                                     <select name="actividades_economicas_del_proyecto_investigacion" id="select_box9" class="form-select">
                                         <option value="" disabled selected>Selecciona una opción...</option>
                                         {% for nombre in listaPlegable.actividades %}
-                                            {% if nombre == '' %}
+                                            {% if nombre is None %}
                                             {% else %}
                                             <option {%if generalidades.actividades_economicas_del_proyecto_investigacion == nombre%}selected{%endif%} value="{{nombre}}">{{nombre}}</option>
                                             {% endif %}

@@ -130,7 +130,7 @@
                                 <select name="codigo_Grupo_Investigacion" class="form-select" id="select_box">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for codigo in listaPlegable.codigos %}
-                                    {% if codigo == '' %}
+                                    {% if codigo is None %}
                                     {% else %}
                                     <option{% if codigo == proyecto.codigo_Grupo_Investigacion %} selected{% endif %} value="{{codigo}}">{{codigo}}</option>
                                     {% endif %}
@@ -139,12 +139,12 @@
                             </div>
                             <div class="col-12 col-sm-4 mb-3 p-1">
                                 <label for="nombre_grupo1">Nombre grupo de investigación</label>
-                                <input id="nombregrupo" name="nombre_Grupo_Investigacion" class="form-control" readonly>
+                                <input id="nombregrupo" name="nombre_Grupo_Investigacion" class="form-control" readonly value="{{proyecto.nombre_Grupo_Investigacion}}">
                                 
                                 <select class="form-select" id="nombre_Grupo_Investigacion" style="display: none;">
                                     <option selected disabled value=""></option>
                                     {% for nombre in listaPlegable.nombres %}
-                                    {% if nombre == '' %}
+                                    {% if nombre is None %}
                                     {% else %}
                                     <option{% if nombre == proyecto.nombre_Grupo_Investigacion %} selected{% endif %} value="{{nombre}}">{{nombre}}</option>
                                     {% endif %}
@@ -174,7 +174,7 @@
                                 <select name="red_Conocimiento_Sectorial" class="form-select" id="select_box3">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for red in listaPlegable.redes %}
-                                    {% if red == '' %}
+                                    {% if red is None %}
                                     {% else %}
                                     <option{% if red == proyecto.red_Conocimiento_Sectorial %} selected{% endif %} value="{{red}}">{{red}}</option>
                                     {% endif %}
@@ -201,7 +201,7 @@
                                 <select name="subarea_conocimiento" class="form-select" id="select_box5">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for subarea in listaPlegable.subareas %}
-                                    {% if subarea == '' %}
+                                    {% if subarea is None %}
                                     {% else %}
                                     <option{% if subarea == proyecto.subarea_conocimiento %} selected{% endif %} value="{{subarea}}">{{subarea}}</option>
                                     {% endif %}
@@ -217,7 +217,7 @@
                                 <select name="disciplina_subarea" class="form-select" id="select_box6">
                                     <option value="" disabled selected>Selecciona una opción...</option>
                                     {% for diciplina in listaPlegable.diciplinas %}
-                                    {% if diciplina == '' %}
+                                    {% if diciplina is None %}
                                     {% else %}
                                     <option{% if diciplina == proyecto.disciplina_subarea %} selected{% endif %} value="{{diciplina}}">{{diciplina}}</option>
                                     {% endif %}
