@@ -167,8 +167,8 @@ def nombre_de_centro_formacion(request):
 
         response_data = {"data": data}
         return JsonResponse(response_data, safe=False)
+ 
   
-    
 @csrf_exempt
 def agregar_dato(request):
     if request.method == 'POST':
@@ -176,7 +176,7 @@ def agregar_dato(request):
             campo1 = request.POST.get('campo1')
             campo2 = request.POST.get('campo2')
 
-            registros_con_campos_vacios = Listas_plegables.objects.filter(codigos_grupo_investigacion='', nombre_grupo_investigacion='')
+            registros_con_campos_vacios = Listas_plegables.objects.filter(codigos_grupo_investigacion__isnull=True, nombre_grupo_investigacion__isnull=True)
 
             if registros_con_campos_vacios.exists():
                 primer_registro_con_campos_vacios = registros_con_campos_vacios.first()
@@ -205,7 +205,7 @@ def agregar_dato2(request):
     if request.method == 'POST':
         try:
             redes_c = request.POST.get('campo1')
-            registros_con_campos_vacios = Listas_plegables.objects.filter(redes_conocimiento='')
+            registros_con_campos_vacios = Listas_plegables.objects.filter(redes_conocimiento__isnull=True)
 
             if registros_con_campos_vacios.exists():
                 primer_registro_con_campos_vacios = registros_con_campos_vacios.first()
@@ -233,7 +233,7 @@ def agregar_dato3(request):
     if request.method == 'POST':
         try:
             subareas = request.POST.get('campo1')
-            registros_con_campos_vacios = Listas_plegables.objects.filter(subareas_conocimiento='')
+            registros_con_campos_vacios = Listas_plegables.objects.filter(subareas_conocimiento__isnull=True)
 
             if registros_con_campos_vacios.exists():
                 primer_registro_con_campos_vacios = registros_con_campos_vacios.first()
@@ -261,7 +261,7 @@ def agregar_dato4(request):
     if request.method == 'POST':
         try:
             diciplina = request.POST.get('campo1')
-            registros_con_campos_vacios = Listas_plegables.objects.filter(diciplina_subarea='')
+            registros_con_campos_vacios = Listas_plegables.objects.filter(diciplina_subarea__isnull=True)
 
             if registros_con_campos_vacios.exists():
                 primer_registro_con_campos_vacios = registros_con_campos_vacios.first()

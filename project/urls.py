@@ -66,7 +66,7 @@ urlpatterns = [
     path('dashboard/agregar-grupo-code/', views.agregar_dato, name= 'agregar_dato'),
     path('dashboard/redes-conocimiento/', views.agregar_dato2, name= 'agregar_dato2'),
     path('dashboard/subareas-conocimiento/', views.agregar_dato3, name='agregar_dato3'),
-    path('dashboard/dashboard/disciplina-subarea/', views.agregar_dato4, name='agregar_dato4'),
+    path('dashboard/disciplina-subarea/', views.agregar_dato4, name='agregar_dato4'),
 
     path('dashboard/addquestion/', views.agregar_pregunta, name='agregar_pregunta'),
     path('dashboard/changeStateQuestion/<int:id>/', views.changeStateQuestion, name='changeStateQuestion'),

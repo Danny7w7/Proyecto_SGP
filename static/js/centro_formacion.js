@@ -108,17 +108,17 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "nombre_municipios_beneficiados_descripcion_beneficio": {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{4,200}$/u,
-                errorMsg: 'El nombre de los municipios no son válidos.',
+                errorMsg: 'Los nombres de los municipios no son válidos.',
             },
             "numero_aprendices_participaran_ejecucion_proyecto": {
                 pattern: /^\d{1,}$/,
-                errorMsg: 'El número no es válido.',
+                errorMsg: 'El número de aprendices no es válido.',
             }
            },
         "form2": {
             "nombre_entidad": {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,200}$/u,
-                errorMsg: 'El nombre de la entidad no es válido. Debe tener entre 5 y 200 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+                errorMsg: 'El nombre de la entidad aliada no es válido. Debe tener entre 5 y 200 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
             },
             "nit": {
                 pattern: /^\d{5,20}-\d{1}$/u,
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "recursos_especie_entidad": {
                 pattern: /^(0|[1-9]\d{4,8}|1000000000)$/,
-                errorMsg: 'El número de recursos en especie no es válido debe llevar máximo una cifra de 1.000 millones.',
+                errorMsg: 'Los recursos en especie de la entidad no es válido debe llevar máximo una cifra de 1.000 millones.',
             },
             "descripcion_recursos_especie_aportados": {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
@@ -138,23 +138,23 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             "recursos_dinero_entidad_aliada": {
                 pattern: /^(0|[1-9]\d{4,8}|1000000000)$/,
-                errorMsg: 'El número de recursos en dinero no es válido debe contener máximo una cifra de 1.000 millones.',
+                errorMsg: 'La cantidad de recursos en dinero no es válido debe contener máximo una cifra de 1.000 millones.',
             },
             "descripcion_destinacion_dinero_aportado": {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,150}$/u,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 150 caracteres.',
+                errorMsg: 'La descripcion de destinacion de dinero no es válida debe llevar minimo 5 y 150 caracteres.',
             },
             "link_gruplac_entidad_aliada": {
                 pattern: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 caracteres.',
+                errorMsg: 'El link  no es válido debe llevar siglas tipo url caracteres.',
             },
             "actividades_desarrollar_entidad_aliada_marco_proyecto": {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/]{5,1500}$/u,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 250 caracteres.',
+                errorMsg: 'Las actividades a desarrollar no son validas debe llevar minimo 5 y 250 caracteres.',
             },
             "metodologia_act_transferencia_centro_formacion": {
                 pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s!?¿¡'"_+#\-%&[\]:;{}\/()+*==$><|°]{5,8000}$/u,
-                errorMsg: 'El nombre no es válido debe llevar minimo 5 y 8000 caracteres.',
+                errorMsg: 'La metodologia de activiad de transferencia no es valida debe llevar minimo 5 y 8000 caracteres.',
             },
            }
     };

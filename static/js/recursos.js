@@ -25,19 +25,19 @@ document.addEventListener("DOMContentLoaded", function() {
        "form1": {
         "actividad": {
             pattern: /^.{1,1000}$/,
-            errorMsg: 'Seleccione un objetivo especifico por favor.'
+            errorMsg: 'La actividad no es valida. Por Favor verifique.'
         },
         "fecha_inicio": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,250}$/,
-            errorMsg: 'La fecha no es válida. Por favor ingresela nuevamente.'
+            errorMsg: 'La fecha de inicio no es válida. Por favor verifique nuevamente.'
         },
         "fecha_cierre": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,250}$/,
-            errorMsg: 'La fecha no es válida. Por favor ingresela nuevamente.'
+            errorMsg: 'La fecha de cierre no es válida. Por favor verifique nuevamente.'
         },
         "observacion": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,250}$/,
-            errorMsg: 'La fecha no es válida. Por favor ingresela nuevamente.'
+            errorMsg: 'La observacion no es valida. Por favor veridique los caracteres escritos.'
         }
        }
     };

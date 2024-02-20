@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
        "form1": {
         "nombre": {
             pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]{5,50}$/u,
-            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
+            errorMsg: 'El nombre de la entidad aliada no es válido. Debe tener entre 5 y 50 caracteres y solo puede contener letras y espacios'
         },
         "numero_identificacion": {
             pattern: /^\d{6,20}$/,
-            errorMsg: 'El número no es válido. Debe tener 6 digitos númericos',
+            errorMsg: 'El número de identificacion no es válido. Debe tener 6 digitos númericos',
         },
         "email": {
             pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
         },
         "telefono": {
             pattern: /^\d{10}$/,
-            errorMsg: 'El número no es válido. Debe tener 10 digitos númericos',
+            errorMsg: 'El número de telefono no es válido. Debe tener 10 digitos númericos',
         },
        }
     };

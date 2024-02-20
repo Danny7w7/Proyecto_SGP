@@ -4,31 +4,31 @@ document.addEventListener("DOMContentLoaded", function() {
        "form1": {
         "desc_resultado_esperado": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,3000}$/,
-            errorMsg: 'La descripcion no es válida. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
+            errorMsg: 'La descripcion del resultado esperado no es válida. Debe tener entre 5 y 3000 caracteres y no puede contener caracteres especiales'
         },
         "nombre_resul_investigacion": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
-            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+            errorMsg: 'El nombre del resultado esperado no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "indicador_producto_resultado_inv_obj_especifico": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&()+*==$><|°[\]/]{1,300}$/,
-            errorMsg: 'El indicador no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
+            errorMsg: 'El indicador de producto no es válido. Debe tener entre 5 y 300 caracteres y no puede contener caracteres especiales'
         },
         "fch_entrega_producto_resultado_inv_obj_especifico": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
-            errorMsg: 'Por favor seleccione una fecha.'
+            errorMsg: 'Por favor seleccione la fecha de entreda del resultado.'
         },
         "tipo_resultado_esperado_obj_especifico": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
-            errorMsg: 'Por favor seleccione una opcion.'
+            errorMsg: 'Por favor seleccione un tipo de resultado esperado de las opciones disponibles.'
         },
         "trl_producto_resultado_inv_obj_especifico": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
-            errorMsg: 'Por favor seleccione una opcion.'
+            errorMsg: 'Por favor seleccione el nivel en las una opciones disponibles.'
         },
         "nombre_subtipologia": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{1,300}$/,
-            errorMsg: 'Por favor seleccione una opcion.'
+            errorMsg: 'Por favor seleccione la subtipologia de las opciones.'
         },
        },
     };

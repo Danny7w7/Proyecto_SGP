@@ -101,11 +101,11 @@ document.addEventListener("DOMContentLoaded", function () {
        "form1": {
         "Nombre_Director": {
             pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
-            errorMsg: 'El nombre del director no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios.'
+            errorMsg: 'El nombre del director(a) no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios.'
         },
         "email_director": {
             pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@sena[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            errorMsg: 'El correo no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            errorMsg: 'El correo del director(a) no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_Director": {
             pattern: /^.{5,30}$/,
@@ -128,23 +128,24 @@ document.addEventListener("DOMContentLoaded", function () {
        "form2":{
         "Nombre_Autor_Proyecto": {
             pattern: /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
-            errorMsg: 'El nombre no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios.'
+            errorMsg: 'El nombre del autor no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios.'
         },
         "Numero_Cedula_Autor": {
             pattern: /^\d{5,20}$/,
-            errorMsg: 'El número de documento no es válido. Debe tener digitos númericos.',
+            errorMsg: 'El número de documento del autor no es válido. Debe tener digitos númericos.',
         },
         "Email_Autor_Proyecto": {
             pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            errorMsg: 'El correo no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            errorMsg: 'El correo del autor no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_meses_vinculacion_Autor": {
-            pattern: /^(?:[1-9]|1[0-1]|1?\.\d|[1-9]\.\d|10\.\d|11\.[0-9]|12)$/i,
+            pattern: /^(?:[1-9]|1[0-1]|0?\.\d|[1-9]\.\d|10\.\d|11\.[0-9]|12)$/i,
             errorMsg: 'El número de meses de vinculación no es válido. Debe ser un número entre 1 y 12, opcionalmente seguido de un único dígito después del punto decimal.'
+
         },
         "Numero_Telefono_Autor": {
             pattern: /^.{5,30}$/,
-            errorMsg: 'El número no es válido. Debe tener una longitud entre 5 y 30 caracteres.',
+            errorMsg: 'El número del autor no es válido. Debe tener una longitud entre 5 y 30 caracteres.',
         },
         "Numero_horas_Semanales_dedicadas_Autores": {
             pattern: /^(?:[0-9]|[1-3][0-9]|4[0-8])$/,
@@ -155,19 +156,19 @@ document.addEventListener("DOMContentLoaded", function () {
        "form3":{
         "Nombre_participantes_de_desarrollo":{
             pattern:  /^[a-zA-ZÀ-ÿ\u00f1\u00d1\d ,.\s]{5,40}$/u,
-            errorMsg: 'El nombre de participantes no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios',
+            errorMsg: 'El nombre del participante no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras y espacios',
         }, 
         "Numero_cedula_participantes": {
             pattern: /^\d{5,20}$/,
-            errorMsg: 'El número de documento no es válido. Debe tener digitos númericos',
+            errorMsg: 'El número de documento del participante no es válido. Debe tener digitos númericos',
         },
         "Numero_meses_vinculacion_participantes": {
-            pattern: /^(?:[1-9]|1[0-1]|1?\.\d|[1-9]\.\d|10\.\d|11\.[0-9]|12)$/i,
+            pattern: /^(?:[1-9]|1[0-1]|0?\.\d|[1-9]\.\d|10\.\d|11\.[0-9]|12)$/i,
             errorMsg: 'El número de meses de vinculación no es válido. Debe ser un número entre 1 y 12, opcionalmente seguido de un único dígito después del punto decimal.'
         },
         "Email_participantes_de_desarrollo": {
             pattern: /^[a-zA-Z0-9._%+-ñÑ,]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            errorMsg: 'El correo de participantes no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
+            errorMsg: 'El correo del participante no es válido. Debe tener entre 5 y 40 caracteres y solo puede contener letras, números, espacios, puntos y comas.'
         },
         "Numero_horas_Semanales_dedicadas_participantes": {
             pattern: /^(?:[0-9]|[1-3][0-9]|4[0-8])$/,
@@ -175,13 +176,13 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         "Numero_Telefono_participantes": {
             pattern: /^\d{10}$/,
-            errorMsg: 'El número de teléfono no es válido. Debe tener 10 digitos númericos.',
+            errorMsg: 'El número de teléfono del participante no es válido. Debe tener 10 digitos númericos.',
         },
        },
        "form4":{
         "link_video_proyecto": {
             pattern: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
-            errorMsg: 'El link del vídeo no es válido.',
+            errorMsg: 'El link del vídeo no es válido. Rectifique si posee caracteres de url',
         },
        }
     };

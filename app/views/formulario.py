@@ -750,7 +750,7 @@ def objetivos_json(request, id_proyecto):
     objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
     objetivo.objetivo_general = request.POST['objetivo_general']
     objetivo.save()
-    for i in range(0, 3):
+    for i in range(0, 5):
         if request.POST.get(f'objetivo_especifico{i+1}'):
             try:
                 objEsp = objetivoEsp[i]
