@@ -16,6 +16,7 @@ from app.models import (
     Anexos,
     Centro_formacion,
     Entidades_aliadas,
+    Estado,
     Proyecto,
     Informacion_proponente,
     Generalidades_del_proyecto,
@@ -257,6 +258,10 @@ def crear_proyecto(request):
             proyecto.usuario = request.user
             proyecto.progress = 10
             proyecto.save()
+            estado = Estado(proyecto_id=proyecto.id)
+            estado.state = 2
+            estado.save()
+            print(estado)
             return redirect("info_proyecto", id_proyecto=proyecto.id)
     else:
         form = ProyectoForm()

@@ -8,7 +8,7 @@
 <h2 class="text-center mb-4" style="font-family: 'Lucida Sans';">Registrar nuevos usuarios</h2>
 <form method="POST">
     {% csrf_token %}
-    <h6 class="text-center">{{msg}}</h6>
+    <h5 class="text-center text-danger">{{msg}}</h5>
     <div class="mb-3">
         <label for="exampleInputName" class="form-label mb-0" style="font-family: 'Lucida Sans';">Nombres</label>
         <input required name="first_name" type="text" class="form-control border border-secondary"
@@ -19,8 +19,8 @@
         <input required name="last_name" type="text" class="form-control border border-secondary">
     </div>
     <div class="mb-3 mt-3">
-        <select name="tipo_documento" class="form-select border-secondary">
-            <option disabled selected>Tipo de Documento</option>
+        <label for="exampleInputName" class="form-label mb-0" style="font-family: 'Lucida Sans';">Tipo de Documento</label>
+        <select name="tipo_documento" class="form-select border-secondary" required>
             <option value="1">CC</option>
             <option value="2">TI</option>
             <option value="3">Otro..</option>

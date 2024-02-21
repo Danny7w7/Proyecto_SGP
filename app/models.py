@@ -41,6 +41,15 @@ class Proyecto(models.Model):
     progress = models.IntegerField(null=True)
     usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
 
+class Estado(models.Model):
+    STATE_CHOICES = (
+        ('1', 'Terminados'),
+        ('2', 'Pendientes'),
+        ('3', 'Suspendido'),
+    )
+    state = models.CharField(max_length=20, choices=STATE_CHOICES)
+    proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
+
 # Informacion del Proyecto
 class Informacion_proponente(models.Model):
     Region = models.CharField(max_length=50, null=True)

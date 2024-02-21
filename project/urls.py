@@ -68,9 +68,11 @@ urlpatterns = [
     path('dashboard/subareas-conocimiento/', views.agregar_dato3, name='agregar_dato3'),
     path('dashboard/dashboard/disciplina-subarea/', views.agregar_dato4, name='agregar_dato4'),
 
+
     path('dashboard/addquestion/', views.agregar_pregunta, name='agregar_pregunta'),
     path('dashboard/changeStateQuestion/<int:id>/', views.changeStateQuestion, name='changeStateQuestion'),
     path('dashboard/changeStateAnnex/<int:id>/', views.changeStateAnnex, name='changeStateAnnex'),
+    path('dashboard/changeStateProject/<int:id>/', views.changeStateProject, name='changeStateProject'),
     
     #Informacion proyecto
     path('proyecto/info-proyecto/info-proponente/<int:id_proyecto>/', views.info_proponente, name='info_proponente'),

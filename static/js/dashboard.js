@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            console.log(response);
             if (response.data && response.data.length > 0) {
                 var itemsPorPagina = 10;
                 var datosFiltrados = filtrarDatos(response.data);
@@ -155,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            console.log(response);
             if (response.data && response.data.length > 0) {
                 var itemsPorPagina = 10;
                 var datosFiltrados = filtrarDatos(response.data);
@@ -237,7 +235,6 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            console.log(response);
             if (response.data && response.data.length > 0) {
                 var itemsPorPagina = 10;
                 var datosFiltrados = filtrarDatos(response.data);
@@ -319,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            console.log(response);
             if (response.data && response.data.length > 0) {
                 var itemsPorPagina = 10;
                 var datosFiltrados = filtrarDatos(response.data);
@@ -400,7 +396,6 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            console.log(response);
             if (response.data && response.data.length > 0) {
                 var itemsPorPagina = 10;
                 var datosFiltrados = filtrarDatos(response.data);
@@ -695,6 +690,35 @@ function agregarAnexo() {
 }
 
 
+selectByDjango = document.querySelectorAll('.selectByDjango') // Obtengo todos los select creados por Django
+for (let i = 0; i < selectByDjango.length; i++) {
+    selectByDjango[i].addEventListener('change', function() {
+
+        var formData = new FormData();
+        formData.append("state", selectByDjango[i].value); // Creo y agrego un valor al formData para luego enviarlo al Backend
+        formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
+        fetch(`/dashboard/changeStateProject/${selectByDjango[i].id}/`, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())  // Parsea la respuesta JSON
+        .then(data => {
+            if (data.error) {
+                console.error('Error:', data.error);
+            } else {
+                console.log('Mensaje de éxito:', data.mensaje);
+            }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+            // Manejar errores en la solicitud, como problemas de red
+        });
+        console.log('El valor seleccionado es: ' + selectByDjango[i].value);
+    });
+}
+
+
+
 function cargarGuia(documentId) {
     // Crear un input de tipo archivo
     var inputFile = document.createElement('input');
@@ -770,3 +794,4 @@ function changeStateAnnex(id){
         }
     })
 }
+

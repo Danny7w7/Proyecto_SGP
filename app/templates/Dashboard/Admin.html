@@ -26,6 +26,7 @@
 
 
 <body id="page-top">
+    {% csrf_token %}
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
@@ -74,7 +75,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href=" {% url 'Proyecto-Completo' %}">Proyectos terminados</a>
-                        <a class="collapse-item" href="{% url 'Proyecto-inactivo' %}">Proyectos eliminados</a>
+                        <a class="collapse-item" href="{% url 'Proyecto-inactivo' %}">Proyectos suspendidos</a>
                         <a class="collapse-item" href="{% url 'Proyecto-Pendiente' %}">Proyectos pendientes</a>
                     </div>
                 </div>
@@ -206,7 +207,7 @@
                                                 <a href="{% url 'Proyecto-Completo' %}" style="text-decoration: none;">
                                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                         Proyectos terminados</div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">21</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{terminados}}</div>
                                                 </a>
                                             </div>
                                             <div class="col-auto">
@@ -227,7 +228,7 @@
                                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Proyectos pendientes</div>
                                                 <div class="row no-gutters align-items-center">
                                                     <div class="col-auto">
-                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50</div>
+                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{pendientes}}</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -249,7 +250,7 @@
                                             <a href="{% url 'Proyecto-Pendiente' %}" style="text-decoration: none;">
                                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                                     Proyectos Suspendidos</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{suspendidos}}</div>
                                             </a>
 
                                         </div>

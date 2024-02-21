@@ -3,9 +3,9 @@
 import json
 
 from django.contrib.auth import authenticate
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from app.models import Centro_formacion, Document, Listas_plegables, Usuarios, Roles, PreguntasP
+from app.models import Document, Listas_plegables, Usuarios, Roles, PreguntasP, Estado, Proyecto
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
@@ -23,7 +23,12 @@ def user_has_role(user, *roles):
 def admin(request):
     if not user_has_role(request.user,'Admin'):
       return redirect('index')
-    return render(request, 'Dashboard/Admin.html')
+    contex = {
+        'terminados':Estado.objects.filter(state='1').count(),
+        'pendientes':Estado.objects.filter(state='2').count(),
+        'suspendidos':Estado.objects.filter(state='3').count(),
+    }
+    return render(request, 'Dashboard/Admin.html', contex)
 
 @login_required(login_url='/login')
 def cantidad_usuarios(request):
@@ -56,23 +61,35 @@ def preguntas(request):
     }
     return render(request, 'Dashboard/PreguntasP.html', contex)
 
-@login_required(login_url=('/login'))
-def proyectosINA(request):
-    if not user_has_role(request.user,'Admin'):
-      return redirect('index')
-    return render(request, 'Dashboard/Proyectos-eliminados.html')
-
-@login_required(login_url=('/login'))
-def proyectoP(request):
-    if not user_has_role(request.user,'Admin'):
-      return redirect('index')
-    return render(request, 'Dashboard/Proyectos-pendientes.html')
 
 @login_required(login_url=('/login'))
 def proyectoT(request):
     if not user_has_role(request.user,'Admin'):
       return redirect('index')
-    return render(request, 'Dashboard/Proyectos-terminado.html')
+    
+    estado = Estado.objects.filter(state='1')
+    proyectos = [e.proyecto for e in estado]
+    return render(request, 'Dashboard/Proyectos-terminado.html', {'proyectos':proyectos})
+
+
+@login_required(login_url=('/login'))
+def proyectoP(request):
+    if not user_has_role(request.user,'Admin'):
+      return redirect('index')
+    
+    estado = Estado.objects.filter(state='2')
+    proyectos = [e.proyecto for e in estado]
+    return render(request, 'Dashboard/Proyectos-pendientes.html', {'proyectos':proyectos})
+
+
+@login_required(login_url=('/login'))
+def proyectosINA(request):
+    if not user_has_role(request.user,'Admin'):
+      return redirect('index')
+    
+    estado = Estado.objects.filter(state='3')
+    proyectos = [e.proyecto for e in estado]
+    return render(request, 'Dashboard/Proyectos-eliminados.html', {'proyectos':proyectos})
 
 
 @login_required(login_url=('/login'))
@@ -81,8 +98,7 @@ def register(request):
       return redirect('index')
     if request.method == 'POST':
         if Usuarios.objects.filter(email=request.POST["email"]).exists():
-            msg = "Este email ya existe"
-            return render(request, 'Dashboard/register.html', {'msg': msg})
+            return render(request, 'Dashboard/register.html', {'msg': "Este email ya esta asociado a un usuario registrado."})
         else:
             user = Usuarios.objects.create_user(email=request.POST["email"],
                                             password=generar_password(),
@@ -370,3 +386,11 @@ def changeStateAnnex(request, id):
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
 
+def changeStateProject(request, id):
+    try:
+        projectStatus = Estado.objects.get(id=id)
+        projectStatus.state = request.POST.get('state')
+        projectStatus.save()
+        return JsonResponse({"mensaje": "Operación exitosa"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=400)

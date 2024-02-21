@@ -13,64 +13,28 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Nombre Proyecto</th>
-                    <th>Centro</th>
-                    <th>ID-Proyecto</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
                     <th>Proponente</th>
-                    <th>Editar Estado</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
+                {% for proyecto in proyectos %}
                 <tr>
-                    <td>Agrosabia</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-primary fas fa-edit"></button></td>
+                    <td>{{proyecto.id}}</td>
+                    <td>{{proyecto.titulo_Proyecto}}</td>
+                    <td>{{proyecto.usuario.username}}</td>
+                    <td>
+                        <select class="custom-select selectByDjango" id="{{proyecto.estado.id}}">
+                            <option value="1">Terminado</option>
+                            <option selected value="2">Pendiente</option>
+                            <option value="3">Suspendido</option>
+                        </select>
+                    </td>
 
                 </tr>
-                <tr>
-                    <td>Gestion</td>
-                    <td>Industrial</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-primary fas fa-edit"></button></td>
-                </tr>
-                <tr>
-                    <td>PDG</td>
-                    <td>Industrial</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-primary fas fa-edit"></button></td>
-                </tr>
-                <tr>
-                    <td>Lord Dominic</td>
-                    <td>Industrial</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-primary fas fa-edit"></button></td>
-                </tr>
-                <tr>
-                    <td>Statick</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-primary fas fa-edit"></button></td>
-                </tr>
-                <tr>
-                    <td>Ben10</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-primary fas fa-edit"></button></td>
-                </tr>
-                <tr>
-                    <td>Biblioteca</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-primary fas fa-edit"></button></td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

@@ -4,9 +4,8 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-1 text-gray-800">Historial de proyectos Inactivos</h1>
-    <p class="mb-4">Aqui podras encontrar todos los proyectos que su estado es inactivo por motivos de interes
-        institucional.</p>
+    <h1 class="h3 mb-1 text-gray-800">Proyectos suspendidos</h1>
+    <p class="mb-4">Aqui podras encontrar todos los proyectos que su estado es suspendidos por motivos de interes institucional.</p>
 </div>
 
 <!-- /.container-fluid -->
@@ -15,73 +14,28 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Nombre Proyecto</th>
-                    <th>Centro</th>
-                    <th>ID-Proyecto</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
                     <th>Proponente</th>
-                    <th>Observar</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>Nombre Proyecto</th>
-                    <th>Centro</th>
-                    <th>ID-Proyecto</th>
-                    <th>Proponente</th>
-                    <th>Observar</th>
-                </tr>
-            </tfoot>
             <tbody>
+                {% for proyecto in proyectos %}
                 <tr>
-                    <td>Agrosabia</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-danger fas fa-eye-slash"></button></td>
+                    <td>{{proyecto.id}}</td>
+                    <td>{{proyecto.titulo_Proyecto}}</td>
+                    <td>{{proyecto.usuario.username}}</td>
+                    <td>
+                        <select class="custom-select selectByDjango" id="{{proyecto.estado.id}}">
+                            <option value="1">Terminado</option>
+                            <option value="2">Pendiente</option>
+                            <option selected value="3">Suspendido</option>
+                        </select>
+                    </td>
 
                 </tr>
-                <tr>
-                    <td>Gestion</td>
-                    <td>Industrial</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-danger fas fa-eye-slash"></button></td>
-                </tr>
-                <tr>
-                    <td>PDG</td>
-                    <td>Industrial</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-danger fas fa-eye-slash"></button></td>
-                </tr>
-                <tr>
-                    <td>Lord Dominic</td>
-                    <td>Industrial</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-danger fas fa-eye-slash"></button></td>
-                </tr>
-                <tr>
-                    <td>Statick</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-danger fas fa-eye-slash"></button></td>
-                </tr>
-                <tr>
-                    <td>Ben10</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-danger fas fa-eye-slash"></button></td>
-                </tr>
-                <tr>
-                    <td>Biblioteca</td>
-                    <td>Colombo</td>
-                    <td>N# Identificacion</td>
-                    <td>Nombre</td>
-                    <td><button type="button" class="btn btn-outline-danger fas fa-eye-slash"></button></td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
