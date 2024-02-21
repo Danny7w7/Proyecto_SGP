@@ -7,10 +7,10 @@
         <h1 style="padding-top:  3%;">Panel de edicion</h2>
     </div>
     <input id="id_proyecto" type="hidden" value="{{proyecto.id}}">
-    <div class="col-10" style="padding-top:5%; padding-bottom: 5%;">
+    <div class="col-10" style="padding-top:5%; padding-bottom: 2%;">
         <h5>Seleccione una opcion de la tabla para editar esa seccion</h2>
     </div>
-    <div class="col"> <a href="{% url 'generar_pdf' id_proyecto %}" class="btn btn-primary">Descargar pdf</a> </div>
+    <div class="col"> <a href="{% url 'generar_pdf' id_proyecto %}"  class="btn btn-success mb-4">Descargar pdf</a> </div>
     <div class="row">
         <div class="col-6">
             <table class="table table-bordered">
@@ -23,39 +23,43 @@
                 <tbody>
                     <tr>
                         <td>Proyecto</td>
-                        <td><a class="btn btn-primary" href="{% url 'edit_proyec' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'edit_proyec' id_proyecto %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Información del Proyecto</td>
-                        <td><a class="btn btn-primary" href="{% url 'info_proyecto' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'info_proyecto' id_proyecto %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Estructura del proyecto</td>
-                        <td><a class="btn btn-primary" href="{% url 'estructura_proyecto' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'estructura_proyecto' id_proyecto %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Arbol de Objetivos</td>
-                        <td><a class="btn btn-primary" href="{% url 'objetivos' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'objetivos' id_proyecto %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Resultados y productos esperados</td>
-                        <td><a class="btn btn-primary" href="{% url 'seleccionarObjetivo' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'seleccionarObjetivo' id_proyecto %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Participación</td>
-                        <td><a class="btn btn-primary" href="{% url 'participantes' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'participantes' id_proyecto %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Participantes de entidad aliada</td>
-                        <td><a class="btn btn-primary" href="{% url 'participantes_entidad' id_proyecto  %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'participantes_entidad' id_proyecto  %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Proyección</td>
-                        <td><a class="btn btn-primary" href="{% url 'proyeccion' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'proyeccion' id_proyecto %}">Editar</a></td>
                     </tr>
                     <tr>
                         <td>Analisis de riesgo</td>
-                        <td><a class="btn btn-primary" href="{% url 'riesgo_general' id_proyecto %}">Editar</a></td>
+                        <td><a class="btn btn-success" href="{% url 'riesgo_general' id_proyecto %}">Editar</a></td>
+                    </tr>
+                    <tr>
+                        <td>Anexos</td>
+                        <td><a class="btn btn-success" href="{% url 'anexos' id_proyecto %}">Editar</a></td>
                     </tr>
                 </tbody>
             </table>

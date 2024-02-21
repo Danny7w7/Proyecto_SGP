@@ -664,25 +664,24 @@ function updateTablePregunta(data){
 
 // Funcion de agregar nuevo anexo
 function agregarAnexo() {
-    var nombre_anexo = prompt("Ingrese el nombre del nuevo anexo:");
+    var nombre_anexo = document.getElementById('nombre_anexo').value.trim();
+    if (nombre_anexo !== '') {
+        var formData = new FormData();
+        formData.append("nombre_anexo", nombre_anexo);
+        formData.append("estado_anexo", "true");
+        formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
 
-    if (nombre_anexo !== null) {
-        var estado_anexo = confirm("¿Desea mostrar este anexo?");
-        estado_anexo = estado_anexo === true || estado_anexo === "true";
-
+        // Realiza la solicitud AJAX
         $.ajax({
             type: 'POST',
             url: '/guardar_anexo/',
-            data: {
-                'nombre_anexo': nombre_anexo,
-                'estado_anexo': estado_anexo.toString()
-            },
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (response) {
                 if (response.success) {
                     alert('Anexo agregado exitosamente');
-
-                    // Actualizar la tabla con los nuevos datos
-                    actualizarTabla(response.nuevos_anexos);
+                    $('#addAnexos').modal('hide');
                 } else {
                     alert('Error al agregar el anexo');
                 }
@@ -691,6 +690,8 @@ function agregarAnexo() {
                 console.error('Error en la solicitud AJAX: ' + error.responseText);
             }
         });
+    } else {
+        alert('Por favor ingrese un enunciado para el anexo.');
     }
 }
 

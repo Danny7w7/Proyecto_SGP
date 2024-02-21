@@ -49,8 +49,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button onclick="addPreguntas()" type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button onclick="addPreguntas()" type="button" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </div>
     </div>
@@ -83,6 +83,29 @@
         </table>
     </div>
 </div>
+<!-- Modal 2 anexos -->
+<div class="modal fade" id="addAnexos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar un nuevo anexo requerido</h5>
+            </div>
+            <div class="modal-body">
+                <form id="postAnexos">
+                    <div class="mb-3">
+                        <label class="form-label">Enunciado del anexo</label>
+                        <input id="nombre_anexo" type="text" class="form-control" placeholder="Ingrese el enunciado con buena ortografía"/>
+                        {% csrf_token %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button onclick="agregarAnexo()" type="button" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">
@@ -90,7 +113,7 @@
             <p class="mb-4">Podrás crear nuevos anexos requeridos para un proyecto.</p>
         </div>
         <div class="col-6 mt-5" style="padding-left: 20%;">
-            <button type="button" class="btn btn-success" onclick="agregarAnexo()">Add</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addAnexos">Agregar</button>
         </div>
     </div>
 </div>
@@ -120,65 +143,6 @@
                         </td>
                     </tr>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-            <h1 class="h3 mb-2 text-gray-800">Codigos SIIF</h1>
-            <p class="mb-4">Podras crear nuevos codigos SIIF segun los requeridos por cada proyecto.</p>
-        </div>
-        <div class="col-6 mt-5" style="padding-left: 20%;">
-            <button type="button" class="btn btn-success">Add</button>
-        </div>
-    </div>
-</div>
-<div class="card-body">
-    <div class="table-responsive">
-        <table class="table table-bordered" style="width: 80%;" id="dataTable" cellspacing="0">
-            <thead>
-                <tr>
-                    <th class="col-7">Codigos SIIF</th>
-                    <th class="">Fecha de creacion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Codigo SIIF nuevo</td>
-                    <td>Fecha</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-            <h1 class="h3 mb-2 text-gray-800">Tematicas Estrategicas SENA</h1>
-            <p class="mb-4">Podras crear nuevas Tematicas Estrategicas SENA segun los requeridos por cada
-                proyecto.</p>
-        </div>
-        <div class="col-6 mt-5" style="padding-left: 20%;">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Agregar</button>
-        </div>
-    </div>
-</div>
-<div class="card-body" style="padding-bottom: 5%;">
-    <div class="table-responsive">
-        <table class="table table-bordered" style="width: 80%;" id="dataTable" cellspacing="0">
-            <thead>
-                <tr>
-                    <th class="col-7">Tematicas Estrategicas SENA</th>
-                    <th class="">Fecha de creacion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Tematica Estrategica nueva</td>
-                    <td>Fecha</td>
-                </tr>
             </tbody>
         </table>
     </div>

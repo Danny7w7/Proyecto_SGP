@@ -322,16 +322,16 @@ def guardar_anexo(request):
     if request.method == 'POST':
         nombre_anexo = request.POST.get('nombre_anexo')
         estado_anexo_str = request.POST.get('estado_anexo')
-        
-        # Convertir el string 'true' o 'false' a un booleano
-        estado_anexo = estado_anexo_str.lower() == 'true'
-
-        # Guardar el nuevo anexo en la base de datos
+        if estado_anexo_str and estado_anexo_str.lower() == 'true':
+            estado_anexo = True
+        else:
+            estado_anexo = False
         nuevo_anexo = Document(nombre=nombre_anexo, estado=estado_anexo)
         nuevo_anexo.save()
         return JsonResponse({'success': True})
     else:
         return JsonResponse({'success': False})
+    
     
 @csrf_exempt
 def cargar_guia(request):
