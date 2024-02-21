@@ -659,25 +659,24 @@ function updateTablePregunta(data){
 
 // Funcion de agregar nuevo anexo
 function agregarAnexo() {
-    var nombre_anexo = prompt("Ingrese el nombre del nuevo anexo:");
+    var nombre_anexo = document.getElementById('nombre_anexo').value.trim();
+    if (nombre_anexo !== '') {
+        var formData = new FormData();
+        formData.append("nombre_anexo", nombre_anexo);
+        formData.append("estado_anexo", "true");
+        formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
 
-    if (nombre_anexo !== null) {
-        var estado_anexo = confirm("¿Desea mostrar este anexo?");
-        estado_anexo = estado_anexo === true || estado_anexo === "true";
-
+        //solicitud AJAX
         $.ajax({
             type: 'POST',
             url: '/guardar_anexo/',
-            data: {
-                'nombre_anexo': nombre_anexo,
-                'estado_anexo': estado_anexo.toString()
-            },
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (response) {
                 if (response.success) {
                     alert('Anexo agregado exitosamente');
-
-                    // Actualizar la tabla con los nuevos datos
-                    actualizarTabla(response.nuevos_anexos);
+                    $('#addAnexos').modal('hide');
                 } else {
                     alert('Error al agregar el anexo');
                 }
@@ -686,6 +685,8 @@ function agregarAnexo() {
                 console.error('Error en la solicitud AJAX: ' + error.responseText);
             }
         });
+    } else {
+        alert('Por favor ingrese un enunciado para el anexo.');
     }
 }
 
@@ -723,17 +724,17 @@ function cargarGuia(documentId) {
     // Crear un input de tipo archivo
     var inputFile = document.createElement('input');
     inputFile.type = 'file';
-    inputFile.accept = '.pdf','.docx'; // O el tipo de archivo que desees permitir
-    inputFile.style.display = 'none'; // Ocultar el input
+    inputFile.accept = '.pdf','.docx';
+    inputFile.style.display = 'none';
 
-    // Función para manejar el cambio de archivo seleccionado
+    // Función para cambiar la cuestion Ya?
     inputFile.onchange = function(event) {
         var formData = new FormData();
         var archivo = event.target.files[0];
         formData.append('guia', archivo);
         formData.append('document_id', documentId);
 
-        // Enviar el archivo al servidor
+        // El ajax para enviar la vaina sin cargar
         $.ajax({
             type: 'POST',
             url: '/cargar_guia/',
@@ -743,7 +744,6 @@ function cargarGuia(documentId) {
             success: function(response) {
                 if (response.success) {
                     alert('Documento guía cargado correctamente');
-                    // Puedes realizar alguna acción adicional aquí si es necesario, como actualizar la página
                 } else {
                     alert('Error al cargar el documento guía: ' + response.message);
                 }
@@ -754,10 +754,9 @@ function cargarGuia(documentId) {
             }
         });
     };
-
-    // Simular clic en el input de tipo archivo
+    // esta vuelta es para que se abran los archivos.
     inputFile.click();
-}putFile.click();
+}
 
 function changeStateQuestion(id){
     var formData = new FormData();

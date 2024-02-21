@@ -131,9 +131,7 @@ def generar_pdf(request, proyecto_id):
     resultados_productos_esperados = []
     # Obtener el proyecto y otros datos relacionados
     proyecto = get_object_or_404(Proyecto, id=proyecto_id)
-    informacion_proponente = get_or_none(Informacion_proponente, proyecto=proyecto.id)
-    autores = Autores.objects.filter(proyecto=proyecto)
-    part_p = Participantes_Proyecto.objects.filter(proyecto=proyecto)
+    documentos_anexos = Anexos.objects.filter(proyecto=proyecto)
     gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto).first()
     res = Resumen_antecedentes.objects.filter(proyecto=proyecto).first()
     des_p = Descripcion_problema.objects.filter(proyecto=proyecto).first()
@@ -143,15 +141,16 @@ def generar_pdf(request, proyecto_id):
     riesgo_a = RiesgoActividades.objects.filter(proyecto=proyecto).first()
     objetivos = Objetivos.objects.filter(proyecto=proyecto).first()
     objetivos_especificos = Objetivos_especificos.objects.filter(objetivoGeneral=objetivos)
-    doc = Document.objects.filter(proyecto=proyecto).first()
-    try:
-        for objEsp in objetivos_especificos:
-            ResyProd = Resultados_y_productos_esperados.objects.filter(objetivo_especifico=objEsp.id)
-            resultados_productos_esperados.extend(list(ResyProd))
-    except:
-        resultados_productos_esperados = ''
     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
     entidad_a = Entidades_aliadas.objects.filter(proyecto=proyecto)
+    
+    nombres_anexos = {}
+    
+    for anexo in documentos_anexos:
+        nombre_documento = anexo.anexo_requerido.nombre
+        anexo_documento = anexo.anexo
+        nombres_anexos[nombre_documento] = anexo_documento
+    
     partp_e = {}
     for entidad_aliada in entidad_a:
         participantes_entidad_aliada = Participantes_entidad_alidad.objects.filter(
@@ -162,9 +161,7 @@ def generar_pdf(request, proyecto_id):
     # Renderizar el template con los datos
     context = {
         "proyecto": proyecto,
-        "informacion_proponente": informacion_proponente,
-        "autores": autores,
-        "part_p": part_p,
+        "nombres_anexos": nombres_anexos,
         "gen": gen,
         "res": res,
         "des_p": des_p,
@@ -174,7 +171,6 @@ def generar_pdf(request, proyecto_id):
         "riesgo_g": riesgo_g,
         "riesgo_p": riesgo_p,
         "riesgo_a": riesgo_a,
-        "doc": doc,
         "partp_e": partp_e,
         'objetivos': objetivos,
         "resultados_productos_esperados": resultados_productos_esperados,
@@ -214,19 +210,9 @@ def generar_c_valor(request, proyecto_id):
     # Renderizar el template con los datos
     context = {
         "proyecto": proyecto,
-        "informacion_proponente": informacion_proponente,
         'objetivos': objetivos,
-
+        "objetivos_especificos": objetivos_especificos,
     }
-    try:
-        nuevos_campos = {
-            "objetivos_especificos": objetivos_especificos,
-        }
-    except:
-        nuevos_campos = {
-            "objetivos_especificos": None,
-        }
-    context.update(nuevos_campos)
 
     template_path = "form/cadena_valor.html"
     html = render_to_string(template_path, context)
@@ -241,6 +227,7 @@ def generar_c_valor(request, proyecto_id):
         return mostrar_error(request,"Error al generar el PDF", status=500)
 
     return response
+
 
 
 # ------Formulario------
@@ -755,7 +742,7 @@ def objetivos_json(request, id_proyecto):
     objetivoEsp = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
     objetivo.objetivo_general = request.POST['objetivo_general']
     objetivo.save()
-    for i in range(0, 3):
+    for i in range(0, 5):
         if request.POST.get(f'objetivo_especifico{i+1}'):
             try:
                 objEsp = objetivoEsp[i]

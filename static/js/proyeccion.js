@@ -26,15 +26,15 @@ document.addEventListener("DOMContentLoaded", function() {
        "form1": {
         "duracion_proyecto": {
             pattern: /^[\w\s.,?!;:'"()\-–—¿¡=ÑñA-Za-záéíóúÁÉÍÓÚ, .#$%&[\]/]{5,250}$/,
-            errorMsg: 'La fecha no es válida. Por favor ingresela nuevamente.'
+            errorMsg: 'La fecha no es válida. Por favor ingresela nuevamente. Rectifique que la fecha sea coherente'
         },
         "fecha_inicio": {
             pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
+            errorMsg: 'La fecha de inicio no es válida. Por favor ingresela nuevamente. Rectifique que la fecha sea coherente'
         },
         "fecha_cierre": {
             pattern: /^[\w\s.,?!;:'"()\-–—Ññ]{5,250}$/,
-            errorMsg: 'El resumen no es válido. Debe tener entre 5 y 250 caracteres.'
+            errorMsg: 'La fecha de cierre no es válida. Por favor ingresela nuevamente. Rectifique que la fecha sea coherente'
         }
        },
 
@@ -42,19 +42,19 @@ document.addEventListener("DOMContentLoaded", function() {
        "form2":{
         "propuesta_sostenibilidad": {
             pattern: /^[\s\S]{5,500}$/,
-            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
+            errorMsg: 'La propuesta de sostenibilidad no es valida. Debe tener entre 5 y 500 caracteres.'
         },
         "impacto_social": {
             pattern: /^[\s\S]{5,500}$/,
-            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
+            errorMsg: 'El impacto social no es válido. Debe tener entre 5 y 500 caracteres.'
         },
         "impacto_tecnologico": {
             pattern: /^[\s\S]{5,500}$/,
-            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
+            errorMsg: 'El impacto tecnologico no es válido. Debe tener entre 5 y 500 caracteres.'
         },
         "impacto_centro": {
             pattern: /^[\s\S]{5,500}$/,
-            errorMsg: 'Identificación y descripción no es válido. Debe tener entre 5 y 500 caracteres.'
+            errorMsg: 'El impacto en el centro de formacion no es válido. Debe tener entre 5 y 500 caracteres.'
         },
        },
     };

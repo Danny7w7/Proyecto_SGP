@@ -2,6 +2,8 @@ inputs = [
      "objetivo_especifico1",
      "objetivo_especifico2",
      "objetivo_especifico3",
+     "objetivo_especifico4",
+     "objetivo_especifico5",
 ];
 function showdivObj() {
      inputs.forEach((input, i) => {
@@ -16,23 +18,30 @@ function showdivObj() {
 
 let conjuntosMostrados = 1;
 function mostrarDivs() {
-     // Mostrar conjuntos adicionales solo si no se han mostrado más de 2
-     if (conjuntosMostrados < 2) {
-          document.querySelector(".la_prueba2").style.display = "block";
-          conjuntosMostrados++;
-     } else if (conjuntosMostrados == 2) {
-          document.querySelector(".la_prueba3").style.display = "block";
-          conjuntosMostrados++;
-     } else {
-          // alert('Solo puedes crear 3 objetivos especificos por proyecto.')
-          Swal.fire({
-               title: "¡Advertencia!",
-               text: "Solo puede crear 3 objetivos específicos por proyecto.",
-               icon: "warning",
-               confirmButtonText: "Aceptar",
-          });
-     }
+    // Mostrar conjuntos adicionales solo si no se han mostrado más de 4
+    if (conjuntosMostrados < 2) {
+        document.querySelector(".la_prueba2").style.display = "block";
+        conjuntosMostrados++;
+    } else if (conjuntosMostrados == 2) {
+        document.querySelector(".la_prueba3").style.display = "block";
+        conjuntosMostrados++;
+    } else if (conjuntosMostrados == 3) {
+        document.querySelector(".la_prueba4").style.display = "block";
+        conjuntosMostrados++;
+    } else if (conjuntosMostrados == 4) {
+        document.querySelector(".la_prueba5").style.display = "block";
+        conjuntosMostrados++;
+    } else {
+        // alert('Solo puedes crear 5 objetivos especificos por proyecto.')
+        Swal.fire({
+            title: "¡Advertencia!",
+            text: "Solo puede crear 5 objetivos específicos por proyecto.",
+            icon: "warning",
+            confirmButtonText: "Aceptar",
+        });
+    }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
      const button1 = document.getElementById("step2");
 
@@ -44,39 +53,24 @@ document.addEventListener("DOMContentLoaded", function () {
                "objetivo_general": {
                     pattern: /^[\s\S]{5,500}$/,
                     errorMsg:
-                         "El obj general no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
+                         "El objetivo general del proyecto no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
                },
-               "objetivo_especifico1": {
-                    pattern: /^[\s\S]{5,500}$/,
-                    errorMsg:
-                         "El obj especifico no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
-               },
-               "objetivo_especifico2": {
-                    pattern: /^[\s\S]{5,500}$/,
-                    errorMsg:
-                         "El obj especifico 2 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
-               },
-               "objetivo_especifico3": {
-                    pattern: /^[\s\S]{5,500}$/,
-                    errorMsg:
-                         "El obj especifico 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
-               },
-          },
+            },
           "form2": {
                "actividad1": {
                     pattern: /^[\s\S]{5,1000}$/,
                     errorMsg:
-                         "La actividad de obj especifico 1 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+                         "La actividad de objetivo especifico 1 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
                },
                "actividad2": {
                     pattern: /^[\s\S]{5,1000}$/,
                     errorMsg:
-                         "La actividad de obj especifico 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+                         "La actividad de objetivo especifico 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
                },
                "actividad3": {
                     pattern: /^[\s\S]{5,1000}$/,
                     errorMsg:
-                         "La actividad de obj especifico 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+                         "La actividad de objetivo especifico 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
                },
                "causa1": {
                     pattern: /^[\s\S]{5,1000}$/,
@@ -110,6 +104,77 @@ document.addEventListener("DOMContentLoaded", function () {
                },
           },
      };
+     
+     let formValidations = {
+          "objetivo_especifico1": {
+              pattern: /^[\s\S]{5,500}$/,
+              errorMsg: "El objetivo específico 1 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
+              validate: function() {
+                  if (document.getElementById("la_prueba1").style.display !== "none") {
+                      return this.pattern.test(document.getElementById("objetivo_especifico1").value);
+                  }
+                  return true; // Si el campo no está visible, lo consideramos válido
+              }
+          },
+          "objetivo_especifico2": {
+              pattern: /^[\s\S]{5,500}$/,
+              errorMsg: "El objetivo específico 2 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
+              validate: function() {
+                  if (document.getElementById("la_prueba2").style.display !== "none") {
+                      return this.pattern.test(document.getElementById("objetivo_especifico2").value);
+                  }
+                  return true; // Si el campo no está visible, lo consideramos válido
+              }
+          },
+          "objetivo_especifico3": {
+              pattern: /^[\s\S]{5,500}$/,
+              errorMsg: "El objetivo específico 3 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
+              validate: function() {
+                  if (document.getElementById("la_prueba3").style.display !== "none") {
+                      return this.pattern.test(document.getElementById("objetivo_especifico3").value);
+                  }
+                  return true; // Si el campo no está visible, lo consideramos válido
+              }
+          },
+          "objetivo_especifico4": {
+               pattern: /^[\s\S]{5,500}$/,
+               errorMsg: "El objetivo específico 4 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
+               validate: function() {
+                   if (document.getElementById("la_prueba4").style.display !== "none") {
+                       return this.pattern.test(document.getElementById("objetivo_especifico4").value);
+                   }
+                   return true; // Si el campo no está visible, lo consideramos válido
+               }
+           },
+           "objetivo_especifico5": {
+               pattern: /^[\s\S]{5,500}$/,
+               errorMsg: "El objetivo específico 5 no es válido. Debe tener entre 5 y 500 caracteres y no puede contener caracteres especiales",
+               validate: function() {
+                   if (document.getElementById("la_prueba5").style.display !== "none") {
+                       return this.pattern.test(document.getElementById("objetivo_especifico5").value);
+                   }
+                   return true; // Si el campo no está visible, lo consideramos válido
+               }
+           },
+      };
+      
+      function validateForm() {
+          let isValid = true;
+          Object.keys(formValidations).forEach(function(fieldName) {
+              let field = formValidations[fieldName];
+              if (!field.validate()) {
+                  isValid = false;
+                  // Muestra el mensaje de error para el campo correspondiente
+                  document.getElementById(fieldName).classList.add('is-invalid');
+                  document.getElementById(fieldName).nextElementSibling.textContent = field.errorMsg;
+              } else {
+                  // Si el campo es válido, asegúrate de eliminar cualquier mensaje de error anterior
+                  document.getElementById(fieldName).classList.remove('is-invalid');
+                  document.getElementById(fieldName).nextElementSibling.textContent = '';
+              }
+          });
+          return isValid;
+      }
 
      // Verificador de caracteres
      function handleTextareaInput(textarea, counterId) {
@@ -140,6 +205,12 @@ document.addEventListener("DOMContentLoaded", function () {
      const textarea11 = document.getElementById("actividad3");
      const textarea12 = document.getElementById("causa3");
      const textarea13 = document.getElementById("efecto3");
+     const textarea14 = document.getElementById("actividad4");
+     const textarea15 = document.getElementById("causa4");
+     const textarea16 = document.getElementById("efecto4");
+     const textarea17 = document.getElementById("actividad5");
+     const textarea18 = document.getElementById("causa5");
+     const textarea19 = document.getElementById("efecto5");
 
      handleTextareaInput(textarea1, "char-counter1");
      handleTextareaInput(textarea2, "char-counter2");
@@ -154,6 +225,12 @@ document.addEventListener("DOMContentLoaded", function () {
      handleTextareaInput(textarea11, "char-counter11");
      handleTextareaInput(textarea12, "char-counter12");
      handleTextareaInput(textarea13, "char-counter13");
+     handleTextareaInput(textarea14, "char-counter14");
+     handleTextareaInput(textarea15, "char-counter15");
+     handleTextareaInput(textarea16, "char-counter16");
+     handleTextareaInput(textarea17, "char-counter17");
+     handleTextareaInput(textarea18, "char-counter18");
+     handleTextareaInput(textarea19, "char-counter19");
 
      // Itera sobre cada conjunto de validaciones
      for (let formKey in allValidations) {
@@ -290,6 +367,18 @@ function sendPost1() {
                document.getElementById("objetivo_especifico3").value
           );
      }
+     if (!(document.getElementById("objetivo_especifico4").value == "")) {
+          formData.append(
+               "objetivo_especifico4",
+               document.getElementById("objetivo_especifico4").value
+          );
+     }
+     if (!(document.getElementById("objetivo_especifico5").value == "")) {
+          formData.append(
+               "objetivo_especifico5",
+               document.getElementById("objetivo_especifico5").value
+          );
+     }
      formData.append(
           "csrfmiddlewaretoken",
           document.querySelector("[name=csrfmiddlewaretoken]").value
@@ -338,6 +427,22 @@ function sendPost2() {
           );
           formData.append("causa3", document.getElementById("causa3").value);
           formData.append("efecto3", document.getElementById("efecto3").value);
+     }
+     if (!(document.getElementById("actividad4").value == "")) {
+          formData.append(
+               "actividad3",
+               document.getElementById("actividad4").value
+          );
+          formData.append("causa3", document.getElementById("causa4").value);
+          formData.append("efecto3", document.getElementById("efecto4").value);
+     }
+     if (!(document.getElementById("actividad5").value == "")) {
+          formData.append(
+               "actividad3",
+               document.getElementById("actividad5").value
+          );
+          formData.append("causa3", document.getElementById("causa5").value);
+          formData.append("efecto3", document.getElementById("efecto5").value);
      }
      formData.append(
           "csrfmiddlewaretoken",

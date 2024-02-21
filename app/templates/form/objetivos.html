@@ -3,7 +3,7 @@
 {% load static %}
 {% block forms %}
 <style>
-    .la_prueba2, .la_prueba3 {
+    .la_prueba2, .la_prueba3, .la_prueba4, .la_prueba5 {
       display: none;
     }
 </style>
@@ -103,6 +103,30 @@
                                                 <input type="hidden" name="val_just4" value="500">
                                             </div>
                                         </div>
+                                        <div class="la_prueba4" style="display: {% if objEsp.3.objetivo_especifico %}block{% else %}none{% endif %};">
+                                            <div class="mb-3">
+                                                <label for="objetivo_especificos" class="form-label">Objetivo específico 4</label>
+                                                <textarea
+                                                    class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
+                                                    name="objetivo_especificos4" id="objetivo_especifico4" cols="20" rows="3">{{objEsp.3.objetivo_especifico}}</textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                                <span id="char-counter5">0/500 máximo</span>
+                                                <input type="hidden" name="val_just5" value="500">
+                                            </div>
+                                        </div>
+                                        <div class="la_prueba5" style="display: {% if objEsp.4.objetivo_especifico %}block{% else %}none{% endif %};">
+                                            <div class="mb-3">
+                                                <label for="objetivo_especificos" class="form-label">Objetivo específico 5</label>
+                                                <textarea
+                                                    class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
+                                                    name="objetivo_especificos5" id="objetivo_especifico5" cols="20" rows="3">{{objEsp.4.objetivo_especifico}}</textarea>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                                <span id="char-counter6">0/500 máximo</span>
+                                                <input type="hidden" name="val_just6" value="500">
+                                            </div>
+                                        </div>
                                         <!-- Botón Siguiente centrado -->
                                         <div class="d-flex justify-content-center col-12">
                                             <button type="button" id="enviar1" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
@@ -142,7 +166,7 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad1" cols="20" rows="3">{{objEsp.0.actividades_obj_especificos}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
-                                                    <span id="char-counter5">0/1000 máximo</span>
+                                                    <span id="char-counter7">0/1000 máximo</span>
                                                     <input type="hidden" name="val_just5" value="1000">
                                                 </div>
                                                 <div class="mb-3">
@@ -150,7 +174,7 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa1" cols="20" rows="3">{{objEsp.0.causa}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
-                                                    <span id="char-counter6">0/1000 máximo</span>
+                                                    <span id="char-counter8">0/1000 máximo</span>
                                                     <input type="hidden" name="val_just6" value="1000">
                                                 </div>
                                                 <div class="mb-3">
@@ -159,7 +183,7 @@
                                                         <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto1" cols="20" rows="3">{{objEsp.0.efecto}}</textarea>
                                                         <div class="invalid-feedback">
                                                         </div>
-                                                        <span id="char-counter7">0/1000 máximo</span>
+                                                        <span id="char-counter9">0/1000 máximo</span>
                                                         <input type="hidden" name="val_just7" value="1000">
                                                     </div>
                                                 </div>
@@ -171,7 +195,7 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad2" cols="20" rows="3">{{objEsp.1.actividades_obj_especificos}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
-                                                    <span id="char-counter8">0/1000 máximo</span>
+                                                    <span id="char-counter10">0/1000 máximo</span>
                                                     <input type="hidden" name="val_just8" value="1000">
                                                 </div>
                                                 <div class="mb-3">
@@ -179,7 +203,7 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa2" cols="20" rows="3">{{objEsp.1.causa}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
-                                                    <span id="char-counter9">0/1000 máximo</span>
+                                                    <span id="char-counter11">0/1000 máximo</span>
                                                     <input type="hidden" name="val_just9" value="1000">
                                                 </div>
                                                 <div class="mb-3">
@@ -188,7 +212,7 @@
                                                         <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto2" cols="20" rows="3">{{objEsp.1.efecto}}</textarea>
                                                         <div class="invalid-feedback">
                                                         </div>
-                                                        <span id="char-counter10">0/1000 máximo</span>
+                                                        <span id="char-counter12">0/1000 máximo</span>
                                                         <input type="hidden" name="val_just10" value="1000">
                                                     </div>
                                                 </div>
@@ -200,7 +224,7 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad3" cols="20" rows="3">{{objEsp.2.actividades_obj_especificos}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
-                                                    <span id="char-counter11">0/1000 máximo</span>
+                                                    <span id="char-counter13">0/1000 máximo</span>
                                                     <input type="hidden" name="val_just11" value="1000">
                                                 </div>
                                                 <div class="mb-3">
@@ -208,7 +232,7 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa3" cols="20" rows="3">{{objEsp.2.causa}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
-                                                    <span id="char-counter12">0/1000 máximo</span>
+                                                    <span id="char-counter14">0/1000 máximo</span>
                                                     <input type="hidden" name="val_just12" value="1000">
                                                 </div>
                                                 <div class="mb-3">
@@ -217,12 +241,68 @@
                                                         <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto3" cols="20" rows="3">{{objEsp.2.efecto}}</textarea>
                                                         <div class="invalid-feedback">
                                                         </div>
-                                                        <span id="char-counter13">0/1000 máximo</span>
+                                                        <span id="char-counter15">0/1000 máximo</span>
                                                         <input type="hidden" name="val_just13" value="1000">
                                                     </div>
                                                 </div>
                                             </div>
-        
+
+                                            <div id="Actividad4" style="display: {% if objEsp.3.objetivo_especifico %}block{% else %}none{% endif %};">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Actividad del objetivo especifico 4</label>
+                                                    <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad4" cols="20" rows="3">{{objEsp.3.actividades_obj_especificos}}</textarea>
+                                                    <div class="invalid-feedback">
+                                                    </div>
+                                                    <span id="char-counter16">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just14" value="1000">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="justificacion" class="form-label">Causa del objetivo especifico 4</label>
+                                                    <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa4" cols="20" rows="3">{{objEsp.3.causa}}</textarea>
+                                                    <div class="invalid-feedback">
+                                                    </div>
+                                                    <span id="char-counter17">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just15" value="1000">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Efecto del objetivo especifico 4</label>
+                                                        <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto4" cols="20" rows="3">{{objEsp.3.efecto}}</textarea>
+                                                        <div class="invalid-feedback">
+                                                        </div>
+                                                        <span id="char-counter18">0/1000 máximo</span>
+                                                        <input type="hidden" name="val_just16" value="1000">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="Actividad5" style="display: {% if objEsp.4.objetivo_especifico %}block{% else %}none{% endif %};">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Actividad del objetivo especifico 5</label>
+                                                    <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="actividad5" cols="20" rows="3">{{objEsp.4.actividades_obj_especificos}}</textarea>
+                                                    <div class="invalid-feedback">
+                                                    </div>
+                                                    <span id="char-counter19">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just17" value="1000">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="justificacion" class="form-label">Causa del objetivo especifico 5</label>
+                                                    <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa5" cols="20" rows="3">{{objEsp.4.causa}}</textarea>
+                                                    <div class="invalid-feedback">
+                                                    </div>
+                                                    <span id="char-counter19">0/1000 máximo</span>
+                                                    <input type="hidden" name="val_just18" value="1000">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Efecto del objetivo especifico 5</label>
+                                                        <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto5" cols="20" rows="3">{{objEsp.4.efecto}}</textarea>
+                                                        <div class="invalid-feedback">
+                                                        </div>
+                                                        <span id="char-counter19">0/1000 máximo</span>
+                                                        <input type="hidden" name="val_just19" value="1000">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!-- Botón Siguiente centrado -->
                                             <div id="divSiguiente" style="display: {% if objEsp.0.objetivo_especifico %}block{% else %}none{% endif %};">
                                                 <div class="d-flex justify-content-center col-12">

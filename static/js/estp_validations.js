@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         },        
         "antecedentes": {
             pattern: /^[\s\S]{5,8000}$/,
-            errorMsg: 'El antecedente no es válido. Debe tener entre 5 y 8000 caracteres.'
+            errorMsg: 'Los antecedentes no son validos. Debe tener entre 5 y 8000 caracteres.'
         },
        },
 
