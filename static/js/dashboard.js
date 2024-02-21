@@ -671,7 +671,7 @@ function agregarAnexo() {
         formData.append("estado_anexo", "true");
         formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
 
-        // Realiza la solicitud AJAX
+        //solicitud AJAX
         $.ajax({
             type: 'POST',
             url: '/guardar_anexo/',
@@ -700,17 +700,17 @@ function cargarGuia(documentId) {
     // Crear un input de tipo archivo
     var inputFile = document.createElement('input');
     inputFile.type = 'file';
-    inputFile.accept = '.pdf','.docx'; // O el tipo de archivo que desees permitir
-    inputFile.style.display = 'none'; // Ocultar el input
+    inputFile.accept = '.pdf','.docx';
+    inputFile.style.display = 'none';
 
-    // Función para manejar el cambio de archivo seleccionado
+    // Función para cambiar la cuestion Ya?
     inputFile.onchange = function(event) {
         var formData = new FormData();
         var archivo = event.target.files[0];
         formData.append('guia', archivo);
         formData.append('document_id', documentId);
 
-        // Enviar el archivo al servidor
+        // El ajax para enviar la vaina sin cargar
         $.ajax({
             type: 'POST',
             url: '/cargar_guia/',
@@ -720,7 +720,6 @@ function cargarGuia(documentId) {
             success: function(response) {
                 if (response.success) {
                     alert('Documento guía cargado correctamente');
-                    // Puedes realizar alguna acción adicional aquí si es necesario, como actualizar la página
                 } else {
                     alert('Error al cargar el documento guía: ' + response.message);
                 }
@@ -731,10 +730,9 @@ function cargarGuia(documentId) {
             }
         });
     };
-
-    // Simular clic en el input de tipo archivo
+    // esta vuelta es para que se abran los archivos.
     inputFile.click();
-}putFile.click();
+}
 
 function changeStateQuestion(id){
     var formData = new FormData();

@@ -695,39 +695,12 @@
             <h5>Anexos</h5>
             <h3>Anexos vinculados al proyecto</h3>
             <table>
-
+                {% for nombre_documento, anexo_documento in nombres_anexos.items %}
                 <tr>
-                    <td><strong>ANEXO 1A. Acta Reunión Regional: </strong></td>
-                    <td>{{doc.anexo1}}</td>
+                    <td><strong>{{ nombre_documento }}:</strong></td>
+                    <td><a href="{{ anexo_documento.url }}">{{ anexo_documento }}</a></td>
                 </tr>
-                <tr>
-                    <td><strong>ANEXO 1C. Carta C.I Director Regional:</strong></td>
-                    <td>{{doc.anexo2}}</td>
-                </tr>
-                <tr>
-                    <td><strong>ANEXO 2. Ficha técnica para maquinaria y equipos.</strong></td>
-                    <td>{{doc.anexo3}}</td>
-                </tr>
-                <tr>
-                    <td><strong>ANEXO 4. Modernización. (Obligatorio para los proyectos cuyo objeto sea la actualización
-                            y modernización de ambientes de formación (SIIF 23)):</strong></td>
-                    <td>{{doc.anexo4}}</td>
-                </tr>
-                <tr>
-                    <td><strong>ANEXO 7. Carta de intención o acta que soporta el trabajo articulado con entidades
-                            aliadas (diferentes al SENA) (Obligatorio si se articula con entidad aliada o con otro
-                            Centro de Formación):</strong></td>
-                    <td>{{doc.anexo5}}</td>
-                </tr>
-                <tr>
-                    <td><strong>ANEXO 8. Propiedad intelectual (Obligatorio si se articula con entidad aliada o con otro
-                            Centro de Formación):</strong></td>
-                    <td>{{doc.anexo6}}</td>
-                </tr>
-                <tr>
-                    <td><strong>Fecha:</strong></td>
-                    <td>{{doc.fecha}}</td>
-                </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
