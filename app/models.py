@@ -38,6 +38,7 @@ class Proyecto(models.Model):
     area_conocimiento = models.CharField(max_length=80, null=False)
     linea_Grupo_Investigacion = models.CharField(max_length=100, null=False)
     subarea_conocimiento = models.CharField(max_length=100, null=False)
+    fecha_creacion = models.DateField(auto_now_add=True)
     progress = models.IntegerField(null=True)
     usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
 

@@ -248,7 +248,6 @@ def crear_proyecto(request):
             estado = Estado(proyecto_id=proyecto.id)
             estado.state = 2
             estado.save()
-            print(estado)
             return redirect("info_proyecto", id_proyecto=proyecto.id)
     else:
         form = ProyectoForm()

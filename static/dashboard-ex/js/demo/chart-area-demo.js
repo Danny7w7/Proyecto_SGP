@@ -27,6 +27,24 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
+// Función para obtener datos dinámicamente
+function getData() {
+  let data = [];
+  for (let i = 1; i < 13; i++) {
+    let projectPerMonth = document.getElementById(`projectPerMonth${i}`)
+    if (projectPerMonth == null){
+      projectPerMonth = 0
+    }else{
+      projectPerMonth = Number(projectPerMonth.value)
+    }
+    data.push(projectPerMonth)
+  }
+  console.log(data)
+  return data;
+}
+
+uwu = getData()
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
@@ -46,7 +64,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [0, 20, 50, 10, 15, 20, 23, 15, 50, 29, 15, 40],
+      data: getData(),
     }],
   },
   options: {
@@ -116,3 +134,5 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
+console.log(myLineChart.data.datasets);

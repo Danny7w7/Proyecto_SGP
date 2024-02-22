@@ -23,10 +23,21 @@ def user_has_role(user, *roles):
 def admin(request):
     if not user_has_role(request.user,'Admin'):
       return redirect('index')
+    year = {}
+    projects = Proyecto.objects.all()
+    for project in projects:
+        month_key = str(project.fecha_creacion.month)
+        if month_key not in year:
+            # Si el mes no existe en el diccionario principal, crear un nuevo diccionario interno
+            year[month_key] = {"proyectos": [project]}
+        else:
+            # Si el mes ya existe, agregar el proyecto a la lista existente
+            year[month_key].setdefault("proyectos", []).append(project)
     contex = {
         'terminados':Estado.objects.filter(state='1').count(),
         'pendientes':Estado.objects.filter(state='2').count(),
         'suspendidos':Estado.objects.filter(state='3').count(),
+        'proyectos':year
     }
     return render(request, 'Dashboard/Admin.html', contex)
 

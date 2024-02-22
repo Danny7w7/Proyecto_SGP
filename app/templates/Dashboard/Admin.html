@@ -2,7 +2,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- Get the number of projects per month -->
+{% for key, value in proyectos.items %}
+    <input id="projectPerMonth{{ key }}" value="{{ value.proyectos|length }}" hidden>
+{% endfor %}
 <head>
 
     <meta charset="utf-8">
@@ -137,7 +140,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <p class="mr-2 d-none d-lg-inline text-gray-600 small">USUARIO REGISTRADO </p><p class="fas fa-user"></p>
+                                <p class="mr-2 d-none d-lg-inline text-gray-600 small">USUARIO REGISTRADO</p><p class="fas fa-user"></p>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -299,6 +302,7 @@
             </div>
         </div>
     </div>
+
 
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
