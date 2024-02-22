@@ -140,6 +140,7 @@ def generar_pdf(request, proyecto_id):
     riesgo_p = RiesgoProductos.objects.filter(proyecto=proyecto).first()
     riesgo_a = RiesgoActividades.objects.filter(proyecto=proyecto).first()
     objetivos = Objetivos.objects.filter(proyecto=proyecto).first()
+    info_p = Informacion_proponente.objects.filter(proyecto=proyecto).first()
     objetivos_especificos = Objetivos_especificos.objects.filter(objetivoGeneral=objetivos)
     centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
     entidad_a = Entidades_aliadas.objects.filter(proyecto=proyecto)
@@ -162,6 +163,7 @@ def generar_pdf(request, proyecto_id):
     context = {
         "proyecto": proyecto,
         "nombres_anexos": nombres_anexos,
+        "informacion_proponente" : info_p,
         "gen": gen,
         "res": res,
         "des_p": des_p,

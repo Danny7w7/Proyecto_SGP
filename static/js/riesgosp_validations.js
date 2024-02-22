@@ -272,7 +272,7 @@ function sendPost3() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            window.location.href = `/subir_anexos/${id_proyecto}/`;
+            window.location.href = `/anexos/${id_proyecto}`;
         }
     })
     .catch(error => {

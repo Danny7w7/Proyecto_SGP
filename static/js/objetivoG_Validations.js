@@ -102,6 +102,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     errorMsg:
                          "El efecto 3 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
                },
+               "efecto4": {
+                    pattern: /^[\s\S]{5,1000}$/,
+                    errorMsg:
+                         "El efecto 4 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               },
+               "efecto5": {
+                    pattern: /^[\s\S]{5,1000}$/,
+                    errorMsg:
+                         "El efecto 5 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               },
           },
      };
      
@@ -430,19 +440,19 @@ function sendPost2() {
      }
      if (!(document.getElementById("actividad4").value == "")) {
           formData.append(
-               "actividad3",
+               "actividad4",
                document.getElementById("actividad4").value
           );
-          formData.append("causa3", document.getElementById("causa4").value);
-          formData.append("efecto3", document.getElementById("efecto4").value);
+          formData.append("causa4", document.getElementById("causa4").value);
+          formData.append("efecto4", document.getElementById("efecto4").value);
      }
      if (!(document.getElementById("actividad5").value == "")) {
           formData.append(
-               "actividad3",
+               "actividad5",
                document.getElementById("actividad5").value
           );
-          formData.append("causa3", document.getElementById("causa5").value);
-          formData.append("efecto3", document.getElementById("efecto5").value);
+          formData.append("causa5", document.getElementById("causa5").value);
+          formData.append("efecto5", document.getElementById("efecto5").value);
      }
      formData.append(
           "csrfmiddlewaretoken",

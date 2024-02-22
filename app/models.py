@@ -29,8 +29,8 @@ class Usuarios(AbstractUser):
         return self.username
 
 class Proyecto(models.Model):
-    titulo_Proyecto = models.CharField(max_length=200, null=False)
-    descripcion = models.CharField(max_length=500, null=False)
+    titulo_Proyecto = models.CharField(max_length=500, null=False)
+    descripcion = models.CharField(max_length=5000, null=False)
     codigo_Grupo_Investigacion = models.CharField(max_length=30, null=False)
     red_Conocimiento_Sectorial = models.CharField(max_length=100, null=False)
     disciplina_subarea = models.CharField(max_length=200, null=False)
