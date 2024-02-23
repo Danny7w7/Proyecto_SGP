@@ -629,6 +629,7 @@ function addPreguntas(){
             console.error('Error:', data.error);
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
+            document.getElementById('textModalSucess').innerText  = 'Pregunta correctamente guardada'
             $('#addPreguntaPolitica').modal('hide')
             $('#successModal').modal('show')
             updateTablePregunta(data)
@@ -644,7 +645,7 @@ function updateTablePregunta(data){
     var div = document.createElement('div');
     div.innerHTML = `
         <label class="switch">
-            <input id="stateInput${data.question.id}" onclick="changeState(${data.question.id})" type="checkbox" ${data.question.estado ? 'checked' : ''}>
+            <input id="stateInputQuestion${data.question.id}" onclick="changeStateQuestion(${data.question.id})" type="checkbox" ${data.question.estado ? 'checked' : ''}>
             <span class="slider round"></span>
         </label>
     `;
@@ -652,7 +653,6 @@ function updateTablePregunta(data){
     let nuevaFila = table.insertRow();
     nuevaFila.insertCell().textContent = data.question.enunciado;
     nuevaFila.insertCell().textContent = data.question.periodo;
-    nuevaFila.insertCell().textContent = data.question.estado;
     var nuevaCelda = nuevaFila.insertCell();
     nuevaCelda.appendChild(div);
 }
@@ -675,8 +675,10 @@ function agregarAnexo() {
             contentType: false,
             success: function (response) {
                 if (response.success) {
-                    alert('Anexo agregado exitosamente');
                     $('#addAnexos').modal('hide');
+                    document.getElementById('textModalSucess').innerText  = 'Anexo correctamente guardada'
+                    $('#successModal').modal('show')
+                    updateTableannex(response.annex)
                 } else {
                     alert('Error al agregar el anexo');
                 }
@@ -688,6 +690,31 @@ function agregarAnexo() {
     } else {
         alert('Por favor ingrese un enunciado para el anexo.');
     }
+}
+
+function updateTableannex(data){
+    let table = document.getElementById('tableAnnex') //Obtener la tabla
+
+    var divState = document.createElement('div'); //Crear div para luego insertar codigo de estado
+    divState.innerHTML = `
+        <label class="switch">
+            <input id="stateInputAnnex${data.id}" onclick="changeStateAnnex(${data.id})" type="checkbox" ${data.estado ? 'checked' : ''}>
+            <span class="slider round"></span>
+        </label>
+    `;
+    
+    var divLoadGuidde = document.createElement('div'); //Crear div para luego insertar codigo de cargar y descargar guia
+    divLoadGuidde.innerHTML = `
+        <button class="btn btn-primary">Ver</button> 
+        <button class="btn btn-secondary" onclick="cargarGuia(${data.id})">Cargar Guía</button>
+    `;
+    let newRow = table.insertRow(); //Insertar una nueva fila
+
+    newRow.insertCell().textContent = data.nombre; //Insertar celda nombre
+    var cellChangeState = newRow.insertCell(); 
+    cellChangeState.appendChild(divState); //Insertar celda estado
+    var cellLoadGuidde = newRow.insertCell(); 
+    cellLoadGuidde.appendChild(divLoadGuidde); //Insertar celda guia
 }
 
 
@@ -762,7 +789,7 @@ function changeStateQuestion(id){
     var formData = new FormData();
     formData.append("state", document.getElementById('stateInputQuestion'+id).checked);
     formData.append("csrfmiddlewaretoken", document.querySelector('[name=csrfmiddlewaretoken]').value);
-    fetch(`/dashboard/changeState/${id}/`, {
+    fetch(`/dashboard/changeStateQuestion/${id}/`, {
         method: 'POST',
         body: formData,
     })

@@ -355,7 +355,12 @@ def guardar_anexo(request):
             estado_anexo = False
         nuevo_anexo = Document(nombre=nombre_anexo, estado=estado_anexo)
         nuevo_anexo.save()
-        return JsonResponse({'success': True})
+        new_annex = {
+            'id':nuevo_anexo.id,
+            'nombre':nuevo_anexo.nombre,
+            "estado": nuevo_anexo.estado,
+        }
+        return JsonResponse({'success': True, 'annex':new_annex})
     else:
         return JsonResponse({'success': False})
     

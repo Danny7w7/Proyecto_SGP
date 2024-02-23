@@ -39,7 +39,6 @@ function getData() {
     }
     data.push(projectPerMonth)
   }
-  console.log(data)
   return data;
 }
 
@@ -134,5 +133,3 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
-
-console.log(myLineChart.data.datasets);
