@@ -196,7 +196,6 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = `/seleccionar-entidad-aliada/${id_proyecto}/`;
     });
 
-
     function handleFormSubmit(event, formKey) {
         let isValid = true;
         
@@ -249,11 +248,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 return true;
             }
         }
-        if (document.getElementById('recursos_dinero_entidad_aliada').value == 0){
+        if (document.getElementById('recursos_especie_entidad').value == 0 && field.id == 'descripcion_recursos_especie_aportados'){
             field.classList.remove("is-invalid");
             field.classList.add("is-valid");
             feedback.textContent = '';
-            key = false
+            console.log('Entro en recursos_especie_entidad' )
+            return true;
+        }
+        if (document.getElementById('recursos_dinero_entidad_aliada').value == 0 && field.id == 'descripcion_destinacion_dinero_aportado'){
+            field.classList.remove("is-invalid");
+            field.classList.add("is-valid");
+            feedback.textContent = '';
+            console.log('Entro en recursos_dinero_entidad_aliada' )
             return true;
         } 
         if (pattern.test(field.value)) {
@@ -470,13 +476,21 @@ document.getElementById("convenio").addEventListener("input", function(event) {
     disabledThirdElement('convenio')
 });
 
+document.getElementById("recursos_especie_entidad").addEventListener("input", function(event) {
+    disabledThirdElement('recursos_especie_entidad')
+});
+
 function disabledThirdElement(id){
     let input = document.getElementById(id)
     if(input.value == 0 || input.value === 'False'){
         for (let i = 0; i < 3; i++){
             input = input.nextElementSibling;
-            console.log(input)
         }
         input.readOnly = true;
+    }else{
+        for (let i = 0; i < 3; i++){
+            input = input.nextElementSibling;
+        }
+        input.readOnly = false;
     }
 }

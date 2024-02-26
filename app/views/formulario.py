@@ -290,6 +290,8 @@ def estructura_proyecto(request, id_proyecto):
 
 @login_required(login_url='/login')
 def objetivo(request, id_proyecto):
+    if not own_user(request.user, id_proyecto):
+        return redirect(index)
     objetivo = get_or_none(Objetivos, proyecto=id_proyecto)
     try:
         objEspe = Objetivos_especificos.objects.filter(objetivoGeneral=objetivo.id)
@@ -387,7 +389,7 @@ def selectObj(request, id_proyecto):
 
 @login_required(login_url="/login")
 def producEsperados(request, id_proyecto, id_objetivoEsp):
-    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+    if not own_user(request.user, id_proyecto):
         return redirect(index)
     objGeneral = Objetivos.objects.get(proyecto=id_proyecto)
     objEspecifico = Objetivos_especificos.objects.get(objetivoGeneral=objGeneral, id=id_objetivoEsp)
@@ -413,7 +415,7 @@ def producEsperados(request, id_proyecto, id_objetivoEsp):
 
 @login_required(login_url="/login")
 def proyeccion(request, id_proyecto):
-    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+    if not own_user(request.user, id_proyecto):
         return redirect(index)
     proyeccion = get_or_none(Proyeccion, proyecto=id_proyecto)
     try:
@@ -434,7 +436,7 @@ def proyeccion(request, id_proyecto):
 
 @login_required(login_url="/login")
 def riesgo_general(request, id_proyecto):
-    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+    if not own_user(request.user, id_proyecto):
         return redirect(index)
     proyecto = get_or_none(Proyecto, id=id_proyecto)
 
@@ -478,7 +480,7 @@ def Informacion_de_centro(request, id_proyecto):
 
 @login_required()   
 def seleccionar(request,  id_proyecto):
-    if not own_user(request.user, get_or_none(Proyecto, id=id_proyecto).id):
+    if not own_user(request.user, id_proyecto):
         return redirect(index)
     contex = {
         'percentaje' : 0,

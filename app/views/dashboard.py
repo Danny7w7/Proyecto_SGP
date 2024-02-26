@@ -137,7 +137,10 @@ def eliminar_usuario(request, usuario_id):
     return JsonResponse({'mensaje': 'Usuario eliminado exitosamente.'})
   
   
+@login_required(login_url=('/login'))
 def act_info(request):
+    if not user_has_role(request.user,'Admin'):
+      return redirect('index')
     return render(request, 'Dashboard/code_iv.html')
 
 
