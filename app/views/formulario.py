@@ -910,7 +910,7 @@ def edit_proyect(request, id_proyecto):
         column_names = [field.name for field in model._meta.fields]
 
         for name in column_names:
-            if name == "id" or name == "usuario" or name == 'titulo_Proyecto' or name == 'descripcion':
+            if name == "id" or name == "usuario" or name == 'titulo_Proyecto' or name == 'descripcion' or name == 'fecha_creacion':
                 continue
             setattr(proyecto, name, request.POST.get(name))
         proyecto.titulo_Proyecto = deleteSpacesInText(request.POST.get('titulo_Proyecto'))

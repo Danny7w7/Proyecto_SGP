@@ -18,6 +18,7 @@
                         <h5 class="bg-custom-green pt-3 pb-3 mb-2 border_radius centradow w-100 text-center">Anexos
                             vinculados al proyecto</h5>
                     </div>
+                 {% if documentos %}
                     <div class="row justify-content-center">
                         <div class="col-12 md-10">
                             <div class="bg-light mt-2 border_radius row me-0">
@@ -34,7 +35,7 @@
                                                     {% endif %}
                                                 {% if documento.anexos_set.all|length > 0 %}
                                                       {% for anexo in documento.anexos_set.all %}
-                                                         <a href="{{ anexo.anexo.url }}" class="col-8 btn btn-success mt-1" download>Descargar {{ anexo.nombre }}</a>
+                                                         <a href="{{ anexo.anexo.url }}" class="col-8 btn btn-success mt-1" download>Doc. Anexos {{ anexo.nombre }}</a>
                                                         {% endfor %}
                                                      {% else %}
                                                         <span class="text-muted">No hay anexo subido</span>
@@ -56,6 +57,9 @@
                             </div>
                         </div>
                     </div>
+                    {% else %}
+                        <p class="text-center">No existen anexos creados por el administrador.</p>
+                {% endif %}
                 </div>
             </div>
         </div>
