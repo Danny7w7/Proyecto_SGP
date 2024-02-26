@@ -57,61 +57,61 @@ document.addEventListener("DOMContentLoaded", function () {
                },
             },
           "form2": {
-               "actividad1": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "La actividad de objetivo especifico 1 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "actividad2": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "La actividad de objetivo especifico 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "actividad3": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "La actividad de objetivo especifico 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "causa1": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "La causa no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "causa2": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "La causa 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "causa3": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "La causa 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "efecto1": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "El efecto 1 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "efecto2": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "El efecto 2 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "efecto3": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "El efecto 3 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "efecto4": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "El efecto 4 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
-               "efecto5": {
-                    pattern: /^[\s\S]{5,1000}$/,
-                    errorMsg:
-                         "El efecto 5 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
-               },
+               // "actividad1": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "La actividad de objetivo especifico 1 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "actividad2": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "La actividad de objetivo especifico 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "actividad3": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "La actividad de objetivo especifico 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "causa1": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "La causa no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "causa2": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "La causa 2 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "causa3": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "La causa 3 no es válida. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "efecto1": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "El efecto 1 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "efecto2": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "El efecto 2 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "efecto3": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "El efecto 3 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "efecto4": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "El efecto 4 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
+               // "efecto5": {
+               //      pattern: /^[\s\S]{5,1000}$/,
+               //      errorMsg:
+               //           "El efecto 5 no es válido. Debe tener entre 5 y 1000 caracteres y no puede contener caracteres especiales",
+               // },
           },
      };
      
