@@ -823,14 +823,11 @@ def entidad_aliada(request, id_proyecto):
         # Obtener todas las entidades actualizadas
         nueva_lista_entidades = []
         for entidadC in entidades:
-            nueva_entidad = {
-                "id": entidadC.id,
-                "nombre_entidad": entidadC.nombre_entidad,
-                "tipo_entidad_aliada": entidadC.tipo_entidad_aliada,
-                "naturaleza_entidad": entidadC.naturaleza_entidad,
-                "clasificacion_empresa": entidadC.clasificacion_empresa,
-                "nit": entidadC.nit
-            }
+            nueva_entidad = {}
+            for name in column_names:
+                if name == "proyecto" or name == "objetivo_especificos":
+                    continue
+                nueva_entidad[name] = getattr(entidadC, name)
             nueva_lista_entidades.append(nueva_entidad)
         return JsonResponse({"mensaje": "Operación exitosa", "entidades": nueva_lista_entidades})
     except Exception as e:
@@ -839,7 +836,6 @@ def entidad_aliada(request, id_proyecto):
 
 def participantes_entidad_aliada(request, id_proyecto):
     id_entidad = request.POST["id_entidad"]
-    proyecto = Proyecto.objects.get(id=id_proyecto)
     entidad = Entidades_aliadas.objects.get(id=id_entidad)
     participante = Participantes_entidad_alidad(entidad=entidad)
 

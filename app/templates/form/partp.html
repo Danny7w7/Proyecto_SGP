@@ -205,27 +205,29 @@
                             </table>
                         </div>
                     </div>
-                    {% for entidad_a in entidad_a %}
-                    <div id="entidad{{ entidad_a.id }}">
-                        <input id="id_entidad_hidden" type="hidden" value="{{entidad_a.id}}">
-                        <input id="nombre_entidad_hidden" type="hidden" value="{{entidad_a.nombre_entidad}}">
-                        <input id="tipo_entidad_aliada_hidden" type="hidden" value="{{entidad_a.tipo_entidad_aliada}}">
-                        <input id="naturaleza_entidad_hidden" type="hidden" value="{{entidad_a.naturaleza_entidad}}">
-                        <input id="clasificacion_empresa_hidden" type="hidden" value="{{entidad_a.clasificacion_empresa}}">
-                        <input id="nit_hidden" type="hidden" value="{{entidad_a.nit}}">
-                        <input id="convenio_hidden" type="hidden" value="{{entidad_a.convenio}}">
-                        <input id="especifique_tipo_codigo_convenio_hidden" type="hidden" value="{{entidad_a.especifique_tipo_codigo_convenio}}">
-                        <input id="recursos_especie_entidad_hidden" type="hidden" value="{{entidad_a.recursos_especie_entidad}}">
-                        <input id="descripcion_recursos_especie_aportados_hidden" type="hidden" value="{{entidad_a.descripcion_recursos_especie_aportados}}">
-                        <input id="recursos_dinero_entidad_aliada_hidden" type="hidden" value="{{entidad_a.recursos_dinero_entidad_aliada}}">
-                        <input id="descripcion_destinacion_dinero_aportado_hidden" type="hidden" value="{{entidad_a.descripcion_destinacion_dinero_aportado}}">
-                        <input id="select_box_hidden" type="hidden" value="{{entidad_a.codigo_gruplac_entidad_aliada}}">
-                        <input id="nombregrupo_hidden" type="hidden" value="{{entidad_a.nombre_grupo_inv_entidad_aliada}}">
-                        <input id="link_gruplac_entidad_aliada_hidden" type="hidden" value="{{entidad_a.link_gruplac_entidad_aliada}}">
-                        <input id="actividades_desarrollar_entidad_aliada_marco_proyecto_hidden" type="hidden" value="{{entidad_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}"> 
-                        <input id="metodologia_act_transferencia_centro_formacion_hidden" type="hidden" value="{{entidad_a.metodologia_act_transferencia_centro_formacion}}">
+                    <div id="entidadesDiv">
+                        {% for entidad_a in entidad_a %}
+                        <div id="entidad{{ entidad_a.id }}">
+                            <input id="id_entidad_hidden" type="hidden" value="{{entidad_a.id}}">
+                            <input id="nombre_entidad_hidden" type="hidden" value="{{entidad_a.nombre_entidad}}">
+                            <input id="tipo_entidad_aliada_hidden" type="hidden" value="{{entidad_a.tipo_entidad_aliada}}">
+                            <input id="naturaleza_entidad_hidden" type="hidden" value="{{entidad_a.naturaleza_entidad}}">
+                            <input id="clasificacion_empresa_hidden" type="hidden" value="{{entidad_a.clasificacion_empresa}}">
+                            <input id="nit_hidden" type="hidden" value="{{entidad_a.nit}}">
+                            <input id="convenio_hidden" type="hidden" value="{{entidad_a.convenio}}">
+                            <input id="especifique_tipo_codigo_convenio_hidden" type="hidden" value="{{entidad_a.especifique_tipo_codigo_convenio}}">
+                            <input id="recursos_especie_entidad_hidden" type="hidden" value="{{entidad_a.recursos_especie_entidad}}">
+                            <input id="descripcion_recursos_especie_aportados_hidden" type="hidden" value="{{entidad_a.descripcion_recursos_especie_aportados}}">
+                            <input id="recursos_dinero_entidad_aliada_hidden" type="hidden" value="{{entidad_a.recursos_dinero_entidad_aliada}}">
+                            <input id="descripcion_destinacion_dinero_aportado_hidden" type="hidden" value="{{entidad_a.descripcion_destinacion_dinero_aportado}}">
+                            <input id="select_box_hidden" type="hidden" value="{{entidad_a.codigo_gruplac_entidad_aliada}}">
+                            <input id="nombregrupo_hidden" type="hidden" value="{{entidad_a.nombre_grupo_inv_entidad_aliada}}">
+                            <input id="link_gruplac_entidad_aliada_hidden" type="hidden" value="{{entidad_a.link_gruplac_entidad_aliada}}">
+                            <input id="actividades_desarrollar_entidad_aliada_marco_proyecto_hidden" type="hidden" value="{{entidad_a.actividades_desarrollar_entidad_aliada_marco_proyecto}}"> 
+                            <input id="metodologia_act_transferencia_centro_formacion_hidden" type="hidden" value="{{entidad_a.metodologia_act_transferencia_centro_formacion}}">
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                     <div class="row justify-content-center">
                         <div class="col-12 col-md-10">
                             <form class="needs-validation" method="post" id="form2">

@@ -11,7 +11,6 @@ function edit_entidad(id){
 
     for (let i = 0; i < inputs.length; i++) {
         let texto = inputs[i].id;
-        console.log(texto)
         texto = texto.substring(0, texto.length - 7);
         const changeDiv = document.getElementById(texto);
         changeDiv.value = inputs[i].value
@@ -252,14 +251,12 @@ document.addEventListener("DOMContentLoaded", function() {
             field.classList.remove("is-invalid");
             field.classList.add("is-valid");
             feedback.textContent = '';
-            console.log('Entro en recursos_especie_entidad' )
             return true;
         }
         if (document.getElementById('recursos_dinero_entidad_aliada').value == 0 && field.id == 'descripcion_destinacion_dinero_aportado'){
             field.classList.remove("is-invalid");
             field.classList.add("is-valid");
             feedback.textContent = '';
-            console.log('Entro en recursos_dinero_entidad_aliada' )
             return true;
         } 
         if (pattern.test(field.value)) {
@@ -404,6 +401,7 @@ function sendPost2() {
                 console.log('Mensaje de éxito:', data.mensaje);
                 
                 actualizarTabla(data.entidades);
+                createInputDivEntity(data.entidades)
 
                 const input = document.getElementById('id_entidad');
                 input.value = '';
@@ -414,6 +412,32 @@ function sendPost2() {
     });
 };
 
+function createInputDivEntity(entities){
+    var entitiesDiv = document.getElementById('entidadesDiv')
+    // Delete all children elements
+    while (entitiesDiv.firstChild) {
+        entitiesDiv.removeChild(entitiesDiv.firstChild);
+    }
+    entities.forEach(entity => {
+        // Create a new div with inputs inside
+        var entityDiv = document.createElement('div');
+        entityDiv.id = `entidad${entity.id}`;
+        entitiesDiv.appendChild(entityDiv);
+        // Create all inputs
+        for (var key in entity) {
+            var input = document.createElement("input");
+            if (key == 'id'){
+                input.id = `${key}_entidad_hidden`;
+            }else{
+                input.id = `${key}_hidden`;
+            }
+            input.type = "hidden";
+            input.value = entity[key];
+            entityDiv.appendChild(input);
+        }
+    });
+
+}
 
 function actualizarTabla(entidades) {
     // Obtener el elemento de la tabla por su clase
