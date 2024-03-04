@@ -2,11 +2,6 @@
 
 {% load static %}
 {% block forms %}
-<style>
-    .la_prueba2, .la_prueba3, .la_prueba4, .la_prueba5 {
-      display: none;
-    }
-</style>
 <div class="accordion" id="accordionExample">
     <div class="steps pasop">
         <progress id="progress" value=0 max=100></progress>
@@ -66,7 +61,7 @@
                                     
                                         <!-- Segundo textarea con label para Objetivo Específico -->
 
-                                        <div class="la_prueba1">
+                                        <div class="div_specific_objective" id='div_specific_objective1'>
                                             <div class="mb-3">
                                                 <label for="objetivo_especificos" class="form-label">Objetivo específico 1</label>
                                                 <textarea
@@ -79,48 +74,48 @@
                                             </div>
                                         </div>
 
-                                        <div class="la_prueba2" style="display: {% if objEsp.1.objetivo_especifico %}block{% else %}none{% endif %};">
+                                        <div class="div_specific_objective" id='div_specific_objective2' style="display: {% if objEsp.1.objetivo_especifico %}block{% else %}none{% endif %};">
                                             <div class="mb-3">
                                                 <label for="objetivo_especificos" class="form-label">Objetivo específico 2</label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="objetivo_especificos2" id="objetivo_especifico2" cols="20" rows="3">{{objEsp.1.objetivo_especifico}}</textarea>
+                                                    name="objetivo_especificos" id="objetivo_especifico2" cols="20" rows="3">{{objEsp.1.objetivo_especifico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter3">0/500 máximo</span>
                                                 <input type="hidden" name="val_just3" value="500">
                                             </div>
                                         </div>
-                                        <div class="la_prueba3" style="display: {% if objEsp.2.objetivo_especifico %}block{% else %}none{% endif %};">
+                                        <div class="div_specific_objective" id='div_specific_objective3' style="display: {% if objEsp.2.objetivo_especifico %}block{% else %}none{% endif %};">
                                             <div class="mb-3">
                                                 <label for="objetivo_especificos" class="form-label">Objetivo específico 3</label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="objetivo_especificos3" id="objetivo_especifico3" cols="20" rows="3">{{objEsp.2.objetivo_especifico}}</textarea>
+                                                    name="objetivo_especificos" id="objetivo_especifico3" cols="20" rows="3">{{objEsp.2.objetivo_especifico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter4">0/500 máximo</span>
                                                 <input type="hidden" name="val_just4" value="500">
                                             </div>
                                         </div>
-                                        <div class="la_prueba4" style="display: {% if objEsp.3.objetivo_especifico %}block{% else %}none{% endif %};">
+                                        <div class="div_specific_objective" id='div_specific_objective4' style="display: {% if objEsp.3.objetivo_especifico %}block{% else %}none{% endif %};">
                                             <div class="mb-3">
                                                 <label for="objetivo_especificos" class="form-label">Objetivo específico 4</label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="objetivo_especificos4" id="objetivo_especifico4" cols="20" rows="3">{{objEsp.3.objetivo_especifico}}</textarea>
+                                                    name="objetivo_especificos" id="objetivo_especifico4" cols="20" rows="3">{{objEsp.3.objetivo_especifico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter5">0/500 máximo</span>
                                                 <input type="hidden" name="val_just5" value="500">
                                             </div>
                                         </div>
-                                        <div class="la_prueba5" style="display: {% if objEsp.4.objetivo_especifico %}block{% else %}none{% endif %};">
+                                        <div class="div_specific_objective" id='div_specific_objective5' style="display: {% if objEsp.4.objetivo_especifico %}block{% else %}none{% endif %};">
                                             <div class="mb-3">
                                                 <label for="objetivo_especificos" class="form-label">Objetivo específico 5</label>
                                                 <textarea
                                                     class="form-control form-control-sm rectangular-textarea medium-textarea txtarea"
-                                                    name="objetivo_especificos5" id="objetivo_especifico5" cols="20" rows="3">{{objEsp.4.objetivo_especifico}}</textarea>
+                                                    name="objetivo_especificos" id="objetivo_especifico5" cols="20" rows="3">{{objEsp.4.objetivo_especifico}}</textarea>
                                                 <div class="invalid-feedback">
                                                 </div>
                                                 <span id="char-counter6">0/500 máximo</span>
@@ -132,7 +127,7 @@
                                             <button type="button" id="enviar1" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Siguiente</button>
                                         </div>
                                         <div class="d-flex justify-content-center col-12">
-                                            <button type="button" onclick="mostrarDivs()" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Nuevo</button>
+                                            <button type="button" id="showSpecObjetive" class="btn-bg-green pt-3 pb-3 mb-2 border_radius centradow">Nuevo</button>
                                         </div>
                                     </form>
                                 </div>
@@ -289,7 +284,7 @@
                                                     <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="causa5" cols="20" rows="3">{{objEsp.4.causa}}</textarea>
                                                     <div class="invalid-feedback">
                                                     </div>
-                                                    <span id="char-counter19">0/1000 máximo</span>
+                                                    <span id="char-counter20">0/1000 máximo</span>
                                                     <input type="hidden" name="val_just18" value="1000">
                                                 </div>
                                                 <div class="mb-3">
@@ -298,7 +293,7 @@
                                                         <textarea class="form-control form-control-sm rectangular-textarea medium-textarea txtarea" id="efecto5" cols="20" rows="3">{{objEsp.4.efecto}}</textarea>
                                                         <div class="invalid-feedback">
                                                         </div>
-                                                        <span id="char-counter19">0/1000 máximo</span>
+                                                        <span id="char-counter21">0/1000 máximo</span>
                                                         <input type="hidden" name="val_just19" value="1000">
                                                     </div>
                                                 </div>

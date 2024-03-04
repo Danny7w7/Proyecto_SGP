@@ -1056,10 +1056,8 @@ def subir_anexo(request):
                     if Anexos.objects.filter(anexo_requerido=documento.id, proyecto_id=proyecto_id).exists():
                         anexo = Anexos.objects.filter(anexo_requerido=documento.id, proyecto_id=proyecto_id)
                         anexo.anexo=archivo
-                        print('Se imprimio esto')
                         print(anexo)
                     else:
-                        print('Se imprimio esto otro')
                         anexo = Anexos(anexo_requerido=documento, proyecto_id=proyecto_id, anexo=archivo)
                         print(anexo)
                     anexo.save()
