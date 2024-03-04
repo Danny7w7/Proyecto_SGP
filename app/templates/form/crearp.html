@@ -136,8 +136,7 @@
                                     {% endif %}
                                     {% endfor %}
                                 </select>
-                            </div>
-                            <div class="col-12 col-sm-4 mb-3 p-1">
+                            </div>                            <div class="col-12 col-sm-4 mb-3 p-1">
                                 <label for="nombre_grupo1">Nombre grupo de investigación</label>
                                 <input id="nombregrupo" name="nombre_Grupo_Investigacion" class="form-control" readonly value="{{proyecto.nombre_Grupo_Investigacion}}">
                                 
@@ -260,7 +259,7 @@
                 <div class="col-md-6 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Ayudas</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Inicio</a></li>
+                        <li><a class="text-decoration-none" href="{% url 'index' %}">Inicio</a></li>
                         <li><a class="text-decoration-none" href="#">Acerca</a></li>
                         <li><a class="text-decoration-none" href="#">FAQs</a></li>
                         <li><a class="text-decoration-none" href="#">Contacto</a></li>

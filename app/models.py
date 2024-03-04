@@ -137,7 +137,7 @@ class Objetivos(models.Model):
     objetivo_general = models.CharField(max_length=500, null=True)
     proyecto = models.OneToOneField(Proyecto, on_delete=models.CASCADE)
 
-# Metodologia
+# Objetivos especificos
 class Objetivos_especificos(models.Model):
     objetivo_especifico = models.CharField(max_length=500, null=True)
     actividades_obj_especificos = models.CharField(max_length=1000, null=True)

@@ -33,7 +33,7 @@ urlpatterns = [
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
     path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
     path('seleccionar/<int:id_proyecto>/', views.seleccionar , name='seleccionar'),
-
+    path("pdf/<int:proyecto_id>", views.pdfnuevo, name="pdfnuevo"),
     #Views Form
     path('crear_proyecto/', views.crear_proyecto, name='crear_proyecto'),
     path('info-proyecto/<int:id_proyecto>/', views.informacion_proponente, name='info_proyecto'),

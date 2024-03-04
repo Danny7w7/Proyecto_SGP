@@ -10,7 +10,9 @@
     <div class="col-10" style="padding-top:5%; padding-bottom: 2%;">
         <h5>Seleccione una opcion de la tabla para editar esa seccion</h2>
     </div>
-    <div class="col"> <a href="{% url 'generar_pdf' id_proyecto %}"  class="btn btn-success mb-4">Descargar pdf</a> </div>
+    <!-- <div class="col"> <a href="{% url 'generar_pdf' id_proyecto %}"  class="btn btn-success mb-4">Descargar pdf</a> </div> -->
+   
+    <div class="col"> <a href=" {% url 'pdfnuevo'  id_proyecto %}"  class="btn btn-success mb-4">Descargar pdf</a> </div>
     <div class="row">
         <div class="col-6">
             <table class="table table-bordered">
