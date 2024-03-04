@@ -56,14 +56,22 @@ $(document).ready(function() {
             contentType: false,
             success: function(response) {
                 if (response.success) {
-                    alert('Anexos subidos exitosamente');
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: 'Información registrada correctamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    })
                 } else {
                     alert('Error al subir los anexos: ' + response.message);
                 }
             },
             error: function(xhr, status, error) {
-                console.error('Error en la solicitud AJAX para subir los anexos:', error);
-                alert('Error en la solicitud AJAX para subir los anexos');
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Completa todos los anexos antes de poder guardarlos"
+                });
             }
         });
     });

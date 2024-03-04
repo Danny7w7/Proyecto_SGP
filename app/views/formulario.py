@@ -929,18 +929,7 @@ def proyectos_usuario(request):
         'percentaje': 0,
         'proyectos': proyectos
     }
-    if request:
-        return render(request, "proyectos.html", contex)
-    else:
-        return redirect("continuar_sesion")
-
-def continuar_sesion(request):
-    if request.user.is_authenticated:
-        ultima_vista = UltimaVista.objects.filter(usuario=request.user).first()
-        if ultima_vista:
-            return redirect(ultima_vista.ultima_vista)
-    return redirect(proyectos_usuario)
-
+    return render(request, "proyectos.html", contex)
 
 def recursos(request, id_proyecto):
     objGeneral = get_or_none(Objetivos, proyecto=id_proyecto)
@@ -1044,7 +1033,7 @@ def anexos(request, id_proyecto):
     documentos = Document.objects.filter(estado=True)
 
     contex = {
-        'percentaje' : 0,
+        'percentaje' : id_proyecto,
         'id_proyecto': id_proyecto,
         'documentos': documentos,
     }
@@ -1064,8 +1053,16 @@ def subir_anexo(request):
                 nombre_input = 'anexo_' + str(documento.id)
                 if nombre_input in request.FILES:
                     archivo = request.FILES[nombre_input]
-                    nuevo_anexo = Anexos(anexo_requerido=documento, proyecto_id=proyecto_id, anexo=archivo)
-                    nuevo_anexo.save()
+                    if Anexos.objects.filter(anexo_requerido=documento.id, proyecto_id=proyecto_id).exists():
+                        anexo = Anexos.objects.filter(anexo_requerido=documento.id, proyecto_id=proyecto_id)
+                        anexo.anexo=archivo
+                        print('Se imprimio esto')
+                        print(anexo)
+                    else:
+                        print('Se imprimio esto otro')
+                        anexo = Anexos(anexo_requerido=documento, proyecto_id=proyecto_id, anexo=archivo)
+                        print(anexo)
+                    anexo.save()
                     archivos_subidos += 1
 
             if archivos_subidos > 0:

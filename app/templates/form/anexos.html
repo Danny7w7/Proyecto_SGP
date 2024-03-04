@@ -35,7 +35,7 @@
                                                     {% endif %}
                                                 {% if documento.anexos_set.all|length > 0 %}
                                                       {% for anexo in documento.anexos_set.all %}
-                                                         <a href="{{ anexo.anexo.url }}" class="col-8 btn btn-success mt-1" download>Doc. Anexos {{ anexo.nombre }}</a>
+                                                         <a href="{{ anexo.anexo.url }}" class="col-8 btn btn-success mt-1" download>Doc. Anexo {{ anexo.nombre }}</a>
                                                         {% endfor %}
                                                      {% else %}
                                                         <span class="text-muted">No hay anexo subido</span>

@@ -1,3 +1,16 @@
+function clearinputs(form) {
+    form = document.getElementById(form);
+    const inputs = form.querySelectorAll("input");
+    const selects = form.querySelectorAll("select");
+
+    inputs.forEach((input) => {
+        input.value = "";
+    });
+    selects.forEach((select) => {
+        select.selectedIndex = 0;
+    });
+}
+
 // Avances del step mediante los botones
 const button1 = document.getElementById('step2');
 
@@ -315,7 +328,6 @@ function sendPost1() {
             // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
         } else {
             console.log('Mensaje de éxito:', data.mensaje);
-            limpiarInputs()
         }
     })
     .catch(error => {
@@ -405,6 +417,7 @@ function sendPost2() {
 
                 const input = document.getElementById('id_entidad');
                 input.value = '';
+                clearinputs('form2');
             }
         })
     .catch(error => {
@@ -428,6 +441,8 @@ function createInputDivEntity(entities){
             var input = document.createElement("input");
             if (key == 'id'){
                 input.id = `${key}_entidad_hidden`;
+            }else if(key == 'codigo_gruplac_entidad_aliada'){
+                input.id = `select_box_hidden`;
             }else{
                 input.id = `${key}_hidden`;
             }

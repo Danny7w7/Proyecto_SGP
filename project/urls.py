@@ -31,7 +31,6 @@ urlpatterns = [
     path('logout/', views.logout_, name='logout'),
     path('register/', views.register, name='register'),
     path('recuperar-contrasena/', views.recover_password, name='recoveryPassword'),
-    path('continuar-sesion/', views.continuar_sesion, name='continuar_sesion'),
     path('proyectos_usuario/', views.proyectos_usuario, name='proyectos_usuario'),
     path('seleccionar/<int:id_proyecto>/', views.seleccionar , name='seleccionar'),
 
