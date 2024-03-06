@@ -63,7 +63,6 @@ import json
 
 # PDF
 from django.template.loader import render_to_string
-from xhtml2pdf import pisa
 from app.utils import mostrar_error
 
 
