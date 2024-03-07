@@ -1,10 +1,16 @@
+import os
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse
 from django.core.serializers import serialize
 from django.conf import settings
-
 import re
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Frame, PageTemplate
+from io import BytesIO
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
 
 from app.forms import (
     Informacion_proponenteForm,
@@ -57,7 +63,6 @@ import json
 
 # PDF
 from django.template.loader import render_to_string
-from xhtml2pdf import pisa
 from app.utils import mostrar_error
 
 
@@ -125,82 +130,6 @@ def contex_form():
         "nombresC": nombresC,
         "actividades": actividades
     }
-
-
-def generar_pdf(request, proyecto_id):
-    resultados_productos_esperados = []
-    # Obtener el proyecto y otros datos relacionados
-    proyecto = get_object_or_404(Proyecto, id=proyecto_id)
-    documentos_anexos = Anexos.objects.filter(proyecto=proyecto)
-    gen = Generalidades_del_proyecto.objects.filter(proyecto=proyecto).first()
-    res = Resumen_antecedentes.objects.filter(proyecto=proyecto).first()
-    des_p = Descripcion_problema.objects.filter(proyecto=proyecto).first()
-    proy = Proyeccion.objects.filter(proyecto=proyecto).first()
-    riesgo_g = RiesgoObjetivoGeneral.objects.filter(proyecto=proyecto).first()
-    riesgo_p = RiesgoProductos.objects.filter(proyecto=proyecto).first()
-    riesgo_a = RiesgoActividades.objects.filter(proyecto=proyecto).first()
-    objetivos = Objetivos.objects.filter(proyecto=proyecto).first()
-    info_p = Informacion_proponente.objects.filter(proyecto=proyecto).first()
-    objetivos_especificos = Objetivos_especificos.objects.filter(objetivoGeneral=objetivos)
-    centro_f = Centro_de_formacion.objects.filter(proyecto=proyecto).first()
-    entidad_a = Entidades_aliadas.objects.filter(proyecto=proyecto)
-    
-    nombres_anexos = {}
-    
-    for anexo in documentos_anexos:
-        nombre_documento = anexo.anexo_requerido.nombre
-        anexo_documento = anexo.anexo
-        nombres_anexos[nombre_documento] = anexo_documento
-    
-    partp_e = {}
-    for entidad_aliada in entidad_a:
-        participantes_entidad_aliada = Participantes_entidad_alidad.objects.filter(
-            entidad=entidad_aliada
-        )
-        partp_e[entidad_aliada] = participantes_entidad_aliada
-    
-    # Renderizar el template con los datos
-    context = {
-        "proyecto": proyecto,
-        "nombres_anexos": nombres_anexos,
-        "informacion_proponente" : info_p,
-        "gen": gen,
-        "res": res,
-        "des_p": des_p,
-        "centro_f": centro_f,
-        "entidad_a": entidad_a,
-        "proy": proy,
-        "riesgo_g": riesgo_g,
-        "riesgo_p": riesgo_p,
-        "riesgo_a": riesgo_a,
-        "partp_e": partp_e,
-        'objetivos': objetivos,
-        "resultados_productos_esperados": resultados_productos_esperados,
-    }
-    try:
-        nuevos_campos = {
-            "objetivos_especificos": objetivos_especificos,
-        }
-    except:
-        nuevos_campos = {
-            "objetivos_especificos": None,
-        }
-    context.update(nuevos_campos)
-
-    template_path = "form/informe.html"
-    html = render_to_string(template_path, context)
-
-    # Lógica para generar el informe PDF a partir del HTML con xhtml2pdf
-    response = HttpResponse(content_type="application/pdf")
-    response["Content-Disposition"] = "attachment; filename=informe_general.pdf"
-
-    pisa_status = pisa.CreatePDF(html, dest=response)
-
-    if pisa_status.err:
-        return HttpResponse("Error al generar el PDF", status=500)
-
-    return response
-
 
 def generar_c_valor(request, proyecto_id):
     # Obtener el proyecto y otros datos relacionados
@@ -1103,3 +1032,257 @@ def descargar_anexo(request, anexo_id):
         return HttpResponse('Anexo no encontrado', status=404)
     except Exception as e:
         return HttpResponse(str(e), status=500)
+    
+    
+def pdfnuevo(request, proyecto_id):
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = 'attachment; filename="Reporte.pdf"'
+    buffer = BytesIO()
+    
+    # Creamos un documento PDF
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+    Story = []
+    
+    # Definimos el estilo para los párrafos
+    styles = getSampleStyleSheet()
+    normal_style = styles["Normal"]
+    
+    # Agregamos el marco para el texto
+    frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height - 0.5*inch, id='normal')
+    template = PageTemplate(id='test', frames=[frame])
+    doc.addPageTemplates([template])
+
+    # Creamos el texto para el número de página
+    def numero_pagina(canvas, doc):
+        numero = canvas.getPageNumber()
+        canvas.setFont("Helvetica", 8)
+        texto = "Página %d" % numero
+        canvas.drawRightString(doc.width - 20, 20, texto)
+    
+
+    template.afterDrawPage = numero_pagina
+    
+    # Obtener el proyecto y los datos relacionados
+    proyecto = get_object_or_404(Proyecto, id=proyecto_id)
+    documentos_anexos = Anexos.objects.filter(proyecto=proyecto)
+    
+    # Función para agregar secciones con título y contenido
+    def agregar_seccion(titulo, contenido):
+        Story.append(Paragraph(titulo, styles["Heading2"]))
+        Story.append(Spacer(1, 12))
+        paragraphs = contenido.split("\n")
+        for paragraph in paragraphs:
+            Story.append(Paragraph(paragraph, normal_style))
+        Story.append(Spacer(1, 12))
+    
+    # Agregar título al documento
+    Story.append(Paragraph("Reporte general", styles["Title"]))
+    Story.append(Spacer(1, 12))
+    negrita_style = ParagraphStyle('Negrita', parent=normal_style, fontName='Helvetica-Bold')
+    
+   # Informacion proyecto
+    proyecto_info = Proyecto.objects.get(id=proyecto_id)
+    proyecto_info_str = f"<b>Título del proyecto:</b> {proyecto_info.titulo_Proyecto}\n"\
+                        f"<b>Descripción:</b> {proyecto_info.descripcion}\n" \
+                        f"<b>Código Grupo de Investigación:</b> {proyecto_info.codigo_Grupo_Investigacion}\n" \
+                        f"<b>Red de Conocimiento Sectorial:</b> {proyecto_info.red_Conocimiento_Sectorial}\n" \
+                        f"<b>Disciplina Subárea:</b> {proyecto_info.disciplina_subarea}\n" \
+                        f"<b>Nombre Grupo de Investigación:</b> {proyecto_info.nombre_Grupo_Investigacion}\n" \
+                        f"<b>Área Conocimiento:</b> {proyecto_info.area_conocimiento}\n" \
+                        f"<b>Línea Grupo de Investigación:</b> {proyecto_info.linea_Grupo_Investigacion}\n" \
+                        f"<b>Subárea Conocimiento:</b> {proyecto_info.subarea_conocimiento}\n" \
+                        f"<b>Fecha de Creación:</b> {proyecto_info.fecha_creacion.strftime('%d/%m/%Y')}"
+    agregar_seccion("Proyecto", proyecto_info_str)
+    
+    # Informacion Proponente    
+    proponente_info = Informacion_proponente.objects.filter(proyecto=proyecto)
+    if proponente_info.exists():
+        proponente_info_str = ""
+        for info in proponente_info:
+            proponente_info_str += f"<b>Región:</b> {info.Region}\n" \
+                                    f"<b>Regional:</b> {info.Regional}\n" \
+                                    f"<b>Nombre Centro de Formación:</b> {info.Nombre_centro_formacion}\n" \
+                                    f"<b>Nombre Director:</b> {info.Nombre_Director}\n" \
+                                    f"<b>Número Director:</b> {info.Numero_Director}\n" \
+                                    f"<b>Email Director:</b> {info.email_director}\n" \
+                                    f"<b>Nombre Sub Director:</b> {info.Nombre_Sub_Director}\n" \
+                                    f"<b>Número Sub Director:</b> {info.Numero_Sub_Director}\n" \
+                                    f"<b>Email Sub Director:</b> {info.email_sub_director}\n\n"
+        agregar_seccion("Información del proponente", proponente_info_str)
+    
+    # Autores
+    autor_info = Autores.objects.filter(proyecto=proyecto)
+    if autor_info.exists():
+        autor_info_str = ""
+        for auto in autor_info:
+            autor_info_str += f"<b>Nombre de autor:</b> {auto.nombre_Autor_Proyecto}\n" \
+                                f"<b>Tipo de vinculacion:</b> {auto.tipo_Vinculacion_entidad}\n" \
+                                f"<b>Numero de cedula:</b> {auto.numero_Cedula_Autor}\n" \
+                                f"<b>Rol sennova:</b> {auto.rol_Sennova_De_Participantes_de_Proyecto}\n"\
+                                f"<b>email de autor:</b> {auto.email_Autor_Proyecto}\n"\
+                                f"<b>Numero de meses de vinculacion:</b> {auto.numero_meses_vinculacion_Autor}\n"\
+                                f"<b>telefono de autor:</b> {auto.numero_Telefono_Autor}\n"\
+                                f"<b>Horas semanales:</b> {auto.numero_horas_Semanales_dedicadas_Autores}\n\n"
+        agregar_seccion("Informacion de autores", autor_info_str)        
+    
+    # Generalidades del proyecto
+    generalidades_info = Generalidades_del_proyecto.objects.filter(proyecto=proyecto)
+    if generalidades_info.exists():
+        generalidades_info_str = ""
+        for info in generalidades_info:
+            generalidades_info_str += f"<b>Código Dependencia Presupuestal:</b> {info.codigo_Dependencia_Presupuestal}\n" \
+                                      f"<b>Tematicas y Estrategias SENA:</b> {info.tematicas_Estrategias_SENA}\n\n"
+        agregar_seccion("Generalidades del proyecto", generalidades_info_str)
+    
+    # Resumen de antecedentes
+    resumen_info = Resumen_antecedentes.objects.filter(proyecto=proyecto)
+    if resumen_info.exists():
+        resumen_info_str = ""
+        for info in resumen_info:
+            resumen_info_str += f"<b>Resumen Ejecutivo:</b> {info.resumen_ejecutivo}\n"\
+                                f"<b>Antecedentes:</b> {info.antecedentes}\n\n"
+        agregar_seccion("Resumen de antecedentes", resumen_info_str)
+    
+    # Descripción del problema
+    descripcion_info = Descripcion_problema.objects.filter(proyecto=proyecto)
+    if descripcion_info.exists():
+        descripcion_info_str = ""
+        for info in descripcion_info:
+            descripcion_info_str += f"<b>Identificación y Descripción del Problema:</b> {info.identificacion_y_descripcion_problema}\n"\
+                                    f"<b>Justificacion:</b> {info.justificacion}\n"\
+                                    f"<b>Marco conceptual:</b> {info.marco_conceptual}\n\n"
+        agregar_seccion("Descripción del problema", descripcion_info_str)
+    
+    
+    # objetivos generales y específicos
+    objetivos_generales = Objetivos.objects.filter(proyecto=proyecto)
+    objetivos_especificos = Objetivos_especificos.objects.filter(objetivoGeneral__in=objetivos_generales)
+
+    if objetivos_generales.exists():
+        objetivos_generales_str = ""
+        for objetivo_general in objetivos_generales:
+            objetivos_generales_str += f"<b>Objetivo general:</b> {objetivo_general.objetivo_general}\n\n"
+        agregar_seccion("Objetivo general", objetivos_generales_str)
+
+    if objetivos_especificos.exists():
+        objetivos_especificos_str = ""
+        for objetivo_especifico in objetivos_especificos:
+            objetivos_especificos_str += f"<b>Objetivo específico:</b> {objetivo_especifico.objetivo_especifico}\n" \
+                                        f"<b>Actividades:</b> {objetivo_especifico.actividades_obj_especificos}\n" \
+                                        f"<b>Causa:</b> {objetivo_especifico.causa}\n" \
+                                        f"<b>Efecto:</b> {objetivo_especifico.efecto}\n\n"
+        agregar_seccion("Objetivos específicos", objetivos_especificos_str)
+    
+    
+    # Centro de formacion
+    cen_formacion = Centro_de_formacion.objects.filter(proyecto=proyecto)
+    if cen_formacion.exists():
+        cen_formacion_str = ""
+        for info_centro in cen_formacion:
+            cen_formacion_str +=f"<b>Nombre de semillero de investigacion:</b> {info_centro.nombre_semillero_investigacion_beneficiados}\n"\
+                                f"<b>Numero de programas beneficiados:</b> {info_centro.numero_programas_beneficiarios_semilleros_investigacion}\n"\
+                                f"<b>Tipo de programas de formacion beneficiados del semillero:</b> {info_centro.tipo_programas_formacion_beneficiados_conforman_semillero}\n"\
+                                f"<b>Nombre de programas beneficiados:</b> {info_centro.nombre_programas_formacion_beneficiados_semillero}\n"\
+                                f"<b>Tipo de programas beneficiados por ejecucion:</b> {info_centro.tipo_programas_de_formacion_beneficiados_por_ejecucion}\n"\
+                                f"<b>Nombre de los programas beneficiados por ejecucion:</b> {info_centro.nombre_programas_formacion_beneficiados_ejecucion_proyecto}\n"\
+                                f"<b>Numero de aprendices que participaran en la ejecucion:</b> {info_centro.numero_aprendices_participaran_ejecucion_proyecto}\n"\
+                                f"<b>Numero de municipios beneficiados:</b> {info_centro.numero_municipios_beneficiados}\n"\
+                                f"<b>Nombre de los municipios beneficiados:</b> {info_centro.nombre_municipios_beneficiados_descripcion_beneficio}\n\n"
+        agregar_seccion("Centro de formacion", cen_formacion_str)
+    
+    # Entidades aliadas
+    enti_ali = Entidades_aliadas.objects.filter(proyecto= proyecto)
+    if enti_ali.exists():
+        enti_ali_str = ""
+        for info_enti in enti_ali:
+            enti_ali_str += f"<b>Nombre de la entidad:</b> {info_enti.nombre_entidad}\n"\
+                            f"<b>Tipo de entidad aliada:</b> {info_enti.tipo_entidad_aliada}\n"\
+                            f"<b>Naturaleza de la entidad:</b> {info_enti.naturaleza_entidad}\n"\
+                            f"<b>Clasificacion de empresa:</b> {info_enti.clasificacion_empresa}\n"\
+                            f"<b>Codigo NIT:</b> {info_enti.nit}\n"\
+                            f"<b>Convenio:</b> {info_enti.convenio}\n"\
+                            f"<b>Tipo de convenio:</b> {info_enti.especifique_tipo_codigo_convenio}\n"\
+                            f"<b>Recursos en especie aportados:</b> {info_enti.recursos_especie_entidad}\n"\
+                            f"<b>Descripcion de recursos en especie aportados:</b> {info_enti.descripcion_recursos_especie_aportados}\n"\
+                            f"<b>Recursos en dinero aportados:</b> {info_enti.recursos_dinero_entidad_aliada}\n"\
+                            f"<b>Descripcion de destinacion de dinero aportado:</b> {info_enti.descripcion_destinacion_dinero_aportado}\n"\
+                            f"<b>Nombre de grupo de invistigacion de entidad aliada:</b> {info_enti.nombre_grupo_inv_entidad_aliada}\n"\
+                            f"<b>Codigo de GrupoLAC:</b> {info_enti.codigo_gruplac_entidad_aliada}\n"\
+                            f"<b>Link del GrupoLac:</b> {info_enti.link_gruplac_entidad_aliada}\n"\
+                            f"<b>Actividades a desarrollar por la entidad aliada:</b> {info_enti.actividades_desarrollar_entidad_aliada_marco_proyecto}\n"
+            
+            objetivos_especificos = info_enti.objetivo_especificos.all()
+            if objetivos_especificos.exists():
+                enti_ali_str += "<b>Objetivos específicos relacionados:</b>\n"
+                for obj_especifico in objetivos_especificos:
+                    enti_ali_str += f"- {obj_especifico.objetivo_especifico}\n"
+            else:
+                enti_ali_str += "No hay objetivos específicos relacionados\n"
+            
+            enti_ali_str += "\n\n"
+        agregar_seccion("Entidad aliada", enti_ali_str)
+
+    # Participantes entidad alida
+    part_enti = Participantes_entidad_alidad.objects.filter(entidad__in=enti_ali)
+    if part_enti.exists():
+        part_enti_str = ""
+        for info_parti in part_enti:
+            part_enti_str += f"<b>Nombre del participante:</b> {info_parti.nombre}\n"\
+                             f"<b>Numero de identificacion del participante:</b> {info_parti.numero_identificacion}\n"\
+                             f"<b>Email del participante:</b> {info_parti.email}\n"\
+                             f"<b>Telefono del participante del participante:</b> {info_parti.telefono}\n\n"
+        agregar_seccion("Participantes de entidad alida", part_enti_str)
+        
+        
+    # Resultados y productos esperados
+    produt_resul = Resultados_y_productos_esperados.objects.filter(objetivo_especifico__in=objetivos_especificos)
+    if produt_resul.exists():
+        produt_resul_str= ""
+        for info_resul in produt_resul:
+            produt_resul_str += f"<b>Tipo de resultado esperado:</b> {info_resul.tipo_resultado_esperado_obj_especifico}\n"\
+                                f"<b>Descripcion de resultado esperado:</b> {info_resul.descripcion_resultado_esperado_obj_especifico}\n"\
+                                f"<b>Nombre del producto resultado de la investigación objetivo específico:</b> {info_resul.nombre_producto_resultado_inv_obj_especifico}\n"\
+                                f"<b>Nombre de la sub-tipologia:</b> {info_resul.nombre_subtipologia}\n"\
+                                f"<b>TRL de producto resultado de investigacion:</b> {info_resul.trl_producto_resultado_inv_obj_especifico}\n"\
+                                f"<b>Indicador del producto resultado de la investigación objetivo específico:</b> {info_resul.indicador_producto_resultado_inv_obj_especifico}\n"\
+                                f"<b>Fecha de entrega del producto resultado de investigacion:</b> {info_resul.fch_entrega_producto_resultado_inv_obj_especifico}\n\n"
+                                
+        agregar_seccion("Resultados y productos esperados",produt_resul_str)
+        
+    
+    # Proyeccion
+    proyecc = Proyeccion.objects.filter(proyecto=proyecto)
+    if proyecc.exists():
+        proyecc_str = ""
+        for info_pro in proyecc:
+            proyecc_str += f"<b>Duracion:</b> {info_pro.duracion}\n"\
+                           f"<b>Fecha de inicio:</b> {info_pro.fch_inicio}\n"\
+                           f"<b>Fecha de cierre:</b> {info_pro.fch_cierre}\n"\
+                           f"<b>Propuesta de sostenibilidad:</b> {info_pro.propuesta_sostenibilidad}\n"\
+                           f"<b>Impacto Social:</b> {info_pro.impacto_social}\n"\
+                           f"<b>Impacto Tecnologico:</b> {info_pro.impacto_tecnologico}\n"\
+                           f"<b>Impacto en el centro de formacion:</b> {info_pro.impacto_centro_formacion}\n\n"
+        agregar_seccion("Proyeccion",proyecc_str)
+    
+    # Anexos                
+    documentos_anexos = Anexos.objects.filter(proyecto=proyecto)
+
+    if documentos_anexos.exists():
+        for anexo in documentos_anexos:
+            documento_requerido = anexo.anexo_requerido.nombre if anexo.anexo_requerido else "No disponible"
+            info_anexo = f"<b>Documento requerido:</b> {documento_requerido}\n"
+            if anexo.anexo:
+                info_anexo += f"<b>Nombre del anexo:</b> {anexo.anexo.name}\n"
+            else:
+                info_anexo += "Anexo no subido\n"
+            agregar_seccion("Anexo", info_anexo)
+    else:
+        agregar_seccion("Documentos y Anexos", "No hay documentos ni anexos asociados")
+    
+    doc.build(Story)
+    
+    # Obtener el contenido del buffer y enviar la respuesta
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+    return response
